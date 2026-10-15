@@ -1,12 +1,19 @@
 <script setup>
 import { ArrowLeft, Check, FileImage, Images, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
+import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-useHead({
-  title: 'Convert PDF to Images — Select Pages & Download | Toolifybox',
-  meta: [{ name: 'description', content: 'Convert selected PDF pages to high-quality PNG or JPG images privately in your browser. Download one image or multiple pages as a ZIP.' }],
+const pageDescription = 'Convert PDF pages to high-quality PNG or JPG images online. Preview and select pages, then download one image or multiple pages as a ZIP—privately in your browser.';
+usePageSeo({
+  title: 'PDF to Image Converter — PNG & JPG | Toolifybox',
+  description: pageDescription,
+  path: '/tools/pdf-to-images',
+  schemas: [
+    ({ siteUrl }) => breadcrumbSchema(siteUrl, [
+      { name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }, { name: 'PDF to Images', path: '/tools/pdf-to-images' },
+    ]),
+    ({ siteUrl }) => toolSchema(siteUrl, '/tools/pdf-to-images', 'PDF to Image Converter', pageDescription, ['PDF page previews', 'PNG and JPG export', 'Selected-page ZIP download']),
+  ],
 });
-
-const year = new Date().getFullYear();
 const steps = [
   { number: '01', title: 'Choose a PDF', desc: 'Add one PDF up to 20 MB and 100 pages. Your file remains on your device.' },
   { number: '02', title: 'Select Pages', desc: 'Preview every page and select exactly which pages you want to turn into images.' },
@@ -21,6 +28,7 @@ const steps = [
       <div class="container header-inner">
         <BrandLogo />
         <nav aria-label="Main navigation"><NuxtLink to="/">Home</NuxtLink><NuxtLink to="/tools">All Utilities</NuxtLink><NuxtLink to="/tools/pdf-to-images" aria-current="page">PDF to Images</NuxtLink></nav>
+        <ThemeToggle />
         <NuxtLink class="header-action" to="/tools"><ArrowLeft :size="16" /> Back to Utilities</NuxtLink>
       </div>
     </header>
@@ -55,6 +63,6 @@ const steps = [
       </section>
     </main>
 
-    <footer class="site-footer tools-footer container"><BrandLogo /><p>Private document conversion, right in your browser.</p><span>© {{ year }} Toolifybox</span></footer>
+    <SiteFooter message="Private document conversion, right in your browser." />
   </div>
 </template>

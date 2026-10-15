@@ -7,6 +7,7 @@ import { validateDocxPackage, pageSliceEnd } from '../app/utils/docx-package.js'
 import { runConversionTask } from '../app/utils/conversion-task.js';
 import { wordPixels } from '../app/utils/pdf-pixels.js';
 import { pdfImagesArchiveFilename, pdfPageImageFilename } from '../app/utils/pdf-images.js';
+import { imagesPdfFilename, MAX_IMAGE_COUNT, MAX_TOTAL_IMAGE_SIZE, validateImages } from '../app/utils/images-pdf.js';
 
 test('Word uploads accept uppercase extensions and files at the 20 MB boundary', () => {
   assert.equal(validateDocument([{ name: 'Résumé.DOCX', size: MAX_DOCUMENT_SIZE }]), '');
@@ -37,6 +38,15 @@ test('PDF page images use ordered, Unicode-safe download names', () => {
   assert.equal(pdfPageImageFilename('Résumé.final.PDF', 3, 12, 'png'), 'Résumé.final-page-03.png');
   assert.equal(pdfPageImageFilename('report.pdf', 100, 100, 'jpg'), 'report-page-100.jpg');
   assert.equal(pdfImagesArchiveFilename('Résumé.final.PDF'), 'Résumé.final-images.zip');
+});
+
+test('Image uploads validate supported formats, limits, and PDF names', () => {
+  assert.equal(validateImages([{ name: 'photo.JPG', type: 'image/jpeg', size: 100 }, { name: 'graphic.webp', type: 'image/webp', size: 200 }]), '');
+  assert.match(validateImages([{ name: 'vector.svg', type: 'image/svg+xml', size: 100 }]), /JPG, PNG, or WebP/);
+  assert.match(validateImages([{ name: 'empty.png', type: 'image/png', size: 0 }]), /empty/);
+  assert.match(validateImages([{ name: 'extra.png', type: 'image/png', size: 10 }], MAX_IMAGE_COUNT), /up to 50/);
+  assert.match(validateImages([{ name: 'more.jpg', type: 'image/jpeg', size: 10 }], 1, MAX_TOTAL_IMAGE_SIZE), /larger than 100 MB/);
+  assert.equal(imagesPdfFilename('Résumé.final.PNG'), 'Résumé.final-images.pdf');
 });
 
 test('Editable PDF text keeps color changes and restores colors after graphics state changes', () => {

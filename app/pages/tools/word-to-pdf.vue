@@ -1,14 +1,19 @@
 <script setup>
 import { ArrowLeft, ArrowRight, Check, FileText, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
+import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-useHead({
-  title: 'Convert Word to PDF — Free & Private | Toolifybox',
-  meta: [
-    { name: 'description', content: 'Convert DOCX documents into clean, standard PDF files directly in your browser. 100% private, free, and no document uploads.' },
+const pageDescription = 'Convert Word DOCX files to clean PDF documents online for free. Your file is processed privately in your browser with no sign-up, upload or watermark.';
+usePageSeo({
+  title: 'Word to PDF Converter — Free & Private | Toolifybox',
+  description: pageDescription,
+  path: '/tools/word-to-pdf',
+  schemas: [
+    ({ siteUrl }) => breadcrumbSchema(siteUrl, [
+      { name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }, { name: 'Word to PDF', path: '/tools/word-to-pdf' },
+    ]),
+    ({ siteUrl }) => toolSchema(siteUrl, '/tools/word-to-pdf', 'Word to PDF Converter', pageDescription, ['DOCX to PDF conversion', 'Local browser processing', 'Multi-page PDF output']),
   ],
 });
-
-const year = new Date().getFullYear();
 
 const steps = [
   { number: '01', title: 'Upload DOCX', desc: 'Choose a .docx Word document up to 20 MB from your device or drop it into the box.' },
@@ -28,6 +33,7 @@ const steps = [
           <NuxtLink to="/tools">All Utilities</NuxtLink>
           <NuxtLink to="/tools/word-to-pdf" aria-current="page">Word to PDF</NuxtLink>
         </nav>
+        <ThemeToggle />
         <NuxtLink class="header-action" to="/tools"><ArrowLeft :size="16" /> Back to Utilities</NuxtLink>
       </div>
     </header>
@@ -96,11 +102,7 @@ const steps = [
       </section>
     </main>
 
-    <footer class="site-footer tools-footer container">
-      <BrandLogo />
-      <p>Private document conversion, right in your browser.</p>
-      <span>© {{ year }} Toolifybox</span>
-    </footer>
+    <SiteFooter message="Private document conversion, right in your browser." />
   </div>
 </template>
 

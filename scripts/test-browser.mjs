@@ -138,6 +138,10 @@ try {
     await evaluate(`(() => { const data = new DataTransfer(); data.items.add(new File([Uint8Array.from(atob(${JSON.stringify(base64)}), c => c.charCodeAt(0))], ${JSON.stringify(name)})); const input = document.querySelector('input[type=file]'); input.files = data.files; input.dispatchEvent(new Event('change', { bubbles: true })); })()`);
     await pause(150);
   }
+  async function uploadMany(files) {
+    await evaluate(`(() => { const data = new DataTransfer(); for (const item of ${JSON.stringify(files)}) data.items.add(new File([Uint8Array.from(atob(item.base64), c => c.charCodeAt(0))], item.name, { type: item.type })); const input = document.querySelector('input[type=file]'); input.files = data.files; input.dispatchEvent(new Event('change', { bubbles: true })); })()`);
+    await pause(200);
+  }
   async function savePdf(filename) {
     const encoded = await evaluate(`(() => { const url = document.querySelector('a[download]').href; return new Promise((resolve, reject) => { const xhr = new XMLHttpRequest(); xhr.open('GET', url); xhr.responseType = 'blob'; xhr.onload = () => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(xhr.response); }; xhr.onerror = reject; xhr.send(); }); })()`);
     const pdf = Buffer.from(encoded, 'base64');
@@ -152,7 +156,53 @@ try {
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]).then(() => true)`);
   await pause(1000);
-  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"]').length`), 3, 'All active tool cards must be links');
+  assert.equal(await evaluate(`document.querySelector('.brand-name')?.textContent`), 'toolifybox', 'Header must use the new Toolifybox wordmark');
+  assert.equal(await evaluate(`!!document.querySelector('.brand-mark') && !document.querySelector('.brand-symbol')`), true, 'Header must use the polished folded T mark');
+  assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'light', 'Light must be the default theme');
+  assert.equal(await evaluate(`document.querySelector('.theme-toggle')?.getAttribute('aria-label')`), 'Switch to dark theme');
+  await evaluate(`document.querySelector('.theme-toggle').click()`);
+  await waitFor(`document.documentElement.dataset.theme === 'dark'`);
+  assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'dark', 'Dark theme choice must be saved');
+  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"], a.tool-card[href="/tools/images-to-pdf"]').length`), 4, 'All active tool cards must be links');
+  await evaluate(`document.querySelector('a.tool-card[href="/tools/images-to-pdf"]').click()`);
+  await waitFor(`location.pathname === '/tools/images-to-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Images to PDF converter'`);
+  assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'dark', 'Theme choice must persist across routes');
+  assert.equal(await evaluate(`document.querySelector('.theme-toggle')?.getAttribute('aria-label')`), 'Switch to light theme');
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Dark theme header overflows on mobile');
+  await screenshot('design-dark-theme-mobile.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.theme-toggle').click()`);
+  await waitFor(`document.documentElement.dataset.theme === 'light'`);
+  assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'light', 'Light theme choice must be saved');
+  const [greenImage, blueImage] = await Promise.all([
+    evaluate(`(() => { const c = document.createElement('canvas'); c.width = 120; c.height = 80; const x = c.getContext('2d'); x.fillStyle = '#16a34a'; x.fillRect(0, 0, 120, 80); x.fillStyle = '#fff'; x.font = '20px Arial'; x.fillText('GREEN', 20, 48); return c.toDataURL('image/png').split(',')[1]; })()`),
+    evaluate(`(() => { const c = document.createElement('canvas'); c.width = 80; c.height = 120; const x = c.getContext('2d'); x.fillStyle = '#2563eb'; x.fillRect(0, 0, 80, 120); x.fillStyle = '#fff'; x.font = '18px Arial'; x.fillText('BLUE', 12, 66); return c.toDataURL('image/png').split(',')[1]; })()`),
+  ]);
+  await uploadMany([
+    { name: 'red.png', type: 'image/png', base64: imageBase64 },
+    { name: 'green.png', type: 'image/png', base64: greenImage },
+    { name: 'blue.png', type: 'image/png', base64: blueImage },
+  ]);
+  await waitFor(`document.querySelectorAll('.image-preview-card').length === 3`);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.image-preview-info strong')].map(item => item.textContent)`), ['red.png', 'green.png', 'blue.png']);
+  await evaluate(`document.querySelector('[aria-label="Move page 3 earlier"]').click()`);
+  await evaluate(`document.querySelector('[aria-label="Move page 2 earlier"]').click()`);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.image-preview-info strong')].map(item => item.textContent)`), ['blue.png', 'red.png', 'green.png'], 'Move controls must change PDF page order');
+  await evaluate(`document.querySelector('[aria-label="Rotate page 1"]').click()`);
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Images to PDF preview overflows on mobile');
+  await screenshot('design-images-to-pdf-arranged.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.convert-button').click()`);
+  await waitFor(`!!document.querySelector('.result-state') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelector('a[download]').download`), 'blue-images.pdf');
+  const combinedImagesPdf = await savePdf('images-to-pdf-result.pdf');
+  assert.ok(combinedImagesPdf.includes('/Count 3'), 'Images to PDF must create one page per image');
+  await send('Page.navigate', { url: toolsUrl });
+  await waitFor(`location.pathname === '/tools' && !!document.querySelector('.choose-button')`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`document.querySelector('a.tool-card[href="/tools/pdf-to-images"]').click()`);
   await waitFor(`location.pathname === '/tools/pdf-to-images' && document.querySelector('.converter')?.getAttribute('aria-label') === 'PDF to images converter'`);
   const imagePdf = new jsPDF({ unit: 'pt', format: 'a4' });
@@ -419,22 +469,37 @@ try {
   await waitFor(`!document.querySelector('.convert-button').disabled`);
   assert.equal(await evaluate(`!!document.querySelector('.result-state')`), false);
 
+  await viewport(390, 844, true);
+  await send('Page.navigate', { url: new URL('/contact', baseUrl).href });
+  await waitFor(`!!document.querySelector('form[name="contact"]')`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Contact page overflows on mobile');
+  assert.equal(await evaluate(`document.querySelector('form[name="contact"]').hasAttribute('data-netlify')`), true);
+  assert.equal(await evaluate(`document.querySelector('input[name="form-name"]')?.value`), 'contact');
+  await screenshot('contact-mobile.png');
+
+  await viewport(1440, 1000);
+  await send('Page.navigate', { url: new URL('/about', baseUrl).href });
+  await waitFor(`!!document.querySelector('h1') && !!document.querySelector('.about-tools-grid')`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'About page overflows on desktop');
+  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 4, 'About page should link to every active tool');
+  await screenshot('about-desktop.png');
+
   await send('Page.navigate', { url: baseUrl });
-  await waitFor(`!!document.querySelector('.motion-toggle')`);
+  await waitFor(`!!document.querySelector('.theme-toggle')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`!!document.querySelector('#converter')`), false, 'Landing page should not embed the converter');
   assert.equal(await evaluate(`!!document.querySelector('a[href="/tools"]')`), true, 'Landing page should link to the Tools page');
   await revealPage();
   await screenshot('landing-desktop.png');
-  await evaluate(`document.querySelector('.motion-toggle').click()`);
-  await waitFor(`document.querySelector('.site-shell').dataset.motion === 'off'`);
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
-  await waitFor(`document.querySelector('.motion-toggle').disabled`);
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.hero-copy > *')).animationName`), 'none');
   assert.deepEqual(uploads, [], 'Document data was sent over HTTP');
   assert.deepEqual(consoleErrors, []);
   assert.deepEqual(hydrationWarnings, [], 'Nuxt hydration warnings');
   if (process.env.TOOLIFYBOX_TEST_PDF_ONLY) console.log('PDF-to-Word browser checks passed: editable by default, real Word text, English/Hindi OCR, text colors, clipping, blank-page errors, page-image option, OCR cancellation, mobile layout, and zero uploads.');
-  else console.log(`Browser-only checks passed: desktop/mobile/320px, selected PDF pages to JPG ZIP, actual PDF output, page defaults, zero margins, mixed orientations, repeated headers/footers, cancellation, recovery, frame cleanup, ${pageCount}-page report, editable Word text, English/Hindi OCR, blank-page errors, and zero document uploads.`);
+  else console.log(`Browser-only checks passed: default light theme, saved dark theme across routes, desktop/mobile/320px, arranged images to a 3-page PDF, selected PDF pages to JPG ZIP, actual PDF output, page defaults, zero margins, mixed orientations, repeated headers/footers, cancellation, recovery, frame cleanup, ${pageCount}-page report, editable Word text, English/Hindi OCR, blank-page errors, and zero document uploads.`);
 } finally {
   socket?.close(); chrome.kill();
   for (const { timer } of pending.values()) clearTimeout(timer);

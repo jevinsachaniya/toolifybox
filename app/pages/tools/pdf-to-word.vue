@@ -1,14 +1,19 @@
 <script setup>
 import { ArrowLeft, ArrowRight, Check, FileText, LockKeyhole, ScanText, ShieldCheck, Sparkles } from '@lucide/vue';
+import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-useHead({
-  title: 'Convert PDF to Word — Editable DOCX with OCR | Toolifybox',
-  meta: [
-    { name: 'description', content: 'Convert PDF files into editable Microsoft Word (.docx) documents with local OCR for scans. 100% private, free, and no document uploads.' },
+const pageDescription = 'Convert PDF files to editable Word DOCX online for free. Recover selectable text and use private in-browser OCR for scanned English and Hindi documents.';
+usePageSeo({
+  title: 'PDF to Word Converter with OCR — Free | Toolifybox',
+  description: pageDescription,
+  path: '/tools/pdf-to-word',
+  schemas: [
+    ({ siteUrl }) => breadcrumbSchema(siteUrl, [
+      { name: 'Home', path: '/' }, { name: 'Tools', path: '/tools' }, { name: 'PDF to Word', path: '/tools/pdf-to-word' },
+    ]),
+    ({ siteUrl }) => toolSchema(siteUrl, '/tools/pdf-to-word', 'PDF to Word Converter with OCR', pageDescription, ['Editable DOCX output', 'English and Hindi OCR', 'Local browser processing']),
   ],
 });
-
-const year = new Date().getFullYear();
 
 const steps = [
   { number: '01', title: 'Upload PDF', desc: 'Select a PDF document up to 20 MB and 100 pages from your computer or phone.' },
@@ -28,6 +33,7 @@ const steps = [
           <NuxtLink to="/tools">All Utilities</NuxtLink>
           <NuxtLink to="/tools/pdf-to-word" aria-current="page">PDF to Word</NuxtLink>
         </nav>
+        <ThemeToggle />
         <NuxtLink class="header-action" to="/tools"><ArrowLeft :size="16" /> Back to Utilities</NuxtLink>
       </div>
     </header>
@@ -96,11 +102,7 @@ const steps = [
       </section>
     </main>
 
-    <footer class="site-footer tools-footer container">
-      <BrandLogo />
-      <p>Private document conversion, right in your browser.</p>
-      <span>© {{ year }} Toolifybox</span>
-    </footer>
+    <SiteFooter message="Private document conversion, right in your browser." />
   </div>
 </template>
 

@@ -5,13 +5,38 @@ import {
   Layers, Lock, LockKeyhole, Minimize2, RotateCw, ScanText, 
   Search, Shield, ShieldCheck, Sparkles, Unlock, X, Zap 
 } from '@lucide/vue';
+import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
-useHead({
-  title: 'Document Tools & Suite — Toolifybox',
-  meta: [{ name: 'description', content: 'Convert Word to PDF and PDF to editable Word privately in your browser.' }],
+const pageDescription = 'Use free online Word, PDF and image tools in your browser. Convert DOCX to PDF, PDF to editable Word, PDF pages to images, and images to PDF privately.';
+usePageSeo({
+  title: 'Free Online Word, PDF & Image Tools | Toolifybox',
+  description: pageDescription,
+  path: '/tools',
+  schemas: [
+    ({ siteUrl }) => breadcrumbSchema(siteUrl, [
+      { name: 'Home', path: '/' },
+      { name: 'Tools', path: '/tools' },
+    ]),
+    ({ siteUrl, canonical }) => ({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Free Word, PDF and Image Tools',
+      description: pageDescription,
+      url: canonical,
+      isPartOf: { '@type': 'WebSite', name: 'Toolifybox', url: siteUrl },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: [
+          ['Word to PDF', '/tools/word-to-pdf'],
+          ['PDF to Word', '/tools/pdf-to-word'],
+          ['PDF to Images', '/tools/pdf-to-images'],
+          ['Images to PDF', '/tools/images-to-pdf'],
+        ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
+      },
+    }),
+  ],
 });
 
-const year = new Date().getFullYear();
 const selectedTool = ref('word-pdf');
 const searchQuery = ref('');
 const selectedCategory = ref('all');
@@ -66,10 +91,11 @@ const allTools = [
     title: 'Images to PDF',
     category: 'pdf',
     description: 'Combine PNG, JPG, and WebP graphics into a single multi-page PDF document.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Layers,
     theme: 'emerald',
+    route: '/tools/images-to-pdf',
   },
   {
     id: 'merge-pdf',
@@ -183,6 +209,7 @@ onBeforeUnmount(() => {
       <div class="container header-inner">
         <BrandLogo />
         <nav aria-label="Main navigation"><NuxtLink to="/">Home</NuxtLink><NuxtLink to="/tools" aria-current="page">Tools</NuxtLink></nav>
+        <ThemeToggle />
         <NuxtLink class="header-action" to="/"><ArrowLeft :size="16" /> Back home</NuxtLink>
       </div>
     </header>
@@ -200,6 +227,7 @@ onBeforeUnmount(() => {
             <li><span><Check :size="14" /></span><div><b>Word to PDF</b><small>Turn DOCX files into share-ready PDFs.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>PDF to editable Word</b><small>Extract real text, including Hindi and English scans.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>PDF pages to images</b><small>Select pages and download clear PNG or JPG files.</small></div></li>
+            <li><span><Check :size="14" /></span><div><b>Images to PDF</b><small>Preview, arrange, and combine images into one PDF.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private in your browser</b><small>Your files stay on your device during conversion.</small></div></li>
           </ul>
           <div class="tools-tip"><FileText :size="18" /><p><b>Best results</b><br />Use clear, standard documents and check the downloaded file before sharing.</p></div>
@@ -352,10 +380,6 @@ onBeforeUnmount(() => {
       </div>
     </transition>
 
-    <footer class="site-footer tools-footer container">
-      <BrandLogo />
-      <p>Private document conversion, right in your browser.</p>
-      <span>© {{ year }} Toolifybox</span>
-    </footer>
+    <SiteFooter message="Private file conversion, right in your browser." />
   </div>
 </template>

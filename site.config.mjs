@@ -2,10 +2,13 @@ export const DEFAULT_SITE_URL = 'https://toolifybox.netlify.app';
 
 export const SITE_ROUTES = [
   '/',
+  '/about',
+  '/contact',
   '/tools',
   '/tools/word-to-pdf',
   '/tools/pdf-to-word',
   '/tools/pdf-to-images',
+  '/tools/images-to-pdf',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

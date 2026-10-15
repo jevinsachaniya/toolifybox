@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 150" role="img" aria-labelledby="title desc">
+  <title id="title">Toolifybox</title><desc id="desc">Toolifybox — Powerful tools. Simpler work.</desc>
+  <defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08b9ed"/><stop offset="1" stop-color="#0868f8"/></linearGradient><linearGradient id="b" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#04a9ee"/><stop offset="1" stop-color="#0875fb"/></linearGradient></defs>
+  <g transform="translate(14 17) scale(1.02)"><path fill="url(#a)" d="M12 22C14 12 21 7 31 7h73c0 19-15 34-34 34H7l5-19Z"/><path fill="url(#b)" d="M42 41h28v23c0 22-14 40-35 46V49c0-4 3-8 7-8Z"/></g>
+  <path d="M150 29v88" stroke="#a9b5c8" stroke-width="2"/><text x="178" y="82" fill="#07152f" font-family="Arial, Helvetica, sans-serif" font-size="57" font-weight="800" letter-spacing="-3">toolify<tspan fill="#1155ee">box</tspan></text><text x="181" y="111" fill="#40506a" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="3.1">POWERFUL TOOLS. SIMPLER WORK.</text>
+</svg>

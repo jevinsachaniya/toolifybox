@@ -1,18 +1,45 @@
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Download, FileImage, FileText, LockKeyhole, Pause, Play, ScanText, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Download, FileImage, FileText, Images, LockKeyhole, ScanText, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
+import { usePageSeo } from '~/composables/usePageSeo';
 
 const shell = ref(null);
-const motion = ref(true);
-const reducedMotion = ref(false);
-const animate = computed(() => motion.value && !reducedMotion.value);
-const year = ref(new Date().getFullYear());
-let preference;
 let observer;
 let mounted = false;
 
+const pageDescription = 'Convert Word, PDF and image files online for free with Toolifybox. Private browser tools for DOCX to PDF, PDF to Word, PDF to images and images to PDF.';
+usePageSeo({
+  title: 'Free Word, PDF & Image Tools Online | Toolifybox',
+  description: pageDescription,
+  path: '/',
+  schemas: [({ siteUrl }) => ({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        name: 'Toolifybox',
+        alternateName: 'Toolify Box',
+        url: siteUrl,
+        description: pageDescription,
+        publisher: { '@id': `${siteUrl}/#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'Toolifybox',
+        url: siteUrl,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${siteUrl}/brand/toolifybox-logo.svg`,
+        },
+      },
+    ],
+  })],
+});
+
 const questions = [
-  ['Which files can I convert?', 'Choose a .docx for Word to PDF, or a .pdf for PDF to Word and PDF to Images. Files can be up to 20 MB and 100 output pages, one document at a time. Older .doc files and password-protected PDFs are not supported.'],
+  ['Which files can I convert?', 'Choose a .docx for Word to PDF, a .pdf for PDF to Word or PDF to Images, or JPG, PNG and WebP images for Images to PDF. Document tools support files up to 20 MB and 100 output pages. Older .doc files and password-protected PDFs are not supported.'],
   ['Will my colors and formatting stay the same?', 'PDF to Word defaults to editable text and uses OCR for scanned Hindi and English documents. Fonts, spacing, and scan backgrounds may change. Word to PDF supports basic text, tables and images. Always check the result before sharing.'],
   ['What happens to my document?', 'Conversion happens in your browser. Your document is never uploaded to a server or conversion service. Close the page or choose another document to clear the current selection.'],
   ['Do I need an account?', 'No account, subscription, or sign-up is needed. Open the Tools page, choose a conversion direction, select a document, and download the result.'],
@@ -23,12 +50,11 @@ const steps = [
   { icon: Download, number: '03', title: 'Send it on its way.', text: 'Convert, download, give the result a quick check, and carry on.' },
 ];
 
-function respectPreference() { reducedMotion.value = preference.matches; }
 function setupReveals() {
   if (!mounted || !shell.value) return;
   observer?.disconnect();
   const elements = [...shell.value.querySelectorAll('[data-reveal]')];
-  if (!animate.value || !('IntersectionObserver' in window)) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
     elements.forEach(element => element.classList.remove('reveal-pending'));
     return;
   }
@@ -50,31 +76,24 @@ function setupReveals() {
   });
 }
 
-watch(animate, setupReveals, { flush: 'post' });
 onMounted(() => {
   mounted = true;
-  preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  respectPreference();
-  preference.addEventListener('change', respectPreference);
   setupReveals();
 });
 onBeforeUnmount(() => {
   mounted = false;
-  preference?.removeEventListener('change', respectPreference);
   observer?.disconnect();
 });
 </script>
 
 <template>
-  <div ref="shell" class="site-shell" :data-motion="animate ? 'on' : 'off'">
+  <div ref="shell" class="site-shell">
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container header-inner">
         <BrandLogo />
-        <nav aria-label="Main navigation"><NuxtLink to="/tools">Tools</NuxtLink><a href="#how-it-works">How it works</a><a href="#questions">FAQs</a></nav>
-        <button class="motion-toggle" :disabled="reducedMotion" :title="reducedMotion ? 'Animations are off because of your device’s reduced motion setting.' : undefined" :aria-label="reducedMotion ? 'Animations disabled by device settings' : animate ? 'Pause animations' : 'Enable animations'" :aria-pressed="animate" @click="motion = !motion">
-          <Pause v-if="animate" :size="13" /><Play v-else :size="13" /><span>Motion {{ animate ? 'on' : 'off' }}</span>
-        </button>
+        <nav aria-label="Main navigation"><NuxtLink to="/tools">Tools</NuxtLink><a href="#how-it-works">How it works</a><NuxtLink to="/about">About</NuxtLink><NuxtLink to="/contact">Contact</NuxtLink></nav>
+        <ThemeToggle />
         <NuxtLink class="header-action" to="/tools">Open tools <ArrowUpRight :size="16" /></NuxtLink>
       </div>
     </header>
@@ -91,10 +110,11 @@ onBeforeUnmount(() => {
           </div>
           <div class="tool-showcase" aria-label="Available document tools">
             <div class="showcase-glow" aria-hidden="true" />
-            <div class="showcase-label"><span>DOCUMENT TOOLS</span><b>3 tools available</b></div>
+            <div class="showcase-label"><span>DOCUMENT TOOLS</span><b>4 tools available</b></div>
             <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><FileText :size="24" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/pdf-to-word" class="showcase-tool pdf-tool"><span class="showcase-icon"><ScanText :size="24" /></span><span><b>PDF to Word</b><small>Make PDF text editable with OCR</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/pdf-to-images" class="showcase-tool image-tool"><span class="showcase-icon"><FileImage :size="24" /></span><span><b>PDF to Images</b><small>Select pages and export PNG or JPG</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <NuxtLink to="/tools/images-to-pdf" class="showcase-tool images-pdf-tool"><span class="showcase-icon"><Images :size="24" /></span><span><b>Images to PDF</b><small>Arrange images into one clear PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <div class="showcase-privacy"><ShieldCheck :size="15" /><span><b>Stays on your device</b><small>No document uploads</small></span></div>
           </div>
         </div>
@@ -132,6 +152,6 @@ onBeforeUnmount(() => {
         <NuxtLink to="/tools" class="primary-button">Open tools <ArrowUpRight :size="18" /></NuxtLink><div class="closing-orbit" aria-hidden="true" />
       </section>
     </main>
-    <footer class="site-footer container"><BrandLogo /><p>One simple tool. One less task.</p><span>© {{ year }} Toolifybox</span></footer>
+    <SiteFooter message="One simple tool. One less task." />
   </div>
 </template>

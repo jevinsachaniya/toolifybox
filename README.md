@@ -1,6 +1,6 @@
 # Toolifybox
 
-A browser-only **Word to PDF and PDF to Word** website built with **Nuxt 4 and Vue 3**, ready for Netlify static hosting. The landing page introduces the product and the dedicated `/tools` page contains both conversion directions. There is no Python backend, API, database, serverless function, or external conversion service.
+A browser-only document toolkit built with **Nuxt 4 and Vue 3**, ready for Netlify static hosting. It includes Word to PDF, PDF to Word, PDF to Images, and Images to PDF tools. There is no Python backend, API, database, serverless function, or external conversion service.
 
 The animated interface includes a conversion direction switch, drag-and-drop upload, document validation, page-by-page feedback, cancellation, and named downloads. The motion toggle and device reduced-motion preference control animations.
 
@@ -13,7 +13,7 @@ npm.cmd install
 npm.cmd start
 ```
 
-Open **http://127.0.0.1:5174** for the landing page or **http://127.0.0.1:5174/tools** for the converter. Double-clicking `start.bat` also starts the website. Keep the terminal open and press Ctrl+C to stop it. On macOS/Linux, use `npm` instead of `npm.cmd`.
+Open **http://127.0.0.1:5174** for the landing page or **http://127.0.0.1:5174/tools** for the tool catalog. Double-clicking `start.bat` also starts the website. Keep the terminal open and press Ctrl+C to stop it. On macOS/Linux, use `npm` instead of `npm.cmd`.
 
 ## Deploy to Netlify
 
@@ -63,6 +63,14 @@ The application lazy-loads `docx-preview`, `html2canvas`, and `jsPDF` when conve
 - The output keeps the source document's name. Conversion frames are removed after success or failure, and download URLs are released when another document is chosen or the page closes.
 - Google Fonts is optional for the website's design; system fonts are the fallback. Document rendering does not load external resources.
 
+### Images to PDF
+
+Open `/tools/images-to-pdf` and add up to 50 JPG, PNG, or WebP images. Every image has a clear preview and becomes one PDF page. Drag the preview cards or use the Earlier and Later controls to change page order; images can also be rotated or removed before conversion.
+
+- A4, US Letter, and image-matched page sizes are available, with fit/fill placement and adjustable margins.
+- Maximum quality keeps up to 30 megapixels per image, preserves PNG images losslessly, and encodes photos at 98% JPEG quality. Balanced mode creates a smaller file.
+- Image files can be up to 20 MB each and 100 MB combined. Conversion happens entirely in the browser, and no image data is uploaded.
+
 ## Build and verify
 
 ```powershell
@@ -82,7 +90,7 @@ $env:TOOLIFYBOX_TEST_URL = "http://127.0.0.1:4173"
 npm.cmd run test:browser
 ```
 
-The browser checks use an installed Chrome, Chromium, or Edge. Set `TOOLIFYBOX_BROWSER` to its executable path if it is not detected. They generate real DOCX and PDF fixtures and verify both conversion directions, editable output by default, text and color runs, English/Hindi OCR, blank-page errors, graphic clipping, mixed orientations, mobile layout, OCR cancellation, cleanup after errors, and that no document data is uploaded.
+The browser checks use an installed Chrome, Chromium, or Edge. Set `TOOLIFYBOX_BROWSER` to its executable path if it is not detected. They generate real image, DOCX, and PDF fixtures and verify image reordering, a three-page Images to PDF result, selected PDF page downloads, editable Word output, text and color runs, English/Hindi OCR, blank-page errors, mixed orientations, mobile layout, cancellation, cleanup after errors, and that no document data is uploaded.
 
 For the PDF converter's development imports, keep `npm.cmd start` running and test the dev server directly:
 
@@ -99,12 +107,15 @@ PDF.js uses its browser ESM entry directly and is excluded from Vite dependency 
 ```text
 app/app.vue                         Nuxt application entry
 app/pages/index.vue                 Animated landing page and tools preview
-app/pages/tools.vue                 Dedicated document converter page
+app/pages/tools/index.vue           Tool catalog
+app/pages/tools/images-to-pdf.vue   Images to PDF page
 app/components/DocumentConverter.vue Upload and both conversion workflows
+app/components/ImagesToPdfConverter.vue Image preview, ordering, and conversion UI
 app/components/BrandLogo.vue        Shared brand component
 app/components/FileBadge.vue        Document illustration
 app/utils/convert-document.js       Browser PDF generation
 app/utils/convert-pdf.js            Browser PDF-to-Word generation
+app/utils/images-pdf.js             High-quality Images to PDF generation
 app/utils/pdf-text.js               PDF glyph matching and text colors
 app/utils/pdf-ocr.js                Browser OCR lifecycle and recognized text
 app/utils/pdf-pixels.js             OCR word colors and background sampling
