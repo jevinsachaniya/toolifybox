@@ -1,3 +1,5 @@
+import { SITE_ROUTES } from './site.config.mjs';
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-14',
   devtools: { enabled: false },
@@ -27,6 +29,6 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'static',
-    prerender: { routes: ['/', '/tools', '/tools/word-to-pdf', '/tools/pdf-to-word', '/tools/pdf-to-images'] },
+    prerender: { routes: SITE_ROUTES },
   },
 });

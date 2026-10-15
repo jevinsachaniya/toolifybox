@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { SITE_ROUTES } from '../site.config.mjs';
 
 const html = await readFile(new URL('../.output/public/index.html', import.meta.url), 'utf8').catch(() => { throw new Error('Run npm run build before checking the generated page.'); });
 const toolsHtml = await readFile(new URL('../.output/public/tools/index.html', import.meta.url), 'utf8');
@@ -40,4 +41,11 @@ assert.ok(!visible.includes('undefined') && !toolsVisible.includes('undefined'))
 assert.ok([html, toolsHtml, wordToPdfHtml, pdfToWordHtml, pdfToImagesHtml].every(page => page.includes('id="__nuxt"')), 'Missing Nuxt application');
 await readFile(new URL('../.output/public/200.html', import.meta.url));
 await readFile(new URL('../.output/public/favicon.svg', import.meta.url));
+const sitemap = await readFile(new URL('../.output/public/sitemap.xml', import.meta.url), 'utf8');
+const robots = await readFile(new URL('../.output/public/robots.txt', import.meta.url), 'utf8');
+const sitemapUrls = [...sitemap.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)].map(match => new URL(match[1]));
+assert.equal(sitemapUrls.length, SITE_ROUTES.length, 'Sitemap route count does not match the active site routes');
+assert.deepEqual(sitemapUrls.map(url => url.pathname.replace(/\/$/, '') || '/'), SITE_ROUTES, 'Sitemap routes are incomplete or out of order');
+assert.ok(robots.includes('User-agent: *') && robots.includes('Allow: /'), 'robots.txt must allow public crawling');
+assert.ok(robots.includes(`Sitemap: ${sitemapUrls[0].origin}/sitemap.xml`), 'robots.txt sitemap URL does not match sitemap.xml');
 console.log('Generated Nuxt pages pass: landing, tool catalog, dedicated converter routes, navigation, privacy, and static fallback checks.');

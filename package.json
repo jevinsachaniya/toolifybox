@@ -6,8 +6,9 @@
   "scripts": {
     "start": "nuxt dev --host 127.0.0.1 --port 5174",
     "dev": "nuxt dev --host 127.0.0.1 --port 5174",
-    "build": "nuxt generate",
-    "generate": "nuxt generate",
+    "build": "npm run generate:seo && nuxt generate",
+    "generate": "npm run generate:seo && nuxt generate",
+    "generate:seo": "node scripts/generate-seo.mjs",
     "preview": "node scripts/preview.mjs",
     "postinstall": "nuxt prepare",
     "check:pages": "node scripts/check-pages.mjs",

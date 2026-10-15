@@ -26,6 +26,8 @@ The included `netlify.toml` sets:
 
 Push the project to your Git repository, import that repository into Netlify, and deploy. No environment variables, Python installation, or backend hosting are required.
 
+The build creates `sitemap.xml` and `robots.txt` automatically. Netlify supplies the production `URL`; for a custom domain or another host, set `SITE_URL` to the canonical origin, for example `https://www.example.com`.
+
 For a manual deployment, run:
 
 ```powershell
