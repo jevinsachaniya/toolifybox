@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowLeft, Check, FileImage, Images, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
+import { Check, FileImage, Images, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
 import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Convert PDF pages to high-quality PNG or JPG images online. Preview and select pages, then download one image or multiple pages as a ZIP—privately in your browser.';
@@ -24,14 +24,7 @@ const steps = [
 <template>
   <div class="site-shell tools-shell">
     <a class="skip-link" href="#converter">Skip to converter</a>
-    <header class="site-header tools-header">
-      <div class="container header-inner">
-        <BrandLogo />
-        <nav aria-label="Main navigation"><NuxtLink to="/">Home</NuxtLink><NuxtLink to="/tools">All Utilities</NuxtLink><NuxtLink to="/tools/pdf-to-images" aria-current="page">PDF to Images</NuxtLink></nav>
-        <ThemeToggle />
-        <NuxtLink class="header-action" to="/tools"><ArrowLeft :size="16" /> Back to Utilities</NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
 
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>

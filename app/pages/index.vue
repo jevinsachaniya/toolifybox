@@ -89,14 +89,7 @@ onBeforeUnmount(() => {
 <template>
   <div ref="shell" class="site-shell">
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="container header-inner">
-        <BrandLogo />
-        <nav aria-label="Main navigation"><NuxtLink to="/tools">Tools</NuxtLink><a href="#how-it-works">How it works</a><NuxtLink to="/about">About</NuxtLink><NuxtLink to="/contact">Contact</NuxtLink></nav>
-        <ThemeToggle />
-        <NuxtLink class="header-action" to="/tools">Open tools <ArrowUpRight :size="16" /></NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
     <main id="main">
       <section class="hero-stage">
         <div class="ambient-art" aria-hidden="true"><span class="ambient-orb orb-violet" /><span class="ambient-orb orb-blue" /><span class="ambient-grid" /></div>

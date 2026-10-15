@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowLeft, ArrowRight, Check, FileText, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
+import { ArrowRight, Check, FileText, LockKeyhole, ShieldCheck, Sparkles } from '@lucide/vue';
 import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Convert Word DOCX files to clean PDF documents online for free. Your file is processed privately in your browser with no sign-up, upload or watermark.';
@@ -25,18 +25,7 @@ const steps = [
 <template>
   <div class="site-shell tools-shell">
     <a class="skip-link" href="#converter">Skip to converter</a>
-    <header class="site-header tools-header">
-      <div class="container header-inner">
-        <BrandLogo />
-        <nav aria-label="Main navigation">
-          <NuxtLink to="/">Home</NuxtLink>
-          <NuxtLink to="/tools">All Utilities</NuxtLink>
-          <NuxtLink to="/tools/word-to-pdf" aria-current="page">Word to PDF</NuxtLink>
-        </nav>
-        <ThemeToggle />
-        <NuxtLink class="header-action" to="/tools"><ArrowLeft :size="16" /> Back to Utilities</NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
 
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>

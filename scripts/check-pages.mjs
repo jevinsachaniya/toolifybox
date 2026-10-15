@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { SITE_ROUTES } from '../site.config.mjs';
+import { SITE_VERSION } from '../site.version.mjs';
 
 const html = await readFile(new URL('../.output/public/index.html', import.meta.url), 'utf8').catch(() => { throw new Error('Run npm run build before checking the generated page.'); });
 const toolsHtml = await readFile(new URL('../.output/public/tools/index.html', import.meta.url), 'utf8');
@@ -54,10 +55,13 @@ const generatedPages = [html, aboutHtml, contactHtml, toolsHtml, wordToPdfHtml, 
 const visiblePages = [visible, aboutVisible, contactVisible, toolsVisible, wordToPdfVisible, pdfToWordVisible, pdfToImagesVisible, imagesToPdfVisible];
 assert.ok(generatedPages.every(page => page.includes('id="__nuxt"')), 'Missing Nuxt application');
 assert.ok(visiblePages.every(page => page.includes('class="theme-toggle"') && page.includes('Switch to dark theme')), 'Every page must include the theme switch');
-assert.ok(visiblePages.every(page => page.includes('class="site-version"') && page.includes('v1.0.0')), 'Every page must include the configured site version');
+assert.ok(visiblePages.every(page => page.includes('class="site-version"') && page.includes(`v${SITE_VERSION}`)), 'Every page must include the configured site version');
 assert.ok(!visible.includes('motion-toggle') && !visible.includes('Motion on') && !visible.includes('Motion off'), 'Motion control must be removed');
 assert.ok(visiblePages.every(page => page.includes('class="brand-mark"') && page.includes('class="brand-name"')), 'Every page must use the Toolifybox brand logo');
 assert.ok(visiblePages.every(page => page.includes('class="footer-links"') && page.includes('href="/about"') && page.includes('href="/contact"')), 'Every page must link to About and Contact in the footer');
+assert.ok(visiblePages.every(page => page.includes('class="mobile-menu-toggle"') && page.includes('aria-label="Open navigation menu"')), 'Every page must include the mobile hamburger navigation');
+assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"')), 'Every page footer must link to all active converters');
+assert.ok(toolsVisible.includes('id="tool-search"') && toolsVisible.includes('Search tools') && toolsVisible.includes('Search Word, PDF, image or OCR tools'), 'Tools page search is missing');
 assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('Four focused browser tools'), 'About page content is incomplete');
 assert.ok(contactVisible.includes('Tell us how we') && contactVisible.includes('name="contact"') && contactVisible.includes('data-netlify="true"'), 'Contact page or Netlify form markup is incomplete');
 assert.ok(contactVisible.includes('name="form-name"') && contactVisible.includes('netlify-honeypot="bot-field"'), 'Contact form must include Netlify detection and spam protection fields');

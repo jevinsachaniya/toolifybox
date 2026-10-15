@@ -1,7 +1,7 @@
 <script setup>
-import { computed, onBeforeUnmount, ref } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowLeft, ArrowUpRight, Check, FileCheck, FileImage, FileText, 
+  ArrowUpRight, Check, FileCheck, FileImage, FileText,
   Layers, Lock, LockKeyhole, Minimize2, RotateCw, ScanText, 
   Search, Shield, ShieldCheck, Sparkles, Unlock, X, Zap 
 } from '@lucide/vue';
@@ -37,8 +37,9 @@ usePageSeo({
   ],
 });
 
+const route = useRoute();
 const selectedTool = ref('word-pdf');
-const searchQuery = ref('');
+const searchQuery = ref(typeof route.query.search === 'string' ? route.query.search : '');
 const selectedCategory = ref('all');
 const toastMessage = ref('');
 const toastVisible = ref(false);
@@ -188,6 +189,11 @@ const filteredTools = computed(() => {
   });
 });
 
+watch(() => route.query.search, value => {
+  searchQuery.value = typeof value === 'string' ? value : '';
+  selectedCategory.value = 'all';
+});
+
 function showToast(message) {
   toastMessage.value = message;
   toastVisible.value = true;
@@ -205,14 +211,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="site-shell tools-shell">
     <a class="skip-link" href="#converter">Skip to converter</a>
-    <header class="site-header tools-header">
-      <div class="container header-inner">
-        <BrandLogo />
-        <nav aria-label="Main navigation"><NuxtLink to="/">Home</NuxtLink><NuxtLink to="/tools" aria-current="page">Tools</NuxtLink></nav>
-        <ThemeToggle />
-        <NuxtLink class="header-action" to="/"><ArrowLeft :size="16" /> Back home</NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
 
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
@@ -265,22 +264,26 @@ onBeforeUnmount(() => {
             </button>
           </div>
 
-          <div class="tools-search-box">
-            <Search :size="16" class="search-icon" />
-            <input 
-              v-model="searchQuery" 
-              type="text" 
-              placeholder="Search utilities (e.g. Word, OCR, Merge)..." 
-              aria-label="Search utilities"
-            />
-            <button 
-              v-if="searchQuery" 
-              class="search-clear" 
-              aria-label="Clear search" 
-              @click="searchQuery = ''"
-            >
-              <X :size="14" />
-            </button>
+          <div class="tools-search-wrap">
+            <label for="tool-search">Search tools <span aria-live="polite">{{ filteredTools.length }} {{ filteredTools.length === 1 ? 'result' : 'results' }}</span></label>
+            <div class="tools-search-box">
+              <Search :size="17" class="search-icon" />
+              <input
+                id="tool-search"
+                v-model="searchQuery"
+                type="search"
+                placeholder="Search Word, PDF, image or OCR tools"
+                autocomplete="off"
+              />
+              <button
+                v-if="searchQuery"
+                class="search-clear"
+                aria-label="Clear tool search"
+                @click="searchQuery = ''"
+              >
+                <X :size="14" />
+              </button>
+            </div>
           </div>
         </div>
 

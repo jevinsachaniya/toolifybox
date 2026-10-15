@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { ArrowRight, ArrowUpRight, Bug, CheckCircle2, HelpCircle, Lightbulb, LockKeyhole, Mail, MessageSquareText, ShieldCheck } from '@lucide/vue';
+import { ArrowRight, Bug, CheckCircle2, HelpCircle, Lightbulb, LockKeyhole, Mail, MessageSquareText, ShieldCheck } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const route = useRoute();
@@ -32,19 +32,7 @@ usePageSeo({
 <template>
   <div class="site-shell info-shell">
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header tools-header">
-      <div class="container header-inner">
-        <BrandLogo />
-        <nav aria-label="Main navigation">
-          <NuxtLink to="/">Home</NuxtLink>
-          <NuxtLink to="/tools">Tools</NuxtLink>
-          <NuxtLink to="/about">About</NuxtLink>
-          <NuxtLink to="/contact" aria-current="page">Contact</NuxtLink>
-        </nav>
-        <ThemeToggle />
-        <NuxtLink class="header-action" to="/tools">Open tools <ArrowUpRight :size="16" /></NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
 
     <main id="main" class="info-main contact-main">
       <div class="info-ambient" aria-hidden="true"><span /><span /></div>
