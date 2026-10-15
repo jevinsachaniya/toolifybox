@@ -1,0 +1,36 @@
+{
+  "name": "toolifybox",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "nuxt dev --host 127.0.0.1 --port 5174",
+    "dev": "nuxt dev --host 127.0.0.1 --port 5174",
+    "build": "nuxt generate",
+    "generate": "nuxt generate",
+    "preview": "node scripts/preview.mjs",
+    "postinstall": "nuxt prepare",
+    "check:pages": "node scripts/check-pages.mjs",
+    "test:assets": "node --experimental-strip-types scripts/test-assets.mjs",
+    "test:upload": "node --test scripts/test-document.mjs",
+    "test:browser": "node scripts/test-browser.mjs"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.57.0",
+    "@tesseract.js-data/eng": "^1.0.0",
+    "@tesseract.js-data/hin": "^1.0.0",
+    "docx": "^9.11.0",
+    "docx-preview": "^0.4.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.2",
+    "nuxt": "4.5.2",
+    "pdfjs-dist": "^6.4.299",
+    "tesseract.js": "^7.0.0",
+    "vue": "^3.5.0",
+    "vue-router": "^4.5.0"
+  },
+  "engines": {
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
+  }
+}
