@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="w-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.25" />
+    </filter>
+    <filter id="w-tile-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1" dy="4" stdDeviation="3.5" flood-color="#0c2340" flood-opacity="0.4" />
+    </filter>
+    <linearGradient id="w-page" x1="16" y1="4" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e8f0fe" />
+    </linearGradient>
+    <linearGradient id="w-fold" x1="42" y1="4" x2="54" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#bfdbfe" />
+      <stop offset="100%" stop-color="#93c5fd" />
+    </linearGradient>
+    <linearGradient id="w-tile" x1="6" y1="20" x2="38" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2b7cd3" />
+      <stop offset="45%" stop-color="#185abd" />
+      <stop offset="100%" stop-color="#103f91" />
+    </linearGradient>
+    <linearGradient id="w-tile-gloss" x1="6" y1="20" x2="38" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Back Sheet (Document) -->
+  <g filter="url(#w-shadow)">
+    <!-- Main page body with dog-ear cutout -->
+    <path d="M18 6 C16.9 6 16 6.9 16 8 L16 54 C16 55.1 16.9 56 18 56 L50 56 C51.1 56 52 55.1 52 54 L52 18 L40 6 L18 6 Z" fill="url(#w-page)" stroke="#cbd5e1" stroke-width="0.8" />
+    <!-- Folded dog-ear corner -->
+    <path d="M40 6 L40 16 C40 17.1 40.9 18 42 18 L52 18 Z" fill="url(#w-fold)" stroke="#93c5fd" stroke-width="0.5" />
+  </g>
+
+  <!-- Embossed document text lines -->
+  <rect x="24" y="24" width="22" height="2.5" rx="1.25" fill="#93c5fd" opacity="0.6" />
+  <rect x="36" y="30" width="10" height="2.5" rx="1.25" fill="#cbd5e1" opacity="0.8" />
+  <rect x="36" y="36" width="10" height="2.5" rx="1.25" fill="#cbd5e1" opacity="0.8" />
+  <rect x="24" y="42" width="22" height="2.5" rx="1.25" fill="#cbd5e1" opacity="0.8" />
+  <rect x="24" y="48" width="16" height="2.5" rx="1.25" fill="#cbd5e1" opacity="0.8" />
+
+  <!-- Front 3D Tile (Word 'W') -->
+  <g filter="url(#w-tile-shadow)">
+    <rect x="8" y="22" width="30" height="30" rx="6" fill="url(#w-tile)" />
+    <!-- Top-edge specular highlight -->
+    <rect x="8.5" y="22.5" width="29" height="14" rx="5.5" fill="url(#w-tile-gloss)" />
+    <rect x="8" y="22" width="30" height="30" rx="6" stroke="#60a5fa" stroke-width="0.75" stroke-opacity="0.5" />
+    
+    <!-- Bold Embossed Letter 'W' -->
+    <path d="M14.5 29 L17.6 42.5 L20.5 34 L23.5 34 L26.4 42.5 L29.5 29 L32.2 29 L28 45 L24.8 45 L22 36.2 L19.2 45 L16 45 L11.8 29 Z" fill="#ffffff">
+      <animate attributeName="opacity" dur="3s" values="0.95;1;0.95" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>
+

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="mpdf-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.3" />
+    </filter>
+    <linearGradient id="mpdf-back" x1="12" y1="8" x2="38" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="mpdf-front" x1="22" y1="18" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+  </defs>
+
+  <!-- Back Merging PDF Sheet -->
+  <g filter="url(#mpdf-shadow)" transform="rotate(-6 24 24)">
+    <rect x="10" y="8" width="28" height="36" rx="5" fill="url(#mpdf-back)" stroke="#c7d2fe" stroke-width="0.8" />
+    <text x="24" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="900" fill="#ffffff" text-anchor="middle">PDF 1</text>
+    <rect x="15" y="29" width="18" height="2" rx="1" fill="#ffffff" opacity="0.75" />
+    <rect x="15" y="33" width="13" height="2" rx="1" fill="#ffffff" opacity="0.75" />
+  </g>
+
+  <!-- Front Combined PDF Sheet -->
+  <g filter="url(#mpdf-shadow)">
+    <rect x="22" y="16" width="30" height="38" rx="5" fill="url(#mpdf-front)" stroke="#e9d5ff" stroke-width="0.8" />
+    <rect x="22.5" y="16.5" width="29" height="15" rx="4.5" fill="#ffffff" fill-opacity="0.25" />
+    <!-- PDF Merge Banner -->
+    <text x="37" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">MERGED</text>
+    <!-- Plus / Combine Badge -->
+    <circle cx="47" cy="45" r="7" fill="#ffffff" filter="url(#mpdf-shadow)" />
+    <path d="M47 41 L47 49 M43 45 L51 45" stroke="#7e22ce" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+</svg>
+

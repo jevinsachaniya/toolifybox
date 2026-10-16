@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowRight, ArrowUpRight, Check, Combine, FileImage, FileText, HeartHandshake, ImageDown, LockKeyhole, Minimize2, ScanText, Scissors, Sparkles, WandSparkles } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Check, Combine, FileImage, FileSpreadsheet, FileText, HeartHandshake, ImageDown, LockKeyhole, Minimize2, Presentation, ScanText, Scissors, Sparkles, WandSparkles } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Learn about Toolifybox, a collection of free browser-based Word, PDF and image tools designed for simple, private file conversion without sign-up.';
@@ -43,14 +43,19 @@ const values = [
 ];
 
 const tools = [
-  { icon: FileText, title: 'Word to PDF', text: 'Create a share-ready PDF from a DOCX file.', to: '/tools/word-to-pdf' },
-  { icon: ScanText, title: 'PDF to Word', text: 'Recover editable text, including local OCR for scans.', to: '/tools/pdf-to-word' },
-  { icon: FileImage, title: 'PDF to Images', text: 'Preview PDF pages and export selected PNG or JPG files.', to: '/tools/pdf-to-images' },
-  { icon: Sparkles, title: 'Images to PDF', text: 'Arrange JPG, PNG and WebP images in one PDF.', to: '/tools/images-to-pdf' },
-  { icon: Combine, title: 'Merge PDF', text: 'Preview, reorder and combine multiple PDFs.', to: '/tools/merge-pdf' },
-  { icon: Scissors, title: 'Split PDF', text: 'Choose exact split points and download separate PDF parts.', to: '/tools/split-pdf' },
-  { icon: Minimize2, title: 'Compress PDF', text: 'Reduce PDF size with clear quality and structure controls.', to: '/tools/compress-pdf' },
-  { icon: ImageDown, title: 'Compress Image', text: 'Reduce JPG, PNG and WebP size with a live preview.', to: '/tools/compress-image' },
+  { icon: FileText, iconName: 'word', title: 'Word to PDF', text: 'Create a share-ready PDF from a DOCX file.', to: '/tools/word-to-pdf' },
+  { icon: Presentation, iconName: 'powerpoint', title: 'PowerPoint to PDF', text: 'Convert PPTX slides into share-ready PDF documents.', to: '/tools/powerpoint-to-pdf' },
+  { icon: FileSpreadsheet, iconName: 'excel', title: 'Excel to PDF', text: 'Convert XLSX workbooks and CSV data into clean PDF documents.', to: '/tools/excel-to-pdf' },
+  { icon: ScanText, iconName: 'pdf-to-word', title: 'PDF to Word', text: 'Recover editable text, including local OCR for scans.', to: '/tools/pdf-to-word' },
+  { icon: FileImage, iconName: 'pdf-to-jpg', title: 'PDF to JPG', text: 'Extract high-resolution JPG images from any PDF pages.', to: '/tools/pdf-to-jpg' },
+  { icon: FileImage, iconName: 'pdf-to-images', title: 'PDF to Images', text: 'Preview PDF pages and export selected PNG or JPG files.', to: '/tools/pdf-to-images' },
+  { icon: Sparkles, iconName: 'images-to-pdf', title: 'Images to PDF', text: 'Arrange JPG, PNG and WebP images in one PDF.', to: '/tools/images-to-pdf' },
+  { icon: Combine, iconName: 'merge-pdf', title: 'Merge PDF', text: 'Preview, reorder and combine multiple PDFs.', to: '/tools/merge-pdf' },
+  { icon: Scissors, iconName: 'split-pdf', title: 'Split PDF', text: 'Choose exact split points and download separate PDF parts.', to: '/tools/split-pdf' },
+  { icon: Minimize2, iconName: 'compress-pdf', title: 'Compress PDF', text: 'Reduce PDF size with clear quality and structure controls.', to: '/tools/compress-pdf' },
+  { icon: ImageDown, iconName: 'compress-image', title: 'Compress Image', text: 'Reduce JPG, PNG and WebP size with a live preview.', to: '/tools/compress-image' },
+  { icon: LockKeyhole, iconName: 'protect-pdf', title: 'Protect PDF', text: 'Encrypt PDF files with AES-256 or RC4 passwords.', to: '/tools/protect-pdf' },
+  { icon: LockKeyhole, iconName: 'unlock-pdf', title: 'Unlock PDF', text: 'Remove password restrictions from secured PDF documents.', to: '/tools/unlock-pdf' },
 ];
 </script>
 
@@ -86,9 +91,9 @@ const tools = [
       </section>
 
       <section class="info-section container" aria-labelledby="available-tools">
-        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Eight focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
+        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Thirteen focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
         <div class="about-tools-grid">
-          <NuxtLink v-for="tool in tools" :key="tool.title" :to="tool.to" class="about-tool-card"><span><component :is="tool.icon" :size="22" /></span><div><h3>{{ tool.title }}</h3><p>{{ tool.text }}</p></div><ArrowUpRight :size="18" /></NuxtLink>
+          <NuxtLink v-for="tool in tools" :key="tool.title" :to="tool.to" class="about-tool-card"><span><ToolRealisticIcon v-if="tool.iconName" :name="tool.iconName" :alt="tool.title" size="32" /><component :is="tool.icon" v-else :size="22" /></span><div><h3>{{ tool.title }}</h3><p>{{ tool.text }}</p></div><ArrowUpRight :size="18" /></NuxtLink>
         </div>
       </section>
 

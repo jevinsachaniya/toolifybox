@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { MAX_DOCUMENT_SIZE, validateDocument, validatePdf, pdfFilename, wordFilename, formatSize } from '../app/utils/document.js';
+import { MAX_DOCUMENT_SIZE, validateDocument, validatePdf, pdfFilename, wordFilename, formatSize, validatePowerpoint, powerpointPdfFilename, validateExcel, excelPdfFilename, protectedPdfFilename, unlockedPdfFilename } from '../app/utils/document.js';
 import { paintedCharacters, editableItems, wordFont } from '../app/utils/pdf-text.js';
 import JSZip from 'jszip';
 import { validateDocxPackage, pageSliceEnd } from '../app/utils/docx-package.js';
 import { runConversionTask } from '../app/utils/conversion-task.js';
 import { wordPixels } from '../app/utils/pdf-pixels.js';
-import { pdfImagesArchiveFilename, pdfPageImageFilename } from '../app/utils/pdf-images.js';
+import { pdfImagesArchiveFilename, pdfJpgArchiveFilename, pdfPageImageFilename } from '../app/utils/pdf-images.js';
 import { imagesPdfFilename, MAX_IMAGE_COUNT, MAX_TOTAL_IMAGE_SIZE, validateImages } from '../app/utils/images-pdf.js';
 
 test('Word uploads accept uppercase extensions and files at the 20 MB boundary', () => {
@@ -32,12 +32,35 @@ test('PDF uploads validate type, count, size, and keep Unicode download names', 
   assert.match(validatePdf([{ name: 'large.pdf', size: MAX_DOCUMENT_SIZE + 1 }]), /20 MB/);
   assert.match(validatePdf([{ name: 'one.pdf' }, { name: 'two.pdf' }]), /one PDF/);
   assert.equal(wordFilename('Résumé.final.PDF'), 'Résumé.final.docx');
+  assert.equal(protectedPdfFilename('Secret.PDF'), 'Secret-protected.pdf');
+  assert.equal(unlockedPdfFilename('Locked.PDF'), 'Locked-unlocked.pdf');
+});
+
+test('PowerPoint uploads validate type, count, size, and generate PDF filenames', () => {
+  assert.equal(validatePowerpoint([{ name: 'Deck.PPTX', size: MAX_DOCUMENT_SIZE }]), '');
+  assert.match(validatePowerpoint([{ name: 'old.ppt', size: 100 }]), /\.pptx/);
+  assert.match(validatePowerpoint([{ name: 'empty.pptx', size: 0 }]), /empty/);
+  assert.match(validatePowerpoint([{ name: 'large.pptx', size: MAX_DOCUMENT_SIZE + 1 }]), /20 MB/);
+  assert.match(validatePowerpoint([{ name: 'one.pptx' }, { name: 'two.pptx' }]), /one PowerPoint/);
+  assert.equal(powerpointPdfFilename('Quarterly.Results.PPTX'), 'Quarterly.Results.pdf');
+});
+
+test('Excel uploads validate type, count, size, and generate PDF filenames', () => {
+  assert.equal(validateExcel([{ name: 'Accounts.XLSX', size: MAX_DOCUMENT_SIZE }]), '');
+  assert.equal(validateExcel([{ name: 'Data.csv', size: 1000 }]), '');
+  assert.match(validateExcel([{ name: 'old.xls', size: 100 }]), /\.xlsx/);
+  assert.match(validateExcel([{ name: 'empty.xlsx', size: 0 }]), /empty/);
+  assert.match(validateExcel([{ name: 'large.xlsx', size: MAX_DOCUMENT_SIZE + 1 }]), /20 MB/);
+  assert.match(validateExcel([{ name: 'one.xlsx' }, { name: 'two.xlsx' }]), /one Excel/);
+  assert.equal(excelPdfFilename('Quarterly.Budget.XLSX'), 'Quarterly.Budget.pdf');
+  assert.equal(excelPdfFilename('Report.csv'), 'Report.pdf');
 });
 
 test('PDF page images use ordered, Unicode-safe download names', () => {
   assert.equal(pdfPageImageFilename('Résumé.final.PDF', 3, 12, 'png'), 'Résumé.final-page-03.png');
   assert.equal(pdfPageImageFilename('report.pdf', 100, 100, 'jpg'), 'report-page-100.jpg');
   assert.equal(pdfImagesArchiveFilename('Résumé.final.PDF'), 'Résumé.final-images.zip');
+  assert.equal(pdfJpgArchiveFilename('Résumé.final.PDF'), 'Résumé.final-jpg.zip');
 });
 
 test('Image uploads validate supported formats, limits, and PDF names', () => {

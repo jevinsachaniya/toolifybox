@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowUpRight, Check, FileCheck, FileImage, FileText,
-  ImageDown, Layers, Lock, LockKeyhole, Minimize2, RotateCw, ScanText, Scissors,
+  ArrowUpRight, Check, FileCheck, FileImage, FileSpreadsheet, FileText,
+  ImageDown, Layers, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Unlock, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
@@ -28,13 +28,18 @@ usePageSeo({
         '@type': 'ItemList',
         itemListElement: [
           ['Word to PDF', '/tools/word-to-pdf'],
+          ['PowerPoint to PDF', '/tools/powerpoint-to-pdf'],
+          ['Excel to PDF', '/tools/excel-to-pdf'],
           ['PDF to Word', '/tools/pdf-to-word'],
+          ['PDF to JPG', '/tools/pdf-to-jpg'],
           ['PDF to Images', '/tools/pdf-to-images'],
           ['Images to PDF', '/tools/images-to-pdf'],
           ['Merge PDF', '/tools/merge-pdf'],
           ['Split PDF', '/tools/split-pdf'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
+          ['Protect PDF', '/tools/protect-pdf'],
+          ['Unlock PDF', '/tools/unlock-pdf'],
         ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
       },
     }),
@@ -52,6 +57,7 @@ let toastTimer = null;
 const categories = [
   { id: 'all', label: 'All Utilities' },
   { id: 'pdf', label: 'PDF Utilities' },
+  { id: 'security', label: 'Security & Passwords' },
   { id: 'word', label: 'Word Utilities' },
   { id: 'image', label: 'Image Utilities' },
   { id: 'ocr', label: 'OCR & Scans' },
@@ -67,8 +73,33 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: FileText,
+    iconName: 'word',
     theme: 'word',
     route: '/tools/word-to-pdf',
+  },
+  {
+    id: 'powerpoint-pdf',
+    title: 'PowerPoint to PDF',
+    category: 'pdf',
+    description: 'Convert PowerPoint (.pptx) pitch decks and slides into clean, presentation-ready PDFs.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Presentation,
+    iconName: 'powerpoint',
+    theme: 'orange',
+    route: '/tools/powerpoint-to-pdf',
+  },
+  {
+    id: 'excel-pdf',
+    title: 'Excel to PDF',
+    category: 'pdf',
+    description: 'Convert Excel (.xlsx, .csv) spreadsheets and workbooks into clean, paginated PDF documents.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: FileSpreadsheet,
+    iconName: 'excel',
+    theme: 'emerald',
+    route: '/tools/excel-to-pdf',
   },
   {
     id: 'pdf-word',
@@ -78,8 +109,21 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: ScanText,
+    iconName: 'pdf-to-word',
     theme: 'pdf',
     route: '/tools/pdf-to-word',
+  },
+  {
+    id: 'pdf-jpg',
+    title: 'PDF to JPG',
+    category: 'pdf',
+    description: 'Convert PDF pages into high-resolution JPG images with adjustable quality.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: FileImage,
+    iconName: 'pdf-to-jpg',
+    theme: 'orange',
+    route: '/tools/pdf-to-jpg',
   },
   {
     id: 'pdf-img',
@@ -89,6 +133,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: FileImage,
+    iconName: 'pdf-to-images',
     theme: 'amber',
     route: '/tools/pdf-to-images',
   },
@@ -100,6 +145,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: Layers,
+    iconName: 'images-to-pdf',
     theme: 'emerald',
     route: '/tools/images-to-pdf',
   },
@@ -111,6 +157,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: Layers,
+    iconName: 'merge-pdf',
     theme: 'violet',
     route: '/tools/merge-pdf',
   },
@@ -122,6 +169,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: Scissors,
+    iconName: 'split-pdf',
     theme: 'sky',
     route: '/tools/split-pdf',
   },
@@ -133,6 +181,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: Minimize2,
+    iconName: 'compress-pdf',
     theme: 'teal',
     route: '/tools/compress-pdf',
   },
@@ -144,6 +193,7 @@ const allTools = [
     status: 'active',
     statusLabel: 'Active Now',
     icon: ImageDown,
+    iconName: 'compress-image',
     theme: 'amber',
     route: '/tools/compress-image',
   },
@@ -155,27 +205,34 @@ const allTools = [
     status: 'roadmap',
     statusLabel: 'Roadmap',
     icon: ScanText,
+    iconName: 'pdf-to-word',
     theme: 'indigo',
   },
   {
     id: 'protect-pdf',
     title: 'Protect PDF',
     category: 'pdf',
-    description: 'Encrypt sensitive documents with user passwords and permission restrictions.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    categories: ['pdf', 'security'],
+    description: 'Encrypt sensitive documents with bank-grade AES-256 or RC4 password protection.',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Lock,
-    theme: 'red',
+    iconName: 'protect-pdf',
+    theme: 'rose',
+    route: '/tools/protect-pdf',
   },
   {
     id: 'unlock-pdf',
     title: 'Unlock PDF',
     category: 'pdf',
-    description: 'Remove password restrictions from unlocked PDF documents for easy editing.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    categories: ['pdf', 'security'],
+    description: 'Remove password restrictions and decrypt secured PDF documents.',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Unlock,
-    theme: 'cyan',
+    iconName: 'unlock-pdf',
+    theme: 'emerald',
+    route: '/tools/unlock-pdf',
   },
   {
     id: 'rotate-pdf',
@@ -185,6 +242,7 @@ const allTools = [
     status: 'roadmap',
     statusLabel: 'Roadmap',
     icon: RotateCw,
+    iconName: 'rotate-pdf',
     theme: 'orange',
   },
   {
@@ -195,6 +253,7 @@ const allTools = [
     status: 'roadmap',
     statusLabel: 'Roadmap',
     icon: FileCheck,
+    iconName: 'flatten-pdf',
     theme: 'slate',
   },
 ];
@@ -202,7 +261,7 @@ const allTools = [
 const filteredTools = computed(() => {
   const query = searchQuery.value.trim().toLowerCase();
   return allTools.filter(tool => {
-    const matchesCategory = selectedCategory.value === 'all' || tool.category === selectedCategory.value;
+    const matchesCategory = selectedCategory.value === 'all' || tool.category === selectedCategory.value || (Array.isArray(tool.categories) && tool.categories.includes(selectedCategory.value));
     const matchesQuery = !query || tool.title.toLowerCase().includes(query) || tool.description.toLowerCase().includes(query);
     return matchesCategory && matchesQuery;
   });
@@ -322,7 +381,8 @@ onBeforeUnmount(() => {
           >
             <div class="tool-card-top">
               <span class="tool-card-icon">
-                <component :is="tool.icon" :size="22" />
+                <ToolRealisticIcon v-if="tool.iconName" :name="tool.iconName" :alt="tool.title" size="38" />
+                <component :is="tool.icon" v-else :size="22" />
               </span>
               <span class="tool-status-badge active">
                 <span class="status-pulse" />
@@ -349,7 +409,8 @@ onBeforeUnmount(() => {
           >
             <div class="tool-card-top">
               <span class="tool-card-icon">
-                <component :is="tool.icon" :size="22" />
+                <ToolRealisticIcon v-if="tool.iconName" :name="tool.iconName" :alt="tool.title" size="38" />
+                <component :is="tool.icon" v-else :size="22" />
               </span>
               <span class="tool-status-badge roadmap">
                 {{ tool.statusLabel }}

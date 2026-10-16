@@ -25,3 +25,39 @@ export function validatePdf(files) {
 }
 
 export function wordFilename(name) { return name.replace(/\.pdf$/i, '') + '.docx'; }
+
+export function validatePowerpoint(files) {
+  if (files.length !== 1) return 'Choose one PowerPoint presentation at a time.';
+  const file = files[0];
+  if (!/\.pptx$/i.test(file.name)) return 'Please choose a .pptx PowerPoint presentation. Older .ppt files aren’t supported.';
+  if (!file.size) return 'This presentation is empty. Please choose another file.';
+  if (file.size > MAX_DOCUMENT_SIZE) return 'This presentation is larger than 20 MB. Please choose a smaller file.';
+  return '';
+}
+
+export function powerpointPdfFilename(name) {
+  return name.replace(/\.pptx$/i, '') + '.pdf';
+}
+
+export function validateExcel(files) {
+  if (files.length !== 1) return 'Choose one Excel spreadsheet at a time.';
+  const file = files[0];
+  if (!/\.(xlsx|csv)$/i.test(file.name)) return 'Please choose a .xlsx or .csv Excel spreadsheet. Older .xls files aren’t supported.';
+  if (!file.size) return 'This spreadsheet is empty. Please choose another file.';
+  if (file.size > MAX_DOCUMENT_SIZE) return 'This spreadsheet is larger than 20 MB. Please choose a smaller file.';
+  return '';
+}
+
+export function excelPdfFilename(name) {
+  return name.replace(/\.(xlsx|csv)$/i, '') + '.pdf';
+}
+
+export function protectedPdfFilename(name) {
+  return name.replace(/\.pdf$/i, '') + '-protected.pdf';
+}
+
+export function unlockedPdfFilename(name) {
+  return name.replace(/\.pdf$/i, '') + '-unlocked.pdf';
+}
+
+

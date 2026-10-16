@@ -12,10 +12,10 @@ export default defineNuxtConfig({
     optimizeDeps: {
       // PDF.js already ships as browser ESM. Keep it out of Vite's generated
       // dependency cache; its worker must also remain a separately served file.
-      exclude: ['pdfjs-dist', 'tesseract.js'],
+      exclude: ['pdfjs-dist', 'tesseract.js', 'pptx-browser'],
       // Prepare lazy converter libraries before a first click can trigger a
       // dependency re-bundle and invalidate the page's module URLs.
-      include: ['@lucide/vue', 'docx', 'docx-preview', 'html2canvas', 'jspdf', 'jszip', 'pdf-lib'],
+      include: ['@lucide/vue', 'docx', 'docx-preview', 'html2canvas', 'jspdf', 'jszip', 'pdf-lib', '@pdfsmaller/pdf-encrypt', '@pdfsmaller/pdf-decrypt'],
     },
   },
   css: ['~/assets/css/styles.css'],

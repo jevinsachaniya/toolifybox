@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="prot-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.32" />
+    </filter>
+    <filter id="prot-lock-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#090d16" flood-opacity="0.4" />
+    </filter>
+    <linearGradient id="prot-doc-grad" x1="10" y1="8" x2="48" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="55%" stop-color="#e11d48" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="prot-lock-body" x1="28" y1="28" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="40%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="prot-shackle" x1="33" y1="18" x2="47" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="45%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+  </defs>
+
+  <!-- PDF Document Base -->
+  <g filter="url(#prot-shadow)">
+    <rect x="10" y="8" width="34" height="48" rx="6" fill="url(#prot-doc-grad)" stroke="#fda4af" stroke-width="0.8" />
+    <path d="M10 14 C10 10.7 12.7 8 16 8 L32 8 L44 20 L44 50 C44 53.3 41.3 56 38 56 L16 56 C12.7 56 10 53.3 10 50 Z" fill="url(#prot-doc-grad)" />
+    <!-- Fold Corner -->
+    <path d="M32 8 L44 20 L35 20 C33.3 20 32 18.7 32 17 Z" fill="#fff" fill-opacity="0.38" />
+    <!-- PDF Text -->
+    <text x="21" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="900" fill="#ffffff" letter-spacing="0.5">PDF</text>
+    <!-- Document content lines -->
+    <rect x="16" y="33" width="14" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+    <rect x="16" y="38" width="10" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+    <rect x="16" y="43" width="12" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+  </g>
+
+  <!-- Padlock (Locked) -->
+  <g filter="url(#prot-lock-shadow)">
+    <!-- Shackle (Locked) -->
+    <path d="M34 31 L34 24 C34 20.7 36.7 18 40 18 C43.3 18 46 20.7 46 24 L46 31" stroke="url(#prot-shackle)" stroke-width="3.6" stroke-linecap="round" fill="none" />
+    <!-- Lock Body -->
+    <rect x="29" y="30" width="22" height="20" rx="4.5" fill="url(#prot-lock-body)" stroke="#fef08a" stroke-width="0.8" />
+    <!-- Highlights -->
+    <rect x="30" y="31" width="20" height="7" rx="3" fill="#ffffff" fill-opacity="0.3" />
+    <!-- Keyhole -->
+    <circle cx="40" cy="38.5" r="2.2" fill="#78350f" />
+    <path d="M39 39.5 L41 39.5 L41.5 44 L38.5 44 Z" fill="#78350f" />
+  </g>
+</svg>

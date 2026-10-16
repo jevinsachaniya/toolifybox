@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="p-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.25" />
+    </filter>
+    <filter id="p-tile-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1" dy="4" stdDeviation="3.5" flood-color="#431407" flood-opacity="0.45" />
+    </filter>
+    <linearGradient id="p-page" x1="16" y1="4" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#fff7ed" />
+    </linearGradient>
+    <linearGradient id="p-fold" x1="40" y1="4" x2="52" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="100%" stop-color="#fdba74" />
+    </linearGradient>
+    <linearGradient id="p-tile" x1="6" y1="20" x2="38" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="45%" stop-color="#c43e1c" />
+      <stop offset="100%" stop-color="#9a280e" />
+    </linearGradient>
+    <linearGradient id="p-tile-gloss" x1="6" y1="20" x2="38" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Back Sheet (Presentation Slide Canvas) -->
+  <g filter="url(#p-shadow)">
+    <!-- Main page body with dog-ear cutout -->
+    <path d="M18 6 C16.9 6 16 6.9 16 8 L16 54 C16 55.1 16.9 56 18 56 L50 56 C51.1 56 52 55.1 52 54 L52 18 L40 6 L18 6 Z" fill="url(#p-page)" stroke="#cbd5e1" stroke-width="0.8" />
+    <!-- Folded dog-ear corner -->
+    <path d="M40 6 L40 16 C40 17.1 40.9 18 42 18 L52 18 Z" fill="url(#p-fold)" stroke="#fb923c" stroke-width="0.5" />
+  </g>
+
+  <!-- 3D Pie Chart Graphic on Slide -->
+  <g opacity="0.9">
+    <!-- Chart Background Slice 1 (Coral) -->
+    <path d="M40 32 L40 22 A10 10 0 0 1 50 32 Z" fill="#ea580c" />
+    <!-- Chart Slice 2 (Amber) -->
+    <path d="M40 32 L50 32 A10 10 0 1 1 36 22.8 L40 32 Z" fill="#f59e0b" />
+    <!-- Presentation bullet lines -->
+    <rect x="22" y="44" width="24" height="2.5" rx="1.25" fill="#fdba74" />
+    <rect x="22" y="49" width="16" height="2.5" rx="1.25" fill="#cbd5e1" />
+  </g>
+
+  <!-- Front 3D Tile (PowerPoint 'P') -->
+  <g filter="url(#p-tile-shadow)">
+    <rect x="8" y="22" width="30" height="30" rx="6" fill="url(#p-tile)" />
+    <!-- Top-edge specular highlight -->
+    <rect x="8.5" y="22.5" width="29" height="14" rx="5.5" fill="url(#p-tile-gloss)" />
+    <rect x="8" y="22" width="30" height="30" rx="6" stroke="#fdba74" stroke-width="0.75" stroke-opacity="0.5" />
+    
+    <!-- Bold Embossed Letter 'P' -->
+    <path d="M16 45 L16 29 L23.5 29 C26.8 29 29.2 31.1 29.2 34.5 C29.2 37.9 26.8 40 23.5 40 L19.4 40 L19.4 45 L16 45 Z M19.4 37 L23.2 37 C24.8 37 25.8 35.9 25.8 34.5 C25.8 33.1 24.8 32 23.2 32 L19.4 32 L19.4 37 Z" fill="#ffffff" />
+  </g>
+</svg>
+

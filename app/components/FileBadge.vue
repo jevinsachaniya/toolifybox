@@ -10,6 +10,6 @@ defineProps({
 <template>
   <span :class="['file-badge', type, { small }]" aria-hidden="true">
     <FileText :stroke-width="1.4" />
-    <b>{{ type === 'word' ? 'W' : 'PDF' }}</b>
+    <b>{{ (type === 'ppt' || type === 'powerpoint') ? 'PPT' : (type === 'excel' || type === 'xlsx') ? 'XLS' : (type === 'word' ? 'W' : 'PDF') }}</b>
   </span>
 </template>

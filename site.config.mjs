@@ -8,13 +8,18 @@ export const SITE_ROUTES = [
   '/terms-and-conditions',
   '/tools',
   '/tools/word-to-pdf',
+  '/tools/powerpoint-to-pdf',
+  '/tools/excel-to-pdf',
   '/tools/pdf-to-word',
+  '/tools/pdf-to-jpg',
   '/tools/pdf-to-images',
   '/tools/images-to-pdf',
   '/tools/merge-pdf',
   '/tools/split-pdf',
   '/tools/compress-pdf',
   '/tools/compress-image',
+  '/tools/protect-pdf',
+  '/tools/unlock-pdf',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

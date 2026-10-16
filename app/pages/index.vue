@@ -1,13 +1,13 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Download, FileImage, FileText, ImageDown, Images, LockKeyhole, Minimize2, ScanText, Scissors, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Download, FileImage, FileSpreadsheet, FileText, ImageDown, Images, LockKeyhole, Minimize2, Presentation, ScanText, Scissors, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
 import { usePageSeo } from '~/composables/usePageSeo';
 
 const shell = ref(null);
 let observer;
 let mounted = false;
 
-const pageDescription = 'Convert Word, PDF and image files online for free with Toolifybox. Private browser tools to convert, merge, split and compress documents without uploads.';
+const pageDescription = 'Convert Word, Excel, PowerPoint, PDF and image files online for free with Toolifybox. Private browser tools to convert, merge, split and compress documents without uploads.';
 usePageSeo({
   title: 'Free Word, PDF & Image Tools Online | Toolifybox',
   description: pageDescription,
@@ -39,7 +39,7 @@ usePageSeo({
 });
 
 const questions = [
-  ['Which files can I convert?', 'Choose a .docx for Word to PDF, a .pdf for PDF to Word, PDF to Images, Merge PDF, Split PDF or Compress PDF, or JPG, PNG and WebP images for Images to PDF and Compress Image. File tools support inputs up to 20 MB. Older .doc files and password-protected PDFs are not supported.'],
+  ['Which files can I convert?', 'Choose a .docx for Word to PDF, a .pptx for PowerPoint to PDF, a .xlsx or .csv for Excel to PDF, a .pdf for PDF to Word, PDF to JPG, PDF to Images, Merge PDF, Split PDF or Compress PDF, or JPG, PNG and WebP images for Images to PDF and Compress Image. File tools support inputs up to 20 MB. Older .doc/.ppt/.xls files and password-protected PDFs are not supported.'],
   ['Will my colors and formatting stay the same?', 'PDF to Word defaults to editable text and uses OCR for scanned Hindi and English documents. Fonts, spacing, and scan backgrounds may change. Word to PDF supports basic text, tables and images. Always check the result before sharing.'],
   ['What happens to my document?', 'Conversion happens in your browser. Your document is never uploaded to a server or conversion service. Close the page or choose another document to clear the current selection.'],
   ['Do I need an account?', 'No account, subscription, or sign-up is needed. Open the Tools page, choose a conversion direction, select a document, and download the result.'],
@@ -103,15 +103,11 @@ onBeforeUnmount(() => {
           </div>
           <div class="tool-showcase" aria-label="Available document tools">
             <div class="showcase-glow" aria-hidden="true" />
-            <div class="showcase-label"><span>DOCUMENT &amp; IMAGE TOOLS</span><b>8 tools available</b></div>
-            <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><FileText :size="24" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/pdf-to-word" class="showcase-tool pdf-tool"><span class="showcase-icon"><ScanText :size="24" /></span><span><b>PDF to Word</b><small>Make PDF text editable with OCR</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/pdf-to-images" class="showcase-tool image-tool"><span class="showcase-icon"><FileImage :size="24" /></span><span><b>PDF to Images</b><small>Select pages and export PNG or JPG</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/images-to-pdf" class="showcase-tool images-pdf-tool"><span class="showcase-icon"><Images :size="24" /></span><span><b>Images to PDF</b><small>Arrange images into one clear PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/merge-pdf" class="showcase-tool merge-pdf-tool"><span class="showcase-icon"><Combine :size="24" /></span><span><b>Merge PDF</b><small>Preview and combine PDF files</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/split-pdf" class="showcase-tool split-pdf-tool"><span class="showcase-icon"><Scissors :size="24" /></span><span><b>Split PDF</b><small>Choose exact page split points</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/compress-pdf" class="showcase-tool compress-pdf-tool"><span class="showcase-icon"><Minimize2 :size="24" /></span><span><b>Compress PDF</b><small>Control quality and reduce file size</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools/compress-image" class="showcase-tool compress-image-tool"><span class="showcase-icon"><ImageDown :size="24" /></span><span><b>Compress Image</b><small>Preview and target an exact KB or MB size</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <div class="showcase-label"><span>POPULAR TOOLS</span><NuxtLink to="/tools" class="showcase-all-link">All 11 tools <ArrowRight :size="12" /></NuxtLink></div>
+            <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><ToolRealisticIcon name="word" alt="Word to PDF" size="36" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <NuxtLink to="/tools/powerpoint-to-pdf" class="showcase-tool powerpoint-tool"><span class="showcase-icon"><ToolRealisticIcon name="powerpoint" alt="PowerPoint to PDF" size="36" /></span><span><b>PowerPoint to PDF</b><small>Convert PPTX slides to clean PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <NuxtLink to="/tools/excel-to-pdf" class="showcase-tool excel-tool"><span class="showcase-icon"><ToolRealisticIcon name="excel" alt="Excel to PDF" size="36" /></span><span><b>Excel to PDF</b><small>Convert spreadsheets &amp; CSV to PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <NuxtLink to="/tools" class="showcase-more-btn"><span>Explore all 11 document &amp; image tools</span><ArrowRight :size="15" /></NuxtLink>
             <div class="showcase-privacy"><ShieldCheck :size="15" /><span><b>Stays on your device</b><small>No document uploads</small></span></div>
           </div>
         </div>

@@ -7,11 +7,16 @@
   <url><loc>https://toolifybox.netlify.app/terms-and-conditions</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/word-to-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/powerpoint-to-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/excel-to-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/pdf-to-word</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/pdf-to-jpg</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/pdf-to-images</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/images-to-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/merge-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/split-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/compress-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/compress-image</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/protect-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/unlock-pdf</loc></url>
 </urlset>

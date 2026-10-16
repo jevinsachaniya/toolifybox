@@ -139,3 +139,8 @@ export function pdfPageImageFilename(name, page, total, format) {
 export function pdfImagesArchiveFilename(name) {
   return `${name.replace(/\.pdf$/i, '') || 'document'}-images.zip`;
 }
+
+export function pdfJpgArchiveFilename(name) {
+  return `${name.replace(/\.pdf$/i, '') || 'document'}-jpg.zip`;
+}
+
