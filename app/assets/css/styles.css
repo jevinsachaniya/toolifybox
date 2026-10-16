@@ -2530,6 +2530,7 @@ html[data-theme='light'] .legal-notice p { color: #78350f; }
 
 /* Compress Image */
 .compress-image-layout { grid-template-columns: .68fr 1.32fr; align-items: start; }
+.compress-image-converter { container: image-compressor / inline-size; }
 .compress-image-converter.has-image { padding-inline: 26px; }
 .compress-image-upload-art { position: relative; display: grid; place-items: center; width: 76px; height: 66px; margin: 4px auto 2px; color: #b45309; border: 1px solid #fde68a; border-radius: 18px; background: linear-gradient(145deg, #fffbeb, #fef3c7); box-shadow: 0 10px 24px rgba(217, 119, 6, .12); }
 .compress-image-upload-art > span { position: absolute; right: -8px; bottom: -8px; display: grid; place-items: center; width: 32px; height: 32px; color: #fff; border: 3px solid #fff; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); }
@@ -2539,7 +2540,6 @@ html[data-theme='light'] .legal-notice p { color: #78350f; }
 .compress-image-summary span { display: block; margin-top: 3px; color: #64748b; font-size: 10px; }
 .compress-image-workspace { display: grid; grid-template-columns: minmax(190px, .74fr) minmax(285px, 1.26fr); align-items: start; gap: 14px; }
 .compress-image-preview { min-width: 0; overflow: hidden; border: 1px solid #e2e8f0; border-radius: 14px; background: #f8fafc; }
-.compress-image-preview::before { content: ''; position: absolute; }
 .compress-image-preview img { display: block; width: 100%; height: 246px; padding: 10px; object-fit: contain; background-color: #fff; background-image: linear-gradient(45deg, #f1f5f9 25%, transparent 25%), linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f1f5f9 75%), linear-gradient(-45deg, transparent 75%, #f1f5f9 75%); background-position: 0 0, 0 8px, 8px -8px, -8px 0; background-size: 16px 16px; }
 .compress-image-preview figcaption { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 11px; color: #64748b; border-top: 1px solid #e2e8f0; background: #fff; font-size: 8px; }
 .compress-image-preview figcaption span { font-weight: 750; text-transform: uppercase; letter-spacing: .05em; }
@@ -2552,6 +2552,20 @@ html[data-theme='light'] .legal-notice p { color: #78350f; }
 .image-compress-options em { color: #b45309; }
 .compress-image-button { margin-top: 16px; }
 .image-compress-result { margin-top: 14px; }
+
+@container image-compressor (max-width: 620px) {
+  .compress-image-workspace { grid-template-columns: minmax(0, 1fr); }
+  .compress-image-preview img { height: clamp(220px, 54vw, 310px); }
+}
+
+@container image-compressor (max-width: 480px) {
+  .compress-image-summary { padding: 11px 12px; }
+  .compress-target-size { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .compress-target-size > p { grid-column: 1; margin-top: -4px; }
+  .compress-result { align-items: flex-start; flex-wrap: wrap; }
+  .compress-result > div { flex-basis: calc(100% - 46px); }
+  .compress-result a { width: 100%; }
+}
 
 /* ==========================================================================
    Light and Dark Themes

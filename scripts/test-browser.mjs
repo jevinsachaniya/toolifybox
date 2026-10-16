@@ -658,6 +658,29 @@ try {
   await waitFor(`!!document.querySelector('#compress-image-target')`);
   await evaluate(`document.querySelector('#compress-image-target').value = '180'; document.querySelector('#compress-image-target').dispatchEvent(new Event('input', { bubbles: true }));`);
   assert.equal(await evaluate(`document.querySelector('.compress-target-size select').value`), 'KB');
+  for (const width of [320, 360, 390, 430, 480, 540, 600, 768, 820, 912, 1024, 1280, 1440]) {
+    await viewport(width, 900, width <= 800);
+    const responsiveLayout = await evaluate(`(() => {
+      const converter = document.querySelector('.compress-image-converter');
+      const parent = converter.getBoundingClientRect();
+      const selectors = ['.site-header .header-inner', '.tools-layout', '.tools-converter-wrap', '.compress-image-converter', '.compress-image-summary', '.compress-image-workspace', '.compress-image-preview', '.image-compress-options', '.compress-target-size', '.compress-image-button'];
+      const boxes = selectors.flatMap(selector => [...document.querySelectorAll(selector)]).filter(element => element.offsetParent !== null).map(element => {
+        const box = element.getBoundingClientRect(); return { selector: element.className, left: box.left, right: box.right, width: box.width };
+      });
+      const childBoxes = [...converter.querySelectorAll('.compress-image-summary, .compress-image-workspace, .compress-image-preview, .image-compress-options, .image-compress-options > button, .compress-target-size, .compress-image-button')].filter(element => element.offsetParent !== null).map(element => {
+        const box = element.getBoundingClientRect(); return { selector: element.className, left: box.left, right: box.right };
+      });
+      return {
+        pageFits: document.documentElement.scrollWidth <= innerWidth,
+        viewportLeaks: boxes.filter(box => box.left < -1 || box.right > innerWidth + 1),
+        converterLeaks: childBoxes.filter(box => box.left < parent.left - 1 || box.right > parent.right + 1),
+      };
+    })()`);
+    assert.equal(responsiveLayout.pageFits, true, `Image compressor page overflows at ${width}px`);
+    assert.deepEqual(responsiveLayout.viewportLeaks, [], `Visible layout leaves the viewport at ${width}px: ${JSON.stringify(responsiveLayout.viewportLeaks)}`);
+    assert.deepEqual(responsiveLayout.converterLeaks, [], `Image compressor controls leave their card at ${width}px: ${JSON.stringify(responsiveLayout.converterLeaks)}`);
+    if (width === 540) await screenshot('design-compress-image-large-mobile.png');
+  }
   await viewport(390, 844, true);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Compress Image controls overflow on mobile');
   await screenshot('design-compress-image-preview.png');
