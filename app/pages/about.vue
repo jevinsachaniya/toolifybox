@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowRight, ArrowUpRight, Check, Combine, FileImage, FileText, HeartHandshake, LockKeyhole, ScanText, ShieldCheck, Sparkles, WandSparkles } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Check, Combine, FileImage, FileText, HeartHandshake, ImageDown, LockKeyhole, Minimize2, ScanText, Scissors, Sparkles, WandSparkles } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Learn about Toolifybox, a collection of free browser-based Word, PDF and image tools designed for simple, private file conversion without sign-up.';
@@ -48,6 +48,9 @@ const tools = [
   { icon: FileImage, title: 'PDF to Images', text: 'Preview PDF pages and export selected PNG or JPG files.', to: '/tools/pdf-to-images' },
   { icon: Sparkles, title: 'Images to PDF', text: 'Arrange JPG, PNG and WebP images in one PDF.', to: '/tools/images-to-pdf' },
   { icon: Combine, title: 'Merge PDF', text: 'Preview, reorder and combine multiple PDFs.', to: '/tools/merge-pdf' },
+  { icon: Scissors, title: 'Split PDF', text: 'Choose exact split points and download separate PDF parts.', to: '/tools/split-pdf' },
+  { icon: Minimize2, title: 'Compress PDF', text: 'Reduce PDF size with clear quality and structure controls.', to: '/tools/compress-pdf' },
+  { icon: ImageDown, title: 'Compress Image', text: 'Reduce JPG, PNG and WebP size with a live preview.', to: '/tools/compress-image' },
 ];
 </script>
 
@@ -83,7 +86,7 @@ const tools = [
       </section>
 
       <section class="info-section container" aria-labelledby="available-tools">
-        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Five focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
+        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Eight focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
         <div class="about-tools-grid">
           <NuxtLink v-for="tool in tools" :key="tool.title" :to="tool.to" class="about-tool-card"><span><component :is="tool.icon" :size="22" /></span><div><h3>{{ tool.title }}</h3><p>{{ tool.text }}</p></div><ArrowUpRight :size="18" /></NuxtLink>
         </div>

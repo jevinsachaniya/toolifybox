@@ -11,4 +11,7 @@
   <url><loc>https://toolifybox.netlify.app/tools/pdf-to-images</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/images-to-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/merge-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/split-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/compress-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/compress-image</loc></url>
 </urlset>

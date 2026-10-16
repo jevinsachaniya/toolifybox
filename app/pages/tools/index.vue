@@ -2,12 +2,12 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
   ArrowUpRight, Check, FileCheck, FileImage, FileText,
-  Layers, Lock, LockKeyhole, Minimize2, RotateCw, ScanText, 
+  ImageDown, Layers, Lock, LockKeyhole, Minimize2, RotateCw, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Unlock, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageDescription = 'Use free online Word, PDF and image tools in your browser. Convert DOCX to PDF, PDF to editable Word, PDF pages to images, and images to PDF privately.';
+const pageDescription = 'Use free online Word, PDF and image tools in your browser. Convert files, merge, split and compress PDFs privately on your device.';
 usePageSeo({
   title: 'Free Online Word, PDF & Image Tools | Toolifybox',
   description: pageDescription,
@@ -32,6 +32,9 @@ usePageSeo({
           ['PDF to Images', '/tools/pdf-to-images'],
           ['Images to PDF', '/tools/images-to-pdf'],
           ['Merge PDF', '/tools/merge-pdf'],
+          ['Split PDF', '/tools/split-pdf'],
+          ['Compress PDF', '/tools/compress-pdf'],
+          ['Compress Image', '/tools/compress-image'],
         ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
       },
     }),
@@ -50,6 +53,7 @@ const categories = [
   { id: 'all', label: 'All Utilities' },
   { id: 'pdf', label: 'PDF Utilities' },
   { id: 'word', label: 'Word Utilities' },
+  { id: 'image', label: 'Image Utilities' },
   { id: 'ocr', label: 'OCR & Scans' },
   { id: 'pages', label: 'Organize Pages' },
 ];
@@ -114,21 +118,34 @@ const allTools = [
     id: 'split-pdf',
     title: 'Split PDF',
     category: 'pages',
-    description: 'Separate pages or extract specific page ranges into standalone PDF files.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
-    icon: Minimize2,
+    description: 'Preview every page and choose exact split points to create separate PDF files.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Scissors,
     theme: 'sky',
+    route: '/tools/split-pdf',
   },
   {
     id: 'compress-pdf',
     title: 'Compress PDF',
     category: 'pdf',
     description: 'Reduce PDF file sizes while retaining clear typography and image sharpness.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Minimize2,
     theme: 'teal',
+    route: '/tools/compress-pdf',
+  },
+  {
+    id: 'compress-image',
+    title: 'Compress Image',
+    category: 'image',
+    description: 'Compress JPG, PNG and WebP images with a live preview or custom KB and MB target.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: ImageDown,
+    theme: 'amber',
+    route: '/tools/compress-image',
   },
   {
     id: 'ocr-extract',
@@ -230,6 +247,9 @@ onBeforeUnmount(() => {
             <li><span><Check :size="14" /></span><div><b>PDF pages to images</b><small>Select pages and download clear PNG or JPG files.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>Images to PDF</b><small>Preview, arrange, and combine images into one PDF.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>Merge PDF files</b><small>Preview and combine complete PDFs in the order you choose.</small></div></li>
+            <li><span><Check :size="14" /></span><div><b>Split PDF by pages</b><small>Preview pages and create exact PDF ranges with multiple split points.</small></div></li>
+            <li><span><Check :size="14" /></span><div><b>Compress PDF files</b><small>Choose exact quality or stronger visual compression with clear trade-offs.</small></div></li>
+            <li><span><Check :size="14" /></span><div><b>Compress images</b><small>Preview JPG, PNG or WebP files and control quality or target size.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private in your browser</b><small>Your files stay on your device during conversion.</small></div></li>
           </ul>
           <div class="tools-tip"><FileText :size="18" /><p><b>Best results</b><br />Use clear, standard documents and check the downloaded file before sharing.</p></div>

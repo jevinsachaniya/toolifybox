@@ -10,6 +10,9 @@ const pdfToWordHtml = await readFile(new URL('../.output/public/tools/pdf-to-wor
 const pdfToImagesHtml = await readFile(new URL('../.output/public/tools/pdf-to-images/index.html', import.meta.url), 'utf8');
 const imagesToPdfHtml = await readFile(new URL('../.output/public/tools/images-to-pdf/index.html', import.meta.url), 'utf8');
 const mergePdfHtml = await readFile(new URL('../.output/public/tools/merge-pdf/index.html', import.meta.url), 'utf8');
+const splitPdfHtml = await readFile(new URL('../.output/public/tools/split-pdf/index.html', import.meta.url), 'utf8');
+const compressPdfHtml = await readFile(new URL('../.output/public/tools/compress-pdf/index.html', import.meta.url), 'utf8');
+const compressImageHtml = await readFile(new URL('../.output/public/tools/compress-image/index.html', import.meta.url), 'utf8');
 const aboutHtml = await readFile(new URL('../.output/public/about/index.html', import.meta.url), 'utf8');
 const contactHtml = await readFile(new URL('../.output/public/contact/index.html', import.meta.url), 'utf8');
 const privacyHtml = await readFile(new URL('../.output/public/privacy-policy/index.html', import.meta.url), 'utf8');
@@ -21,6 +24,9 @@ const pdfToWordVisible = pdfToWordHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script
 const pdfToImagesVisible = pdfToImagesHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const imagesToPdfVisible = imagesToPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const mergePdfVisible = mergePdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const splitPdfVisible = splitPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const compressPdfVisible = compressPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const compressImageVisible = compressImageHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const aboutVisible = aboutHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const contactVisible = contactHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const privacyVisible = privacyHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
@@ -37,6 +43,9 @@ assert.ok(toolsVisible.includes('href="/tools/pdf-to-word"'), 'PDF to Word tool 
 assert.ok(toolsVisible.includes('href="/tools/pdf-to-images"'), 'PDF to Images tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/images-to-pdf"'), 'Images to PDF tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/merge-pdf"'), 'Merge PDF tool card must link to its dedicated page');
+assert.ok(toolsVisible.includes('href="/tools/split-pdf"'), 'Split PDF tool card must link to its dedicated page');
+assert.ok(toolsVisible.includes('href="/tools/compress-pdf"'), 'Compress PDF tool card must link to its dedicated page');
+assert.ok(toolsVisible.includes('href="/tools/compress-image"'), 'Compress Image tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('No document uploads'));
 assert.ok(!toolsVisible.includes('Our server') && !toolsVisible.includes('sent to this website'));
 assert.equal((visible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
@@ -46,6 +55,9 @@ assert.equal((pdfToWordVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((pdfToImagesVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((imagesToPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((mergePdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((splitPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((compressPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((compressImageVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((aboutVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((contactVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((privacyVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
@@ -60,11 +72,17 @@ assert.ok(imagesToPdfVisible.includes('id="converter"') && imagesToPdfVisible.in
 assert.ok(imagesToPdfVisible.includes('Choose images') && imagesToPdfVisible.includes('Maximum quality'));
 assert.ok(mergePdfVisible.includes('id="converter"') && mergePdfVisible.includes('Merge PDF converter'));
 assert.ok(mergePdfVisible.includes('Choose PDF files') && mergePdfVisible.includes('Preview Every Page'));
+assert.ok(splitPdfVisible.includes('id="converter"') && splitPdfVisible.includes('Split PDF converter'));
+assert.ok(splitPdfVisible.includes('Choose PDF file') && splitPdfVisible.includes('Multiple Split Points'));
+assert.ok(compressPdfVisible.includes('id="converter"') && compressPdfVisible.includes('Compress PDF converter'));
+assert.ok(compressPdfVisible.includes('Choose PDF file') && compressPdfVisible.includes('Exact Quality Mode') && compressPdfVisible.includes('Custom KB or MB Target'));
+assert.ok(compressImageVisible.includes('id="converter"') && compressImageVisible.includes('Compress Image converter'));
+assert.ok(compressImageVisible.includes('Choose image') && compressImageVisible.includes('Custom KB or MB Target') && compressImageVisible.includes('JPG, PNG or WebP'));
 assert.equal((visible.match(/<details(?:\s[^>]*)?>/g) || []).length, 4);
 for (const removed of ['My favorites', 'Image resizer', 'JSON formatter']) assert.ok(!visible.includes(removed) && !toolsVisible.includes(removed), `Removed feature still visible: ${removed}`);
 assert.ok(!visible.includes('undefined') && !toolsVisible.includes('undefined'));
-const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, pdfToWordHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml];
-const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, pdfToWordVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible];
+const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, pdfToWordHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml];
+const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, pdfToWordVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible, splitPdfVisible, compressPdfVisible, compressImageVisible];
 assert.ok(generatedPages.every(page => page.includes('id="__nuxt"')), 'Missing Nuxt application');
 assert.ok(visiblePages.every(page => page.includes('class="theme-toggle"') && page.includes('Switch to dark theme')), 'Every page must include the theme switch');
 assert.ok(visiblePages.every(page => page.includes('class="site-version"') && page.includes(`v${SITE_VERSION}`)), 'Every page must include the configured site version');
@@ -73,9 +91,9 @@ assert.ok(visiblePages.every(page => page.includes('class="brand-mark"') && page
 assert.ok(visiblePages.every(page => page.includes('class="footer-links"') && page.includes('href="/about"') && page.includes('href="/contact"')), 'Every page must link to About and Contact in the footer');
 assert.ok(visiblePages.every(page => page.includes('href="/privacy-policy"') && page.includes('href="/terms-and-conditions"')), 'Every page must link to the legal pages');
 assert.ok(visiblePages.every(page => page.includes('class="mobile-menu-toggle"') && page.includes('aria-label="Open navigation menu"')), 'Every page must include the mobile hamburger navigation');
-assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"')), 'Every page footer must link to all active converters');
+assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"') && page.includes('href="/tools/split-pdf"') && page.includes('href="/tools/compress-pdf"') && page.includes('href="/tools/compress-image"')), 'Every page footer must link to all active converters');
 assert.ok(toolsVisible.includes('id="tool-search"') && toolsVisible.includes('Search tools') && toolsVisible.includes('Search Word, PDF, image or OCR tools'), 'Tools page search is missing');
-assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('Five focused browser tools'), 'About page content is incomplete');
+assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('Eight focused browser tools'), 'About page content is incomplete');
 assert.ok(contactVisible.includes('Tell us how we') && contactVisible.includes('name="contact"') && contactVisible.includes('data-netlify="true"'), 'Contact page or Netlify form markup is incomplete');
 assert.ok(contactVisible.includes('name="form-name"') && contactVisible.includes('netlify-honeypot="bot-field"'), 'Contact form must include Netlify detection and spam protection fields');
 assert.ok(privacyVisible.includes('Privacy overview') && privacyVisible.includes('toolifybox-theme') && privacyVisible.includes('Netlify Privacy Statement'), 'Privacy Policy content is incomplete');
@@ -97,6 +115,9 @@ const pageRecords = [
   ['/tools/pdf-to-images', pdfToImagesHtml],
   ['/tools/images-to-pdf', imagesToPdfHtml],
   ['/tools/merge-pdf', mergePdfHtml],
+  ['/tools/split-pdf', splitPdfHtml],
+  ['/tools/compress-pdf', compressPdfHtml],
+  ['/tools/compress-image', compressImageHtml],
 ];
 const titles = [];
 const descriptions = [];

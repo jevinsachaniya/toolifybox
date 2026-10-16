@@ -7,6 +7,7 @@ import net from 'node:net';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
 import { PDFDocument } from 'pdf-lib';
+import { SITE_VERSION } from '../site.version.mjs';
 await mkdir('.runtime', { recursive: true });
 
 const root = process.cwd();
@@ -162,16 +163,16 @@ try {
   assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'light', 'Light must be the default theme');
   assert.equal(await evaluate(`document.querySelector('.theme-toggle')?.getAttribute('aria-label')`), 'Switch to dark theme');
   assert.equal(await evaluate(`!!document.querySelector('#tool-search')`), true, 'Tools page must include the tool search');
-  await evaluate(`document.querySelector('#tool-search').value = 'WebP'; document.querySelector('#tool-search').dispatchEvent(new Event('input', { bubbles: true }));`);
+  await evaluate(`document.querySelector('#tool-search').value = 'Combine PNG'; document.querySelector('#tool-search').dispatchEvent(new Event('input', { bubbles: true }));`);
   await waitFor(`document.querySelectorAll('.tool-card').length === 1`);
   assert.equal(await evaluate(`document.querySelector('.tool-card')?.getAttribute('href')`), '/tools/images-to-pdf', 'Tool search must filter the catalog');
   await evaluate(`document.querySelector('.search-clear').click()`);
   await waitFor(`document.querySelectorAll('.tool-card').length > 4`);
-  assert.equal(await evaluate(`document.querySelectorAll('.footer-tools a').length`), 6, 'Footer must link to all active converters and the tools page');
+  assert.equal(await evaluate(`document.querySelectorAll('.footer-tools a').length`), 9, 'Footer must link to all active converters and the tools page');
   await evaluate(`document.querySelector('.theme-toggle').click()`);
   await waitFor(`document.documentElement.dataset.theme === 'dark'`);
   assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'dark', 'Dark theme choice must be saved');
-  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"], a.tool-card[href="/tools/images-to-pdf"], a.tool-card[href="/tools/merge-pdf"]').length`), 5, 'All active tool cards must be links');
+  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"], a.tool-card[href="/tools/images-to-pdf"], a.tool-card[href="/tools/merge-pdf"], a.tool-card[href="/tools/split-pdf"], a.tool-card[href="/tools/compress-pdf"], a.tool-card[href="/tools/compress-image"]').length`), 8, 'All active tool cards must be links');
   await evaluate(`document.querySelector('a.tool-card[href="/tools/images-to-pdf"]').click()`);
   await waitFor(`location.pathname === '/tools/images-to-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Images to PDF converter'`);
   assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'dark', 'Theme choice must persist across routes');
@@ -526,6 +527,158 @@ try {
   assert.ok(mergedSecondPage.getHeight() > mergedSecondPage.getWidth(), 'Original portrait pages must follow the reordered PDF');
   await writeFile(path.join(root, '.runtime', 'merged-result.pdf'), mergedBytes);
 
+  // Split one PDF at multiple visual break points and preserve every page.
+  await send('Page.navigate', { url: new URL('/tools/split-pdf', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/split-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Split PDF converter'`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  const splitSource = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait' });
+  splitSource.setTextColor('#2563eb'); splitSource.text('Split source page 1', 40, 60);
+  splitSource.addPage('a4', 'portrait'); splitSource.text('Split source page 2', 40, 60);
+  splitSource.addPage([500, 300], 'landscape'); splitSource.text('Split source page 3 landscape', 35, 55);
+  splitSource.addPage([500, 300], 'landscape'); splitSource.text('Split source page 4 landscape', 35, 55);
+  splitSource.addPage([240, 420], 'portrait'); splitSource.text('Split source page 5', 30, 50);
+  await upload('quarterly-report.pdf', Buffer.from(splitSource.output('arraybuffer')).toString('base64'));
+  await evaluate(`document.querySelector('.convert-button').click()`);
+  await waitFor(`document.querySelectorAll('.split-page-card').length === 5 || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  const splitControl = await evaluate(`(() => { const button = document.querySelector('[aria-label="Split after page 2"]'); const style = getComputedStyle(button); const box = button.getBoundingClientRect(); return { text: button.textContent.trim(), display: style.display, visibility: style.visibility, color: style.color, fill: style.webkitTextFillColor, width: box.width, height: box.height }; })()`);
+  assert.match(splitControl.text, /Split after page 2/);
+  assert.ok(splitControl.display !== 'none' && splitControl.visibility === 'visible' && splitControl.width > 80 && splitControl.height >= 40 && splitControl.color !== 'rgba(0, 0, 0, 0)' && splitControl.fill !== 'rgba(0, 0, 0, 0)', `Split control must be clearly visible: ${JSON.stringify(splitControl)}`);
+  await evaluate(`document.querySelector('[aria-label="Split after page 2"]').click(); document.querySelector('[aria-label="Split after page 4"]').click()`);
+  await waitFor(`document.querySelectorAll('.split-page-card.split-selected').length === 2 && !document.querySelector('.split-pdf-button').disabled`);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.split-range-list > span')].map(item => item.textContent.replace(/\\s+/g, ' ').trim())`), ['Part 1 Pages 1–2', 'Part 2 Pages 3–4', 'Part 3 Pages 5–5'], 'Split ranges must match the selected page breaks');
+  assert.match(await evaluate(`document.querySelector('.split-pdf-button').textContent`), /Create 3 PDF parts/);
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Split PDF previews overflow on mobile');
+  await screenshot('design-split-pdf-preview.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.split-pdf-button').click()`);
+  await waitFor(`!!document.querySelector('.split-results') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelectorAll('.split-result-list a[download]').length`), 3, 'Split tool must offer every PDF part separately');
+  assert.equal(await evaluate(`document.querySelector('.split-results-heading a').download`), 'quarterly-report-split-parts.zip');
+  const splitArchiveBase64 = await evaluate(`(async () => { const blob = await (await fetch(document.querySelector('.split-results-heading a').href)).blob(); return await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(blob); }); })()`);
+  const splitArchive = await JSZip.loadAsync(Buffer.from(splitArchiveBase64, 'base64'));
+  assert.equal(Object.values(splitArchive.files).filter(entry => !entry.dir && entry.name.endsWith('.pdf')).length, 3, 'Download-all ZIP must contain every split PDF part');
+  const splitPartsBase64 = await evaluate(`Promise.all([...document.querySelectorAll('.split-result-list a')].map(async link => { const blob = await (await fetch(link.href)).blob(); return await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(blob); }); }))`);
+  const splitDocuments = await Promise.all(splitPartsBase64.map(value => PDFDocument.load(Buffer.from(value, 'base64'))));
+  assert.deepEqual(splitDocuments.map(document => document.getPageCount()), [2, 2, 1], 'Split PDF parts must contain the selected page ranges');
+  assert.ok(splitDocuments[0].getPage(0).getHeight() > splitDocuments[0].getPage(0).getWidth(), 'First split part must preserve portrait pages');
+  assert.ok(splitDocuments[1].getPage(0).getWidth() > splitDocuments[1].getPage(0).getHeight(), 'Second split part must preserve landscape pages');
+  assert.ok(splitDocuments[2].getPage(0).getHeight() > splitDocuments[2].getPage(0).getWidth(), 'Last split part must preserve its portrait page');
+  await Promise.all(splitPartsBase64.map((value, index) => writeFile(path.join(root, '.runtime', `split-result-${index + 1}.pdf`), Buffer.from(value, 'base64'))));
+
+  // Compress an image-heavy PDF with visual page previews and a clear quality choice.
+  await send('Page.navigate', { url: new URL('/tools/compress-pdf', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/compress-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Compress PDF converter'`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  const compressionSource = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait', compress: false });
+  const compressionWidth = 700;
+  const compressionHeight = 900;
+  for (let page = 0; page < 3; page++) {
+    if (page) compressionSource.addPage('a4', 'portrait');
+    const pixels = new Uint8ClampedArray(compressionWidth * compressionHeight * 4);
+    for (let pixel = 0; pixel < compressionWidth * compressionHeight; pixel++) {
+      const offset = pixel * 4;
+      const x = pixel % compressionWidth;
+      const y = Math.floor(pixel / compressionWidth);
+      pixels[offset] = (x * 3 + y + page * 41) % 256;
+      pixels[offset + 1] = (x + y * 2 + page * 79) % 256;
+      pixels[offset + 2] = (x * 2 + y * 3 + page * 23) % 256;
+      pixels[offset + 3] = 255;
+    }
+    compressionSource.addImage({ data: pixels, width: compressionWidth, height: compressionHeight }, 'RGBA', 0, 0, 595.28, 841.89);
+    compressionSource.setFillColor(255, 255, 255); compressionSource.roundedRect(32, 32, 260, 42, 7, 7, 'F');
+    compressionSource.setTextColor('#0f172a'); compressionSource.text(`Compression quality page ${page + 1}`, 48, 58);
+  }
+  const compressionBytes = Buffer.from(compressionSource.output('arraybuffer'));
+  assert.ok(compressionBytes.length < 20 * 1024 * 1024, 'Compression browser fixture must stay within the upload limit');
+  await upload('photo-report.pdf', compressionBytes.toString('base64'));
+  await evaluate(`document.querySelector('.convert-button').click()`);
+  await waitFor(`document.querySelectorAll('.compress-page-strip figure').length === 3 || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelectorAll('.compress-options > button').length`), 4, 'Compress tool must provide three quality presets and a custom target size');
+  assert.match(await evaluate(`document.querySelector('.compress-options > button[aria-pressed="true"]').textContent`), /Exact quality/);
+  await evaluate(`document.querySelectorAll('.compress-options > button')[1].click()`);
+  await waitFor(`document.querySelector('.compress-mode-note')?.classList.contains('flattened')`);
+  assert.match(await evaluate(`document.querySelector('.compress-mode-note').textContent`), /page dimensions stay the same/i);
+  await evaluate(`document.querySelectorAll('.compress-options > button')[3].click()`);
+  await waitFor(`!!document.querySelector('.compress-target-size')`);
+  await evaluate(`document.querySelector('#compress-target-value').value = '1'; document.querySelector('#compress-target-value').dispatchEvent(new Event('input', { bubbles: true }));`);
+  assert.equal(await evaluate(`document.querySelector('.compress-target-size select').value`), 'MB');
+  assert.match(await evaluate(`document.querySelector('.compress-mode-note').textContent`), /best-effort maximum/i);
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Compress PDF controls overflow on mobile');
+  await screenshot('design-compress-pdf-preview.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.compress-pdf-button').click()`);
+  await waitFor(`!!document.querySelector('.compress-result a[download]') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelector('.compress-result a').download`), 'photo-report-compressed.pdf');
+  const compressedBase64 = await evaluate(`(async () => { const blob = await (await fetch(document.querySelector('.compress-result a').href)).blob(); return await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(blob); }); })()`);
+  const compressedBytes = Buffer.from(compressedBase64, 'base64');
+  const compressedDocument = await PDFDocument.load(compressedBytes);
+  assert.equal(compressedDocument.getPageCount(), 3, 'Compressed PDF must preserve every source page');
+  assert.ok(compressedBytes.length < compressionBytes.length, 'Target-size compression must reduce the image-heavy PDF fixture');
+  assert.ok(compressedBytes.length <= 1024 * 1024, 'Custom 1 MB target must be met for the compressible browser fixture');
+  assert.ok(compressedDocument.getPage(0).getHeight() > compressedDocument.getPage(0).getWidth(), 'Compression must preserve portrait page dimensions');
+  assert.match(await evaluate(`document.querySelector('.compress-result strong').textContent`), /Target size reached/i);
+  await writeFile(path.join(root, '.runtime', 'compressed-result.pdf'), compressedBytes);
+
+  // Compress a high-detail PNG with preview, presets and a custom KB target.
+  await send('Page.navigate', { url: new URL('/tools/compress-image', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/compress-image' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Compress Image converter'`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  const compressionImageBase64 = await evaluate(`(() => {
+    const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 800;
+    const context = canvas.getContext('2d'); const image = context.createImageData(canvas.width, canvas.height);
+    let seed = 246813579;
+    for (let pixel = 0; pixel < canvas.width * canvas.height; pixel++) {
+      seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5;
+      const offset = pixel * 4; const x = pixel % canvas.width; const y = Math.floor(pixel / canvas.width);
+      image.data[offset] = ((seed >>> 0) + x * 3) % 256;
+      image.data[offset + 1] = ((seed >>> 8) + y * 2) % 256;
+      image.data[offset + 2] = ((seed >>> 16) + x + y) % 256;
+      image.data[offset + 3] = 255;
+    }
+    context.putImageData(image, 0, 0);
+    context.fillStyle = 'rgba(255,255,255,.92)'; context.fillRect(45, 45, 470, 86);
+    context.fillStyle = '#0f172a'; context.font = '700 35px Arial'; context.fillText('Toolifybox image quality', 70, 99);
+    return canvas.toDataURL('image/png').split(',')[1];
+  })()`);
+  const compressionImageBytes = Buffer.from(compressionImageBase64, 'base64');
+  assert.ok(compressionImageBytes.length > 500 * 1024 && compressionImageBytes.length < 20 * 1024 * 1024, 'Image compression fixture must be large and stay within the upload limit');
+  await upload('large-artwork.png', compressionImageBase64);
+  await waitFor(`!!document.querySelector('.compress-image-preview img') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelectorAll('.image-compress-options > button').length`), 4, 'Image compressor must provide three quality presets and a custom target size');
+  assert.match(await evaluate(`document.querySelector('.image-compress-options > button[aria-pressed="true"]').textContent`), /High quality/);
+  assert.match(await evaluate(`document.querySelector('.compress-image-summary span').textContent`), /1200 × 800 px/);
+  await evaluate(`document.querySelectorAll('.image-compress-options > button')[3].click()`);
+  await waitFor(`!!document.querySelector('#compress-image-target')`);
+  await evaluate(`document.querySelector('#compress-image-target').value = '180'; document.querySelector('#compress-image-target').dispatchEvent(new Event('input', { bubbles: true }));`);
+  assert.equal(await evaluate(`document.querySelector('.compress-target-size select').value`), 'KB');
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Compress Image controls overflow on mobile');
+  await screenshot('design-compress-image-preview.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.compress-image-button').click()`);
+  await waitFor(`!!document.querySelector('.image-compress-result a[download]') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelector('.image-compress-result a').download`), 'large-artwork-compressed.webp');
+  const compressedImage = await evaluate(`(async () => {
+    const blob = await (await fetch(document.querySelector('.image-compress-result a').href)).blob();
+    const bitmap = await createImageBitmap(blob);
+    const base64 = await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(blob); });
+    const output = { base64, size: blob.size, type: blob.type, width: bitmap.width, height: bitmap.height }; bitmap.close(); return output;
+  })()`);
+  assert.equal(compressedImage.type, 'image/webp', 'Custom target image should use efficient WebP compression');
+  assert.ok(compressedImage.size < compressionImageBytes.length, 'Custom target must reduce the PNG fixture');
+  assert.ok(compressedImage.size <= 180 * 1024, 'Custom 180 KB image target must be met for the compressible fixture');
+  assert.ok(compressedImage.width > 0 && compressedImage.height > 0, 'Compressed image must remain readable with valid dimensions');
+  assert.match(await evaluate(`document.querySelector('.image-compress-result strong').textContent`), /Target size reached/i);
+  await writeFile(path.join(root, '.runtime', 'compressed-image.webp'), Buffer.from(compressedImage.base64, 'base64'));
+
   await viewport(390, 844, true);
   await send('Page.navigate', { url: new URL('/contact', baseUrl).href });
   await waitFor(`!!document.querySelector('form[name="contact"]')`);
@@ -540,7 +693,7 @@ try {
   await waitFor(`!!document.querySelector('h1') && !!document.querySelector('.about-tools-grid')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'About page overflows on desktop');
-  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 5, 'About page should link to every active tool');
+  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 8, 'About page should link to every active tool');
   await screenshot('about-desktop.png');
 
   await viewport(390, 844, true);
@@ -549,6 +702,10 @@ try {
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Privacy Policy overflows on mobile');
   assert.equal(await evaluate(`document.querySelector('time')?.getAttribute('datetime')`), '2026-10-16');
+  const mobileVersion = await evaluate(`(() => { const badge = document.querySelector('.site-version'); const parent = badge.parentElement; const box = badge.getBoundingClientRect(); const parentBox = parent.getBoundingClientRect(); return { text: badge.textContent.trim(), width: box.width, height: box.height, inside: box.left >= parentBox.left && box.right <= parentBox.right && box.top >= parentBox.top && box.bottom <= parentBox.bottom, whiteSpace: getComputedStyle(badge).whiteSpace }; })()`);
+  assert.equal(mobileVersion.text, `v${SITE_VERSION}`, 'Mobile footer must show the complete configured version');
+  assert.equal(mobileVersion.inside, true, 'Mobile version badge must stay fully inside the footer');
+  assert.ok(mobileVersion.width > 30 && mobileVersion.height >= 24 && mobileVersion.whiteSpace === 'nowrap', 'Mobile version badge is clipped');
   await screenshot('privacy-policy-mobile.png');
 
   await viewport(1440, 1000);
@@ -572,7 +729,7 @@ try {
   assert.deepEqual(consoleErrors, []);
   assert.deepEqual(hydrationWarnings, [], 'Nuxt hydration warnings');
   if (process.env.TOOLIFYBOX_TEST_PDF_ONLY) console.log('PDF-to-Word browser checks passed: editable by default, real Word text, English/Hindi OCR, text colors, clipping, blank-page errors, page-image option, OCR cancellation, mobile layout, and zero uploads.');
-  else console.log(`Browser-only checks passed: default light theme, saved dark theme across routes, desktop/mobile/320px, arranged images to a 3-page PDF, selected PDF pages to JPG ZIP, actual PDF output, page defaults, zero margins, mixed orientations, repeated headers/footers, cancellation, recovery, frame cleanup, ${pageCount}-page report, editable Word text, English/Hindi OCR, blank-page errors, and zero document uploads.`);
+  else console.log(`Browser-only checks passed: default light theme, saved dark theme across routes, desktop/mobile/320px, arranged images to a 3-page PDF, selected PDF pages to JPG ZIP, merged PDFs, split PDFs with multiple page breaks and ZIP download, compressed PDFs and images with custom target sizes, actual PDF output, page defaults, zero margins, mixed orientations, repeated headers/footers, cancellation, recovery, frame cleanup, ${pageCount}-page report, editable Word text, English/Hindi OCR, blank-page errors, and zero document uploads.`);
 } finally {
   socket?.close(); chrome.kill();
   for (const { timer } of pending.values()) clearTimeout(timer);

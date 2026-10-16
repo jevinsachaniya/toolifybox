@@ -26,6 +26,9 @@ const year = new Date().getFullYear();
         <NuxtLink to="/tools/pdf-to-images">PDF to Images</NuxtLink>
         <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
         <NuxtLink to="/tools/merge-pdf">Merge PDF</NuxtLink>
+        <NuxtLink to="/tools/split-pdf">Split PDF</NuxtLink>
+        <NuxtLink to="/tools/compress-pdf">Compress PDF</NuxtLink>
+        <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
       </nav>
 
       <nav class="footer-links" aria-label="Toolifybox links">

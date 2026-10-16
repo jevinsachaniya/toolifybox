@@ -12,6 +12,9 @@ export const SITE_ROUTES = [
   '/tools/pdf-to-images',
   '/tools/images-to-pdf',
   '/tools/merge-pdf',
+  '/tools/split-pdf',
+  '/tools/compress-pdf',
+  '/tools/compress-image',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {
