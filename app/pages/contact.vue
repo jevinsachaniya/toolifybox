@@ -61,7 +61,7 @@ usePageSeo({
         <aside class="contact-aside" aria-label="Contact guidance">
           <div class="contact-guide-card"><span class="contact-guide-icon"><Bug :size="20" /></span><h2>Reporting a problem?</h2><p>Include the tool name, file type, browser, device and the exact error message. You do not need to send the document itself.</p></div>
           <div class="contact-guide-card"><span class="contact-guide-icon"><Lightbulb :size="20" /></span><h2>Suggesting a tool?</h2><p>Explain the file you start with, the result you need and the options that would make the workflow useful.</p></div>
-          <div class="contact-guide-card contact-privacy-card"><span class="contact-guide-icon"><ShieldCheck :size="20" /></span><h2>About form privacy</h2><p>This contact form is processed by Netlify Forms for the site owner. It is separate from Toolifybox converters, which process supported files locally in your browser.</p><NuxtLink to="/about">Read about Toolifybox <ArrowRight :size="14" /></NuxtLink></div>
+          <div class="contact-guide-card contact-privacy-card"><span class="contact-guide-icon"><ShieldCheck :size="20" /></span><h2>About form privacy</h2><p>This contact form is processed by Netlify Forms for the site owner. It is separate from Toolifybox converters, which process supported files locally in your browser.</p><NuxtLink to="/privacy-policy">Read the Privacy Policy <ArrowRight :size="14" /></NuxtLink></div>
           <div class="contact-quick-link"><HelpCircle :size="18" /><p>Need help choosing a converter?</p><NuxtLink to="/tools">View all tools</NuxtLink></div>
         </aside>
       </section>

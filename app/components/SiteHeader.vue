@@ -19,9 +19,9 @@ async function findTool() {
   const search = toolSearch.value.trim();
   closeMenu();
   await nextTick();
-  await router.push({ path: '/tools', query: search ? { search } : {}, hash: '#catalog' });
+  await router.push({ path: '/tools', query: search ? { search } : {}, hash: '#tool-results' });
   await nextTick();
-  document.querySelector('#catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('#tool-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 watch(() => route.fullPath, closeMenu);

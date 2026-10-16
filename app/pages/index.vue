@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Download, FileImage, FileText, Images, LockKeyhole, ScanText, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Download, FileImage, FileText, Images, LockKeyhole, ScanText, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
 import { usePageSeo } from '~/composables/usePageSeo';
 
 const shell = ref(null);
@@ -103,11 +103,12 @@ onBeforeUnmount(() => {
           </div>
           <div class="tool-showcase" aria-label="Available document tools">
             <div class="showcase-glow" aria-hidden="true" />
-            <div class="showcase-label"><span>DOCUMENT TOOLS</span><b>4 tools available</b></div>
+            <div class="showcase-label"><span>DOCUMENT TOOLS</span><b>5 tools available</b></div>
             <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><FileText :size="24" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/pdf-to-word" class="showcase-tool pdf-tool"><span class="showcase-icon"><ScanText :size="24" /></span><span><b>PDF to Word</b><small>Make PDF text editable with OCR</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/pdf-to-images" class="showcase-tool image-tool"><span class="showcase-icon"><FileImage :size="24" /></span><span><b>PDF to Images</b><small>Select pages and export PNG or JPG</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/images-to-pdf" class="showcase-tool images-pdf-tool"><span class="showcase-icon"><Images :size="24" /></span><span><b>Images to PDF</b><small>Arrange images into one clear PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
+            <NuxtLink to="/tools/merge-pdf" class="showcase-tool merge-pdf-tool"><span class="showcase-icon"><Combine :size="24" /></span><span><b>Merge PDF</b><small>Preview and combine PDF files</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <div class="showcase-privacy"><ShieldCheck :size="15" /><span><b>Stays on your device</b><small>No document uploads</small></span></div>
           </div>
         </div>

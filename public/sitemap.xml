@@ -3,9 +3,12 @@
   <url><loc>https://toolifybox.netlify.app/</loc></url>
   <url><loc>https://toolifybox.netlify.app/about</loc></url>
   <url><loc>https://toolifybox.netlify.app/contact</loc></url>
+  <url><loc>https://toolifybox.netlify.app/privacy-policy</loc></url>
+  <url><loc>https://toolifybox.netlify.app/terms-and-conditions</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/word-to-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/pdf-to-word</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/pdf-to-images</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/images-to-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/merge-pdf</loc></url>
 </urlset>

@@ -4,11 +4,14 @@ export const SITE_ROUTES = [
   '/',
   '/about',
   '/contact',
+  '/privacy-policy',
+  '/terms-and-conditions',
   '/tools',
   '/tools/word-to-pdf',
   '/tools/pdf-to-word',
   '/tools/pdf-to-images',
   '/tools/images-to-pdf',
+  '/tools/merge-pdf',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

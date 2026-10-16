@@ -31,6 +31,7 @@ usePageSeo({
           ['PDF to Word', '/tools/pdf-to-word'],
           ['PDF to Images', '/tools/pdf-to-images'],
           ['Images to PDF', '/tools/images-to-pdf'],
+          ['Merge PDF', '/tools/merge-pdf'],
         ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
       },
     }),
@@ -103,10 +104,11 @@ const allTools = [
     title: 'Merge PDF',
     category: 'pages',
     description: 'Combine multiple PDF documents into a single organized file in seconds.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Layers,
     theme: 'violet',
+    route: '/tools/merge-pdf',
   },
   {
     id: 'split-pdf',
@@ -227,6 +229,7 @@ onBeforeUnmount(() => {
             <li><span><Check :size="14" /></span><div><b>PDF to editable Word</b><small>Extract real text, including Hindi and English scans.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>PDF pages to images</b><small>Select pages and download clear PNG or JPG files.</small></div></li>
             <li><span><Check :size="14" /></span><div><b>Images to PDF</b><small>Preview, arrange, and combine images into one PDF.</small></div></li>
+            <li><span><Check :size="14" /></span><div><b>Merge PDF files</b><small>Preview and combine complete PDFs in the order you choose.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private in your browser</b><small>Your files stay on your device during conversion.</small></div></li>
           </ul>
           <div class="tools-tip"><FileText :size="18" /><p><b>Best results</b><br />Use clear, standard documents and check the downloaded file before sharing.</p></div>
@@ -288,7 +291,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Tools Grid -->
-        <div class="tools-grid">
+        <div id="tool-results" class="tools-grid">
           <NuxtLink
             v-for="tool in filteredTools.filter(item => item.route)"
             :key="tool.id"

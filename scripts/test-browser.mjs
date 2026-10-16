@@ -6,6 +6,7 @@ import { existsSync } from 'node:fs';
 import net from 'node:net';
 import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
+import { PDFDocument } from 'pdf-lib';
 await mkdir('.runtime', { recursive: true });
 
 const root = process.cwd();
@@ -166,11 +167,11 @@ try {
   assert.equal(await evaluate(`document.querySelector('.tool-card')?.getAttribute('href')`), '/tools/images-to-pdf', 'Tool search must filter the catalog');
   await evaluate(`document.querySelector('.search-clear').click()`);
   await waitFor(`document.querySelectorAll('.tool-card').length > 4`);
-  assert.equal(await evaluate(`document.querySelectorAll('.footer-tools a').length`), 5, 'Footer must link to all active converters and the tools page');
+  assert.equal(await evaluate(`document.querySelectorAll('.footer-tools a').length`), 6, 'Footer must link to all active converters and the tools page');
   await evaluate(`document.querySelector('.theme-toggle').click()`);
   await waitFor(`document.documentElement.dataset.theme === 'dark'`);
   assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'dark', 'Dark theme choice must be saved');
-  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"], a.tool-card[href="/tools/images-to-pdf"]').length`), 4, 'All active tool cards must be links');
+  assert.equal(await evaluate(`document.querySelectorAll('a.tool-card[href="/tools/word-to-pdf"], a.tool-card[href="/tools/pdf-to-word"], a.tool-card[href="/tools/pdf-to-images"], a.tool-card[href="/tools/images-to-pdf"], a.tool-card[href="/tools/merge-pdf"]').length`), 5, 'All active tool cards must be links');
   await evaluate(`document.querySelector('a.tool-card[href="/tools/images-to-pdf"]').click()`);
   await waitFor(`location.pathname === '/tools/images-to-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Images to PDF converter'`);
   assert.equal(await evaluate(`document.documentElement.dataset.theme`), 'dark', 'Theme choice must persist across routes');
@@ -185,10 +186,10 @@ try {
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Open mobile navigation overflows');
   await screenshot('design-mobile-menu.png');
   await evaluate(`(() => { const input = document.querySelector('.mobile-tool-finder input'); input.value = 'PDF to Word'; input.dispatchEvent(new Event('input', { bubbles: true })); document.querySelector('.mobile-tool-finder form').requestSubmit(); })()`);
-  await waitFor(`location.pathname === '/tools' && location.hash === '#catalog' && new URLSearchParams(location.search).get('search') === 'PDF to Word'`);
-  await waitFor(`!document.querySelector('#mobile-navigation') && document.querySelectorAll('.tool-card').length === 1 && (() => { const top = document.querySelector('#catalog').getBoundingClientRect().top; return top >= 0 && top < innerHeight * 0.35; })()`);
+  await waitFor(`location.pathname === '/tools' && location.hash === '#tool-results' && new URLSearchParams(location.search).get('search') === 'PDF to Word'`);
+  await waitFor(`!document.querySelector('#mobile-navigation') && document.querySelectorAll('.tool-card').length === 1 && (() => { const top = document.querySelector('#tool-results').getBoundingClientRect().top; return top >= 0 && top < innerHeight * 0.35; })()`);
   assert.equal(await evaluate(`document.querySelector('.tool-card')?.getAttribute('href')`), '/tools/pdf-to-word', 'Header search must show the matching tool');
-  const searchScroll = await evaluate(`(() => ({ top: document.querySelector('#catalog').getBoundingClientRect().top, scrollY, height: innerHeight }))()`);
+  const searchScroll = await evaluate(`(() => ({ top: document.querySelector('#tool-results').getBoundingClientRect().top, scrollY, height: innerHeight }))()`);
   assert.ok(searchScroll.top >= 0 && searchScroll.top < searchScroll.height * 0.35, `Header search must scroll to the result catalog: ${JSON.stringify(searchScroll)}`);
   await send('Page.navigate', { url: new URL('/tools/images-to-pdf', baseUrl).href });
   await waitFor(`location.pathname === '/tools/images-to-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Images to PDF converter'`);
@@ -491,6 +492,40 @@ try {
   await waitFor(`!document.querySelector('.convert-button').disabled`);
   assert.equal(await evaluate(`!!document.querySelector('.result-state')`), false);
 
+  // Merge original PDF pages after previewing and reordering both files.
+  await send('Page.navigate', { url: new URL('/tools/merge-pdf', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/merge-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Merge PDF converter'`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  const firstMergePdf = new jsPDF({ unit: 'pt', format: 'a4' });
+  firstMergePdf.setTextColor('#2563eb'); firstMergePdf.text('First document, page one', 40, 60);
+  firstMergePdf.addPage(); firstMergePdf.text('First document, page two', 40, 60);
+  const secondMergePdf = new jsPDF({ unit: 'pt', format: [500, 300], orientation: 'landscape' });
+  secondMergePdf.setTextColor('#16a34a'); secondMergePdf.text('Second document comes first after reordering', 35, 55);
+  await uploadMany([
+    { name: 'first.pdf', type: 'application/pdf', base64: Buffer.from(firstMergePdf.output('arraybuffer')).toString('base64') },
+    { name: 'second.pdf', type: 'application/pdf', base64: Buffer.from(secondMergePdf.output('arraybuffer')).toString('base64') },
+  ]);
+  await waitFor(`document.querySelectorAll('.merge-document-card').length === 2 && document.querySelectorAll('.merge-page-strip figure').length === 3 && !document.querySelector('.merge-pdf-button').disabled`);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.merge-document-head strong')].map(item => item.textContent)`), ['first.pdf', 'second.pdf'], 'Merge preview must show both PDFs in selection order');
+  await evaluate(`document.querySelector('[aria-label="Move second.pdf earlier"]').click()`);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.merge-document-head strong')].map(item => item.textContent)`), ['second.pdf', 'first.pdf'], 'Merge controls must change PDF order');
+  await viewport(390, 844, true);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Merge PDF previews overflow on mobile');
+  await screenshot('design-merge-pdf-preview.png');
+  await viewport(1440, 1100);
+  await evaluate(`document.querySelector('.merge-pdf-button').click()`);
+  await waitFor(`!!document.querySelector('.merge-result a[download]') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
+  assert.equal(await evaluate(`document.querySelector('.merge-result a').download`), 'second-merged.pdf');
+  const mergedBase64 = await evaluate(`(async () => { const blob = await (await fetch(document.querySelector('.merge-result a').href)).blob(); return await new Promise(resolve => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.readAsDataURL(blob); }); })()`);
+  const mergedBytes = Buffer.from(mergedBase64, 'base64');
+  const mergedDocument = await PDFDocument.load(mergedBytes);
+  assert.equal(mergedDocument.getPageCount(), 3, 'Merged PDF must contain every source page');
+  const [mergedFirstPage, mergedSecondPage] = mergedDocument.getPages();
+  assert.ok(mergedFirstPage.getWidth() > mergedFirstPage.getHeight(), 'Reordered PDF must supply the first merged page');
+  assert.ok(mergedSecondPage.getHeight() > mergedSecondPage.getWidth(), 'Original portrait pages must follow the reordered PDF');
+  await writeFile(path.join(root, '.runtime', 'merged-result.pdf'), mergedBytes);
+
   await viewport(390, 844, true);
   await send('Page.navigate', { url: new URL('/contact', baseUrl).href });
   await waitFor(`!!document.querySelector('form[name="contact"]')`);
@@ -505,8 +540,24 @@ try {
   await waitFor(`!!document.querySelector('h1') && !!document.querySelector('.about-tools-grid')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'About page overflows on desktop');
-  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 4, 'About page should link to every active tool');
+  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 5, 'About page should link to every active tool');
   await screenshot('about-desktop.png');
+
+  await viewport(390, 844, true);
+  await send('Page.navigate', { url: new URL('/privacy-policy', baseUrl).href });
+  await waitFor(`!!document.querySelector('#privacy-content') && document.querySelectorAll('.legal-content > section').length >= 10`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Privacy Policy overflows on mobile');
+  assert.equal(await evaluate(`document.querySelector('time')?.getAttribute('datetime')`), '2026-10-16');
+  await screenshot('privacy-policy-mobile.png');
+
+  await viewport(1440, 1000);
+  await send('Page.navigate', { url: new URL('/terms-and-conditions', baseUrl).href });
+  await waitFor(`!!document.querySelector('#terms-content') && document.querySelectorAll('.legal-content > section').length >= 12`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Terms and Conditions overflows on desktop');
+  assert.equal(await evaluate(`!!document.querySelector('a[href="/privacy-policy"]')`), true, 'Terms must link to the Privacy Policy');
+  await screenshot('terms-and-conditions-desktop.png');
 
   await send('Page.navigate', { url: baseUrl });
   await waitFor(`!!document.querySelector('.theme-toggle')`);

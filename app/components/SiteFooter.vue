@@ -25,6 +25,7 @@ const year = new Date().getFullYear();
         <NuxtLink to="/tools/pdf-to-word">PDF to Word</NuxtLink>
         <NuxtLink to="/tools/pdf-to-images">PDF to Images</NuxtLink>
         <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
+        <NuxtLink to="/tools/merge-pdf">Merge PDF</NuxtLink>
       </nav>
 
       <nav class="footer-links" aria-label="Toolifybox links">
@@ -32,6 +33,8 @@ const year = new Date().getFullYear();
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/about">About us</NuxtLink>
         <NuxtLink to="/contact">Contact</NuxtLink>
+        <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+        <NuxtLink to="/terms-and-conditions">Terms &amp; Conditions</NuxtLink>
       </nav>
 
       <div class="footer-help-column">

@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       exclude: ['pdfjs-dist', 'tesseract.js'],
       // Prepare lazy converter libraries before a first click can trigger a
       // dependency re-bundle and invalidate the page's module URLs.
-      include: ['@lucide/vue', 'docx', 'docx-preview', 'html2canvas', 'jspdf', 'jszip'],
+      include: ['@lucide/vue', 'docx', 'docx-preview', 'html2canvas', 'jspdf', 'jszip', 'pdf-lib'],
     },
   },
   css: ['~/assets/css/styles.css'],
