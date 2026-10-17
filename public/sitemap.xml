@@ -19,4 +19,8 @@
   <url><loc>https://toolifybox.netlify.app/tools/compress-image</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/protect-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/unlock-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/remove-pdf-pages</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/rotate-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/flatten-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/extract-ocr</loc></url>
 </urlset>

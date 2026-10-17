@@ -60,4 +60,21 @@ export function unlockedPdfFilename(name) {
   return name.replace(/\.pdf$/i, '') + '-unlocked.pdf';
 }
 
+export function removedPagesPdfFilename(name) {
+  return name.replace(/\.pdf$/i, '') + '-pages-removed.pdf';
+}
+
+export function rotatedPdfFilename(name) {
+  return name.replace(/\.pdf$/i, '') + '-rotated.pdf';
+}
+
+export function flattenedPdfFilename(name) {
+  return name.replace(/\.pdf$/i, '') + '-flattened.pdf';
+}
+
+export function ocrTextFilename(name, ext = 'txt') {
+  const base = name.replace(/\.(pdf|jpe?g|png|webp)$/i, '');
+  return `${base}-extracted.${ext}`;
+}
+
 

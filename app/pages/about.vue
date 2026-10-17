@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowRight, ArrowUpRight, Check, Combine, FileImage, FileSpreadsheet, FileText, HeartHandshake, ImageDown, LockKeyhole, Minimize2, Presentation, ScanText, Scissors, Sparkles, WandSparkles } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Check, Combine, FileCheck, FileImage, FileSpreadsheet, FileText, HeartHandshake, ImageDown, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, Sparkles, Trash2, WandSparkles } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Learn about Toolifybox, a collection of free browser-based Word, PDF and image tools designed for simple, private file conversion without sign-up.';
@@ -56,6 +56,10 @@ const tools = [
   { icon: ImageDown, iconName: 'compress-image', title: 'Compress Image', text: 'Reduce JPG, PNG and WebP size with a live preview.', to: '/tools/compress-image' },
   { icon: LockKeyhole, iconName: 'protect-pdf', title: 'Protect PDF', text: 'Encrypt PDF files with AES-256 or RC4 passwords.', to: '/tools/protect-pdf' },
   { icon: LockKeyhole, iconName: 'unlock-pdf', title: 'Unlock PDF', text: 'Remove password restrictions from secured PDF documents.', to: '/tools/unlock-pdf' },
+  { icon: Trash2, iconName: 'remove-pages', title: 'Remove PDF Pages', text: 'Delete unwanted pages from your PDF file.', to: '/tools/remove-pdf-pages' },
+  { icon: RotateCw, iconName: 'rotate-pdf', title: 'Rotate PDF', text: 'Adjust document orientation and rotate sideways or upside-down pages permanently.', to: '/tools/rotate-pdf' },
+  { icon: FileCheck, iconName: 'flatten-pdf', title: 'Flatten PDF', text: 'Lock fillable form fields and digital annotations into permanent page content.', to: '/tools/flatten-pdf' },
+  { icon: ScanText, iconName: 'ocr-extract', title: 'Extract OCR Text', text: 'Scan Hindi and English documents with client-side OCR to copy clean text.', to: '/tools/extract-ocr' },
 ];
 </script>
 
@@ -91,7 +95,7 @@ const tools = [
       </section>
 
       <section class="info-section container" aria-labelledby="available-tools">
-        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Thirteen focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
+        <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Seventeen focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
         <div class="about-tools-grid">
           <NuxtLink v-for="tool in tools" :key="tool.title" :to="tool.to" class="about-tool-card"><span><ToolRealisticIcon v-if="tool.iconName" :name="tool.iconName" :alt="tool.title" size="32" /><component :is="tool.icon" v-else :size="22" /></span><div><h3>{{ tool.title }}</h3><p>{{ tool.text }}</p></div><ArrowUpRight :size="18" /></NuxtLink>
         </div>

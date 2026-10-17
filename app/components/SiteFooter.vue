@@ -22,7 +22,6 @@ const year = new Date().getFullYear();
         <h2>Tools</h2>
         <div class="footer-tools-columns">
           <div class="footer-tools-col">
-            <NuxtLink to="/tools">All tools</NuxtLink>
             <NuxtLink to="/tools/word-to-pdf">Word to PDF</NuxtLink>
             <NuxtLink to="/tools/powerpoint-to-pdf">PowerPoint to PDF</NuxtLink>
             <NuxtLink to="/tools/excel-to-pdf">Excel to PDF</NuxtLink>
@@ -32,12 +31,19 @@ const year = new Date().getFullYear();
           </div>
           <div class="footer-tools-col">
             <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
+            <NuxtLink to="/tools/rotate-pdf">Rotate PDF</NuxtLink>
             <NuxtLink to="/tools/merge-pdf">Merge PDF</NuxtLink>
             <NuxtLink to="/tools/split-pdf">Split PDF</NuxtLink>
+            <NuxtLink to="/tools/remove-pdf-pages">Remove PDF Pages</NuxtLink>
+            <NuxtLink to="/tools/flatten-pdf">Flatten PDF</NuxtLink>
+          </div>
+          <div class="footer-tools-col">
+            <NuxtLink to="/tools/extract-ocr">Extract OCR Text</NuxtLink>
             <NuxtLink to="/tools/compress-pdf">Compress PDF</NuxtLink>
             <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
             <NuxtLink to="/tools/protect-pdf">Protect PDF</NuxtLink>
             <NuxtLink to="/tools/unlock-pdf">Unlock PDF</NuxtLink>
+            <NuxtLink to="/tools">All tools</NuxtLink>
           </div>
         </div>
       </nav>

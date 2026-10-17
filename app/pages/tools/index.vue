@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
   ArrowUpRight, Check, FileCheck, FileImage, FileSpreadsheet, FileText,
   ImageDown, Layers, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
-  Search, Shield, ShieldCheck, Sparkles, Unlock, X, Zap 
+  Search, Shield, ShieldCheck, Sparkles, Trash2, Unlock, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
@@ -36,6 +36,10 @@ usePageSeo({
           ['Images to PDF', '/tools/images-to-pdf'],
           ['Merge PDF', '/tools/merge-pdf'],
           ['Split PDF', '/tools/split-pdf'],
+          ['Remove PDF Pages', '/tools/remove-pdf-pages'],
+          ['Rotate PDF', '/tools/rotate-pdf'],
+          ['Flatten PDF', '/tools/flatten-pdf'],
+          ['Extract OCR Text', '/tools/extract-ocr'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Protect PDF', '/tools/protect-pdf'],
@@ -174,6 +178,19 @@ const allTools = [
     route: '/tools/split-pdf',
   },
   {
+    id: 'remove-pdf-pages',
+    title: 'Remove PDF Pages',
+    category: 'pages',
+    categories: ['pages', 'pdf'],
+    description: 'Select and delete unwanted pages from your PDF file and download a clean copy.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Trash2,
+    iconName: 'remove-pages',
+    theme: 'rose',
+    route: '/tools/remove-pdf-pages',
+  },
+  {
     id: 'compress-pdf',
     title: 'Compress PDF',
     category: 'pdf',
@@ -201,12 +218,14 @@ const allTools = [
     id: 'ocr-extract',
     title: 'Extract OCR Text',
     category: 'ocr',
+    categories: ['ocr', 'pdf', 'image'],
     description: 'Scan Hindi and English documents with client-side OCR to copy clean text.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: ScanText,
-    iconName: 'pdf-to-word',
+    iconName: 'ocr-extract',
     theme: 'indigo',
+    route: '/tools/extract-ocr',
   },
   {
     id: 'protect-pdf',
@@ -236,25 +255,29 @@ const allTools = [
   },
   {
     id: 'rotate-pdf',
-    title: 'Rotate Pages',
+    title: 'Rotate PDF',
     category: 'pages',
-    description: 'Adjust document orientation and rotate upside-down or sideways pages.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    categories: ['pages', 'pdf'],
+    description: 'Adjust document orientation and rotate upside-down or sideways pages permanently.',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: RotateCw,
     iconName: 'rotate-pdf',
     theme: 'orange',
+    route: '/tools/rotate-pdf',
   },
   {
     id: 'flatten-pdf',
     title: 'Flatten PDF',
     category: 'pages',
+    categories: ['pages', 'pdf'],
     description: 'Lock fillable form fields and digital annotations into permanent page content.',
-    status: 'roadmap',
-    statusLabel: 'Roadmap',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: FileCheck,
     iconName: 'flatten-pdf',
     theme: 'slate',
+    route: '/tools/flatten-pdf',
   },
 ];
 

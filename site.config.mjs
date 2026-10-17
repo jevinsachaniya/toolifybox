@@ -20,6 +20,10 @@ export const SITE_ROUTES = [
   '/tools/compress-image',
   '/tools/protect-pdf',
   '/tools/unlock-pdf',
+  '/tools/remove-pdf-pages',
+  '/tools/rotate-pdf',
+  '/tools/flatten-pdf',
+  '/tools/extract-ocr',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

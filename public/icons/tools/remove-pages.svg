@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="rm-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.3" />
+    </filter>
+    <filter id="rm-badge-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#991b1b" flood-opacity="0.45" />
+    </filter>
+    <linearGradient id="rm-doc-grad" x1="8" y1="8" x2="40" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="55%" stop-color="#e11d48" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="rm-removed-page" x1="28" y1="12" x2="56" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <linearGradient id="rm-badge-grad" x1="34" y1="32" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+  </defs>
+
+  <!-- PDF Document Base -->
+  <g filter="url(#rm-shadow)">
+    <path d="M10 12 C10 9.8 11.8 8 14 8 L28 8 L38 18 L38 52 C38 54.2 36.2 56 34 56 L14 56 C11.8 56 10 54.2 10 52 Z" fill="url(#rm-doc-grad)" stroke="#fda4af" stroke-width="0.8" />
+    <!-- Fold Corner -->
+    <path d="M28 8 L38 18 L30 18 C28.9 18 28 17.1 28 16 Z" fill="#ffffff" fill-opacity="0.4" />
+    <!-- PDF Text -->
+    <text x="19" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="900" fill="#ffffff" letter-spacing="0.5">PDF</text>
+    <!-- Content lines -->
+    <rect x="14" y="32" width="16" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+    <rect x="14" y="37" width="12" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+    <rect x="14" y="42" width="14" height="2" rx="1" fill="#ffffff" opacity="0.8" />
+  </g>
+
+  <!-- Removed Page Floating Out -->
+  <g filter="url(#rm-shadow)" transform="rotate(10 44 26)">
+    <rect x="32" y="10" width="22" height="30" rx="3.5" fill="url(#rm-removed-page)" stroke="#e2e8f0" stroke-width="0.8" />
+    <rect x="35" y="16" width="14" height="2" rx="1" fill="#cbd5e1" />
+    <rect x="35" y="21" width="10" height="2" rx="1" fill="#cbd5e1" />
+    <rect x="35" y="26" width="12" height="2" rx="1" fill="#cbd5e1" />
+  </g>
+
+  <!-- Red Delete / Minus Badge -->
+  <g filter="url(#rm-badge-shadow)">
+    <circle cx="45" cy="45" r="11" fill="url(#rm-badge-grad)" stroke="#fecdd3" stroke-width="1.2" />
+    <!-- Trash / Delete X Icon -->
+    <path d="M41 41 L49 49 M49 41 L41 49" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" />
+  </g>
+</svg>
+
