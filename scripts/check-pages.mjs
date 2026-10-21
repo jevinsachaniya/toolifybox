@@ -22,6 +22,9 @@ const removePdfPagesHtml = await readFile(new URL('../.output/public/tools/remov
 const rotatePdfHtml = await readFile(new URL('../.output/public/tools/rotate-pdf/index.html', import.meta.url), 'utf8');
 const flattenPdfHtml = await readFile(new URL('../.output/public/tools/flatten-pdf/index.html', import.meta.url), 'utf8');
 const extractOcrHtml = await readFile(new URL('../.output/public/tools/extract-ocr/index.html', import.meta.url), 'utf8');
+const imageCollageHtml = await readFile(new URL('../.output/public/tools/image-collage/index.html', import.meta.url), 'utf8');
+const translatePdfHtml = await readFile(new URL('../.output/public/tools/translate-pdf/index.html', import.meta.url), 'utf8');
+const watermarkPdfHtml = await readFile(new URL('../.output/public/tools/watermark-pdf/index.html', import.meta.url), 'utf8');
 const aboutHtml = await readFile(new URL('../.output/public/about/index.html', import.meta.url), 'utf8');
 const contactHtml = await readFile(new URL('../.output/public/contact/index.html', import.meta.url), 'utf8');
 const privacyHtml = await readFile(new URL('../.output/public/privacy-policy/index.html', import.meta.url), 'utf8');
@@ -45,6 +48,9 @@ const removePdfPagesVisible = removePdfPagesHtml.replace(/<script\b[^>]*>[\s\S]*
 const rotatePdfVisible = rotatePdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const flattenPdfVisible = flattenPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const extractOcrVisible = extractOcrHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const imageCollageVisible = imageCollageHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const translatePdfVisible = translatePdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const watermarkPdfVisible = watermarkPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const aboutVisible = aboutHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const contactVisible = contactHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const privacyVisible = privacyHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
@@ -94,6 +100,7 @@ assert.equal((removePdfPagesVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1)
 assert.equal((rotatePdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((flattenPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((extractOcrVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((imageCollageVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((aboutVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((contactVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((privacyVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
@@ -126,11 +133,14 @@ assert.ok(removePdfPagesVisible.includes('id="converter"') && removePdfPagesVisi
 assert.ok(rotatePdfVisible.includes('id="converter"') && rotatePdfVisible.includes('Rotate PDF'));
 assert.ok(flattenPdfVisible.includes('id="converter"') && flattenPdfVisible.includes('Flatten PDF'));
 assert.ok(extractOcrVisible.includes('id="converter"') && extractOcrVisible.includes('Extract OCR Text'));
+assert.ok(imageCollageVisible.includes('id="converter"') && imageCollageVisible.includes('Make Image Collage'));
+assert.ok(translatePdfVisible.includes('id="converter"') && (translatePdfVisible.includes('Translate PDF') || translatePdfVisible.includes('PDF Language Translator')));
+assert.ok(watermarkPdfVisible.includes('id="converter"') && watermarkPdfVisible.includes('Watermark PDF'));
 assert.equal((visible.match(/<details(?:\s[^>]*)?>/g) || []).length, 4);
 for (const removed of ['My favorites', 'Image resizer', 'JSON formatter']) assert.ok(!visible.includes(removed) && !toolsVisible.includes(removed), `Removed feature still visible: ${removed}`);
 assert.ok(!visible.includes('undefined') && !toolsVisible.includes('undefined'));
-const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, powerpointToPdfHtml, excelToPdfHtml, pdfToWordHtml, pdfToJpgHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml, protectPdfHtml, unlockPdfHtml, removePdfPagesHtml, rotatePdfHtml, flattenPdfHtml, extractOcrHtml];
-const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, powerpointToPdfVisible, excelToPdfVisible, pdfToWordVisible, pdfToJpgVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible, splitPdfVisible, compressPdfVisible, compressImageVisible, protectPdfVisible, unlockPdfVisible, removePdfPagesVisible, rotatePdfVisible, flattenPdfVisible, extractOcrVisible];
+const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, powerpointToPdfHtml, excelToPdfHtml, pdfToWordHtml, pdfToJpgHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml, protectPdfHtml, unlockPdfHtml, removePdfPagesHtml, rotatePdfHtml, flattenPdfHtml, extractOcrHtml, imageCollageHtml, translatePdfHtml, watermarkPdfHtml];
+const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, powerpointToPdfVisible, excelToPdfVisible, pdfToWordVisible, pdfToJpgVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible, splitPdfVisible, compressPdfVisible, compressImageVisible, protectPdfVisible, unlockPdfVisible, removePdfPagesVisible, rotatePdfVisible, flattenPdfVisible, extractOcrVisible, imageCollageVisible, translatePdfVisible, watermarkPdfVisible];
 assert.ok(generatedPages.every(page => page.includes('id="__nuxt"')), 'Missing Nuxt application');
 assert.ok(visiblePages.every(page => page.includes('class="theme-toggle"') && page.includes('Switch to dark theme')), 'Every page must include the theme switch');
 assert.ok(visiblePages.every(page => page.includes('class="site-version"') && page.includes(`v${SITE_VERSION}`)), 'Every page must include the configured site version');
@@ -139,9 +149,9 @@ assert.ok(visiblePages.every(page => page.includes('class="brand-mark"') && page
 assert.ok(visiblePages.every(page => page.includes('class="footer-links"') && page.includes('href="/about"') && page.includes('href="/contact"')), 'Every page must link to About and Contact in the footer');
 assert.ok(visiblePages.every(page => page.includes('href="/privacy-policy"') && page.includes('href="/terms-and-conditions"')), 'Every page must link to the legal pages');
 assert.ok(visiblePages.every(page => page.includes('class="mobile-menu-toggle"') && page.includes('aria-label="Open navigation menu"')), 'Every page must include the mobile hamburger navigation');
-assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/powerpoint-to-pdf"') && page.includes('href="/tools/excel-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-jpg"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"') && page.includes('href="/tools/split-pdf"') && page.includes('href="/tools/remove-pdf-pages"') && page.includes('href="/tools/rotate-pdf"') && page.includes('href="/tools/flatten-pdf"') && page.includes('href="/tools/extract-ocr"') && page.includes('href="/tools/compress-pdf"') && page.includes('href="/tools/compress-image"') && page.includes('href="/tools/protect-pdf"') && page.includes('href="/tools/unlock-pdf"')), 'Every page footer must link to all active converters');
+assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/powerpoint-to-pdf"') && page.includes('href="/tools/excel-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-jpg"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"') && page.includes('href="/tools/split-pdf"') && page.includes('href="/tools/remove-pdf-pages"') && page.includes('href="/tools/rotate-pdf"') && page.includes('href="/tools/flatten-pdf"') && page.includes('href="/tools/extract-ocr"') && page.includes('href="/tools/image-collage"') && page.includes('href="/tools/translate-pdf"') && page.includes('href="/tools/watermark-pdf"') && page.includes('href="/tools/compress-pdf"') && page.includes('href="/tools/compress-image"') && page.includes('href="/tools/protect-pdf"') && page.includes('href="/tools/unlock-pdf"')), 'Every page footer must link to all active converters');
 assert.ok(toolsVisible.includes('id="tool-search"') && toolsVisible.includes('Search tools') && toolsVisible.includes('Search Word, PDF, image or OCR tools'), 'Tools page search is missing');
-assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('Seventeen focused browser tools'), 'About page content is incomplete');
+assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('focused browser tools'), 'About page content is incomplete');
 assert.ok(contactVisible.includes('Tell us how we') && contactVisible.includes('name="contact"') && contactVisible.includes('data-netlify="true"'), 'Contact page or Netlify form markup is incomplete');
 assert.ok(contactVisible.includes('name="form-name"') && contactVisible.includes('netlify-honeypot="bot-field"'), 'Contact form must include Netlify detection and spam protection fields');
 assert.ok(privacyVisible.includes('Privacy overview') && privacyVisible.includes('toolifybox-theme') && privacyVisible.includes('Netlify Privacy Statement'), 'Privacy Policy content is incomplete');
@@ -175,6 +185,9 @@ const pageRecords = [
   ['/tools/rotate-pdf', rotatePdfHtml],
   ['/tools/flatten-pdf', flattenPdfHtml],
   ['/tools/extract-ocr', extractOcrHtml],
+  ['/tools/image-collage', imageCollageHtml],
+  ['/tools/translate-pdf', translatePdfHtml],
+  ['/tools/watermark-pdf', watermarkPdfHtml],
 ];
 const titles = [];
 const descriptions = [];

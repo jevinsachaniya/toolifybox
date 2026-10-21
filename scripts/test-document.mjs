@@ -8,6 +8,8 @@ import { runConversionTask } from '../app/utils/conversion-task.js';
 import { wordPixels } from '../app/utils/pdf-pixels.js';
 import { pdfImagesArchiveFilename, pdfJpgArchiveFilename, pdfPageImageFilename } from '../app/utils/pdf-images.js';
 import { imagesPdfFilename, MAX_IMAGE_COUNT, MAX_TOTAL_IMAGE_SIZE, validateImages } from '../app/utils/images-pdf.js';
+import { consolidateWordItems } from '../app/utils/convert-pdf.js';
+import { needsOcrForDigitalText, resolveOcrLanguage } from '../app/utils/pdf-ocr.js';
 
 test('Word uploads accept uppercase extensions and files at the 20 MB boundary', () => {
   assert.equal(validateDocument([{ name: 'Résumé.DOCX', size: MAX_DOCUMENT_SIZE }]), '');
@@ -83,6 +85,26 @@ test('Editable PDF text keeps color changes and restores colors after graphics s
   assert.equal(editableItems({ items: [{ str: 'Missing characters' }] }, ink), null);
   assert.equal(wordFont('ABCDEF+Helvetica-Bold', 'sans-serif'), 'Arial');
   assert.equal(wordFont('Times-Roman'), 'Times New Roman');
+  assert.equal(wordFont('CustomFont', '', 'नमस्ते'), 'Nirmala UI');
+  assert.equal(wordFont('Mangal-Regular'), 'Nirmala UI');
+  assert.equal(wordFont('CustomFont', '', 'નમસ્તે'), 'Nirmala UI');
+  assert.equal(wordFont('Shruti-Regular'), 'Nirmala UI');
+});
+
+test('paintedCharacters extracts text from showSpacedText arrays with Devanagari unicode', () => {
+  const OPS = { save: 10, restore: 11, setFillRGBColor: 59, showText: 44, showSpacedText: 45 };
+  const ink = paintedCharacters({
+    fnArray: [59, 45],
+    argsArray: [
+      ['#111827'],
+      [[{ unicode: 'भारत' }, -20, { unicode: 'वर्ष' }]]
+    ]
+  }, OPS);
+  assert.ok(ink);
+  assert.equal(ink.map(c => c.char).join(''), 'भारतवर्ष');
+  const items = editableItems({ items: [{ str: 'भारतवर्ष' }] }, ink);
+  assert.ok(items);
+  assert.equal(items[0].runs.map(r => r.text).join(''), 'भारतवर्ष');
 });
 
 test('Invisible OCR text and patterned text use the complete visual page', () => {
@@ -145,4 +167,28 @@ test('Conversion cancellation stops waiting for pending work', async () => {
   controller.abort();
   await assert.rejects(work, { name: 'AbortError' });
   assert.equal(await runConversionTask(() => Promise.resolve('ready')), 'ready');
+});
+
+test('consolidateWordItems merges horizontal items on the same baseline to prevent frame collisions', () => {
+  const items = [
+    { transform: [12, 0, 0, -12, 50, 100], width: 40, size: 12, str: 'Hello', runs: [{ text: 'Hello', color: '000000' }] },
+    { transform: [12, 0, 0, -12, 95, 100], width: 45, size: 12, str: 'World', runs: [{ text: 'World', color: '000000' }] },
+    { transform: [12, 0, 0, -12, 50, 125], width: 80, size: 12, str: 'Second line', runs: [{ text: 'Second line', color: '000000' }] },
+  ];
+  const consolidated = consolidateWordItems(items, 612);
+  assert.equal(consolidated.length, 2);
+  assert.equal(consolidated[0].str, 'Hello World');
+  assert.equal(consolidated[0].runs.map(r => r.text).join(''), 'Hello World');
+  assert.equal(consolidated[1].str, 'Second line');
+});
+
+test('Smart OCR preserves readable digital text in its original language', () => {
+  assert.equal(resolveOcrLanguage('auto'), 'eng+hin');
+  assert.equal(resolveOcrLanguage('eng'), 'eng');
+  assert.equal(resolveOcrLanguage('hin'), 'hin');
+  assert.equal(needsOcrForDigitalText('Hello world'), false);
+  assert.equal(needsOcrForDigitalText('नमस्ते भारत'), false);
+  assert.equal(needsOcrForDigitalText('ગુજરાતી લખાણ'), false);
+  assert.equal(needsOcrForDigitalText('\uE123\uE456'), true);
+  assert.equal(needsOcrForDigitalText(''), true);
 });

@@ -28,17 +28,20 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/pdf-to-word">PDF to Word</NuxtLink>
             <NuxtLink to="/tools/pdf-to-jpg">PDF to JPG</NuxtLink>
             <NuxtLink to="/tools/pdf-to-images">PDF to Images</NuxtLink>
+            <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
           </div>
           <div class="footer-tools-col">
-            <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
             <NuxtLink to="/tools/rotate-pdf">Rotate PDF</NuxtLink>
             <NuxtLink to="/tools/merge-pdf">Merge PDF</NuxtLink>
             <NuxtLink to="/tools/split-pdf">Split PDF</NuxtLink>
             <NuxtLink to="/tools/remove-pdf-pages">Remove PDF Pages</NuxtLink>
             <NuxtLink to="/tools/flatten-pdf">Flatten PDF</NuxtLink>
+            <NuxtLink to="/tools/extract-ocr">Extract OCR Text</NuxtLink>
+            <NuxtLink to="/tools/image-collage">Make Image Collage</NuxtLink>
           </div>
           <div class="footer-tools-col">
-            <NuxtLink to="/tools/extract-ocr">Extract OCR Text</NuxtLink>
+            <NuxtLink to="/tools/translate-pdf">Translate PDF</NuxtLink>
+            <NuxtLink to="/tools/watermark-pdf">Watermark PDF</NuxtLink>
             <NuxtLink to="/tools/compress-pdf">Compress PDF</NuxtLink>
             <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
             <NuxtLink to="/tools/protect-pdf">Protect PDF</NuxtLink>

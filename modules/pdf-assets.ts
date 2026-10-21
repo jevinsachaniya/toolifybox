@@ -116,7 +116,7 @@ export default defineNuxtModule({
     const pdfTarget = join(publicDirectory, 'pdfjs', pdfVersion);
     const ocrTarget = join(publicDirectory, 'ocr', ocrVersion);
     const pdfIdentity = `pdfjs-${pdfVersion}-schema-${ASSET_SCHEMA}`;
-    const ocrIdentity = `ocr-${ocrVersion}-eng-hin-schema-${ASSET_SCHEMA}`;
+    const ocrIdentity = `ocr-${ocrVersion}-eng-hin-guj-schema-${ASSET_SCHEMA}`;
     nuxt.options.runtimeConfig.public.ocrVersion = ocrVersion;
 
     await withAssetLock(publicDirectory, async () => {
@@ -139,7 +139,7 @@ export default defineNuxtModule({
             await replaceFile(join(core, file), join(ocrTarget, 'core', file));
           }
         }
-        for (const language of ['eng', 'hin']) {
+        for (const language of ['eng', 'hin', 'guj']) {
           const model = dirname(require.resolve(`@tesseract.js-data/${language}/package.json`));
           await replaceFile(join(model, '4.0.0_best_int', `${language}.traineddata.gz`), join(ocrTarget, 'languages', `${language}.traineddata.gz`));
         }

@@ -10,7 +10,7 @@ import {
 } from '~/utils/extract-ocr.js';
 
 const file = shallowRef(null);
-const language = ref('eng+hin'); // 'eng', 'hin', 'eng+hin'
+const language = ref('auto'); // 'auto', 'eng', 'hin', 'eng+hin'
 const forceOcr = ref(false);
 const busy = ref(false);
 const dragging = ref(false);
@@ -356,20 +356,29 @@ async function executeExtract() {
             <button
               type="button"
               class="lang-pill"
-              :class="{ active: language === 'eng+hin' }"
+              :class="{ active: language === 'auto' }"
               :disabled="busy"
-              @click="language = 'eng+hin'"
+              @click="language = 'auto'"
             >
-              English + Hindi (Mixed)
+              Auto-detect
             </button>
             <button
               type="button"
               class="lang-pill"
-              :class="{ active: language === 'eng' }"
+              :class="{ active: language === 'eng+guj' }"
               :disabled="busy"
-              @click="language = 'eng'"
+              @click="language = 'eng+guj'"
             >
-              English only
+              Gujarati + English
+            </button>
+            <button
+              type="button"
+              class="lang-pill"
+              :class="{ active: language === 'guj' }"
+              :disabled="busy"
+              @click="language = 'guj'"
+            >
+              Gujarati (ગુજરાતી)
             </button>
             <button
               type="button"
@@ -378,15 +387,24 @@ async function executeExtract() {
               :disabled="busy"
               @click="language = 'hin'"
             >
-              Hindi only
+              Hindi (हिन्दी)
+            </button>
+            <button
+              type="button"
+              class="lang-pill"
+              :class="{ active: language === 'eng' }"
+              :disabled="busy"
+              @click="language = 'eng'"
+            >
+              English
             </button>
           </div>
         </div>
 
         <div v-if="isPdf" class="setting-item" style="margin-top: 14px;">
-          <label class="checkbox-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 12px; color: #475569;">
-            <input v-model="forceOcr" type="checkbox" :disabled="busy" style="accent-color: #0284c7;" />
-            <span>Force optical OCR on every page (even if PDF already has embedded digital text)</span>
+          <label class="checkbox-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: #334155;">
+            <input v-model="forceOcr" type="checkbox" :disabled="busy" style="accent-color: #0284c7; width: 16px; height: 16px;" />
+            <span>Run OCR on every page <b>(use this for scanned PDF pages)</b></span>
           </label>
         </div>
       </div>

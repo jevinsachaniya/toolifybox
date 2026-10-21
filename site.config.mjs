@@ -24,6 +24,9 @@ export const SITE_ROUTES = [
   '/tools/rotate-pdf',
   '/tools/flatten-pdf',
   '/tools/extract-ocr',
+  '/tools/image-collage',
+  '/tools/translate-pdf',
+  '/tools/watermark-pdf',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

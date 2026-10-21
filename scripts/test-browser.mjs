@@ -448,7 +448,7 @@ try {
   await waitFor(`!!document.querySelector('.result-state') || !!document.querySelector('[role=alert]')`);
   if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
   assert.match(await evaluate(`document.querySelector('.output-details').textContent`), /3 editable pages/);
-  assert.match(await evaluate(`document.querySelector('.output-details').textContent`), /1 page recognized with OCR/);
+  assert.match(await evaluate(`document.querySelector('.output-details').textContent`), /1 scanned page was recognized with OCR/);
   const editable = await saveWord('pdf-word-editable.docx');
   for (const content of ['Color &amp; content verification', 'Table cell one', 'Table cell two', 'Landscape second page', 'White footer text on a dark background', 'Scanned page content']) assert.ok(editable.text.includes(content), 'Editable text lost: ' + content);
   for (const color of ['2563EB', 'E11D48', '16A34A', 'FFFFFF']) assert.ok(editable.xml.includes('w:val="' + color + '"'), 'Text color lost: ' + color);

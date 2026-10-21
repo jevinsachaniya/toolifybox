@@ -24,7 +24,25 @@ export function paintedCharacters(list, OPS) {
         if (typeof glyph !== 'object' || !glyph) continue;
         for (const char of characters(glyph.unicode || '')) output.push({ char, color: state.color });
       }
-    } else if ([OPS.showSpacedText, OPS.nextLineShowText, OPS.nextLineSetSpacingShowText].includes(op)) return null;
+    } else if (op === OPS.showSpacedText) {
+      if (!state.simple || state.mode !== 0 || state.alpha !== 1) return null;
+      for (const item of (args[0] || [])) {
+        if (typeof item === 'number') continue;
+        if (Array.isArray(item)) {
+          for (const glyph of item) {
+            if (typeof glyph === 'object' && glyph) {
+              for (const char of characters(glyph.unicode || '')) output.push({ char, color: state.color });
+            } else if (typeof glyph === 'string') {
+              for (const char of characters(glyph)) output.push({ char, color: state.color });
+            }
+          }
+        } else if (typeof item === 'object' && item) {
+          for (const char of characters(item.unicode || '')) output.push({ char, color: state.color });
+        } else if (typeof item === 'string') {
+          for (const char of characters(item)) output.push({ char, color: state.color });
+        }
+      }
+    } else if ([OPS.nextLineShowText, OPS.nextLineSetSpacingShowText].includes(op)) return null;
   }
   return output;
 }
@@ -49,8 +67,12 @@ export function editableItems(content, painted) {
   return cursor === painted.length && items.length ? items : null;
 }
 
-export function wordFont(name = '', fallback = '') {
+export function wordFont(name = '', fallback = '', text = '') {
+  if (/[\u0900-\u097F\u0A80-\u0AFF]/u.test(text || '')) return 'Nirmala UI';
   const family = name.replace(/^[A-Z]{6}\+/, '');
+  if (/mangal|nirmala|devanagari|gujarati|shruti|saral|kokila|aparajita|utsaah|shree|kruti|chanakya/i.test(family + fallback)) {
+    return 'Nirmala UI';
+  }
   if (/courier|mono/i.test(family + fallback)) return 'Courier New';
   if (/times|serif/i.test(family) || fallback === 'serif') return 'Times New Roman';
   if (/calibri/i.test(family)) return 'Calibri';

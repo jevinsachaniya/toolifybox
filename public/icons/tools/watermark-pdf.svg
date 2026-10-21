@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="watermark-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.32" />
+    </filter>
+    <filter id="stamp-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#0369a1" flood-opacity="0.38" />
+    </filter>
+    <linearGradient id="wm-doc-grad" x1="10" y1="8" x2="48" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="55%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="stamp-grad" x1="16" y1="28" x2="52" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+
+  <!-- PDF Document Base -->
+  <g filter="url(#watermark-shadow)">
+    <rect x="10" y="8" width="34" height="48" rx="6" fill="url(#wm-doc-grad)" stroke="#7dd3fc" stroke-width="0.8" />
+    <path d="M10 14 C10 10.7 12.7 8 16 8 L32 8 L44 20 L44 50 C44 53.3 41.3 56 38 56 L16 56 C12.7 56 10 53.3 10 50 Z" fill="url(#wm-doc-grad)" />
+    <!-- Fold Corner -->
+    <path d="M32 8 L44 20 L35 20 C33.3 20 32 18.7 32 17 Z" fill="#fff" fill-opacity="0.38" />
+    <!-- PDF Text -->
+    <text x="21" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="900" fill="#ffffff" letter-spacing="0.5">PDF</text>
+    <!-- Document content lines -->
+    <rect x="16" y="33" width="14" height="2" rx="1" fill="#ffffff" opacity="0.65" />
+    <rect x="16" y="38" width="10" height="2" rx="1" fill="#ffffff" opacity="0.65" />
+    <rect x="16" y="43" width="12" height="2" rx="1" fill="#ffffff" opacity="0.65" />
+  </g>
+
+  <!-- Diagonal Watermark Stamp Ribbon -->
+  <g filter="url(#stamp-shadow)">
+    <g transform="rotate(-28 34 36)">
+      <rect x="16" y="31" width="36" height="12" rx="3.5" fill="#ffffff" fill-opacity="0.94" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="2.5 1.5" />
+      <text x="20" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="6.8" font-weight="900" fill="#0284c7" letter-spacing="1.2">WATERMARK</text>
+    </g>
+  </g>
+</svg>
+

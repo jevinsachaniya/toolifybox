@@ -13,7 +13,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const direction = ref(props.fixedDirection || props.modelValue || 'word-pdf');
 const wordMode = ref('editable');
-const ocrLanguage = ref('eng+hin');
+const ocrLanguage = ref('auto');
 const toWord = computed(() => direction.value === 'pdf-word');
 const sourceType = computed(() => toWord.value ? 'pdf' : 'word');
 const targetType = computed(() => toWord.value ? 'word' : 'pdf');
@@ -76,6 +76,7 @@ async function reset() {
   result.value = null;
   error.value = '';
   wordMode.value = 'editable';
+  ocrLanguage.value = 'auto';
   if (input.value) input.value.value = '';
   await nextTick();
   if (active) uploadButton.value?.focus();
@@ -163,7 +164,7 @@ async function convert() {
       <p>{{ result.pageCount }} {{ result.pageCount === 1 ? 'page' : 'pages' }} · {{ toWord ? 'Word document (.docx)' : 'Image-based PDF' }}</p>
       <p v-if="toWord" class="output-details" role="status">
         <template v-if="result.mode === 'appearance'">Page appearance preserved as images. Text is not editable.</template>
-        <template v-else>{{ result.editablePages }} editable {{ result.editablePages === 1 ? 'page' : 'pages' }}. <template v-if="result.ocrPages">{{ result.ocrPages }} {{ result.ocrPages === 1 ? 'page recognized' : 'pages recognized' }} with OCR; proofread the text.</template> <template v-if="result.imagePages">{{ result.imagePages }} {{ result.imagePages === 1 ? 'page kept' : 'pages kept' }} as images because no text was recognized.</template> Check fonts and spacing in Word.</template>
+        <template v-else>{{ result.editablePages }} editable {{ result.editablePages === 1 ? 'page' : 'pages' }}. <template v-if="result.ocrPages">{{ result.ocrPages }} {{ result.ocrPages === 1 ? 'scanned page was' : 'scanned pages were' }} recognized with OCR.</template> <template v-if="result.imagePages">{{ result.imagePages }} {{ result.imagePages === 1 ? 'page was' : 'pages were' }} kept as images because no text was recognized.</template> Original page design stays behind the editable text; proofread OCR text before sharing.</template>
       </p>
       <div class="selected-file"><FileBadge :type="targetType" small /><div><strong>{{ result.filename }}</strong><span>{{ formatSize(result.size) }} · {{ targetName }} document</span></div><span class="ready-dot" /></div>
       <a class="primary-button" :href="result.url" :download="result.filename"><Download :size="18" />Download {{ targetName }}</a>
@@ -187,11 +188,44 @@ async function convert() {
       </div>
       <fieldset v-if="toWord" class="word-options" :disabled="busy" aria-describedby="word-mode-note">
         <legend>Choose your Word output</legend>
-        <label :class="{ selected: wordMode === 'editable' }"><input v-model="wordMode" type="radio" name="word-mode" value="editable" /><span><strong>Editable text <small>Recommended</small></strong><span>Real Word text you can select and change. Includes OCR for scans.</span></span></label>
-        <label :class="{ selected: wordMode === 'appearance' }"><input v-model="wordMode" type="radio" name="word-mode" value="appearance" /><span><strong>Page images <small>Not editable</small></strong><span>Preserve appearance as pictures. Text cannot be edited.</span></span></label>
+        <label :class="{ selected: wordMode === 'editable' }">
+          <input v-model="wordMode" type="radio" name="word-mode" value="editable" />
+          <span><strong>Editable text with Smart OCR <small>Recommended</small></strong><span>Keeps the PDF's original Unicode language and layout. OCR runs only for scanned or broken-font pages.</span></span>
+        </label>
+        <label :class="{ selected: wordMode === 'appearance' }">
+          <input v-model="wordMode" type="radio" name="word-mode" value="appearance" />
+          <span><strong>Page images <small>Not editable</small></strong><span>Preserve appearance as pictures. Text cannot be edited.</span></span>
+        </label>
       </fieldset>
-      <label v-if="toWord && wordMode === 'editable'" class="ocr-language">Scan language<select v-model="ocrLanguage" :disabled="busy"><option value="eng+hin">Hindi + English</option><option value="eng">English</option></select></label>
-      <p v-if="toWord" id="word-mode-note" class="conversion-note">{{ wordMode === 'appearance' ? 'This creates pictures inside Word. Select Editable text to edit the document.' : 'Text is editable; graphics remain images. Fonts and spacing may change. OCR may misread text; check the result. Tables are positioned text, not Word tables.' }} Up to 100 pages (30 with OCR).</p>
+      <label v-if="toWord && wordMode === 'editable'" class="ocr-language">Document Language / OCR
+        <select v-model="ocrLanguage" :disabled="busy">
+          <option value="auto">Auto-detect Language</option>
+          <optgroup label="Indian Languages">
+            <option value="hin">Hindi (हिन्दी)</option>
+            <option value="guj">Gujarati (ગુજરાતી)</option>
+            <option value="mar">Marathi (मराठी)</option>
+            <option value="ben">Bengali (বাংলা)</option>
+            <option value="tam">Tamil (தமிழ்)</option>
+            <option value="tel">Telugu (తెలుగు)</option>
+            <option value="kan">Kannada (ಕನ್ನಡ)</option>
+            <option value="mal">Malayalam (മലയാളം)</option>
+            <option value="pan">Punjabi (ਪੰਜਾਬੀ)</option>
+            <option value="urd">Urdu (اردو)</option>
+            <option value="san">Sanskrit (संस्कृतम्)</option>
+            <option value="eng+guj">Gujarati + English</option>
+            <option value="eng+hin">Hindi + English</option>
+          </optgroup>
+          <optgroup label="International Languages">
+            <option value="eng">English</option>
+            <option value="spa">Spanish (Español)</option>
+            <option value="fra">French (Français)</option>
+            <option value="deu">German (Deutsch)</option>
+            <option value="ara">Arabic (العربية)</option>
+            <option value="rus">Russian (Русский)</option>
+          </optgroup>
+        </select>
+      </label>
+      <p v-if="toWord" id="word-mode-note" class="conversion-note">{{ wordMode === 'appearance' ? 'This creates pictures inside Word. Select Smart OCR to edit text.' : 'Existing Unicode text stays in its original language (Gujarati, Hindi, English, etc.). Scanned and legacy-font pages are recognized with OCR, while the original page layout remains visible.' }} Up to 100 pages (30 OCR pages).</p>
       <p v-else class="conversion-note">Basic layouts work best. PDF text is not selectable.</p>
       <template v-if="file">
         <button class="primary-button convert-button" :disabled="busy" @click="convert">

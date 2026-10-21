@@ -59,3 +59,19 @@ test('createOcrDocx returns valid Word document blob', async () => {
   assert.ok(blob.size > 1000);
   assert.equal(blob.type, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 });
+
+test('createOcrDocx handles Hindi Devanagari text and page breaks', async () => {
+  const hindiText = 'नमस्ते भारत\nयह एक हिंदी परीक्षण दस्तावेज़ है।\n--- Page Break ---\nद्वितीय पृष्ठ सामग्री।';
+  const blob = await createOcrDocx(hindiText, { title: 'Hindi Document' });
+  assert.ok(blob);
+  assert.ok(blob.size > 1000);
+  assert.equal(blob.type, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+});
+
+test('createOcrDocx handles Gujarati text and complex script fonts', async () => {
+  const gujaratiText = 'નમસ્તે ગુજરાત\nઆ એક ગુજરાતી દસ્તાવેજ છે.\n--- Page Break ---\nબીજું પાનું સામગ્રી.';
+  const blob = await createOcrDocx(gujaratiText, { title: 'Gujarati Document' });
+  assert.ok(blob);
+  assert.ok(blob.size > 1000);
+  assert.equal(blob.type, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+});

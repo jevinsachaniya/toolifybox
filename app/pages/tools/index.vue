@@ -2,8 +2,8 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
   ArrowUpRight, Check, FileCheck, FileImage, FileSpreadsheet, FileText,
-  ImageDown, Layers, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
-  Search, Shield, ShieldCheck, Sparkles, Trash2, Unlock, X, Zap 
+  ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
+  Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
@@ -40,6 +40,9 @@ usePageSeo({
           ['Rotate PDF', '/tools/rotate-pdf'],
           ['Flatten PDF', '/tools/flatten-pdf'],
           ['Extract OCR Text', '/tools/extract-ocr'],
+          ['Make Image Collage', '/tools/image-collage'],
+          ['Translate PDF', '/tools/translate-pdf'],
+          ['Watermark PDF', '/tools/watermark-pdf'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Protect PDF', '/tools/protect-pdf'],
@@ -278,6 +281,45 @@ const allTools = [
     iconName: 'flatten-pdf',
     theme: 'slate',
     route: '/tools/flatten-pdf',
+  },
+  {
+    id: 'image-collage',
+    title: 'Make Image Collage',
+    category: 'image',
+    categories: ['image'],
+    description: 'Combine multiple photos into creative collages with side-by-side, stacked, and grid positioning.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: LayoutGrid,
+    iconName: 'image-collage',
+    theme: 'indigo',
+    route: '/tools/image-collage',
+  },
+  {
+    id: 'translate-pdf',
+    title: 'Translate PDF',
+    category: 'pdf',
+    categories: ['pdf', 'ocr'],
+    description: 'Translate PDF documents into English, Hindi, Spanish, French, and Gujarati with in-browser privacy.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Languages,
+    iconName: 'translate-pdf',
+    theme: 'indigo',
+    route: '/tools/translate-pdf',
+  },
+  {
+    id: 'watermark-pdf',
+    title: 'Watermark PDF',
+    category: 'pdf',
+    categories: ['pdf', 'security'],
+    description: 'Add custom text stamps, confidentiality marks, or repeating watermark grids to PDF pages.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Stamp,
+    iconName: 'watermark-pdf',
+    theme: 'sky',
+    route: '/tools/watermark-pdf',
   },
 ];
 

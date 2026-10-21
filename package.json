@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare",
     "check:pages": "node scripts/check-pages.mjs",
     "test:assets": "node --experimental-strip-types scripts/test-assets.mjs",
-    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs",
+    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs && node --test scripts/test-image-collage.mjs && node --test scripts/test-translate-pdf.mjs && node --test scripts/test-watermark-pdf.mjs",
     "test:browser": "node scripts/test-browser.mjs"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "@pdfsmaller/pdf-decrypt": "^1.0.1",
     "@pdfsmaller/pdf-encrypt": "^1.2.0",
     "@tesseract.js-data/eng": "^1.0.0",
+    "@tesseract.js-data/guj": "^1.0.0",
     "@tesseract.js-data/hin": "^1.0.0",
     "docx": "^9.11.0",
     "docx-preview": "^0.4.1",

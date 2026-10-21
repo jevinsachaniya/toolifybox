@@ -1,4 +1,5 @@
 import { runConversionTask } from './conversion-task.js';
+import { needsOcrForDigitalText, resolveOcrLanguage } from './pdf-ocr.js';
 
 export const SUPPORTED_OCR_TYPES = [
   'application/pdf',
@@ -72,25 +73,55 @@ export function formatPdfTextContent(content) {
 
 /**
  * Creates a clean Microsoft Word (.docx) document containing the extracted text.
+ * Configures OpenXML complex script typography (Nirmala UI + Mangal) and adaptive
+ * line heights so Devanagari / Hindi characters and matras render cleanly without clipping.
+ *
  * @param {string} text 
  * @param {object} [options]
  * @returns {Promise<Blob>}
  */
 export async function createOcrDocx(text, { title = 'Extracted Text' } = {}) {
-  const { Document, Packer, Paragraph, TextRun } = await import('docx');
+  const { Document, Packer, Paragraph, TextRun, PageBreak, LineRuleType } = await import('docx');
   const lines = text.split(/\r?\n/);
-  const children = lines.map(line => {
-    return new Paragraph({
-      spacing: { before: 0, after: 120 },
+  const hasIndic = /[\u0900-\u0D7F]/u.test(text);
+
+  const fontDef = hasIndic
+    ? { name: 'Nirmala UI', cs: 'Mangal', ascii: 'Nirmala UI', hAnsi: 'Nirmala UI' }
+    : { name: 'Arial', cs: 'Mangal', ascii: 'Arial', hAnsi: 'Arial' };
+
+  const children = [];
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (line === '--- Page Break ---') {
+      children.push(new Paragraph({
+        children: [new PageBreak()],
+        spacing: { before: 0, after: 0 },
+      }));
+      continue;
+    }
+
+    const lineIndic = hasIndic || /[\u0900-\u0D7F]/u.test(line);
+    const lineFont = lineIndic
+      ? { name: 'Nirmala UI', cs: 'Mangal', ascii: 'Nirmala UI', hAnsi: 'Nirmala UI' }
+      : fontDef;
+
+    children.push(new Paragraph({
+      spacing: {
+        before: 0,
+        after: 140, // 7pt spacing after
+        line: 340,  // 17pt line height (1.4x for 12pt font)
+        lineRule: LineRuleType.AT_LEAST,
+      },
       children: [
         new TextRun({
-          text: line,
-          font: 'Arial',
-          size: 22,
+          text: rawLine,
+          font: lineFont,
+          size: 24, // 12pt
+          sizeComplexScript: 24,
         }),
       ],
-    });
-  });
+    }));
+  }
 
   const doc = new Document({
     creator: 'Toolifybox Extract OCR Text',
@@ -99,13 +130,29 @@ export async function createOcrDocx(text, { title = 'Extracted Text' } = {}) {
     styles: {
       default: {
         document: {
-          run: { font: 'Arial', size: 22 },
-          paragraph: { spacing: { before: 0, after: 120 } },
+          run: {
+            font: fontDef,
+            size: 24,
+            sizeComplexScript: 24,
+          },
+          paragraph: {
+            spacing: {
+              before: 0,
+              after: 140,
+              line: 340,
+              lineRule: LineRuleType.AT_LEAST,
+            },
+          },
         },
       },
     },
     sections: [
       {
+        properties: {
+          page: {
+            margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 }, // 1 inch margins
+          },
+        },
         children: children.length ? children : [new Paragraph({ children: [new TextRun('')] })],
       },
     ],
@@ -126,7 +173,7 @@ export async function createOcrDocx(text, { title = 'Extracted Text' } = {}) {
  * @returns {Promise<{ text: string, pages: Array<{ pageNumber: number, text: string, type: 'digital'|'ocr', wordCount: number, charCount: number }>, wordCount: number, charCount: number, ocrPages: number, digitalPages: number, totalPages: number }>}
  */
 export async function extractOcrFromFile(file, {
-  language = 'eng+hin',
+  language = 'auto',
   forceOcr = false,
   signal,
   onProgress = () => {},
@@ -147,7 +194,8 @@ export async function extractOcrFromFile(file, {
     onProgress('Loading text recognition engine…');
     const { default: Tesseract } = await import('tesseract.js/dist/tesseract.esm.min.js');
     check();
-    const instance = await Tesseract.createWorker(language === 'eng' ? 'eng' : 'eng+hin', 1, {
+    const selectedLang = resolveOcrLanguage(language);
+    const instance = await Tesseract.createWorker(selectedLang, 1, {
       workerPath: `${assetBase}worker.min.js`,
       corePath: `${assetBase}core`,
       langPath: `${assetBase}languages`,
@@ -165,6 +213,7 @@ export async function extractOcrFromFile(file, {
     await instance.setParameters({
       tessedit_pageseg_mode: '3',
       preserve_interword_spaces: '1',
+      user_defined_dpi: '300',
     });
     tesseractWorker = instance;
     return instance;
@@ -256,13 +305,20 @@ export async function extractOcrFromFile(file, {
         pageText = formatPdfTextContent(textContent);
       }
 
-      // If page has very little or no digital text, run OCR
-      if (forceOcr || pageText.length < 25) {
+      // Automatically detect corrupted legacy fonts (e.g. KrutiDev, non-Unicode CMaps, or PUA glyphs)
+      const hasUnusableTextLayer = pageText ? needsOcrForDigitalText(pageText) : true;
+
+      // If the page already contains real Unicode text, retain its native
+      // script. OCR handles scans and legacy/private-use font encodings.
+      if (forceOcr || pageText.length < 25 || hasUnusableTextLayer) {
         extractionType = 'ocr';
         ocrPages++;
-        onProgress(`Running OCR on page ${number} of ${totalPages}…`);
+        onProgress(`Running high-resolution OCR on page ${number} of ${totalPages}…`);
 
-        const viewport = page.getViewport({ scale: 2 });
+        // Render at 300 DPI for high-accuracy Devanagari recognition (matras & conjuncts)
+        const unscaledViewport = page.getViewport({ scale: 1 });
+        const scale = Math.min(4, Math.max(2.5, 2400 / Math.max(unscaledViewport.width, unscaledViewport.height)));
+        const viewport = page.getViewport({ scale });
         const canvas = document.createElement('canvas');
         canvas.width = Math.ceil(viewport.width);
         canvas.height = Math.ceil(viewport.height);

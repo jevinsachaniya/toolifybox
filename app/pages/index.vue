@@ -103,11 +103,11 @@ onBeforeUnmount(() => {
           </div>
           <div class="tool-showcase" aria-label="Available document tools">
             <div class="showcase-glow" aria-hidden="true" />
-            <div class="showcase-label"><span>POPULAR TOOLS</span><NuxtLink to="/tools" class="showcase-all-link">All 17 tools <ArrowRight :size="12" /></NuxtLink></div>
+            <div class="showcase-label"><span>POPULAR TOOLS</span><NuxtLink to="/tools" class="showcase-all-link">All 20 tools <ArrowRight :size="12" /></NuxtLink></div>
             <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><ToolRealisticIcon name="word" alt="Word to PDF" size="36" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/powerpoint-to-pdf" class="showcase-tool powerpoint-tool"><span class="showcase-icon"><ToolRealisticIcon name="powerpoint" alt="PowerPoint to PDF" size="36" /></span><span><b>PowerPoint to PDF</b><small>Convert PPTX slides to clean PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/excel-to-pdf" class="showcase-tool excel-tool"><span class="showcase-icon"><ToolRealisticIcon name="excel" alt="Excel to PDF" size="36" /></span><span><b>Excel to PDF</b><small>Convert spreadsheets &amp; CSV to PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools" class="showcase-more-btn"><span>Explore all 17 document &amp; image tools</span><ArrowRight :size="15" /></NuxtLink>
+            <NuxtLink to="/tools" class="showcase-more-btn"><span>Explore all 20 document &amp; image tools</span><ArrowRight :size="15" /></NuxtLink>
             <div class="showcase-privacy"><ShieldCheck :size="15" /><span><b>Stays on your device</b><small>No document uploads</small></span></div>
           </div>
         </div>

@@ -1,12 +1,94 @@
 import { runConversionTask } from './conversion-task.js';
 import { editableItems, paintedCharacters, wordFont } from './pdf-text.js';
-import { createPdfOcr } from './pdf-ocr.js';
+import { createPdfOcr, needsOcrForDigitalText } from './pdf-ocr.js';
 
 const MAX_PAGES = 100;
 const MAX_IMAGE_BYTES = 100 * 1024 * 1024;
 const twips = value => Math.round(value * 20);
 
-export async function convertPdf(file, { mode = 'editable', ocrLanguage = 'eng+hin', signal, onProgress = () => {} } = {}) {
+/**
+ * Consolidates fragmented text items on the same baseline into single coherent lines
+ * so Microsoft Word does not generate overlapping, colliding absolute frame boxes.
+ */
+export function consolidateWordItems(rawItems, pageWidth = 612) {
+  if (!rawItems?.length) return [];
+
+  const mapped = rawItems.map(item => {
+    const [,,,, x = 0, baseline = 0] = item.transform || [];
+    const fontSize = Math.max(6, Math.min(120, Math.round((item.size || 12) * 2) / 2));
+    const width = Math.max(item.width || 0, fontSize * (item.str?.length || 1) * 0.5);
+    const text = (item.str || item.runs?.map(r => r.text).join('') || '').trim();
+    return {
+      ...item,
+      x: Math.max(0, x),
+      baseline: Math.max(0, baseline),
+      fontSize,
+      width,
+      right: Math.max(0, x) + width,
+      text,
+      runs: item.runs?.length ? item.runs : [{ text: item.str || '', color: '000000' }],
+    };
+  }).filter(item => item.text.length > 0);
+
+  if (!mapped.length) return [];
+
+  // Sort items top-to-bottom (by baseline), then left-to-right (by x)
+  mapped.sort((a, b) => {
+    if (Math.abs(a.baseline - b.baseline) > 2.5) {
+      return a.baseline - b.baseline;
+    }
+    return a.x - b.x;
+  });
+
+  // Group adjacent horizontal items into coherent lines
+  const lines = [];
+  for (const item of mapped) {
+    let merged = false;
+    for (let i = lines.length - 1; i >= Math.max(0, lines.length - 8); i--) {
+      const line = lines[i];
+      const baselineDiff = Math.abs(item.baseline - line.baseline);
+      const fontSizeTol = Math.max(item.fontSize, line.fontSize);
+      if (baselineDiff <= Math.max(3, fontSizeTol * 0.25)) {
+        const gap = item.x - line.right;
+        // Merge if gap is within normal word spacing or slightly overlapping
+        if (gap >= -4 && gap <= Math.max(24, fontSizeTol * 1.8)) {
+          if (gap > 1) {
+            const lastRun = line.runs[line.runs.length - 1];
+            if (lastRun && !lastRun.text.endsWith(' ') && !item.runs[0]?.text?.startsWith(' ')) {
+              line.runs.push({ text: ' ', color: lastRun.color || '000000' });
+            }
+          }
+          line.runs.push(...item.runs);
+          line.right = Math.max(line.right, item.right);
+          line.width = line.right - line.x;
+          line.fontSize = Math.max(line.fontSize, item.fontSize);
+          line.baseline = Math.max(line.baseline, item.baseline);
+          line.str += (gap > 1 ? ' ' : '') + item.text;
+          merged = true;
+          break;
+        }
+      }
+    }
+    if (!merged) {
+      lines.push({
+        x: item.x,
+        right: item.right,
+        baseline: item.baseline,
+        fontSize: item.fontSize,
+        width: item.width,
+        str: item.text,
+        runs: [...item.runs],
+        font: item.font || {},
+        style: item.style || {},
+        dir: item.dir || 'ltr',
+      });
+    }
+  }
+
+  return lines;
+}
+
+export async function convertPdf(file, { mode = 'editable', ocrLanguage = 'auto', signal, onProgress = () => {} } = {}) {
   const config = useRuntimeConfig();
   const baseURL = config.app.baseURL;
   const ocr = createPdfOcr({ assetBase: new URL(`${baseURL}ocr/${config.public.ocrVersion}/`, window.location.origin).href, language: ocrLanguage, signal, onProgress });
@@ -107,40 +189,128 @@ export async function convertPdf(file, { mode = 'editable', ocrLanguage = 'eng+h
             !Number.isFinite(item.size) || item.size < 1 || item.size > 300 || item.width <= 0 ||
             item.transform[4] < 0 || item.transform[4] >= width || item.transform[5] < 0 || item.transform[5] > height)) items = null;
         }
+
+        // Recover original digital text when glyph matching fails on complex scripts (Hindi) or spaced text
+        if (!items && content?.items?.length) {
+          const textChars = content.items.reduce((sum, it) => sum + (it.str || '').trim().length, 0);
+          if (textChars >= 10) {
+            items = content.items
+              .filter(item => item.str && item.str.trim())
+              .map(item => {
+                const transform = pdfjs.Util.transform(viewport.transform, item.transform);
+                const font = page.commonObjs.has(item.fontName) ? page.commonObjs.get(item.fontName) : {};
+                const style = content.styles[item.fontName] || {};
+                const size = Math.hypot(transform[2], transform[3]) || item.height || 12;
+                return {
+                  ...item,
+                  runs: [{ text: item.str, color: '000000' }],
+                  font,
+                  style,
+                  transform,
+                  size,
+                  width: item.width || Math.max(10, size * item.str.length * 0.6),
+                  dir: item.dir || 'ltr',
+                };
+              });
+          }
+        }
+
+        // Keep a genuine Unicode text layer exactly as supplied, whatever its
+        // language. OCR is only used for missing text or legacy/private-use
+        // glyph encodings that Word cannot display correctly.
+        if (content?.items?.length) {
+          const sampleText = content.items.map(it => it.str || '').join(' ');
+          const fontNames = Object.keys(content.styles || {});
+          if (needsOcrForDigitalText(sampleText, fontNames)) items = null;
+        }
       }
+
       const paragraphs = [];
       let recognized = false;
-      if (mode === 'editable' && !items) {
+      if ((mode === 'editable' || mode === 'ocr') && !items) {
         if (++ocrCount > 30) throw new Error('This PDF needs OCR on more than 30 pages. Split it into smaller documents before converting.');
         items = await ocr.recognize(canvas, scale, number, pdf.numPages);
         if (items) { recognized = true; ocrPages++; }
       }
       if (items) {
-        // Render only graphics as the background. The same text is re-created as Word runs.
-        if (!recognized) await render((index, operators) => operators.fnArray[index] !== pdfjs.OPS.showText);
+        // Render only graphics as the background. Filter out all text operations to prevent double-text.
+        const textOps = new Set([
+          pdfjs.OPS.showText,
+          pdfjs.OPS.showSpacedText,
+          pdfjs.OPS.nextLineShowText,
+          pdfjs.OPS.nextLineSetSpacingShowText,
+        ]);
+        await render((index, operators) => !textOps.has(operators.fnArray[index]));
         editablePages++;
-        for (const item of items) {
-          const [,,,, x, baseline] = item.transform;
-          const font = wordFont(item.font.name, item.font.fallbackName || item.style.fontFamily);
-          const fontSize = Math.round(item.size * 2) / 2;
-          // Word's exact-height line box includes leading above the glyphs.
-          const top = Math.max(0, baseline - fontSize * .92);
+        const consolidatedLines = consolidateWordItems(items, width);
+        for (const line of consolidatedLines) {
+          const x = line.x;
+          const baseline = line.baseline;
+          const fontSize = line.fontSize;
+          const fullText = line.str || line.runs.map(r => r.text).join('');
+
+          const hasIndic = /[\u0900-\u0D7F]/u.test(fullText);
+          const hasArabic = /[\u0600-\u06FF\u0750-\u077F]/u.test(fullText);
+          const isComplex = hasIndic || hasArabic;
+
+          let fontDef;
+          if (hasIndic) {
+            fontDef = { name: 'Nirmala UI', cs: 'Nirmala UI', ascii: 'Nirmala UI', hAnsi: 'Nirmala UI' };
+          } else if (hasArabic) {
+            fontDef = { name: 'Traditional Arabic', cs: 'Traditional Arabic', ascii: 'Arial', hAnsi: 'Arial' };
+          } else {
+            const font = wordFont(line.font?.name, line.font?.fallbackName || line.style?.fontFamily, fullText);
+            fontDef = { name: font, cs: 'Mangal', ascii: font, hAnsi: font };
+          }
+
+          const top = Math.max(0, baseline - fontSize * (isComplex ? 1.2 : 0.92));
+          const availableWidth = width - x;
+          const extraPadding = isComplex ? Math.max(28, fontSize * 2.2) : Math.max(22, fontSize * 1.6);
+          const frameWidth = twips(Math.max(10, Math.min(availableWidth, line.width + extraPadding)));
+
           paragraphs.push(new word.Paragraph({
-            run: { font, size: fontSize * 2, color: item.runs[0].color },
-            frame: { type: 'absolute', position: { x: twips(x), y: twips(top) },
-              width: twips(Math.max(1, Math.min(width - x, item.width + 6))),
-              anchor: { horizontal: word.FrameAnchorType.PAGE, vertical: word.FrameAnchorType.PAGE },
-              wrap: word.FrameWrap.NONE, space: { horizontal: 0, vertical: 0 },
+            run: {
+              font: fontDef,
+              size: fontSize * 2,
+              sizeComplexScript: fontSize * 2,
+              color: line.runs[0]?.color || '000000',
             },
-            spacing: { before: 0, after: 0, line: twips(fontSize * 1.15), lineRule: word.LineRuleType.EXACT },
-            bidirectional: item.dir === 'rtl',
-            children: item.runs.map(run => new word.TextRun({
-              text: run.text, color: run.color, size: fontSize * 2, sizeComplexScript: fontSize * 2,
-              font: recognized && /[\u0900-\u097F]/u.test(run.text) ? 'Nirmala UI' : font,
-              bold: item.font.bold || /bold/i.test(item.font.name || ''),
-              italics: item.font.italic || /italic|oblique/i.test(item.font.name || ''),
-              rightToLeft: item.dir === 'rtl',
-            })),
+            frame: {
+              type: 'absolute',
+              position: { x: twips(x), y: twips(top) },
+              width: frameWidth,
+              anchor: { horizontal: word.FrameAnchorType.PAGE, vertical: word.FrameAnchorType.PAGE },
+              wrap: word.FrameWrap.NONE,
+              space: { horizontal: 0, vertical: 0 },
+            },
+            spacing: {
+              before: 0,
+              after: 0,
+              line: twips(fontSize * (isComplex ? 1.45 : 1.15)),
+              lineRule: isComplex ? word.LineRuleType.AT_LEAST : word.LineRuleType.EXACT,
+            },
+            bidirectional: line.dir === 'rtl' || hasArabic,
+            children: line.runs.map(run => {
+              const runText = run.text;
+              const runIndic = /[\u0900-\u0D7F]/u.test(runText);
+              const runArabic = /[\u0600-\u06FF\u0750-\u077F]/u.test(runText);
+              let runFont = fontDef;
+              if (runIndic) {
+                runFont = { name: 'Nirmala UI', cs: 'Nirmala UI', ascii: 'Nirmala UI', hAnsi: 'Nirmala UI' };
+              } else if (runArabic) {
+                runFont = { name: 'Traditional Arabic', cs: 'Traditional Arabic', ascii: 'Arial', hAnsi: 'Arial' };
+              }
+              return new word.TextRun({
+                text: runText,
+                color: run.color || '000000',
+                size: fontSize * 2,
+                sizeComplexScript: fontSize * 2,
+                font: runFont,
+                bold: line.font?.bold || /bold/i.test(line.font?.name || ''),
+                italics: line.font?.italic || /italic|oblique/i.test(line.font?.name || ''),
+                rightToLeft: line.dir === 'rtl' || hasArabic,
+              });
+            }),
           }));
         }
       } else imagePages++;
@@ -169,11 +339,22 @@ export async function convertPdf(file, { mode = 'editable', ocrLanguage = 'eng+h
       await new Promise(resolve => setTimeout(resolve, 0));
     }
     check();
-    if (mode === 'editable' && !editablePages) throw new Error('No readable text was found, even after OCR. Try a clearer scan and check the scan language. Choose Page images only if you want pictures inside Word.');
+    if ((mode === 'editable' || mode === 'ocr') && !editablePages) throw new Error('No readable text was found, even after OCR. Try a clearer scan and check the scan language. Choose Page images only if you want pictures inside Word.');
     onProgress('Creating your Word document…');
     const wordDocument = new word.Document({ creator: 'Toolifybox', title: file.name.replace(/\.pdf$/i, ''),
       description: mode === 'appearance' ? 'PDF pages preserved as images.' : 'Editable Word text with PDF graphics. Scanned pages recognized using OCR; proofread recognized text.',
-      styles: { default: { document: { run: { font: 'Arial', size: 22 }, paragraph: { spacing: { before: 0, after: 0 } } } } },
+      styles: {
+        default: {
+          document: {
+            run: {
+              font: { name: 'Arial', cs: 'Mangal', ascii: 'Arial', hAnsi: 'Arial' },
+              size: 22,
+              sizeComplexScript: 22,
+            },
+            paragraph: { spacing: { before: 0, after: 0 } },
+          },
+        },
+      },
       sections,
     });
     const blob = await task(() => word.Packer.toBlob(wordDocument), 60000);

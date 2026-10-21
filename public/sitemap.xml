@@ -23,4 +23,7 @@
   <url><loc>https://toolifybox.netlify.app/tools/rotate-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/flatten-pdf</loc></url>
   <url><loc>https://toolifybox.netlify.app/tools/extract-ocr</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/image-collage</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/translate-pdf</loc></url>
+  <url><loc>https://toolifybox.netlify.app/tools/watermark-pdf</loc></url>
 </urlset>
