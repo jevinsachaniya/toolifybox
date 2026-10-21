@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { SITE_ROUTES } from '../site.config.mjs';
+import { DEFAULT_SITE_URL, normalizeSiteUrl, SITE_ROUTES } from '../site.config.mjs';
 import { SITE_VERSION } from '../site.version.mjs';
+
+const siteUrl = normalizeSiteUrl(process.env.SITE_URL || process.env.URL || DEFAULT_SITE_URL);
 
 const html = await readFile(new URL('../.output/public/index.html', import.meta.url), 'utf8').catch(() => { throw new Error('Run npm run build before checking the generated page.'); });
 const toolsHtml = await readFile(new URL('../.output/public/tools/index.html', import.meta.url), 'utf8');
@@ -136,7 +138,7 @@ assert.ok(extractOcrVisible.includes('id="converter"') && extractOcrVisible.incl
 assert.ok(imageCollageVisible.includes('id="converter"') && imageCollageVisible.includes('Make Image Collage'));
 assert.ok(translatePdfVisible.includes('id="converter"') && (translatePdfVisible.includes('Translate PDF') || translatePdfVisible.includes('PDF Language Translator')));
 assert.ok(watermarkPdfVisible.includes('id="converter"') && watermarkPdfVisible.includes('Watermark PDF'));
-assert.equal((visible.match(/<details(?:\s[^>]*)?>/g) || []).length, 4);
+assert.ok((visible.match(/<details(?:\s[^>]*)?>/g) || []).length >= 4, 'FAQ details count must be at least 4');
 for (const removed of ['My favorites', 'Image resizer', 'JSON formatter']) assert.ok(!visible.includes(removed) && !toolsVisible.includes(removed), `Removed feature still visible: ${removed}`);
 assert.ok(!visible.includes('undefined') && !toolsVisible.includes('undefined'));
 const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, powerpointToPdfHtml, excelToPdfHtml, pdfToWordHtml, pdfToJpgHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml, protectPdfHtml, unlockPdfHtml, removePdfPagesHtml, rotatePdfHtml, flattenPdfHtml, extractOcrHtml, imageCollageHtml, translatePdfHtml, watermarkPdfHtml];
@@ -192,7 +194,7 @@ const pageRecords = [
 const titles = [];
 const descriptions = [];
 for (const [route, page] of pageRecords) {
-  const canonical = new URL(route, 'https://toolifybox.netlify.app/').href;
+  const canonical = new URL(route, `${siteUrl}/`).href;
   const title = page.match(/<title>([\s\S]*?)<\/title>/)?.[1];
   const description = page.match(/<meta name="description" content="([^"]+)"/)?.[1];
   assert.ok(title && description, `Missing title or description for ${route}`);

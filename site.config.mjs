@@ -1,4 +1,4 @@
-export const DEFAULT_SITE_URL = 'https://toolifybox.netlify.app';
+export const DEFAULT_SITE_URL = 'https://toolifybox.aliveradar.com';
 
 export const SITE_ROUTES = [
   '/',
