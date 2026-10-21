@@ -77,3 +77,34 @@ export function toolSchema(siteUrl, path, name, description, featureList) {
     },
   };
 }
+
+export function faqSchema(items) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(([question, answer]) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    })),
+  };
+}
+
+export function howToSchema(name, description, steps, siteUrl, path) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.title,
+      text: step.desc || step.text,
+      url: `${new URL(path, `${siteUrl}/`).href}#step-${index + 1}`,
+    })),
+  };
+}

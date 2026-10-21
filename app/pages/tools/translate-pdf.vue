@@ -1,26 +1,39 @@
 <script setup>
 import {
   ArrowLeftRight,
+  ArrowRight,
   ArrowUpRight,
   Check,
+  ChevronDown,
   Copy,
+  Cpu,
   Download,
   FileCheck,
   FileText,
+  Globe,
   Info,
   Languages,
+  Layers,
+  LockKeyhole,
   ShieldCheck,
   Sparkles,
   Upload,
   Zap,
 } from '@lucide/vue';
-import { breadcrumbSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
+import { breadcrumbSchema, faqSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
 definePageMeta({
   alias: ['/translate-pdf', '/pdf-translator', '/tools/pdf-translator'],
 });
 
 const pageDescription = 'Translate PDF documents online for free between English, Hindi, Spanish, French, and Gujarati. Extract text, translate accurately, and export to Word, PDF, or text with 100% in-browser privacy.';
+
+const faqs = [
+  ['Does PDF translation preserve the original document layout and styling?', 'Yes. Toolifybox extracts text block coordinates, calculates bounding box boundaries, and draws the translated text within matching layout containers, preserving titles, column structures, and headings.'],
+  ['Which languages can I translate between?', 'You can translate back and forth between English, Hindi (हिन्दी), Gujarati (ગુજરાતી), Spanish (Español), and French (Français). Auto-detect language is enabled by default.'],
+  ['Can I edit the translation before downloading?', 'Yes! Toolifybox provides an interactive side-by-side editing workspace. You can refine phrases, correct technical terminology, or format text directly before exporting.'],
+  ['Are my PDF documents kept confidential?', 'Yes. Toolifybox is built around browser-first privacy. No copies of your uploaded or translated documents are retained on our servers.'],
+];
 
 usePageSeo({
   title: 'Translate PDF Online — Free PDF Language Translator | Toolifybox',
@@ -47,6 +60,7 @@ usePageSeo({
         '100% private in-browser document processing',
       ]
     ),
+    () => faqSchema(faqs),
   ],
 });
 
@@ -149,6 +163,86 @@ const steps = [
             <p>{{ step.desc }}</p>
             <span class="card-line" aria-hidden="true" />
           </article>
+        </div>
+      </section>
+
+      <!-- In-Depth Translation Guide -->
+      <section class="seo-guide-section container">
+        <div class="section-intro">
+          <span class="mini-label">LAYOUT-AWARE TRANSLATION</span>
+          <h2>Accurate Multilingual Document Translation with Preserved Layouts</h2>
+          <p>Translating PDFs usually destroys formatting, causing text to spill outside bounding boxes. Toolifybox dynamically re-wraps paragraphs to maintain professional document geometry.</p>
+        </div>
+
+        <div class="seo-features-grid">
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Layers :size="24" /></span>
+            <h3>Preserves Original Layout &amp; Columns</h3>
+            <p>Our extraction engine maps text coordinates and isolates headers, footers, columns, and bullet points. Translated sentences are dynamically resized and wrapped into their corresponding page regions.</p>
+            <ul>
+              <li>Zero text box overlap across margins</li>
+              <li>Keeps two-column document layouts separated</li>
+              <li>Preserves original font styles and weights</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Languages :size="24" /></span>
+            <h3>Native Indic Script Support</h3>
+            <p>Translating from English into Hindi or Gujarati often creates complex vowel placement challenges. Toolifybox renders translated text with proper Unicode font shaping, ensuring flawless readability.</p>
+            <ul>
+              <li>Clean Devanagari and Gujarati Unicode output</li>
+              <li>Accurate technical, legal, and academic terms</li>
+              <li>Instant one-click language pair swapping</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
+            <h3>100% Confidential Document Processing</h3>
+            <p>Confidential medical reports, business contracts, and research papers stay private. Translations execute safely with no persistent server storage or training on your proprietary documents.</p>
+            <ul>
+              <li>Zero cloud document retention or logging</li>
+              <li>Export to Word (.docx), PDF (.pdf), or Text (.txt)</li>
+              <li>Free with no word count subscriptions</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Keyword Pills -->
+        <div style="margin-top: 40px; text-align: center;">
+          <span class="mini-label" style="display: block; margin-bottom: 12px;">EXPLORE RELATED TOOLS</span>
+          <div class="seo-tags-wrap" style="justify-content: center;">
+            <NuxtLink to="/tools/pdf-to-word" class="seo-keyword-pill">PDF to Word OCR</NuxtLink>
+            <NuxtLink to="/tools/extract-ocr" class="seo-keyword-pill">Extract OCR Text</NuxtLink>
+            <NuxtLink to="/tools/word-to-pdf" class="seo-keyword-pill">Word to PDF</NuxtLink>
+            <NuxtLink to="/tools/compress-pdf" class="seo-keyword-pill">Compress PDF</NuxtLink>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="faq-section container">
+        <div class="faq-intro">
+          <span class="mini-label">QUESTIONS &amp; ANSWERS</span>
+          <h2>Frequently Asked Questions About PDF Translation</h2>
+          <p>Learn how to translate documents across languages while maintaining page layouts.</p>
+          <div class="faq-decoration" aria-hidden="true">
+            <Languages :size="42" />
+            <span>EN &harr; HI</span>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details v-for="[question, answer] in faqs" :key="question">
+            <summary>
+              {{ question }}
+              <ChevronDown :size="18" />
+            </summary>
+            <div class="faq-answer">
+              <p>{{ answer }}</p>
+            </div>
+          </details>
         </div>
       </section>
 

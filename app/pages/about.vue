@@ -1,10 +1,18 @@
 <script setup>
-import { ArrowRight, ArrowUpRight, Check, Combine, FileCheck, FileImage, FileSpreadsheet, FileText, HeartHandshake, ImageDown, Languages, LayoutGrid, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, Sparkles, Stamp, Trash2, WandSparkles } from '@lucide/vue';
-import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Cpu, FileCheck, FileImage, FileSpreadsheet, FileText, Globe, HeartHandshake, ImageDown, Languages, Layers, LayoutGrid, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, ShieldCheck, Sparkles, Stamp, Trash2, WandSparkles, Zap } from '@lucide/vue';
+import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageDescription = 'Learn about Toolifybox, a collection of free browser-based Word, PDF and image tools designed for simple, private file conversion without sign-up.';
+const pageDescription = 'Learn about Toolifybox, a suite of free, private, browser-based Word, PDF and image tools powered by WebAssembly, client-side OCR, and zero cloud uploads.';
+
+const aboutFaqs = [
+  ['How does Toolifybox run complex OCR and PDF conversion entirely in the browser?', 'Toolifybox leverages modern WebAssembly (Wasm) and native web APIs. Instead of uploading your file to a remote server, compiled binary modules execute image rendering, stream decompression, and OCR neural networks directly on your device CPU/GPU.'],
+  ['Why is client-side processing better for user privacy?', 'Traditional web converters store uploaded files in cloud queues or server disks, leaving documents vulnerable to leaks, breaches, or scraping. With Toolifybox, your files never leave your device memory, guaranteeing total privacy.'],
+  ['How does Toolifybox support complex Indian languages (Hindi, Gujarati, Marathi)?', 'We implemented dedicated Unicode mappings and Microsoft OpenXML complex script typography (`w:cs` with Nirmala UI). This guarantees conjuncts, halants, and matras render cleanly without font corruption or broken characters.'],
+  ['Is Toolifybox free? How is it supported?', 'Toolifybox is 100% free with no subscriptions, paywalls, or hidden limitations. Because processing occurs on your client device, we avoid massive cloud server processing expenses, enabling a sustainable, free service.'],
+];
+
 usePageSeo({
-  title: 'About Toolifybox — Private Browser File Tools',
+  title: 'About Toolifybox — Free, Private & In-Browser File Tools Suite',
   description: pageDescription,
   path: '/about',
   schemas: [
@@ -33,6 +41,7 @@ usePageSeo({
         },
       ],
     }),
+    () => faqSchema(aboutFaqs),
   ],
 });
 
@@ -101,6 +110,51 @@ const tools = [
         <div class="info-section-heading"><span class="mini-label">AVAILABLE NOW</span><h2 id="available-tools">Twenty focused browser tools.</h2><p>Choose the workflow that matches your file and see its supported formats, limits and options before converting.</p></div>
         <div class="about-tools-grid">
           <NuxtLink v-for="tool in tools" :key="tool.title" :to="tool.to" class="about-tool-card"><span><ToolRealisticIcon v-if="tool.iconName" :name="tool.iconName" :alt="tool.title" size="32" /><component :is="tool.icon" v-else :size="22" /></span><div><h3>{{ tool.title }}</h3><p>{{ tool.text }}</p></div><ArrowUpRight :size="18" /></NuxtLink>
+        </div>
+      </section>
+
+      <!-- Technical Architecture Guide -->
+      <section class="seo-guide-section container">
+        <div class="section-intro">
+          <span class="mini-label">ENGINEERING EXCELLENCE</span>
+          <h2>The Technology Behind Client-Side Document Processing</h2>
+          <p>How Toolifybox replaces massive cloud processing farms with elegant, high-speed WebAssembly routines on your device.</p>
+        </div>
+
+        <div class="seo-features-grid">
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Cpu :size="24" /></span>
+            <h3>WebAssembly &amp; Web Workers</h3>
+            <p>Heavier tasks like OCR optical neural recognition, rasterization, and PDF stream compression run in dedicated browser background threads (Web Workers). Your main interface remains butter-smooth and responsive throughout the conversion.</p>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Languages :size="24" /></span>
+            <h3>Complex Script Typography Engine</h3>
+            <p>Our document generators map glyph metrics and character clusters directly to OpenXML Unicode tables using official fonts like <strong>Nirmala UI</strong> for Indic scripts and <strong>Traditional Arabic</strong> for Middle-Eastern texts, preventing ligature breaks.</p>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
+            <h3>Zero Data Collection Commitment</h3>
+            <p>We believe user privacy should not be an optional setting. By designing every converter to compile files locally, we physically eliminate the architecture required to intercept, store, or sell user documents.</p>
+          </article>
+        </div>
+
+        <!-- FAQ Section -->
+        <div id="faq" class="faq-section" style="padding-block: 48px 24px;">
+          <div class="faq-intro">
+            <span class="mini-label">TRANSPARENCY &amp; PRIVACY</span>
+            <h2>Frequently Asked Questions About Toolifybox</h2>
+            <p>Learn how our privacy, monetization, and technology models work.</p>
+            <div class="faq-decoration" aria-hidden="true"><ShieldCheck :size="42" /><span>TRUST &amp; PRIVACY</span></div>
+          </div>
+          <div class="faq-list">
+            <details v-for="[question, answer] in aboutFaqs" :key="question">
+              <summary>{{ question }}<ChevronDown :size="18" /></summary>
+              <div class="faq-answer"><p>{{ answer }}</p></div>
+            </details>
+          </div>
         </div>
       </section>
 

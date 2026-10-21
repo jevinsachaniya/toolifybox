@@ -1,53 +1,60 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
-import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Download, FileImage, FileSpreadsheet, FileText, ImageDown, Images, LockKeyhole, Minimize2, Presentation, ScanText, Scissors, ShieldCheck, Sparkles, Upload } from '@lucide/vue';
-import { usePageSeo } from '~/composables/usePageSeo';
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Cpu, Download, FileCheck, FileImage, FileSpreadsheet, FileText, Globe, HeartHandshake, ImageDown, Images, Languages, Layers, LayoutGrid, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, ShieldCheck, Sparkles, Stamp, Trash2, Upload, WandSparkles, Zap } from '@lucide/vue';
+import { faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const shell = ref(null);
 let observer;
 let mounted = false;
 
-const pageDescription = 'Convert Word, Excel, PowerPoint, PDF and image files online for free with Toolifybox. Private browser tools to convert, merge, split and compress documents without uploads.';
-usePageSeo({
-  title: 'Free Word, PDF & Image Tools Online | Toolifybox',
-  description: pageDescription,
-  path: '/',
-  schemas: [({ siteUrl }) => ({
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebSite',
-        '@id': `${siteUrl}/#website`,
-        name: 'Toolifybox',
-        alternateName: 'Toolify Box',
-        url: siteUrl,
-        description: pageDescription,
-        publisher: { '@id': `${siteUrl}/#organization` },
-      },
-      {
-        '@type': 'Organization',
-        '@id': `${siteUrl}/#organization`,
-        name: 'Toolifybox',
-        url: siteUrl,
-        logo: {
-          '@type': 'ImageObject',
-          url: `${siteUrl}/brand/toolifybox-logo.svg`,
-        },
-      },
-    ],
-  })],
-});
+const pageDescription = 'Free, private online tools for Word, PDF, Excel, PowerPoint, and images. Convert PDF to editable Word with Smart OCR in Hindi, Gujarati & English, compress PDFs to custom KB sizes, merge, split, translate, and protect documents with zero file uploads.';
 
 const questions = [
-  ['Which files can I convert?', 'Choose a .docx for Word to PDF, a .pptx for PowerPoint to PDF, a .xlsx or .csv for Excel to PDF, a .pdf for PDF to Word, PDF to JPG, PDF to Images, Merge PDF, Split PDF or Compress PDF, or JPG, PNG and WebP images for Images to PDF and Compress Image. File tools support inputs up to 20 MB. Older .doc/.ppt/.xls files and password-protected PDFs are not supported.'],
-  ['Will my colors and formatting stay the same?', 'PDF to Word defaults to editable text and uses OCR for scanned Hindi and English documents. Fonts, spacing, and scan backgrounds may change. Word to PDF supports basic text, tables and images. Always check the result before sharing.'],
-  ['What happens to my document?', 'Conversion happens in your browser. Your document is never uploaded to a server or conversion service. Close the page or choose another document to clear the current selection.'],
-  ['Do I need an account?', 'No account, subscription, or sign-up is needed. Open the Tools page, choose a conversion direction, select a document, and download the result.'],
+  ['Which file formats and document types can I process with Toolifybox?', 'Toolifybox supports Microsoft Word (.docx), Excel (.xlsx, .csv), PowerPoint (.pptx), PDF (.pdf), and popular image formats including JPG, PNG, and WebP. You can convert between office formats and PDFs, run Multilingual OCR on scanned files, compress file sizes to exact KB limits, merge multiple PDFs, extract text, translate documents, watermark pages, and apply AES-256 encryption without file size limits.'],
+  ['How does Toolifybox Smart OCR handle Indian languages like Hindi and Gujarati?', 'Toolifybox features a dedicated WebAssembly-based OCR engine equipped with full Unicode and OpenXML complex script support (Nirmala UI). Unlike standard cloud converters that split matras or output scrambled characters, Toolifybox cleanly recognizes Hindi (हिन्दी), Gujarati (ગુજરાતી), Marathi (मराठी), Bengali (বাংলা), Tamil, Telugu, and English, structuring the text into genuine editable paragraphs.'],
+  ['Is Toolifybox truly 100% private? Are my files uploaded to any servers?', 'Yes, 100% private. All conversions, compression algorithms, OCR neural nets, and PDF compilation run directly inside your web browser on your own computer or mobile phone. Your documents and data are never sent across the internet, never saved in a database, and never shared with third parties.'],
+  ['Will my fonts, tables, margins, and layout stay the same after conversion?', 'Yes. In PDF to Word conversion, Toolifybox uses intelligent baseline consolidation to group words into flowing paragraphs while preserving headings and table coordinates. In Word to PDF and image conversions, the document layout, page dimensions, and vector typography are faithfully preserved.'],
+  ['How do I compress a PDF to under 100KB or 200KB for government job or exam portals?', 'Use our dedicated "Compress PDF" tool and enter your desired target file size in KB or MB (such as 100 KB, 200 KB, or 500 KB). Toolifybox dynamically adjusts raster resolution and stream compression to hit your exact portal requirement while keeping the text crisp and legible.'],
+  ['Do I need to install any software, create an account, or pay a subscription?', 'No. Toolifybox is completely free forever. There are no subscriptions, no credit card requirements, no registration forms, no daily limits, and no watermarks placed on your converted files.'],
+  ['Can I translate PDF documents while maintaining the original design?', 'Yes! Our built-in "Translate PDF" tool allows you to translate documents between English, Hindi, Spanish, French, and Gujarati while preserving original bounding boxes, columns, and headings.'],
 ];
+
+usePageSeo({
+  title: 'Free Word, PDF & Image Tools Online — 100% Private | Toolifybox',
+  description: pageDescription,
+  path: '/',
+  schemas: [
+    ({ siteUrl }) => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          name: 'Toolifybox',
+          alternateName: 'Toolify Box',
+          url: siteUrl,
+          description: pageDescription,
+          publisher: { '@id': `${siteUrl}/#organization` },
+        },
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          name: 'Toolifybox',
+          url: siteUrl,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${siteUrl}/brand/toolifybox-logo.svg`,
+          },
+        },
+      ],
+    }),
+    () => faqSchema(questions),
+  ],
+});
 const steps = [
-  { icon: Upload, number: '01', title: 'Choose a tool.', text: 'Open the Tools page and choose one of the available document converters.' },
-  { icon: FileText, number: '02', title: 'Drop it in.', text: 'Choose a document up to 20 MB, or drag it into the upload box.' },
-  { icon: Download, number: '03', title: 'Send it on its way.', text: 'Convert, download, give the result a quick check, and carry on.' },
+  { icon: Upload, number: '01', title: 'Choose a tool.', text: 'Select any of our 20 specialized tools for Word, PDF, Excel, PowerPoint, or images.' },
+  { icon: FileText, number: '02', title: 'Drop your file in.', text: 'Select your file up to 20 MB, or drag it into the browser window.' },
+  { icon: Download, number: '03', title: 'Instant local download.', text: 'Your file is processed instantly on your device. Download the result with zero wait time.' },
 ];
 
 function setupReveals() {
@@ -128,6 +135,153 @@ onBeforeUnmount(() => {
         <span class="privacy-icon"><ShieldCheck :size="23" /></span>
         <div><h2>Your documents have places to be.</h2><p>Conversion runs on your device. Your document never leaves your browser.</p></div>
         <span class="privacy-label"><LockKeyhole :size="13" /> No document uploads</span>
+      </section>
+
+      <!-- Comprehensive Features & SEO Editorial Guide -->
+      <section class="seo-guide-section container" data-reveal>
+        <div class="section-intro">
+          <span class="mini-label">ALL-IN-ONE DOCUMENT SUITE</span>
+          <h2>Professional Document &amp; Image Tools Without the Complexity</h2>
+          <p>Toolifybox provides everything you need to convert, organize, compress, protect, and edit documents without installing heavy desktop programs or paying monthly cloud subscriptions.</p>
+        </div>
+
+        <div class="seo-features-grid">
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><ScanText :size="24" /></span>
+            <h3>PDF to Word with Multilingual OCR</h3>
+            <p>Turn scanned and digital PDFs into clean, fully editable Microsoft Word documents (.docx). Equipped with dedicated neural models for Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, and English.</p>
+            <ul>
+              <li>Reconstructs flowing paragraphs without clipping</li>
+              <li>Preserves complex script matras with Nirmala UI</li>
+              <li>Auto-detects titles, question numbers, and legal clauses</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Minimize2 :size="24" /></span>
+            <h3>Intelligent PDF &amp; Image Compression</h3>
+            <p>Reduce bulky PDF files and high-res images to exact file sizes. Hit strict 100KB, 200KB, or 500KB thresholds required for government job applications, college admissions, and email limits.</p>
+            <ul>
+              <li>Custom KB and MB target size selector</li>
+              <li>Exact Quality mode retains 100% vector sharpness</li>
+              <li>Side-by-side visual preview before saving</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Combine :size="24" /></span>
+            <h3>Merge, Split &amp; Organize Pages</h3>
+            <p>Take complete control over your PDF page structure. Combine multiple reports into one consolidated PDF, split specific page ranges into separate files, delete unwanted pages, or rotate orientations permanently.</p>
+            <ul>
+              <li>Visual thumbnail drag-and-drop reordering</li>
+              <li>Instant page rotation (90&deg;, 180&deg;, 270&deg;)</li>
+              <li>Batch page extraction with zero quality loss</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
+            <h3>Enterprise-Grade PDF Security</h3>
+            <p>Protect confidential financial statements, legal contracts, and personal records with military-grade AES-256 password encryption, or unlock previously protected files when you have the password.</p>
+            <ul>
+              <li>AES-128 &amp; AES-256 standard encryption</li>
+              <li>Flatten interactive forms to prevent alterations</li>
+              <li>Apply custom text or diagonal watermark stamps</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><Languages :size="24" /></span>
+            <h3>Document Translation &amp; Extraction</h3>
+            <p>Break language barriers with in-browser document translation. Translate PDF documents between English, Hindi, Spanish, French, and Gujarati while keeping the layout and typography intact.</p>
+            <ul>
+              <li>Translates multi-page documents seamlessly</li>
+              <li>Copies extracted OCR text directly to clipboard or Word</li>
+              <li>Preserves columns, tables, and section headings</li>
+            </ul>
+          </article>
+
+          <article class="seo-feature-card">
+            <span class="seo-feature-icon"><LayoutGrid :size="24" /></span>
+            <h3>Office &amp; Image Productivity</h3>
+            <p>Convert PowerPoint (.pptx) presentations and Excel (.xlsx, .csv) spreadsheets into clean PDFs, create beautiful photo collages, and convert PDFs to high-resolution JPG or PNG images.</p>
+            <ul>
+              <li>Crisp slide and spreadsheet rendering</li>
+              <li>Side-by-side, stacked, and grid photo collages</li>
+              <li>High-DPI PDF page image export</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Comparison Matrix -->
+        <div class="seo-comparison-card">
+          <h3>Toolifybox vs. Traditional Cloud PDF Services</h3>
+          <p>Why security-conscious professionals and users choose Toolifybox over legacy upload-based converters.</p>
+          <div class="seo-table-wrap">
+            <table class="seo-comparison-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Toolifybox</th>
+                  <th>Cloud Upload Websites</th>
+                  <th>Paid Desktop Software</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Data Privacy</td>
+                  <td><span class="seo-badge-win">100% In-Browser (Zero Upload)</span></td>
+                  <td><span class="seo-badge-loss">Sent to Remote Cloud Servers</span></td>
+                  <td>Local Installation</td>
+                </tr>
+                <tr>
+                  <td>Indic Language OCR (Hindi/Gujarati)</td>
+                  <td><span class="seo-badge-win">Full Support (Nirmala UI)</span></td>
+                  <td><span class="seo-badge-loss">Corrupted Fonts / Scrambled Text</span></td>
+                  <td>Requires Expensive Add-ons</td>
+                </tr>
+                <tr>
+                  <td>Pricing</td>
+                  <td><span class="seo-badge-win">100% Free Forever</span></td>
+                  <td><span class="seo-badge-loss">$15 - $25 / month</span></td>
+                  <td><span class="seo-badge-loss">$120+ One-time Fee</span></td>
+                </tr>
+                <tr>
+                  <td>Watermarks &amp; Restrictions</td>
+                  <td><span class="seo-badge-win">No Watermarks, No Limits</span></td>
+                  <td><span class="seo-badge-loss">Restricted on Free Tier</span></td>
+                  <td>License Key Restricted</td>
+                </tr>
+                <tr>
+                  <td>Account Creation</td>
+                  <td><span class="seo-badge-win">No Sign-up or Email Needed</span></td>
+                  <td><span class="seo-badge-loss">Sign-up Forced</span></td>
+                  <td>Account Required</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Quick Links Pill Cloud -->
+        <div style="margin-top: 40px; text-align: center;">
+          <span class="mini-label" style="display: block; margin-bottom: 12px;">QUICK ACCESS TO POPULAR TOOLS</span>
+          <div class="seo-tags-wrap" style="justify-content: center;">
+            <NuxtLink to="/tools/pdf-to-word" class="seo-keyword-pill">PDF to Word OCR</NuxtLink>
+            <NuxtLink to="/tools/word-to-pdf" class="seo-keyword-pill">Word to PDF</NuxtLink>
+            <NuxtLink to="/tools/compress-pdf" class="seo-keyword-pill">Compress PDF</NuxtLink>
+            <NuxtLink to="/tools/merge-pdf" class="seo-keyword-pill">Merge PDF</NuxtLink>
+            <NuxtLink to="/tools/split-pdf" class="seo-keyword-pill">Split PDF</NuxtLink>
+            <NuxtLink to="/tools/excel-to-pdf" class="seo-keyword-pill">Excel to PDF</NuxtLink>
+            <NuxtLink to="/tools/powerpoint-to-pdf" class="seo-keyword-pill">PowerPoint to PDF</NuxtLink>
+            <NuxtLink to="/tools/extract-ocr" class="seo-keyword-pill">Extract OCR Text</NuxtLink>
+            <NuxtLink to="/tools/translate-pdf" class="seo-keyword-pill">Translate PDF</NuxtLink>
+            <NuxtLink to="/tools/protect-pdf" class="seo-keyword-pill">Protect PDF</NuxtLink>
+            <NuxtLink to="/tools/unlock-pdf" class="seo-keyword-pill">Unlock PDF</NuxtLink>
+            <NuxtLink to="/tools/watermark-pdf" class="seo-keyword-pill">Watermark PDF</NuxtLink>
+            <NuxtLink to="/tools/image-collage" class="seo-keyword-pill">Make Image Collage</NuxtLink>
+          </div>
+        </div>
       </section>
 
       <section id="questions" class="faq-section container">

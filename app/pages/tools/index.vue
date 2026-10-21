@@ -1,15 +1,24 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowUpRight, Check, FileCheck, FileImage, FileSpreadsheet, FileText,
-  ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
-  Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, X, Zap 
+  ArrowUpRight, Check, ChevronDown, FileCheck, FileImage, FileSpreadsheet, FileText,
+  Globe, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
+  Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
-import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
+import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageDescription = 'Use free online Word, PDF and image tools in your browser. Convert files, merge, split and compress PDFs privately on your device.';
+const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
+
+const toolsFaqs = [
+  ['Are all 20 tools on Toolifybox completely free to use?', 'Yes, every single tool on Toolifybox is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
+  ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. Toolifybox processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
+  ['Can I use Toolifybox on mobile devices (iPhone, iPad, Android)?', 'Absolutely. Toolifybox is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
+  ['Which Indian and international languages are supported for OCR and Translation?', 'Toolifybox supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
+  ['Can I convert multiple pages without losing document formatting?', 'Yes. Our converters and utility tools support multi-page documents up to 100 pages. Toolifybox retains headers, footers, font typography, tables, and page alignments.'],
+];
+
 usePageSeo({
-  title: 'Free Online Word, PDF & Image Tools | Toolifybox',
+  title: 'Free Online Word, PDF & Image Tools Suite — 100% Private | Toolifybox',
   description: pageDescription,
   path: '/tools',
   schemas: [
@@ -50,6 +59,7 @@ usePageSeo({
         ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
       },
     }),
+    () => faqSchema(toolsFaqs),
   ],
 });
 
@@ -517,6 +527,66 @@ onBeforeUnmount(() => {
             <div>
               <strong>Free &amp; Registration-Free</strong>
               <p>No credit cards, subscriptions, or account logins needed. Simply convert and download.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- In-Depth Catalog SEO Editorial Guide -->
+        <div class="seo-guide-section" style="padding-top: 56px;">
+          <div class="section-intro">
+            <span class="mini-label">TOOL SUITE GUIDE</span>
+            <h2>Why Millions Choose Toolifybox for Daily Document Tasks</h2>
+            <p>From complex Indic script OCR to strict government PDF compression limits, Toolifybox gives you professional utility tools directly in your browser without sacrificing privacy or quality.</p>
+          </div>
+
+          <div class="seo-features-grid">
+            <article class="seo-feature-card">
+              <span class="seo-feature-icon"><FileText :size="24" /></span>
+              <h3>Universal Document Converters</h3>
+              <p>Seamlessly convert between Microsoft Office formats (Word, Excel, PowerPoint) and standard PDFs. Our converters preserve typography, column flows, complex tables, and bullet hierarchies.</p>
+              <ul>
+                <li>Convert DOCX to high-resolution print-ready PDF</li>
+                <li>Convert PPTX slides into share-ready slide decks</li>
+                <li>Convert XLSX spreadsheets and CSV records cleanly</li>
+              </ul>
+            </article>
+
+            <article class="seo-feature-card">
+              <span class="seo-feature-icon"><ScanText :size="24" /></span>
+              <h3>Multilingual Indic &amp; Global OCR</h3>
+              <p>Recover editable text from scanned documents, question papers, and old books in 17+ languages including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, and English with Nirmala UI font mapping.</p>
+              <ul>
+                <li>Prevents split conjuncts and broken matras</li>
+                <li>Auto-detects document language on upload</li>
+                <li>Extracts clean text directly to clipboard or Word</li>
+              </ul>
+            </article>
+
+            <article class="seo-feature-card">
+              <span class="seo-feature-icon"><Minimize2 :size="24" /></span>
+              <h3>Smart PDF &amp; Image Compression</h3>
+              <p>Meet stringent file upload constraints on government, visa, and exam portals. Enter exact target limits like 100 KB or 200 KB, or use visual downsampling to shrink multi-megabyte files effortlessly.</p>
+              <ul>
+                <li>Custom KB and MB target size selector</li>
+                <li>Retains text sharpness and interactive links</li>
+                <li>Live before-and-after size comparison</li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- FAQ Accordion -->
+          <div id="faq" class="faq-section" style="padding-block: 48px 24px;">
+            <div class="faq-intro">
+              <span class="mini-label">FAQ &amp; SUPPORT</span>
+              <h2>Frequently Asked Questions</h2>
+              <p>Answers to common questions regarding tools, security, file limits, and format compatibility.</p>
+              <div class="faq-decoration" aria-hidden="true"><Layers :size="42" /><span>20+ TOOLS</span></div>
+            </div>
+            <div class="faq-list">
+              <details v-for="[question, answer] in toolsFaqs" :key="question">
+                <summary>{{ question }}<ChevronDown :size="18" /></summary>
+                <div class="faq-answer"><p>{{ answer }}</p></div>
+              </details>
             </div>
           </div>
         </div>
