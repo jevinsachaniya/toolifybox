@@ -53,11 +53,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container extract-ocr-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> OPTICAL CHARACTER RECOGNITION</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> OPTICAL CHARACTER RECOGNITION</span>
           <h1>Extract OCR<br /><span>text easily.</span></h1>
           <p>Recover clean, selectable text from scanned receipts, contracts, textbook pages, paper documents, and screenshot images. Copy text directly to your clipboard or download clean TXT and Word documents in seconds.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Extract OCR Ready</div>
+          <ExtractOcrConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -87,22 +97,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileCheck :size="18" />
             <p>
               <b>Accuracy Tip</b><br />
               Ensure scanned receipts and photos are well-lit and oriented upright before running optical recognition for the cleanest accuracy.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Extract OCR Ready</div>
-          <ExtractOcrConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

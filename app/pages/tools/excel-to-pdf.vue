@@ -54,11 +54,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container excel-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> SPREADSHEET CONVERTER</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> SPREADSHEET CONVERTER</span>
           <h1>Convert Excel<br /><span>sheets to PDF.</span></h1>
           <p>Transform your Microsoft Excel (.xlsx) workbooks and CSV data tables into beautifully formatted, paginated PDF reports without third-party software or server uploads.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Excel to PDF Ready</div>
+          <ExcelToPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No document uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -88,22 +98,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileSpreadsheet :size="18" />
             <p>
               <b>Wide Spreadsheets &amp; Tables</b><br />
               Landscape orientation gives extra width for multi-column spreadsheets and quarterly balance sheets.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Excel to PDF Ready</div>
-          <ExcelToPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No document uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

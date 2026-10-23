@@ -27,6 +27,8 @@ export const SITE_ROUTES = [
   '/tools/image-collage',
   '/tools/translate-pdf',
   '/tools/watermark-pdf',
+  '/tools/create-pdf',
+  '/tools/add-page-numbers',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

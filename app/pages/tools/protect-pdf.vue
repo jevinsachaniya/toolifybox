@@ -53,11 +53,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container protect-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PDF SECURITY &amp; PRIVACY</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PDF SECURITY &amp; PRIVACY</span>
           <h1>Protect PDF<br /><span>with password.</span></h1>
           <p>Add strong password protection and military-grade AES-256 encryption to your sensitive PDF files directly in your web browser. Confidential contracts, statements, and tax forms never leave your device.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Protect PDF Ready</div>
+          <ProtectPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Encrypted locally on your device. Zero document uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -87,22 +97,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <Lock :size="18" />
             <p>
               <b>Important Privacy Notice</b><br />
               Make sure you record your password. Toolifybox does not track or store passwords, and lost passwords cannot be recovered.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Protect PDF Ready</div>
-          <ProtectPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Encrypted locally on your device. Zero document uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

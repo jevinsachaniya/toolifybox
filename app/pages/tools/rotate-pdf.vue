@@ -54,11 +54,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container rotate-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> DOCUMENT ORIENTATION</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> DOCUMENT ORIENTATION</span>
           <h1>Rotate PDF<br /><span>pages easily.</span></h1>
           <p>Fix scanned sheets, sideways receipts, inverted contract pages, or upside-down presentations. Preview every page live, rotate specific sheets or the whole file, and download clean PDFs without uploading to any remote server.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Rotate PDF Ready</div>
+          <RotatePdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -88,22 +98,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <RotateCcw :size="18" />
             <p>
               <b>Pro Tip</b><br />
               Need to rotate a landscape table or sideways invoice? Just click the 90° right arrow on that page, while keeping all other portrait pages untouched.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Rotate PDF Ready</div>
-          <RotatePdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

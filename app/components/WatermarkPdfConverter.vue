@@ -8,6 +8,7 @@ import {
   Eye,
   FileCheck,
   FileText,
+  Image as ImageIcon,
   LoaderCircle,
   RotateCcw,
   ShieldCheck,
@@ -20,7 +21,9 @@ import { formatSize } from '~/utils/document.js';
 import {
   applyWatermarkToPdf,
   drawWatermarkOnCanvas,
+  loadWatermarkImage,
   validatePdfForWatermark,
+  validateWatermarkImageFile,
   WATERMARK_COLORS,
   WATERMARK_POSITIONS,
   WATERMARK_PRESETS,
@@ -38,7 +41,10 @@ const input = ref(null);
 const uploadButton = ref(null);
 const previewCanvas = ref(null);
 
-// Watermark settings
+// Watermark mode: 'text' | 'image'
+const watermarkType = ref('text');
+
+// Text watermark settings
 const watermarkText = ref('CONFIDENTIAL');
 const watermarkColor = ref('#ef4444');
 const watermarkFontSize = ref(48);
@@ -47,6 +53,14 @@ const watermarkPosition = ref('center-diagonal');
 const watermarkRotation = ref(45);
 const watermarkPages = ref('all'); // 'all' | 'first' | 'custom'
 const watermarkCustomPages = ref('');
+
+// Image watermark settings
+const watermarkImage = shallowRef(null); // { bytes, type, width, height, imageElement, name, size }
+const watermarkImageScale = ref(35); // 10 to 90 (% of page)
+const imageInput = ref(null);
+const imageLoading = ref(false);
+const imageError = ref('');
+const imageDragging = ref(false);
 
 // Preview rendering state
 const previewLoading = ref(false);
@@ -83,6 +97,7 @@ function resetAll({ focus = true } = {}) {
   basePageImage.value = null;
   totalPdfPages.value = 1;
   pdfDocInstance = null;
+  watermarkType.value = 'text';
   watermarkText.value = 'CONFIDENTIAL';
   watermarkColor.value = '#ef4444';
   watermarkFontSize.value = 48;
@@ -91,8 +106,42 @@ function resetAll({ focus = true } = {}) {
   watermarkRotation.value = 45;
   watermarkPages.value = 'all';
   watermarkCustomPages.value = '';
+  watermarkImage.value = null;
+  watermarkImageScale.value = 35;
+  imageLoading.value = false;
+  imageError.value = '';
   if (input.value) input.value.value = '';
+  if (imageInput.value) imageInput.value.value = '';
   if (focus && active) uploadButton.value?.focus();
+}
+
+async function onImageChosen(event) {
+  const files = event.target?.files;
+  if (!files?.length) return;
+  await processImageFile(files[0]);
+  event.target.value = '';
+}
+
+async function processImageFile(imageFile) {
+  imageLoading.value = true;
+  imageError.value = '';
+  try {
+    const loaded = await loadWatermarkImage(imageFile);
+    watermarkImage.value = loaded;
+    await nextTick();
+    renderLivePreview();
+  } catch (err) {
+    imageError.value = err.message || 'Could not load watermark image.';
+  } finally {
+    imageLoading.value = false;
+  }
+}
+
+function removeWatermarkImage() {
+  watermarkImage.value = null;
+  imageError.value = '';
+  if (imageInput.value) imageInput.value.value = '';
+  renderLivePreview();
 }
 
 // Drag & drop handlers
@@ -204,22 +253,37 @@ function renderLivePreview() {
 
   // Draw live watermark
   const options = {
-    type: 'text',
+    type: watermarkType.value,
     text: watermarkText.value || 'CONFIDENTIAL',
     color: watermarkColor.value,
     fontSize: watermarkFontSize.value,
     opacity: watermarkOpacity.value / 100,
     position: watermarkPosition.value,
     rotation: watermarkRotation.value,
+    imageElement: watermarkImage.value?.imageElement,
+    imageScale: watermarkImageScale.value / 100,
   };
 
-  drawWatermarkOnCanvas(canvas, options);
+  drawWatermarkOnCanvas(ctx, canvas.width, canvas.height, options);
 }
 
 // Watch settings and update preview
-watch([watermarkText, watermarkColor, watermarkFontSize, watermarkOpacity, watermarkPosition, watermarkRotation], () => {
-  renderLivePreview();
-});
+watch(
+  [
+    watermarkType,
+    watermarkText,
+    watermarkColor,
+    watermarkFontSize,
+    watermarkOpacity,
+    watermarkPosition,
+    watermarkRotation,
+    watermarkImage,
+    watermarkImageScale,
+  ],
+  () => {
+    renderLivePreview();
+  }
+);
 
 function setPreset(preset) {
   watermarkText.value = preset;
@@ -241,6 +305,17 @@ function triggerDownload(url, filename) {
 
 async function executeWatermark() {
   if (!file.value || busy.value) return;
+
+  if (watermarkType.value === 'image' && !watermarkImage.value) {
+    error.value = 'Please select or upload an image to use as a watermark.';
+    return;
+  }
+
+  if (watermarkType.value === 'text' && !watermarkText.value.trim()) {
+    error.value = 'Please enter text for your watermark.';
+    return;
+  }
+
   busy.value = true;
   error.value = '';
   progress.value = 'Preparing watermark…';
@@ -252,7 +327,7 @@ async function executeWatermark() {
     }
 
     const options = {
-      type: 'text',
+      type: watermarkType.value,
       text: watermarkText.value || 'CONFIDENTIAL',
       fontSize: Number(watermarkFontSize.value) || 48,
       opacity: (Number(watermarkOpacity.value) || 25) / 100,
@@ -260,6 +335,9 @@ async function executeWatermark() {
       rotation: Number(watermarkRotation.value) || 0,
       color: watermarkColor.value,
       pageRange,
+      imageBytes: watermarkImage.value?.bytes,
+      imageType: watermarkImage.value?.type,
+      imageScale: watermarkImageScale.value / 100,
     };
 
     const watermarkedBlob = await applyWatermarkToPdf(file.value, options, {
@@ -387,41 +465,282 @@ async function executeWatermark() {
       <div class="watermark-editor-grid">
         <!-- Left: Settings Panel -->
         <div class="watermark-settings-panel">
-          <div class="settings-section">
-            <label class="settings-label" for="watermark-text-input">
-              <Type :size="15" />
-              <span>Watermark Text</span>
-            </label>
-            <input
-              id="watermark-text-input"
-              v-model="watermarkText"
-              type="text"
-              maxlength="80"
-              placeholder="e.g. CONFIDENTIAL, DRAFT, SAMPLE"
-              class="text-input"
+          <!-- Type Mode Selector: Text Stamp vs Image / Logo -->
+          <div class="watermark-type-selector">
+            <button
+              type="button"
+              class="type-tab-btn"
+              :class="{ active: watermarkType === 'text' }"
               :disabled="busy"
-            />
-
-            <!-- Presets -->
-            <div class="presets-row">
-              <span class="presets-label">Presets:</span>
-              <div class="presets-tags">
-                <button
-                  v-for="preset in WATERMARK_PRESETS"
-                  :key="preset"
-                  type="button"
-                  class="preset-chip"
-                  :class="{ active: watermarkText === preset }"
-                  :disabled="busy"
-                  @click="setPreset(preset)"
-                >
-                  {{ preset }}
-                </button>
-              </div>
-            </div>
+              @click="watermarkType = 'text'"
+            >
+              <Type :size="16" />
+              <span>Text Stamp</span>
+            </button>
+            <button
+              type="button"
+              class="type-tab-btn"
+              :class="{ active: watermarkType === 'image' }"
+              :disabled="busy"
+              @click="watermarkType = 'image'"
+            >
+              <ImageIcon :size="16" />
+              <span>Image / Logo</span>
+            </button>
           </div>
 
-          <!-- Position & Layout -->
+          <!-- Mode 1: Text Watermark Settings -->
+          <template v-if="watermarkType === 'text'">
+            <div class="settings-section">
+              <label class="settings-label" for="watermark-text-input">
+                <Type :size="15" />
+                <span>Watermark Text</span>
+              </label>
+              <input
+                id="watermark-text-input"
+                v-model="watermarkText"
+                type="text"
+                maxlength="80"
+                placeholder="e.g. CONFIDENTIAL, DRAFT, SAMPLE"
+                class="text-input"
+                :disabled="busy"
+              />
+
+              <!-- Presets -->
+              <div class="presets-row">
+                <span class="presets-label">Presets:</span>
+                <div class="presets-tags">
+                  <button
+                    v-for="preset in WATERMARK_PRESETS"
+                    :key="preset"
+                    type="button"
+                    class="preset-chip"
+                    :class="{ active: watermarkText === preset }"
+                    :disabled="busy"
+                    @click="setPreset(preset)"
+                  >
+                    {{ preset }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color & Opacity (Text) -->
+            <div class="settings-section">
+              <div class="flex-label-row">
+                <label class="settings-label">Color &amp; Opacity</label>
+                <span class="value-badge">{{ watermarkOpacity }}%</span>
+              </div>
+
+              <div class="color-swatches-row">
+                <button
+                  v-for="color in WATERMARK_COLORS"
+                  :key="color.hex"
+                  type="button"
+                  class="swatch-btn"
+                  :class="{ active: watermarkColor.toLowerCase() === color.hex.toLowerCase() }"
+                  :style="{ backgroundColor: color.hex }"
+                  :title="color.name"
+                  :disabled="busy"
+                  @click="watermarkColor = color.hex"
+                />
+                <div class="custom-color-picker" title="Pick custom color">
+                  <input
+                    v-model="watermarkColor"
+                    type="color"
+                    class="color-input"
+                    :disabled="busy"
+                  />
+                </div>
+              </div>
+
+              <div class="slider-control mt-3">
+                <div class="slider-header">
+                  <span>Transparency / Opacity</span>
+                  <b>{{ watermarkOpacity }}%</b>
+                </div>
+                <input
+                  v-model.number="watermarkOpacity"
+                  type="range"
+                  min="5"
+                  max="95"
+                  step="5"
+                  class="range-slider"
+                  :disabled="busy"
+                />
+              </div>
+            </div>
+
+            <!-- Size & Rotation (Text) -->
+            <div class="settings-section">
+              <div class="sliders-dual-row">
+                <div class="slider-control">
+                  <div class="slider-header">
+                    <span>Font Size</span>
+                    <b>{{ watermarkFontSize }}px</b>
+                  </div>
+                  <input
+                    v-model.number="watermarkFontSize"
+                    type="range"
+                    min="16"
+                    max="100"
+                    step="2"
+                    class="range-slider"
+                    :disabled="busy"
+                  />
+                </div>
+
+                <div class="slider-control">
+                  <div class="slider-header">
+                    <span>Angle</span>
+                    <b>{{ watermarkRotation }}°</b>
+                  </div>
+                  <input
+                    v-model.number="watermarkRotation"
+                    type="range"
+                    min="-90"
+                    max="90"
+                    step="5"
+                    class="range-slider"
+                    :disabled="busy"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Mode 2: Image Watermark Settings -->
+          <template v-else>
+            <div class="settings-section">
+              <label class="settings-label">
+                <ImageIcon :size="15" />
+                <span>Watermark Image / Logo</span>
+              </label>
+
+              <!-- Hidden file input for image -->
+              <input
+                ref="imageInput"
+                type="file"
+                accept=".png,.jpg,.jpeg,.webp,.svg,.bmp,image/*"
+                class="sr-only"
+                aria-label="Upload watermark image"
+                @change="onImageChosen"
+              />
+
+              <!-- Selected Image Card -->
+              <div v-if="watermarkImage" class="watermark-image-card">
+                <div class="image-thumb-wrap">
+                  <img
+                    :src="watermarkImage.imageElement?.src"
+                    :alt="watermarkImage.name"
+                    class="image-thumb-preview"
+                  />
+                </div>
+                <div class="image-details-wrap">
+                  <strong class="image-name" :title="watermarkImage.name">{{ watermarkImage.name }}</strong>
+                  <span class="image-meta">
+                    {{ watermarkImage.width }} × {{ watermarkImage.height }} px · {{ formatSize(watermarkImage.size) }}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  class="image-action-btn"
+                  title="Change image"
+                  :disabled="busy"
+                  @click="imageInput?.click()"
+                >
+                  <RotateCcw :size="14" />
+                </button>
+                <button
+                  type="button"
+                  class="image-action-btn remove"
+                  title="Remove image"
+                  :disabled="busy"
+                  @click="removeWatermarkImage"
+                >
+                  <X :size="14" />
+                </button>
+              </div>
+
+              <!-- Empty Image Picker Drop Card -->
+              <div
+                v-else
+                class="watermark-image-picker"
+                :class="{ 'is-dragging': imageDragging }"
+                @click="imageInput?.click()"
+                @dragenter.prevent="imageDragging = true"
+                @dragover.prevent="imageDragging = true"
+                @dragleave.prevent="imageDragging = false"
+                @drop.prevent="imageDragging = false; if ($event.dataTransfer?.files?.length) processImageFile($event.dataTransfer.files[0])"
+              >
+                <div class="picker-icon-circle">
+                  <Upload :size="18" />
+                </div>
+                <div class="picker-texts">
+                  <strong>Click or Drop Image Here</strong>
+                  <span>PNG (transparent recommended), JPG, WebP up to 15 MB</span>
+                </div>
+              </div>
+
+              <div v-if="imageError" class="image-error-text" role="alert">
+                <CircleAlert :size="14" />
+                <span>{{ imageError }}</span>
+              </div>
+            </div>
+
+            <!-- Image Size & Opacity -->
+            <div class="settings-section">
+              <div class="slider-control">
+                <div class="slider-header">
+                  <span>Image Scale / Size</span>
+                  <b>{{ watermarkImageScale }}% of page</b>
+                </div>
+                <input
+                  v-model.number="watermarkImageScale"
+                  type="range"
+                  min="10"
+                  max="90"
+                  step="5"
+                  class="range-slider"
+                  :disabled="busy"
+                />
+              </div>
+
+              <div class="slider-control mt-3">
+                <div class="slider-header">
+                  <span>Transparency / Opacity</span>
+                  <b>{{ watermarkOpacity }}%</b>
+                </div>
+                <input
+                  v-model.number="watermarkOpacity"
+                  type="range"
+                  min="5"
+                  max="95"
+                  step="5"
+                  class="range-slider"
+                  :disabled="busy"
+                />
+              </div>
+
+              <div class="slider-control mt-3">
+                <div class="slider-header">
+                  <span>Rotation Angle</span>
+                  <b>{{ watermarkRotation }}°</b>
+                </div>
+                <input
+                  v-model.number="watermarkRotation"
+                  type="range"
+                  min="-90"
+                  max="90"
+                  step="5"
+                  class="range-slider"
+                  :disabled="busy"
+                />
+              </div>
+            </div>
+          </template>
+
+          <!-- Placement & Style (Common to both) -->
           <div class="settings-section">
             <label class="settings-label">
               <Stamp :size="15" />
@@ -439,89 +758,6 @@ async function executeWatermark() {
               >
                 <span>{{ pos.label }}</span>
               </button>
-            </div>
-          </div>
-
-          <!-- Color & Opacity -->
-          <div class="settings-section">
-            <div class="flex-label-row">
-              <label class="settings-label">Color &amp; Opacity</label>
-              <span class="value-badge">{{ watermarkOpacity }}%</span>
-            </div>
-
-            <div class="color-swatches-row">
-              <button
-                v-for="color in WATERMARK_COLORS"
-                :key="color.hex"
-                type="button"
-                class="swatch-btn"
-                :class="{ active: watermarkColor.toLowerCase() === color.hex.toLowerCase() }"
-                :style="{ backgroundColor: color.hex }"
-                :title="color.name"
-                :disabled="busy"
-                @click="watermarkColor = color.hex"
-              />
-              <div class="custom-color-picker" title="Pick custom color">
-                <input
-                  v-model="watermarkColor"
-                  type="color"
-                  class="color-input"
-                  :disabled="busy"
-                />
-              </div>
-            </div>
-
-            <div class="slider-control mt-3">
-              <div class="slider-header">
-                <span>Transparency / Opacity</span>
-                <b>{{ watermarkOpacity }}%</b>
-              </div>
-              <input
-                v-model.number="watermarkOpacity"
-                type="range"
-                min="5"
-                max="95"
-                step="5"
-                class="range-slider"
-                :disabled="busy"
-              />
-            </div>
-          </div>
-
-          <!-- Size & Rotation -->
-          <div class="settings-section">
-            <div class="sliders-dual-row">
-              <div class="slider-control">
-                <div class="slider-header">
-                  <span>Font Size</span>
-                  <b>{{ watermarkFontSize }}px</b>
-                </div>
-                <input
-                  v-model.number="watermarkFontSize"
-                  type="range"
-                  min="16"
-                  max="100"
-                  step="2"
-                  class="range-slider"
-                  :disabled="busy"
-                />
-              </div>
-
-              <div class="slider-control">
-                <div class="slider-header">
-                  <span>Angle</span>
-                  <b>{{ watermarkRotation }}°</b>
-                </div>
-                <input
-                  v-model.number="watermarkRotation"
-                  type="range"
-                  min="-90"
-                  max="90"
-                  step="5"
-                  class="range-slider"
-                  :disabled="busy"
-                />
-              </div>
             </div>
           </div>
 
@@ -576,7 +812,7 @@ async function executeWatermark() {
             <button
               type="button"
               class="primary-button apply-btn"
-              :disabled="busy || !watermarkText.trim()"
+              :disabled="busy || (watermarkType === 'text' && !watermarkText.trim()) || (watermarkType === 'image' && !watermarkImage)"
               @click="executeWatermark"
             >
               <LoaderCircle v-if="busy" :size="18" class="animate-spin" />
@@ -851,6 +1087,175 @@ async function executeWatermark() {
   .watermark-editor-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Type Tab Selector: Text Stamp vs Image / Logo */
+.watermark-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: var(--surface-bg, #f1f5f9);
+  padding: 4px;
+  border-radius: 0.65rem;
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.type-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #64748b);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.type-tab-btn:hover:not(:disabled) {
+  color: var(--text-heading, #0f172a);
+}
+
+.type-tab-btn.active {
+  background: var(--card-bg, #ffffff);
+  color: #0284c7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Image Watermark Upload & Selected Card */
+.watermark-image-picker {
+  border: 2px dashed var(--border-color, #cbd5e1);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1rem;
+  background: var(--surface-bg, #f8fafc);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.watermark-image-picker:hover,
+.watermark-image-picker.is-dragging {
+  border-color: #0284c7;
+  background: #f0f9ff;
+}
+
+.picker-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.picker-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.picker-texts strong {
+  font-size: 0.875rem;
+  color: var(--text-heading, #0f172a);
+}
+
+.picker-texts span {
+  font-size: 0.75rem;
+  color: var(--text-muted, #64748b);
+}
+
+/* Selected Image Card */
+.watermark-image-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.75rem;
+  background: var(--surface-bg, #f8fafc);
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.image-thumb-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.5rem;
+  background: repeating-conic-gradient(#e2e8f0 0% 25%, #ffffff 0% 50%) 50% / 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #cbd5e1);
+  flex-shrink: 0;
+}
+
+.image-thumb-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-details-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.image-name {
+  font-size: 0.85rem;
+  color: var(--text-heading, #0f172a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.image-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted, #64748b);
+}
+
+.image-action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.45rem;
+  border: 1px solid var(--border-color, #cbd5e1);
+  background: var(--card-bg, #ffffff);
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.image-action-btn:hover {
+  border-color: #0284c7;
+  color: #0284c7;
+}
+
+.image-action-btn.remove:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+.image-error-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ef4444;
+  font-size: 0.775rem;
+  margin-top: 0.4rem;
 }
 
 /* Settings Panel */
@@ -1295,6 +1700,60 @@ async function executeWatermark() {
 
 :global([data-theme="dark"]) .result-icon-ring {
   background: #064e3b;
+}
+
+:global([data-theme="dark"]) .watermark-type-selector {
+  background: #0b1220;
+  border-color: #1e293b;
+}
+
+:global([data-theme="dark"]) .type-tab-btn.active {
+  background: #1e293b;
+  color: #38bdf8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+:global([data-theme="dark"]) .watermark-image-picker {
+  background: #0b1220;
+  border-color: #334155;
+}
+
+:global([data-theme="dark"]) .watermark-image-picker:hover,
+:global([data-theme="dark"]) .watermark-image-picker.is-dragging {
+  background: #0f172a;
+  border-color: #38bdf8;
+}
+
+:global([data-theme="dark"]) .picker-icon-circle {
+  background: #0c4a6e;
+  color: #38bdf8;
+}
+
+:global([data-theme="dark"]) .watermark-image-card {
+  background: #0b1220;
+  border-color: #334155;
+}
+
+:global([data-theme="dark"]) .image-thumb-wrap {
+  background: repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%) 50% / 12px 12px;
+  border-color: #334155;
+}
+
+:global([data-theme="dark"]) .image-action-btn {
+  background: #111827;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+:global([data-theme="dark"]) .image-action-btn:hover {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+:global([data-theme="dark"]) .image-action-btn.remove:hover {
+  border-color: #f87171;
+  color: #f87171;
+  background: #450a0a;
 }
 </style>
 

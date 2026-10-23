@@ -95,11 +95,21 @@ const steps = [
       </div>
 
       <section class="tools-layout container translate-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> DOCUMENT TRANSLATION STUDIO</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> DOCUMENT TRANSLATION STUDIO</span>
           <h1>Translate PDF<br /><span>across 5 languages.</span></h1>
           <p>Easily translate contracts, invoices, academic research, certificates, and manuals into <b>English, Hindi, Spanish, French, and Gujarati</b>. Review side-by-side translations in real-time and export to Word, PDF, or text.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> PDF Translator Ready</div>
+          <TranslatePdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server file storage.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Languages :size="14" /></span>
               <div>
@@ -129,23 +139,16 @@ const steps = [
               </div>
             </li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileCheck :size="18" />
             <p>
               <b>Important Quality Tip:</b><br />
               Always review the translated text before downloading. You can make inline corrections directly in the editor, and click "Re-translate" if you need to refresh the layout alignment before exporting.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> PDF Translator Ready</div>
-          <TranslatePdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server file storage.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container">
         <div class="section-intro">

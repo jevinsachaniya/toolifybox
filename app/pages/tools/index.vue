@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowUpRight, Check, ChevronDown, FileCheck, FileImage, FileSpreadsheet, FileText,
-  Globe, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
+  ArrowUpRight, Check, ChevronDown, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
+  Globe, Hash, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
@@ -10,11 +10,11 @@ import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSe
 const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
 
 const toolsFaqs = [
-  ['Are all 20 tools on Toolifybox completely free to use?', 'Yes, every single tool on Toolifybox is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
+  ['Are all 21 tools on Toolifybox completely free to use?', 'Yes, every single tool on Toolifybox is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
   ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. Toolifybox processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
   ['Can I use Toolifybox on mobile devices (iPhone, iPad, Android)?', 'Absolutely. Toolifybox is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
   ['Which Indian and international languages are supported for OCR and Translation?', 'Toolifybox supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
-  ['Can I convert multiple pages without losing document formatting?', 'Yes. Our converters and utility tools support multi-page documents up to 100 pages. Toolifybox retains headers, footers, font typography, tables, and page alignments.'],
+  ['Can I convert multiple pages without losing document formatting?', 'Yes. Our converters and utility tools support multi-page documents up to 450 pages. Toolifybox retains headers, footers, font typography, tables, and page alignments.'],
 ];
 
 usePageSeo({
@@ -52,6 +52,8 @@ usePageSeo({
           ['Make Image Collage', '/tools/image-collage'],
           ['Translate PDF', '/tools/translate-pdf'],
           ['Watermark PDF', '/tools/watermark-pdf'],
+          ['Create PDF', '/tools/create-pdf'],
+          ['Add Page Numbers', '/tools/add-page-numbers'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Protect PDF', '/tools/protect-pdf'],
@@ -331,6 +333,32 @@ const allTools = [
     theme: 'sky',
     route: '/tools/watermark-pdf',
   },
+  {
+    id: 'create-pdf',
+    title: 'Create PDF',
+    category: 'pdf',
+    categories: ['pdf', 'word'],
+    description: 'Create blank PDFs, lined notebook sheets, graph paper, to-do planners, or custom text documents.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: FilePlus,
+    iconName: 'create-pdf',
+    theme: 'emerald',
+    route: '/tools/create-pdf',
+  },
+  {
+    id: 'add-page-numbers',
+    title: 'Add Page Numbers',
+    category: 'pages',
+    categories: ['pages', 'pdf'],
+    description: 'Insert customizable page numbers, header/footer pagination, and custom numbering schemes into PDF files.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Hash,
+    iconName: 'add-page-numbers',
+    theme: 'blue',
+    route: '/tools/add-page-numbers',
+  },
 ];
 
 const filteredTools = computed(() => {
@@ -363,45 +391,17 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="site-shell tools-shell">
-    <a class="skip-link" href="#converter">Skip to converter</a>
+    <a class="skip-link" href="#tool-results">Skip to tools</a>
     <SiteHeader />
 
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
 
-      <!-- Converter workspace -->
-      <section class="tools-layout container">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> YOUR DOCUMENT WORKSPACE</span>
-          <h1>Choose your<br /><span>document tool.</span></h1>
-          <p>Convert Word and PDF files without sending them to a server. Choose a converter, add your document, and download the result.</p>
-          <ul class="tools-points">
-            <li><span><Check :size="14" /></span><div><b>Word to PDF</b><small>Turn DOCX files into share-ready PDFs.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>PDF to editable Word</b><small>Extract real text, including Hindi and English scans.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>PDF pages to images</b><small>Select pages and download clear PNG or JPG files.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>Images to PDF</b><small>Preview, arrange, and combine images into one PDF.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>Merge PDF files</b><small>Preview and combine complete PDFs in the order you choose.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>Split PDF by pages</b><small>Preview pages and create exact PDF ranges with multiple split points.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>Compress PDF files</b><small>Choose exact quality or stronger visual compression with clear trade-offs.</small></div></li>
-            <li><span><Check :size="14" /></span><div><b>Compress images</b><small>Preview JPG, PNG or WebP files and control quality or target size.</small></div></li>
-            <li><span><LockKeyhole :size="14" /></span><div><b>Private in your browser</b><small>Your files stay on your device during conversion.</small></div></li>
-          </ul>
-          <div class="tools-tip"><FileText :size="18" /><p><b>Best results</b><br />Use clear, standard documents and check the downloaded file before sharing.</p></div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Ready when you are</div>
-          <DocumentConverter v-model="selectedTool" />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally. No document uploads.</div>
-        </div>
-      </section>
-
       <!-- Multi-Tool Hub / Catalog Section -->
       <section id="catalog" class="tools-catalog container">
         <div class="tools-catalog-header">
           <span class="mini-label"><Sparkles :size="13" /> DOCUMENT TOOL SUITE</span>
-          <h2>Explore Document Utilities</h2>
+          <h1>Explore Document Utilities</h1>
           <p>A growing collection of fast, browser-powered tools designed for total privacy. Launch active converters or preview upcoming utilities.</p>
         </div>
 
@@ -519,7 +519,7 @@ onBeforeUnmount(() => {
             <span class="trust-icon"><Shield :size="22" /></span>
             <div>
               <strong>Zero Document Uploads</strong>
-              <p>Your confidential proposals, contracts, and scans remain 100% private in browser memory.</p>
+              <p>No document uploads. Your confidential proposals, contracts, and scans remain 100% private in browser memory.</p>
             </div>
           </div>
           <div class="trust-item">

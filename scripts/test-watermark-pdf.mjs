@@ -6,6 +6,7 @@ import {
   hexToRgb01,
   parseWatermarkPageRange,
   validatePdfForWatermark,
+  validateWatermarkImageFile,
   watermarkedPdfFilename,
 } from '../app/utils/watermark-pdf.js';
 import { createTranslatedPdf } from '../app/utils/translate-pdf.js';
@@ -134,5 +135,53 @@ test('createTranslatedPdf seamlessly applies watermark when enabled', async () =
   const resultBytes = new Uint8Array(await blob.arrayBuffer());
   const doc = await PDFDocument.load(resultBytes);
   assert.equal(doc.getPageCount(), 1);
+});
+
+test('validateWatermarkImageFile validates image files properly', () => {
+  assert.match(validateWatermarkImageFile(null), /select an image/i);
+  assert.match(validateWatermarkImageFile({ name: 'file.txt', type: 'text/plain', size: 100 }), /valid image/i);
+  assert.match(validateWatermarkImageFile({ name: 'logo.png', type: 'image/png', size: 0 }), /empty/i);
+  assert.equal(validateWatermarkImageFile({ name: 'logo.png', type: 'image/png', size: 5000 }), '');
+  assert.equal(validateWatermarkImageFile({ name: 'stamp.jpg', type: 'image/jpeg', size: 12000 }), '');
+  assert.equal(validateWatermarkImageFile({ name: 'badge.webp', type: 'image/webp', size: 8000 }), '');
+});
+
+test('applyWatermarkToPdf embeds image watermark onto PDF pages', async () => {
+  const doc = await PDFDocument.create();
+  doc.addPage([600, 800]);
+  const initialBytes = await doc.save();
+
+  // Valid 1x1 PNG bytes
+  const pngBytes = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+    'base64'
+  );
+
+  const imageBlob = await applyWatermarkToPdf(initialBytes, {
+    type: 'image',
+    imageBytes: new Uint8Array(pngBytes),
+    imageType: 'image/png',
+    imageScale: 0.4,
+    position: 'center-diagonal',
+    rotation: 45,
+    opacity: 0.35,
+  });
+
+  assert.ok(imageBlob.size > initialBytes.length);
+  const resultBytes = new Uint8Array(await imageBlob.arrayBuffer());
+  const verifiedDoc = await PDFDocument.load(resultBytes);
+  assert.equal(verifiedDoc.getPageCount(), 1);
+
+  // Test tiled image watermark
+  const tiledImageBlob = await applyWatermarkToPdf(initialBytes, {
+    type: 'image',
+    imageBytes: new Uint8Array(pngBytes),
+    imageType: 'image/png',
+    imageScale: 0.25,
+    position: 'tiled',
+    opacity: 0.2,
+  });
+
+  assert.ok(tiledImageBlob.size > initialBytes.length);
 });
 

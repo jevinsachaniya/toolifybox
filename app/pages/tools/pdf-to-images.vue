@@ -6,7 +6,7 @@ const pageTitle = 'PDF to Images Converter — Export PDF Pages as PNG & JPG Onl
 const pageDescription = 'Convert PDF pages to high-quality PNG or JPG images online for free. Preview and select specific pages, choose custom resolution and format, and download single images or a ZIP archive—privately in your browser.';
 
 const steps = [
-  { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 100 pages. Your file remains securely on your device.' },
+  { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 450 pages. Your file remains securely on your device.' },
   { number: '02', title: 'Select Pages & Format', desc: 'Preview every page, pick the exact pages you need, and choose lossless PNG or lightweight JPG output.' },
   { number: '03', title: 'Download Image Files', desc: 'Download a single image instantly or download all selected pages bundled in an organized ZIP file.' },
 ];
@@ -16,7 +16,7 @@ const faqs = [
   ['Can I extract images from specific pages without converting the entire document?', 'Yes! You can review visual thumbnails of every page and selectively check only the pages you wish to export. Individual images download directly, while multi-page selections are packaged into a clean ZIP archive.'],
   ['Are my confidential files uploaded to any remote server or cloud database?', 'Never. Toolifybox converts PDF pages directly in your browser memory using WebAssembly and client-side HTML5 canvas APIs. Your sensitive documents never travel across the network, ensuring zero data leakage.'],
   ['What image resolution does the converter output?', 'Pages are rendered at high DPI (up to 300 DPI) to preserve small fonts, hairline borders, and graphic nuances. This produces crisp images that look stunning even on 4K retina displays.'],
-  ['Is there any page limit or file size restriction?', 'You can process documents up to 20 MB and up to 100 pages per conversion session, with zero wait queues or daily conversion limits.'],
+  ['Is there any page limit or file size restriction?', 'You can process documents up to 20 MB and up to 450 pages per conversion session, with zero wait queues or daily conversion limits.'],
 ];
 
 usePageSeo({
@@ -50,24 +50,29 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container pdf-images-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PAGE-BY-PAGE CONTROL</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PAGE-BY-PAGE CONTROL</span>
           <h1>Convert PDF<br /><span>pages to images.</span></h1>
           <p>Preview every page, choose only the pages you need, and export them as clear PNG or compact JPG images.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> PDF to Images Ready</div>
+          <PdfToImagesConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No PDF uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>Select Any Pages</b><small>Pick one page, several pages, or the complete PDF.</small></div></li>
             <li><span><Images :size="14" /></span><div><b>PNG and JPG Output</b><small>Choose the format and resolution before downloading.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private Processing</b><small>The PDF is converted locally inside your browser.</small></div></li>
           </ul>
-          <div class="tools-tip"><FileImage :size="18" /><p><b>How multiple pages work</b><br />One PDF page becomes one image. Multiple selected pages download together in a ZIP file.</p></div>
-        </div>
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> PDF to Images Ready</div>
-          <PdfToImagesConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No PDF uploads.</div>
-        </div>
-      </section>
+      
+      <div class="tools-tip"><FileImage :size="18" /><p><b>How multiple pages work</b><br />One PDF page becomes one image. Multiple selected pages download together in a ZIP file.</p></div>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro"><span class="mini-label">HOW IT WORKS</span><h2>Choose exactly what to download</h2><p>Clear page previews make multi-page PDFs easy to export.</p></div>

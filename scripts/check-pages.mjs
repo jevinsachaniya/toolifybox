@@ -27,6 +27,8 @@ const extractOcrHtml = await readFile(new URL('../.output/public/tools/extract-o
 const imageCollageHtml = await readFile(new URL('../.output/public/tools/image-collage/index.html', import.meta.url), 'utf8');
 const translatePdfHtml = await readFile(new URL('../.output/public/tools/translate-pdf/index.html', import.meta.url), 'utf8');
 const watermarkPdfHtml = await readFile(new URL('../.output/public/tools/watermark-pdf/index.html', import.meta.url), 'utf8');
+const createPdfHtml = await readFile(new URL('../.output/public/tools/create-pdf/index.html', import.meta.url), 'utf8');
+const addPageNumbersHtml = await readFile(new URL('../.output/public/tools/add-page-numbers/index.html', import.meta.url), 'utf8');
 const aboutHtml = await readFile(new URL('../.output/public/about/index.html', import.meta.url), 'utf8');
 const contactHtml = await readFile(new URL('../.output/public/contact/index.html', import.meta.url), 'utf8');
 const privacyHtml = await readFile(new URL('../.output/public/privacy-policy/index.html', import.meta.url), 'utf8');
@@ -53,17 +55,17 @@ const extractOcrVisible = extractOcrHtml.replace(/<script\b[^>]*>[\s\S]*?<\/scri
 const imageCollageVisible = imageCollageHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const translatePdfVisible = translatePdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const watermarkPdfVisible = watermarkPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const createPdfVisible = createPdfHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+const addPageNumbersVisible = addPageNumbersHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const aboutVisible = aboutHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const contactVisible = contactHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const privacyVisible = privacyHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const termsVisible = termsHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 for (const anchor of ['main', 'how-it-works', 'questions']) assert.ok(visible.includes(`id="${anchor}"`), `Missing ${anchor} section`);
-assert.ok(!visible.includes('id="converter"'), 'Converter should only appear on the Tools page');
+assert.ok(!visible.includes('id="converter"'), 'Converter should not appear on the Home page');
 assert.ok(visible.includes('href="/tools"') && visible.includes('Explore tools'));
-assert.ok(toolsVisible.includes('id="converter"'));
-assert.ok(toolsVisible.includes('type="file"') && toolsVisible.includes('.docx'));
-assert.ok(toolsVisible.includes('Choose Word file'));
-assert.ok(toolsVisible.includes('PDF to Word') && toolsVisible.includes('PDF to editable Word'));
+assert.ok(toolsVisible.includes('id="catalog"'));
+assert.ok(toolsVisible.includes('Explore Document Utilities'));
 assert.ok(toolsVisible.includes('href="/tools/word-to-pdf"'), 'Word to PDF tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/powerpoint-to-pdf"'), 'PowerPoint to PDF tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/excel-to-pdf"'), 'Excel to PDF tool card must link to its dedicated page');
@@ -81,6 +83,8 @@ assert.ok(toolsVisible.includes('href="/tools/remove-pdf-pages"'), 'Remove PDF P
 assert.ok(toolsVisible.includes('href="/tools/rotate-pdf"'), 'Rotate PDF tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/flatten-pdf"'), 'Flatten PDF tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('href="/tools/extract-ocr"'), 'Extract OCR Text tool card must link to its dedicated page');
+assert.ok(toolsVisible.includes('href="/tools/create-pdf"'), 'Create PDF tool card must link to its dedicated page');
+assert.ok(toolsVisible.includes('href="/tools/add-page-numbers"'), 'Add Page Numbers tool card must link to its dedicated page');
 assert.ok(toolsVisible.includes('No document uploads'));
 assert.ok(!toolsVisible.includes('Our server') && !toolsVisible.includes('sent to this website'));
 assert.equal((visible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
@@ -103,6 +107,8 @@ assert.equal((rotatePdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((flattenPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((extractOcrVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((imageCollageVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((createPdfVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
+assert.equal((addPageNumbersVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((aboutVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((contactVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
 assert.equal((privacyVisible.match(/<h1(?:\s[^>]*)?>/g) || []).length, 1);
@@ -138,11 +144,13 @@ assert.ok(extractOcrVisible.includes('id="converter"') && extractOcrVisible.incl
 assert.ok(imageCollageVisible.includes('id="converter"') && imageCollageVisible.includes('Make Image Collage'));
 assert.ok(translatePdfVisible.includes('id="converter"') && (translatePdfVisible.includes('Translate PDF') || translatePdfVisible.includes('PDF Language Translator')));
 assert.ok(watermarkPdfVisible.includes('id="converter"') && watermarkPdfVisible.includes('Watermark PDF'));
+assert.ok(createPdfVisible.includes('id="converter"') && createPdfVisible.includes('Create PDF'));
+assert.ok(addPageNumbersVisible.includes('id="converter"') && addPageNumbersVisible.includes('Add Page Numbers'));
 assert.ok((visible.match(/<details(?:\s[^>]*)?>/g) || []).length >= 4, 'FAQ details count must be at least 4');
 for (const removed of ['My favorites', 'Image resizer', 'JSON formatter']) assert.ok(!visible.includes(removed) && !toolsVisible.includes(removed), `Removed feature still visible: ${removed}`);
 assert.ok(!visible.includes('undefined') && !toolsVisible.includes('undefined'));
-const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, powerpointToPdfHtml, excelToPdfHtml, pdfToWordHtml, pdfToJpgHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml, protectPdfHtml, unlockPdfHtml, removePdfPagesHtml, rotatePdfHtml, flattenPdfHtml, extractOcrHtml, imageCollageHtml, translatePdfHtml, watermarkPdfHtml];
-const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, powerpointToPdfVisible, excelToPdfVisible, pdfToWordVisible, pdfToJpgVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible, splitPdfVisible, compressPdfVisible, compressImageVisible, protectPdfVisible, unlockPdfVisible, removePdfPagesVisible, rotatePdfVisible, flattenPdfVisible, extractOcrVisible, imageCollageVisible, translatePdfVisible, watermarkPdfVisible];
+const generatedPages = [html, aboutHtml, contactHtml, privacyHtml, termsHtml, toolsHtml, wordToPdfHtml, powerpointToPdfHtml, excelToPdfHtml, pdfToWordHtml, pdfToJpgHtml, pdfToImagesHtml, imagesToPdfHtml, mergePdfHtml, splitPdfHtml, compressPdfHtml, compressImageHtml, protectPdfHtml, unlockPdfHtml, removePdfPagesHtml, rotatePdfHtml, flattenPdfHtml, extractOcrHtml, imageCollageHtml, translatePdfHtml, watermarkPdfHtml, createPdfHtml, addPageNumbersHtml];
+const visiblePages = [visible, aboutVisible, contactVisible, privacyVisible, termsVisible, toolsVisible, wordToPdfVisible, powerpointToPdfVisible, excelToPdfVisible, pdfToWordVisible, pdfToJpgVisible, pdfToImagesVisible, imagesToPdfVisible, mergePdfVisible, splitPdfVisible, compressPdfVisible, compressImageVisible, protectPdfVisible, unlockPdfVisible, removePdfPagesVisible, rotatePdfVisible, flattenPdfVisible, extractOcrVisible, imageCollageVisible, translatePdfVisible, watermarkPdfVisible, createPdfVisible, addPageNumbersVisible];
 assert.ok(generatedPages.every(page => page.includes('id="__nuxt"')), 'Missing Nuxt application');
 assert.ok(visiblePages.every(page => page.includes('class="theme-toggle"') && page.includes('Switch to dark theme')), 'Every page must include the theme switch');
 assert.ok(visiblePages.every(page => page.includes('class="site-version"') && page.includes(`v${SITE_VERSION}`)), 'Every page must include the configured site version');
@@ -151,7 +159,7 @@ assert.ok(visiblePages.every(page => page.includes('class="brand-mark"') && page
 assert.ok(visiblePages.every(page => page.includes('class="footer-links"') && page.includes('href="/about"') && page.includes('href="/contact"')), 'Every page must link to About and Contact in the footer');
 assert.ok(visiblePages.every(page => page.includes('href="/privacy-policy"') && page.includes('href="/terms-and-conditions"')), 'Every page must link to the legal pages');
 assert.ok(visiblePages.every(page => page.includes('class="mobile-menu-toggle"') && page.includes('aria-label="Open navigation menu"')), 'Every page must include the mobile hamburger navigation');
-assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/powerpoint-to-pdf"') && page.includes('href="/tools/excel-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-jpg"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"') && page.includes('href="/tools/split-pdf"') && page.includes('href="/tools/remove-pdf-pages"') && page.includes('href="/tools/rotate-pdf"') && page.includes('href="/tools/flatten-pdf"') && page.includes('href="/tools/extract-ocr"') && page.includes('href="/tools/image-collage"') && page.includes('href="/tools/translate-pdf"') && page.includes('href="/tools/watermark-pdf"') && page.includes('href="/tools/compress-pdf"') && page.includes('href="/tools/compress-image"') && page.includes('href="/tools/protect-pdf"') && page.includes('href="/tools/unlock-pdf"')), 'Every page footer must link to all active converters');
+assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-tools"') && page.includes('href="/tools/word-to-pdf"') && page.includes('href="/tools/powerpoint-to-pdf"') && page.includes('href="/tools/excel-to-pdf"') && page.includes('href="/tools/pdf-to-word"') && page.includes('href="/tools/pdf-to-jpg"') && page.includes('href="/tools/pdf-to-images"') && page.includes('href="/tools/images-to-pdf"') && page.includes('href="/tools/merge-pdf"') && page.includes('href="/tools/split-pdf"') && page.includes('href="/tools/remove-pdf-pages"') && page.includes('href="/tools/rotate-pdf"') && page.includes('href="/tools/flatten-pdf"') && page.includes('href="/tools/extract-ocr"') && page.includes('href="/tools/image-collage"') && page.includes('href="/tools/translate-pdf"') && page.includes('href="/tools/watermark-pdf"') && page.includes('href="/tools/create-pdf"') && page.includes('href="/tools/add-page-numbers"') && page.includes('href="/tools/compress-pdf"') && page.includes('href="/tools/compress-image"') && page.includes('href="/tools/protect-pdf"') && page.includes('href="/tools/unlock-pdf"')), 'Every page footer must link to all active converters');
 assert.ok(toolsVisible.includes('id="tool-search"') && toolsVisible.includes('Search tools') && toolsVisible.includes('Search Word, PDF, image or OCR tools'), 'Tools page search is missing');
 assert.ok(aboutVisible.includes('About Toolifybox') && aboutVisible.includes('Your file stays in your browser') && aboutVisible.includes('focused browser tools'), 'About page content is incomplete');
 assert.ok(contactVisible.includes('Tell us how we') && contactVisible.includes('name="contact"') && contactVisible.includes('data-netlify="true"'), 'Contact page or Netlify form markup is incomplete');
@@ -190,6 +198,7 @@ const pageRecords = [
   ['/tools/image-collage', imageCollageHtml],
   ['/tools/translate-pdf', translatePdfHtml],
   ['/tools/watermark-pdf', watermarkPdfHtml],
+  ['/tools/create-pdf', createPdfHtml],
 ];
 const titles = [];
 const descriptions = [];

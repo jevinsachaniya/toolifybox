@@ -80,11 +80,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container image-collage-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PHOTO COLLAGE STUDIO</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PHOTO COLLAGE STUDIO</span>
           <h1>Make Image Collage<br /><span>with flexible layouts.</span></h1>
           <p>Easily combine multiple photos into a stunning collage. Position pictures side-by-side (left &amp; right), stacked (top &amp; bottom), or in balanced 2×2 and multi-photo grids with customizable spacing, rounded corners, and frame colors.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Image Collage Ready</div>
+          <ImageCollageConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><ArrowLeftRight :size="14" /></span>
               <div>
@@ -114,23 +124,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileCheck :size="18" />
             <p>
               <b>Social Media Tip</b><br />
               Use the 1:1 Square ratio for Instagram feeds, 9:16 for Stories &amp; Reels, and 16:9 for YouTube thumbnails or landscape desktop wallpapers.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Image Collage Ready</div>
-          <ImageCollageConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

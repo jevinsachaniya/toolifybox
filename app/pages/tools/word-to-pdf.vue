@@ -58,11 +58,20 @@ usePageSeo({
 
       <!-- Main Converter Section -->
       <section class="tools-layout container">
-        <div class="tools-copy">
+        <div class="tools-hero">
           <span class="eyebrow"><Sparkles :size="13" /> INSTANT DOCUMENT COMPILER</span>
           <h1>Convert Word<br /><span>to PDF flawlessly.</span></h1>
           <p>Transform Microsoft Word (.docx) files into clean, universal, publication-ready PDF documents. Lock your formatting, preserve typography, and share documents safely without uploading files to remote servers.</p>
+        </div>
 
+        <div class="tools-converter-wrap">
+          <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Word to PDF Ready</div>
+          <DocumentConverter fixed-direction="word-pdf" />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. Zero file uploads.</div>
+        </div>
+
+        <div class="tools-details-below">
           <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>Exact Layout Preservation</b><small>Locks fonts, table grids, headers, and image alignments.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>100% Private Client-Side Conversion</b><small>Runs completely in browser memory. Zero server uploads.</small></div></li>
@@ -73,13 +82,6 @@ usePageSeo({
             <FileText :size="18" />
             <p><b>Need to convert a PDF back to Word?</b><br /><NuxtLink to="/tools/pdf-to-word" style="color: #a5b4fc; text-decoration: underline;">Switch to PDF to Word with Smart OCR &rarr;</NuxtLink></p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Word to PDF Ready</div>
-          <DocumentConverter fixed-direction="word-pdf" />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. Zero file uploads.</div>
         </div>
       </section>
 

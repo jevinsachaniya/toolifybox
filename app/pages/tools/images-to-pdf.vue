@@ -50,19 +50,26 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container images-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> YOUR IMAGES, ONE PDF</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> YOUR IMAGES, ONE PDF</span>
           <h1>Turn images into<br /><span>a polished PDF.</span></h1>
           <p>Preview and arrange your images in the exact page order you want, then create a crisp PDF without uploading anything.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" /><div class="floating-chip" aria-hidden="true"><span /> Images to PDF Ready</div><ImagesToPdfConverter /><div class="under-card"><ShieldCheck :size="15" /> Created locally on your device. No image uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>Preview Every Image</b><small>See filenames, dimensions, size, rotation, and final page order.</small></div></li>
             <li><span><Layers :size="14" /></span><div><b>Move and Organize</b><small>Drag cards or use accessible move buttons on desktop and mobile.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Maximum Image Quality</b><small>High-resolution rendering with lossless PNG support and 98% JPEG quality.</small></div></li>
           </ul>
-          <div class="tools-tip"><Images :size="18" /><p><b>Best results</b><br />Use Maximum quality and Fit entire image to keep every detail without cropping.</p></div>
-        </div>
-        <div class="tools-converter-wrap"><div class="converter-backdrop" aria-hidden="true" /><div class="floating-chip" aria-hidden="true"><span /> Images to PDF Ready</div><ImagesToPdfConverter /><div class="under-card"><ShieldCheck :size="15" /> Created locally on your device. No image uploads.</div></div>
-      </section>
+      
+      <div class="tools-tip"><Images :size="18" /><p><b>Best results</b><br />Use Maximum quality and Fit entire image to keep every detail without cropping.</p></div>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works"><div class="section-intro"><span class="mini-label">HOW IT WORKS</span><h2>From separate images to one clear PDF</h2><p>Control the order and appearance before you download.</p></div><div class="how-grid"><article v-for="step in steps" :key="step.number" class="how-card"><div class="how-card-top"><span><Images :size="22" /></span><b>{{ step.number }}</b></div><h3>{{ step.title }}</h3><p>{{ step.desc }}</p><span class="card-line" aria-hidden="true" /></article></div></section>
 

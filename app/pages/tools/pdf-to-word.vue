@@ -60,30 +60,32 @@ usePageSeo({
 
       <!-- Main Tool Converter Section -->
       <section class="tools-layout container">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> FLAGSHIP OCR CONVERTER</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> FLAGSHIP OCR CONVERTER</span>
           <h1>Convert PDF to<br /><span>editable Word (.docx).</span></h1>
           <p>Transform scanned PDFs and digital documents into cleanly formatted, editable Microsoft Word files. Featuring specialized Indic script OCR for Hindi, Gujarati, Marathi, and international languages—100% free and private in your browser.</p>
+    </div>
 
-          <ul class="tools-points">
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> PDF to Word Ready</div>
+          <DocumentConverter fixed-direction="pdf-word" />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. Zero file uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>True Editable Word DOCX</b><small>Reconstructs selectable text, paragraphs, alignments, and fonts.</small></div></li>
             <li><span><Globe :size="14" /></span><div><b>17+ Languages with Smart OCR</b><small>Native support for Hindi, Gujarati, Marathi, Tamil, Telugu, English &amp; more.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>100% Client-Side Privacy</b><small>Runs in browser memory via WebAssembly. Zero file uploads.</small></div></li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileText :size="18" />
             <p><b>Need to convert Word back to PDF?</b><br /><NuxtLink to="/tools/word-to-pdf" style="color: #a5b4fc; text-decoration: underline;">Open Word to PDF converter &rarr;</NuxtLink></p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> PDF to Word Ready</div>
-          <DocumentConverter fixed-direction="pdf-word" />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. Zero file uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <!-- Step-by-Step How It Works Guide -->
       <section class="how-section container" id="how-to-convert">
@@ -177,7 +179,7 @@ usePageSeo({
             <ul>
               <li>No registration or email sign-up required</li>
               <li>Zero watermarks stamped onto your output</li>
-              <li>Fast processing up to 100 pages per document</li>
+              <li>Fast processing up to 450 pages per document</li>
             </ul>
           </article>
         </div>

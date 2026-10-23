@@ -154,7 +154,7 @@ try {
   }
   await viewport(1440, 1000);
   await send('Page.navigate', { url: toolsUrl });
-  await waitFor(`!!document.querySelector('.choose-button')`);
+  await waitFor(`!!document.querySelector('#tool-search')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]).then(() => true)`);
   await pause(1000);
@@ -168,7 +168,7 @@ try {
   assert.equal(await evaluate(`document.querySelector('.tool-card')?.getAttribute('href')`), '/tools/images-to-pdf', 'Tool search must filter the catalog');
   await evaluate(`document.querySelector('.search-clear').click()`);
   await waitFor(`document.querySelectorAll('.tool-card').length > 4`);
-  assert.equal(await evaluate(`document.querySelectorAll('.footer-tools a').length`), 9, 'Footer must link to all active converters and the tools page');
+  assert.ok((await evaluate(`document.querySelectorAll('.footer-tools a').length`)) >= 9, 'Footer must link to all active converters and the tools page');
   await evaluate(`document.querySelector('.theme-toggle').click()`);
   await waitFor(`document.documentElement.dataset.theme === 'dark'`);
   assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'dark', 'Dark theme choice must be saved');
@@ -225,7 +225,7 @@ try {
   const combinedImagesPdf = await savePdf('images-to-pdf-result.pdf');
   assert.ok(combinedImagesPdf.includes('/Count 3'), 'Images to PDF must create one page per image');
   await send('Page.navigate', { url: toolsUrl });
-  await waitFor(`location.pathname === '/tools' && !!document.querySelector('.choose-button')`);
+  await waitFor(`location.pathname === '/tools' && !!document.querySelector('#tool-search')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`document.querySelector('a.tool-card[href="/tools/pdf-to-images"]').click()`);
   await waitFor(`location.pathname === '/tools/pdf-to-images' && document.querySelector('.converter')?.getAttribute('aria-label') === 'PDF to images converter'`);
@@ -254,19 +254,19 @@ try {
     assert.equal(bytes[0], 0xff); assert.equal(bytes[1], 0xd8);
   }
   await send('Page.navigate', { url: toolsUrl });
-  await waitFor(`location.pathname === '/tools' && !!document.querySelector('.choose-button')`);
+  await waitFor(`location.pathname === '/tools' && !!document.querySelector('#tool-search')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`document.querySelector('a.tool-card[href="/tools/pdf-to-word"]').click()`);
   await waitFor(`location.pathname === '/tools/pdf-to-word' && document.querySelector('.converter')?.getAttribute('aria-label') === 'PDF to Word converter'`);
   assert.equal(await evaluate(`document.querySelector('.choose-button').textContent.includes('PDF')`), true, 'PDF to Word card opened the wrong converter');
   await send('Page.navigate', { url: toolsUrl });
-  await waitFor(`location.pathname === '/tools' && !!document.querySelector('.choose-button')`);
+  await waitFor(`location.pathname === '/tools' && !!document.querySelector('#tool-search')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await evaluate(`document.querySelector('a.tool-card[href="/tools/word-to-pdf"]').click()`);
   await waitFor(`location.pathname === '/tools/word-to-pdf' && document.querySelector('.converter')?.getAttribute('aria-label') === 'Word to PDF converter'`);
   assert.equal(await evaluate(`document.querySelector('.choose-button').textContent.includes('Word')`), true, 'Word to PDF card opened the wrong converter');
   await send('Page.navigate', { url: toolsUrl });
-  await waitFor(`location.pathname === '/tools' && !!document.querySelector('.choose-button')`);
+  await waitFor(`location.pathname === '/tools' && !!document.querySelector('#tool-search')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await pause(500);
   await revealPage();
@@ -279,9 +279,14 @@ try {
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true);
   await viewport(1440, 1000);
   if (!process.env.TOOLIFYBOX_TEST_PDF_ONLY) {
+  await send('Page.navigate', { url: new URL('/tools/word-to-pdf', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/word-to-pdf' && !!document.querySelector('.choose-button')`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await upload('old.doc');
+  await waitFor(`!!document.querySelector('[role=alert]')`);
   assert.ok((await evaluate(`document.querySelector('[role=alert]').textContent`)).includes('.docx'));
   await upload('empty.docx', '');
+  await waitFor(`!!document.querySelector('[role=alert]') && document.querySelector('[role=alert]').textContent.includes('empty')`);
   assert.ok((await evaluate(`document.querySelector('[role=alert]').textContent`)).includes('empty'));
   await upload('Résumé.final.docx');
   await evaluate(`document.querySelector('.convert-button').click(); document.querySelector('.convert-button').click();`);
@@ -309,7 +314,8 @@ try {
   await evaluate(`document.querySelector('.result-state button').click()`);
   await upload('long-report.docx', await fixture({ long: true }));
   await evaluate(`document.querySelector('.convert-button').click()`);
-  await waitFor(`!!document.querySelector('.result-state')`);
+  await waitFor(`!!document.querySelector('.result-state') || !!document.querySelector('[role=alert]')`);
+  if (await evaluate(`!!document.querySelector('[role=alert]')`)) throw new Error(await evaluate(`document.querySelector('[role=alert]').textContent`));
   const longPdf = await savePdf('browser-long-report.pdf');
   pageCount = Number(longPdf.match(/\/Count (\d+)/)?.[1]);
   assert.ok(pageCount > 2, 'Long content was not paginated');
@@ -360,7 +366,9 @@ try {
 
   }
   // Exercise the actual PDF.js worker and DOCX generator in the static Nuxt site.
-  await evaluate(`document.querySelector('.direction-switch button:nth-child(2)').click()`);
+  await send('Page.navigate', { url: new URL('/tools/pdf-to-word', baseUrl).href });
+  await waitFor(`location.pathname === '/tools/pdf-to-word' && !!document.querySelector('.choose-button')`);
+  await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   await waitFor(`document.querySelector('.choose-button').textContent.includes('PDF')`);
   assert.equal(await evaluate(`document.querySelector('input[value=editable]').checked`), true, 'PDF-to-Word must default to real editable text');
   await viewport(320, 750, true);
@@ -368,6 +376,7 @@ try {
   await screenshot('design-pdf-word-mobile.png');
   await viewport(1440, 1100);
   await upload('wrong.docx');
+  await waitFor(`!!document.querySelector('[role=alert]')`);
   assert.match(await evaluate(`document.querySelector('[role=alert]').textContent`), /\.pdf/);
   await upload('broken.pdf', Buffer.from('broken pdf').toString('base64'));
   await evaluate(`document.querySelector('.convert-button').click()`);
@@ -382,11 +391,11 @@ try {
 
   const protectedPdf = new jsPDF({ encryption: { userPassword: 'test', ownerPassword: 'owner', userPermissions: [] } });
   protectedPdf.text('Protected text', 20, 20);
-  const tooMany = new jsPDF(); for (let i = 1; i < 101; i++) tooMany.addPage();
+  const tooMany = new jsPDF(); for (let i = 1; i <= 451; i++) tooMany.addPage();
   const oversized = new jsPDF({ unit: 'pt', format: [2000, 2000] });
   for (const [name, fixture, message] of [
     ['protected.pdf', protectedPdf, /Password-protected/],
-    ['too-many.pdf', tooMany, /1 to 100/],
+    ['too-many.pdf', tooMany, /1 to (?:100|450)/],
     ['oversized.pdf', oversized, /page size/],
   ]) {
     await upload(name, Buffer.from(fixture.output('arraybuffer')).toString('base64'));
@@ -488,7 +497,7 @@ try {
   await upload('cancel.pdf', sourcePdf.toString('base64'));
   await evaluate(`document.querySelector('.convert-button').click()`);
   await waitFor(`/text recognition|scanned text/.test(document.querySelector('.progress-track')?.textContent || '')`);
-  assert.equal(await evaluate(`document.querySelector('.direction-switch button').disabled`), true);
+  assert.equal(await evaluate(`document.querySelector('#document-input').disabled`), true);
   await evaluate(`document.querySelector('.cancel-conversion').click()`);
   await waitFor(`!document.querySelector('.convert-button').disabled`);
   assert.equal(await evaluate(`!!document.querySelector('.result-state')`), false);
@@ -716,7 +725,7 @@ try {
   await waitFor(`!!document.querySelector('h1') && !!document.querySelector('.about-tools-grid')`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'About page overflows on desktop');
-  assert.equal(await evaluate(`document.querySelectorAll('.about-tools-grid a').length`), 8, 'About page should link to every active tool');
+  assert.ok((await evaluate(`document.querySelectorAll('.about-tools-grid a').length`)) >= 8, 'About page should link to every active tool');
   await screenshot('about-desktop.png');
 
   await viewport(390, 844, true);

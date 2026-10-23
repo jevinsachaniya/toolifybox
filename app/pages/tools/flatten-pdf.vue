@@ -54,11 +54,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container flatten-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PDF STANDARDIZATION</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PDF STANDARDIZATION</span>
           <h1>Flatten PDF<br /><span>forms &amp; layers.</span></h1>
           <p>Prevent unauthorized edits to completed contracts, tax forms, applications, and signed agreements. Flatten interactive AcroForm fields, checkboxes, dropdowns, and digital annotations permanently into read-only page content.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Flatten PDF Ready</div>
+          <FlattenPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -88,22 +98,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileCheck :size="18" />
             <p>
               <b>Form Security Tip</b><br />
               Always flatten tax forms and filled contracts before emailing to prevent recipients or third parties from altering your completed numbers.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Flatten PDF Ready</div>
-          <FlattenPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

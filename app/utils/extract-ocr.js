@@ -289,69 +289,98 @@ export async function extractOcrFromFile(file, {
     check();
 
     const totalPages = pdf.numPages;
-    const pages = [];
+    const pages = new Array(totalPages);
     let ocrPages = 0;
     let digitalPages = 0;
+    let completedCount = 0;
+    let nextIndex = 0;
+    let lastProgressTime = 0;
 
-    for (let number = 1; number <= totalPages; number++) {
+    let ocrLock = Promise.resolve();
+    const runOcrSafely = async (canvas) => {
+      const prev = ocrLock;
+      let release;
+      ocrLock = new Promise(resolve => { release = resolve; });
+      await prev;
+      try {
+        const worker = await getWorker();
+        check();
+        const { data: ocrData } = await worker.recognize(canvas);
+        check();
+        return (ocrData.text || '').trim();
+      } finally {
+        release();
+      }
+    };
+
+    async function processPage(number) {
       check();
-      onProgress(`Processing page ${number} of ${totalPages}…`);
       const page = await pdf.getPage(number);
       let pageText = '';
       let extractionType = 'digital';
 
-      if (!forceOcr) {
-        const textContent = await page.getTextContent();
-        pageText = formatPdfTextContent(textContent);
+      try {
+        if (!forceOcr) {
+          const textContent = await page.getTextContent();
+          pageText = formatPdfTextContent(textContent);
+        }
+
+        // Automatically detect corrupted legacy fonts (e.g. KrutiDev, non-Unicode CMaps, or PUA glyphs)
+        const hasUnusableTextLayer = pageText ? needsOcrForDigitalText(pageText) : true;
+
+        if (forceOcr || !pageText.trim() || hasUnusableTextLayer) {
+          extractionType = 'ocr';
+          ocrPages++;
+          const unscaledViewport = page.getViewport({ scale: 1 });
+          const scale = Math.min(2.5, Math.max(1.5, 1800 / Math.max(unscaledViewport.width, unscaledViewport.height)));
+          const viewport = page.getViewport({ scale });
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.ceil(viewport.width);
+          canvas.height = Math.ceil(viewport.height);
+          const context = canvas.getContext('2d', { alpha: false });
+          context.fillStyle = '#ffffff';
+          context.fillRect(0, 0, canvas.width, canvas.height);
+
+          await page.render({ canvasContext: context, viewport, background: '#ffffff' }).promise;
+          check();
+
+          pageText = await runOcrSafely(canvas);
+          canvas.width = canvas.height = 0;
+        } else {
+          digitalPages++;
+        }
+
+        const pageWords = countWords(pageText);
+        return {
+          pageNumber: number,
+          text: pageText,
+          type: extractionType,
+          wordCount: pageWords,
+          charCount: pageText.length,
+        };
+      } finally {
+        page.cleanup();
       }
-
-      // Automatically detect corrupted legacy fonts (e.g. KrutiDev, non-Unicode CMaps, or PUA glyphs)
-      const hasUnusableTextLayer = pageText ? needsOcrForDigitalText(pageText) : true;
-
-      // If the page already contains real Unicode text, retain its native
-      // script. OCR handles scans and legacy/private-use font encodings.
-      if (forceOcr || pageText.length < 25 || hasUnusableTextLayer) {
-        extractionType = 'ocr';
-        ocrPages++;
-        onProgress(`Running high-resolution OCR on page ${number} of ${totalPages}…`);
-
-        // Render at 300 DPI for high-accuracy Devanagari recognition (matras & conjuncts)
-        const unscaledViewport = page.getViewport({ scale: 1 });
-        const scale = Math.min(4, Math.max(2.5, 2400 / Math.max(unscaledViewport.width, unscaledViewport.height)));
-        const viewport = page.getViewport({ scale });
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.ceil(viewport.width);
-        canvas.height = Math.ceil(viewport.height);
-        const context = canvas.getContext('2d', { alpha: false });
-        context.fillStyle = '#ffffff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        await page.render({ canvasContext: context, viewport, background: '#ffffff' }).promise;
-        check();
-
-        const worker = await getWorker();
-        check();
-
-        const { data: ocrData } = await worker.recognize(canvas);
-        check();
-
-        pageText = (ocrData.text || '').trim();
-        canvas.width = canvas.height = 0;
-      } else {
-        digitalPages++;
-      }
-
-      page.cleanup();
-
-      const pageWords = countWords(pageText);
-      pages.push({
-        pageNumber: number,
-        text: pageText,
-        type: extractionType,
-        wordCount: pageWords,
-        charCount: pageText.length,
-      });
     }
+
+    const CONCURRENCY = Math.min(6, Math.max(2, (typeof navigator !== 'undefined' && navigator?.hardwareConcurrency) || 4));
+    async function worker() {
+      while (nextIndex < totalPages) {
+        check();
+        const index = nextIndex++;
+        const number = index + 1;
+        pages[index] = await processPage(number);
+        completedCount++;
+        const now = performance.now();
+        if (now - lastProgressTime > 80 || completedCount === totalPages) {
+          lastProgressTime = now;
+          onProgress(`Processing page ${completedCount} of ${totalPages}…`);
+        }
+      }
+    }
+
+    const workerCount = Math.min(CONCURRENCY, totalPages);
+    await Promise.all(Array.from({ length: workerCount }, () => worker()));
 
     const fullText = pages.map(p => p.text).filter(Boolean).join('\n\n--- Page Break ---\n\n');
     const totalWords = countWords(fullText);

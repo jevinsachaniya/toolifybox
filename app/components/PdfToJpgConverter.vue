@@ -263,7 +263,7 @@ function cancel() { request?.abort(); }
           <h3>{{ dragging ? 'Drop it here.' : 'Drop your PDF here' }}</h3>
           <p>Each page from your PDF document will be rendered as a clear JPG.</p>
           <button ref="uploadButton" class="choose-button" aria-describedby="pdf-jpg-requirements" @click="input?.click()"><Upload :size="17" /> Choose PDF file</button>
-          <span id="pdf-jpg-requirements" class="file-requirements">.PDF only <span>·</span> Up to 20 MB <span>·</span> Up to 100 pages</span>
+          <span id="pdf-jpg-requirements" class="file-requirements">.PDF only <span>·</span> Up to 20 MB <span>·</span> Up to 450 pages</span>
         </template>
       </div>
       <button v-if="file" class="primary-button convert-button" :disabled="busy" @click="loadPages">

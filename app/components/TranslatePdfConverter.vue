@@ -54,6 +54,14 @@ const watermarkText = ref('TRANSLATED');
 const watermarkPosition = ref('center-diagonal');
 const watermarkOpacity = ref(25);
 
+const WATERMARK_POSITION_OPTIONS = [
+  { value: 'center-diagonal', label: 'Diagonal Center (45°)' },
+  { value: 'center', label: 'Horizontal Center' },
+  { value: 'tiled', label: 'Repeating Grid (Tiled)' },
+  { value: 'top', label: 'Top Margin' },
+  { value: 'bottom', label: 'Bottom Margin' },
+];
+
 const input = ref(null);
 const uploadButton = ref(null);
 
@@ -627,13 +635,14 @@ function copyTranslated() {
                 maxlength="50"
                 :disabled="busy"
               />
-              <select v-model="watermarkPosition" class="watermark-inline-select" :disabled="busy">
-                <option value="center-diagonal">Diagonal Center (45°)</option>
-                <option value="center">Horizontal Center</option>
-                <option value="tiled">Repeating Grid (Tiled)</option>
-                <option value="top">Top Margin</option>
-                <option value="bottom">Bottom Margin</option>
-              </select>
+              <CustomSelect
+                v-model="watermarkPosition"
+                :options="WATERMARK_POSITION_OPTIONS"
+                :disabled="busy"
+                size="sm"
+                aria-label="Watermark position"
+                class="watermark-inline-select-custom"
+              />
               <div class="watermark-inline-opacity">
                 <span>Opacity: <b>{{ watermarkOpacity }}%</b></span>
                 <input
@@ -731,11 +740,13 @@ function copyTranslated() {
           <div class="lang-column">
             <label>Translate From:</label>
             <div class="select-dropdown-wrap">
-              <select v-model="sourceLang" :disabled="busy">
-                <option v-for="l in SOURCE_LANGUAGES" :key="l.code" :value="l.code">
-                  {{ l.flag }} {{ l.name }} ({{ l.native }})
-                </option>
-              </select>
+              <CustomSelect
+                v-model="sourceLang"
+                :options="SOURCE_LANGUAGES"
+                :disabled="busy"
+                size="sm"
+                aria-label="Translate from source language"
+              />
             </div>
           </div>
 
@@ -752,11 +763,13 @@ function copyTranslated() {
           <div class="lang-column">
             <label>Translate Into:</label>
             <div class="select-dropdown-wrap">
-              <select v-model="targetLang" :disabled="busy">
-                <option v-for="l in SUPPORTED_LANGUAGES" :key="l.code" :value="l.code">
-                  {{ l.flag }} {{ l.name }} ({{ l.native }})
-                </option>
-              </select>
+              <CustomSelect
+                v-model="targetLang"
+                :options="SUPPORTED_LANGUAGES"
+                :disabled="busy"
+                size="sm"
+                aria-label="Translate into target language"
+              />
             </div>
           </div>
         </div>

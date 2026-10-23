@@ -50,20 +50,27 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container compress-image-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> SMALLER IMAGE, SAME IMPACT</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> SMALLER IMAGE, SAME IMPACT</span>
           <h1>Compress images with<br /><span>quality you control.</span></h1>
           <p>Preview your picture, keep its colors and transparency, and choose a quality preset or the exact KB or MB target you need.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" /><div class="floating-chip" aria-hidden="true"><span /> Image Compressor Ready</div><CompressImageConverter /><div class="under-card"><ShieldCheck :size="15" /> Compressed locally on your device. No image uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Maximize2 :size="14" /></span><div><b>Clear Image Preview</b><small>Check the original and compressed image before downloading.</small></div></li>
             <li><span><Target :size="14" /></span><div><b>Custom KB or MB Target</b><small>Get the clearest result that fits your requested file size.</small></div></li>
             <li><span><Gauge :size="14" /></span><div><b>Smart Quality Controls</b><small>High, balanced and smallest presets explain every trade-off.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private Processing</b><small>Your image stays in browser memory on your device.</small></div></li>
           </ul>
-          <div class="tools-tip"><Check :size="18" /><p><b>Choose High quality for detailed artwork</b><br />Balanced WebP is a good choice for websites, sharing and everyday storage.</p></div>
-        </div>
-        <div class="tools-converter-wrap"><div class="converter-backdrop" aria-hidden="true" /><div class="floating-chip" aria-hidden="true"><span /> Image Compressor Ready</div><CompressImageConverter /><div class="under-card"><ShieldCheck :size="15" /> Compressed locally on your device. No image uploads.</div></div>
-      </section>
+      
+      <div class="tools-tip"><Check :size="18" /><p><b>Choose High quality for detailed artwork</b><br />Balanced WebP is a good choice for websites, sharing and everyday storage.</p></div>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works"><div class="section-intro"><span class="mini-label">HOW IT WORKS</span><h2>A smaller image with a clear preview</h2><p>See the quality, dimensions and file-size result before you download.</p></div><div class="how-grid"><article v-for="step in steps" :key="step.number" class="how-card"><div class="how-card-top"><span><ImageDown :size="22" /></span><b>{{ step.number }}</b></div><h3>{{ step.title }}</h3><p>{{ step.desc }}</p><span class="card-line" aria-hidden="true" /></article></div></section>
 

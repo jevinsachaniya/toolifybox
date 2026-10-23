@@ -14,6 +14,39 @@ const emit = defineEmits(['update:modelValue']);
 const direction = ref(props.fixedDirection || props.modelValue || 'word-pdf');
 const wordMode = ref('editable');
 const ocrLanguage = ref('auto');
+
+const OCR_LANGUAGE_OPTIONS = [
+  { value: 'auto', label: 'Auto-detect Language', flag: '🌐' },
+  {
+    group: 'Indian Languages',
+    items: [
+      { value: 'hin', label: 'Hindi', native: 'हिन्दी', flag: '🇮🇳' },
+      { value: 'guj', label: 'Gujarati', native: 'ગુજરાતી', flag: '🇮🇳' },
+      { value: 'mar', label: 'Marathi', native: 'मराठी', flag: '🇮🇳' },
+      { value: 'ben', label: 'Bengali', native: 'বাংলা', flag: '🇮🇳' },
+      { value: 'tam', label: 'Tamil', native: 'தமிழ்', flag: '🇮🇳' },
+      { value: 'tel', label: 'Telugu', native: 'తెలుగు', flag: '🇮🇳' },
+      { value: 'kan', label: 'Kannada', native: 'ಕನ್ನಡ', flag: '🇮🇳' },
+      { value: 'mal', label: 'Malayalam', native: 'മലയാളം', flag: '🇮🇳' },
+      { value: 'pan', label: 'Punjabi', native: 'ਪੰਜਾਬੀ', flag: '🇮🇳' },
+      { value: 'urd', label: 'Urdu', native: 'اردو', flag: '🇮🇳' },
+      { value: 'san', label: 'Sanskrit', native: 'संस्कृतम्', flag: '🇮🇳' },
+      { value: 'eng+guj', label: 'Gujarati + English', flag: '🇮🇳' },
+      { value: 'eng+hin', label: 'Hindi + English', flag: '🇮🇳' },
+    ],
+  },
+  {
+    group: 'International Languages',
+    items: [
+      { value: 'eng', label: 'English', native: 'English', flag: '🇬🇧' },
+      { value: 'spa', label: 'Spanish', native: 'Español', flag: '🇪🇸' },
+      { value: 'fra', label: 'French', native: 'Français', flag: '🇫🇷' },
+      { value: 'deu', label: 'German', native: 'Deutsch', flag: '🇩🇪' },
+      { value: 'ara', label: 'Arabic', native: 'العربية', flag: '🇸🇦' },
+      { value: 'rus', label: 'Russian', native: 'Русский', flag: '🇷🇺' },
+    ],
+  },
+];
 const toWord = computed(() => direction.value === 'pdf-word');
 const sourceType = computed(() => toWord.value ? 'pdf' : 'word');
 const targetType = computed(() => toWord.value ? 'word' : 'pdf');
@@ -197,35 +230,20 @@ async function convert() {
           <span><strong>Page images <small>Not editable</small></strong><span>Preserve appearance as pictures. Text cannot be edited.</span></span>
         </label>
       </fieldset>
-      <label v-if="toWord && wordMode === 'editable'" class="ocr-language">Document Language / OCR
-        <select v-model="ocrLanguage" :disabled="busy">
-          <option value="auto">Auto-detect Language</option>
-          <optgroup label="Indian Languages">
-            <option value="hin">Hindi (हिन्दी)</option>
-            <option value="guj">Gujarati (ગુજરાતી)</option>
-            <option value="mar">Marathi (मराठी)</option>
-            <option value="ben">Bengali (বাংলা)</option>
-            <option value="tam">Tamil (தமிழ்)</option>
-            <option value="tel">Telugu (తెలుగు)</option>
-            <option value="kan">Kannada (ಕನ್ನಡ)</option>
-            <option value="mal">Malayalam (മലയാളം)</option>
-            <option value="pan">Punjabi (ਪੰਜਾਬੀ)</option>
-            <option value="urd">Urdu (اردو)</option>
-            <option value="san">Sanskrit (संस्कृतम्)</option>
-            <option value="eng+guj">Gujarati + English</option>
-            <option value="eng+hin">Hindi + English</option>
-          </optgroup>
-          <optgroup label="International Languages">
-            <option value="eng">English</option>
-            <option value="spa">Spanish (Español)</option>
-            <option value="fra">French (Français)</option>
-            <option value="deu">German (Deutsch)</option>
-            <option value="ara">Arabic (العربية)</option>
-            <option value="rus">Russian (Русский)</option>
-          </optgroup>
-        </select>
-      </label>
-      <p v-if="toWord" id="word-mode-note" class="conversion-note">{{ wordMode === 'appearance' ? 'This creates pictures inside Word. Select Smart OCR to edit text.' : 'Existing Unicode text stays in its original language (Gujarati, Hindi, English, etc.). Scanned and legacy-font pages are recognized with OCR, while the original page layout remains visible.' }} Up to 100 pages (30 OCR pages).</p>
+      <div v-if="toWord && wordMode === 'editable'" class="ocr-language">
+        <span>Document Language / OCR</span>
+        <div class="ocr-select-holder">
+          <CustomSelect
+            v-model="ocrLanguage"
+            :options="OCR_LANGUAGE_OPTIONS"
+            :disabled="busy"
+            placeholder="Auto-detect Language"
+            size="sm"
+            aria-label="Document Language and OCR"
+          />
+        </div>
+      </div>
+      <p v-if="toWord" id="word-mode-note" class="conversion-note">{{ wordMode === 'appearance' ? 'This creates pictures inside Word. Select Smart OCR to edit text.' : 'Existing Unicode text stays in its original language (Gujarati, Hindi, English, etc.). Scanned and legacy-font pages are recognized with OCR, while the original page layout remains visible.' }} Up to 450 pages (30 OCR pages).</p>
       <p v-else class="conversion-note">Basic layouts work best. PDF text is not selectable.</p>
       <template v-if="file">
         <button class="primary-button convert-button" :disabled="busy" @click="convert">

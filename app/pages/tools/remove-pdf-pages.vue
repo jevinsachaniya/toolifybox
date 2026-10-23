@@ -54,11 +54,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container remove-pdf-pages-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PDF PAGE MANAGEMENT</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PDF PAGE MANAGEMENT</span>
           <h1>Remove pages<br /><span>from your PDF.</span></h1>
           <p>Delete blank pages, covers, duplicate sheets, or confidential sections from your PDF documents in seconds. Review visual page previews, click pages to mark them for removal, and download a streamlined file without uploading to any server.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Remove Pages Ready</div>
+          <RemovePdfPagesConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -88,22 +98,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <FileMinus :size="18" />
             <p>
               <b>Pro Tip</b><br />
               Use the range box to quickly remove large blocks of pages, or use "Quick select" to clean up even or odd sheets from scanned booklets.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Remove Pages Ready</div>
-          <RemovePdfPagesConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

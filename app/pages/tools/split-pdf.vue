@@ -56,30 +56,32 @@ usePageSeo({
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
 
       <section class="tools-layout container split-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> SPLIT EXACTLY WHERE YOU NEED</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> SPLIT EXACTLY WHERE YOU NEED</span>
           <h1>Split one PDF into<br /><span>clear, ordered parts.</span></h1>
           <p>Preview every page and choose each exact point where the next PDF should begin. Your original page quality, fonts, and vector graphics stay completely intact.</p>
+    </div>
 
-          <ul class="tools-points">
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Split PDF Ready</div>
+          <SplitPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Split locally on your device. Zero PDF uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Scissors :size="14" /></span><div><b>Multiple Split Points</b><small>Split once or create several custom page ranges in one run.</small></div></li>
             <li><span><Files :size="14" /></span><div><b>Preview Every Page</b><small>See the complete document and live output ranges before splitting.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private and Lossless</b><small>Original PDF pages are copied locally without image conversion.</small></div></li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <Check :size="18" />
             <p><b>Example</b><br />Select “Split after page 3” and “Split after page 7” to create pages 1–3, 4–7 and 8–end.</p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Split PDF Ready</div>
-          <SplitPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Split locally on your device. Zero PDF uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <!-- Step-by-Step Guide -->
       <section class="how-section container" id="how-it-works">

@@ -55,30 +55,32 @@ usePageSeo({
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
 
       <section class="tools-layout container merge-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> COMBINE MULTIPLE DOCUMENTS</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> COMBINE MULTIPLE DOCUMENTS</span>
           <h1>Merge PDFs with<br /><span>every page in view.</span></h1>
           <p>Preview all documents, arrange complete files in the right order, and combine every page without reducing its original vector quality. Fast, free, and private.</p>
+    </div>
 
-          <ul class="tools-points">
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Merge PDF Ready</div>
+          <MergePdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Merged locally on your device. Zero PDF uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Files :size="14" /></span><div><b>Preview Every Page</b><small>Check all documents and pages before creating the final file.</small></div></li>
             <li><span><Combine :size="14" /></span><div><b>100% Original Quality</b><small>Selectable text, links, vectors and page dimensions are preserved.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Zero Server Uploads</b><small>Your PDFs stay in browser memory on your device.</small></div></li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <Check :size="18" />
             <p><b>Check the sequence first</b><br />The topmost PDF appears first in the merged output. Use the arrow controls to reposition files before clicking Merge.</p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Merge PDF Ready</div>
-          <MergePdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Merged locally on your device. Zero PDF uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <!-- How to Merge Step-by-Step -->
       <section class="how-section container" id="how-it-works">

@@ -1,7 +1,7 @@
 import { validateDocxPackage, pageSliceEnd } from './docx-package.js';
 import { runConversionTask } from './conversion-task.js';
 
-const MAX_PAGES = 100;
+const MAX_PAGES = 450;
 const yieldToBrowser = () => new Promise(resolve => setTimeout(resolve, 0));
 
 function checkCancelled(signal) {
@@ -132,7 +132,7 @@ export async function convertDocument(file, { signal, onProgress = () => {} } = 
       }
       let offset = 0;
       while (offset < totalHeight) {
-        if (++pageCount > MAX_PAGES) throw new Error('Browser conversion supports up to 100 pages. Please split this document into smaller files.');
+        if (++pageCount > MAX_PAGES) throw new Error('Browser conversion supports up to 450 pages. Please split this document into smaller files.');
         checkCancelled(signal);
         onProgress(`Creating PDF page ${pageCount}…`);
         await yieldToBrowser();

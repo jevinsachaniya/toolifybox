@@ -2,7 +2,7 @@ import { MAX_DOCUMENT_SIZE } from './document.js';
 
 export const MAX_MERGE_FILES = 10;
 export const MAX_MERGE_TOTAL_SIZE = 100 * 1024 * 1024;
-export const MAX_MERGE_PAGES = 200;
+export const MAX_MERGE_PAGES = 450;
 
 export function validateMergeFiles(files, existing = []) {
   const chosen = Array.from(files || []);

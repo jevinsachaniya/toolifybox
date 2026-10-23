@@ -1,6 +1,6 @@
 import { runConversionTask } from './conversion-task.js';
 
-const MAX_PAGES = 100;
+const MAX_PAGES = 450;
 const MAX_RENDER_PIXELS = 40_000_000;
 
 function abortError() {
@@ -67,7 +67,7 @@ export async function openPdfForImages(file, { signal, onProgress = () => {} } =
       throw error;
     }
     if (pdf.isPureXfa) throw new Error('This PDF contains a dynamic XFA form. Print or flatten it before converting.');
-    if (!pdf.numPages || pdf.numPages > MAX_PAGES) throw new Error('Choose a PDF with 1 to 100 pages. Split a longer PDF before converting.');
+    if (!pdf.numPages || pdf.numPages > MAX_PAGES) throw new Error('Choose a PDF with 1 to 450 pages. Split a longer PDF before converting.');
 
     async function renderPage(number, { scale = 2, maxDimension, format = 'png', quality = 0.92, renderSignal } = {}) {
       check();

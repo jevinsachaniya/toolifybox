@@ -55,31 +55,33 @@ usePageSeo({
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
 
       <section class="tools-layout container compress-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PRECISION SIZE OPTIMIZER</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PRECISION SIZE OPTIMIZER</span>
           <h1>Compress PDF without<br /><span>guessing about quality.</span></h1>
           <p>Preview every page, choose how much document structure or file size to preserve, and compare the result before downloading. Perfect for job portals, university admissions, and email size limits.</p>
+    </div>
 
-          <ul class="tools-points">
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Compress PDF Ready</div>
+          <CompressPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Compressed locally on your device. Zero PDF uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><ShieldCheck :size="14" /></span><div><b>Exact Quality Mode</b><small>Preserves selectable text, links, vectors and page content.</small></div></li>
             <li><span><Target :size="14" /></span><div><b>Custom KB or MB Target</b><small>Enter the exact maximum size you need (e.g. 100 KB, 200 KB).</small></div></li>
             <li><span><Gauge :size="14" /></span><div><b>Controlled Compression</b><small>Balanced and smallest-file modes keep the visual layout clear.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>100% Private Processing</b><small>Your PDF is compressed locally in browser memory.</small></div></li>
           </ul>
-
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <Check :size="18" />
             <p><b>Use Exact quality for legal &amp; corporate contracts</b><br />Balanced, smallest-file and custom-target modes downsample raster elements for maximum compression.</p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Compress PDF Ready</div>
-          <CompressPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Compressed locally on your device. Zero PDF uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <!-- Step-by-Step Guide -->
       <section class="how-section container" id="how-it-works">

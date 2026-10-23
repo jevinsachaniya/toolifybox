@@ -53,11 +53,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container unlock-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PDF DECRYPTION &amp; REMOVAL</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PDF DECRYPTION &amp; REMOVAL</span>
           <h1>Unlock PDF &amp;<br /><span>remove passwords.</span></h1>
           <p>Remove passwords and security restrictions from your PDF files directly in your web browser. Generate a clean, unlocked PDF that opens immediately in any reader without entering credentials each time.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Unlock PDF Ready</div>
+          <UnlockPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Decrypted locally on your device. Zero document uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -87,22 +97,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <KeyRound :size="18" />
             <p>
               <b>Authorized Unlocking Only</b><br />
               You must know the password to remove encryption. This tool allows legitimate owners to remove restrictions without sending confidential files to third parties.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Unlock PDF Ready</div>
-          <UnlockPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Decrypted locally on your device. Zero document uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

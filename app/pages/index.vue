@@ -279,6 +279,7 @@ onBeforeUnmount(() => {
             <NuxtLink to="/tools/protect-pdf" class="seo-keyword-pill">Protect PDF</NuxtLink>
             <NuxtLink to="/tools/unlock-pdf" class="seo-keyword-pill">Unlock PDF</NuxtLink>
             <NuxtLink to="/tools/watermark-pdf" class="seo-keyword-pill">Watermark PDF</NuxtLink>
+            <NuxtLink to="/tools/create-pdf" class="seo-keyword-pill">Create PDF</NuxtLink>
             <NuxtLink to="/tools/image-collage" class="seo-keyword-pill">Make Image Collage</NuxtLink>
           </div>
         </div>

@@ -27,12 +27,24 @@ export function resolveOcrLanguage(language = 'auto') {
 // 3. Comprehensive check for digital text versus legacy/corrupted fonts
 export function needsOcrForDigitalText(text, fontNames = []) {
   if (!text || !text.trim()) return true;
-  if (/[\uE000-\uF8FF\uFFF0-\uFFFF]/u.test(text)) return true;
-  
-  if (Array.isArray(fontNames) && fontNames.some(name => /kruti|devlys|chanakya|walkman|shusha|shivaji|shree|akruti|aps|dvb-|shruti|speed/i.test(name))) {
+
+  const clean = text.replace(/\s+/g, '');
+  if (!clean) return true;
+
+  // If text consists primarily of Private Use Area glyphs, it's non-standard/unmapped
+  const puaMatches = clean.match(/[\uE000-\uF8FF\uFFF0-\uFFFF]/gu);
+  if (puaMatches) {
+    // If over 25% of non-whitespace characters or if the whole text is purely PUA, OCR is needed
+    if (puaMatches.length / clean.length > 0.25 || clean.length <= 4) {
+      return true;
+    }
+  }
+
+  // Legacy non-Unicode fonts (e.g. KrutiDev, DevLys, Chanakya). Shruti is excluded as it's standard Unicode Gujarati.
+  if (Array.isArray(fontNames) && fontNames.some(name => /kruti|devlys|chanakya|walkman|shusha|shivaji|shree|akruti|aps|dvb-/i.test(name))) {
     return true;
   }
-  
+
   const legacyPattern = /\b[a-z]+;[a-z]*\b|iV~Vk|fnukad|vkRet|fuoklh/i;
   if (legacyPattern.test(text)) return true;
 

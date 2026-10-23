@@ -10,7 +10,7 @@ const pageTitle = 'PDF to JPG Converter — Convert PDF Pages to High-Resolution
 const pageDescription = 'Convert PDF pages to high-quality JPG images online for free. Preview pages, choose custom JPG quality and resolution up to 300 DPI, and download single JPGs or all pages in a ZIP—privately in your browser.';
 
 const steps = [
-  { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 100 pages. Your file remains securely on your device.' },
+  { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 450 pages. Your file remains securely on your device.' },
   { number: '02', title: 'Select Pages & Resolution', desc: 'Preview every page, pick the pages you want, and choose High or Standard JPG quality up to 300 DPI.' },
   { number: '03', title: 'Download JPG Images', desc: 'Download a single JPG page directly or get all selected pages bundled in a neat ZIP file.' },
 ];
@@ -54,25 +54,30 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container pdf-jpg-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> INSTANT BROWSER CONVERSION</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> INSTANT BROWSER CONVERSION</span>
           <h1>Convert PDF<br /><span>pages to JPG images.</span></h1>
           <p>Turn every page of your PDF into a crisp, high-resolution JPG image. Preview pages, adjust quality, and download single JPGs or all pages in a ZIP file.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> PDF to JPG Ready</div>
+          <PdfToJpgConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No PDF uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>Select Any Pages</b><small>Convert the entire PDF or select specific pages to export.</small></div></li>
             <li><span><FileImage :size="14" /></span><div><b>High-Quality JPG</b><small>Export with up to 3× / 300 DPI resolution and crisp 98% quality.</small></div></li>
             <li><span><Zap :size="14" /></span><div><b>Instant &amp; Free</b><small>Fast client-side rendering with no watermark or file size delays.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>Private Processing</b><small>Your PDF is rendered locally inside your browser without uploads.</small></div></li>
           </ul>
-          <div class="tools-tip"><FileImage :size="18" /><p><b>Single vs. Multiple Pages</b><br />Single pages download immediately as a .jpg file. Multiple selected pages are packed into a convenient .zip archive.</p></div>
-        </div>
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> PDF to JPG Ready</div>
-          <PdfToJpgConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No PDF uploads.</div>
-        </div>
-      </section>
+      
+      <div class="tools-tip"><FileImage :size="18" /><p><b>Single vs. Multiple Pages</b><br />Single pages download immediately as a .jpg file. Multiple selected pages are packed into a convenient .zip archive.</p></div>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro"><span class="mini-label">HOW IT WORKS</span><h2>Fast, clear PDF to JPG export</h2><p>Crisp page previews make selecting and saving JPG images effortless.</p></div>

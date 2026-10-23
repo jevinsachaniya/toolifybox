@@ -53,11 +53,21 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container watermark-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PDF BRANDING &amp; SECURITY</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PDF BRANDING &amp; SECURITY</span>
           <h1>Watermark PDF<br /><span>stamps &amp; text marks.</span></h1>
           <p>Protect confidential documents, contracts, drafts, and creative portfolios. Stamp clear visual copyright notices, confidentiality markers, or tiled watermarks across all or selected pages with instant browser-based processing.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> Watermark PDF Ready</div>
+          <WatermarkPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li>
               <span><Check :size="14" /></span>
               <div>
@@ -87,22 +97,16 @@ usePageSeo({
               </div>
             </li>
           </ul>
-          <div class="tools-tip">
+      
+      <div class="tools-tip">
             <Stamp :size="18" />
             <p>
               <b>Document Protection Tip</b><br />
               Use a semi-transparent diagonal watermark (20% - 30% opacity) to deter unauthorized distribution while keeping the underlying text easy to read.
             </p>
           </div>
-        </div>
-
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Watermark PDF Ready</div>
-          <WatermarkPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero server uploads.</div>
-        </div>
-      </section>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro">

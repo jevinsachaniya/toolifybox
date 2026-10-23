@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare",
     "check:pages": "node scripts/check-pages.mjs",
     "test:assets": "node --experimental-strip-types scripts/test-assets.mjs",
-    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs && node --test scripts/test-image-collage.mjs && node --test scripts/test-translate-pdf.mjs && node --test scripts/test-watermark-pdf.mjs",
+    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs && node --test scripts/test-image-collage.mjs && node --test scripts/test-translate-pdf.mjs && node --test scripts/test-watermark-pdf.mjs && node --test scripts/test-create-pdf.mjs && node --test scripts/test-add-page-numbers.mjs",
     "test:browser": "node scripts/test-browser.mjs"
   },
   "dependencies": {

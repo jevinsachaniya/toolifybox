@@ -54,25 +54,30 @@ usePageSeo({
     <main class="tools-main">
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container powerpoint-pdf-layout">
-        <div class="tools-copy">
-          <span class="eyebrow"><Sparkles :size="13" /> PRESENTATION CONVERTER</span>
+    <div class="tools-hero">
+      <span class="eyebrow"><Sparkles :size="13" /> PRESENTATION CONVERTER</span>
           <h1>Convert PowerPoint<br /><span>slides to PDF.</span></h1>
           <p>Turn your pitch decks and presentation slides into clean, share-ready PDF documents without opening Microsoft PowerPoint or uploading to a third-party server.</p>
-          <ul class="tools-points">
+    </div>
+
+    <div class="tools-converter-wrap">
+      <div class="converter-backdrop" aria-hidden="true" />
+          <div class="floating-chip" aria-hidden="true"><span /> PowerPoint to PDF Ready</div>
+          <PowerpointToPdfConverter />
+          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No document uploads.</div>
+    </div>
+
+    <div class="tools-details-below">
+      <ul class="tools-points">
             <li><span><Check :size="14" /></span><div><b>Preview Every Slide</b><small>Inspect each slide thumbnail and choose which slides to include.</small></div></li>
             <li><span><WandSparkles :size="14" /></span><div><b>Preserves Layout &amp; Colors</b><small>Maintains fonts, slide backgrounds, and widescreen dimensions.</small></div></li>
             <li><span><Zap :size="14" /></span><div><b>Quality Controls</b><small>Choose standard screen quality or high-resolution print output.</small></div></li>
             <li><span><LockKeyhole :size="14" /></span><div><b>100% Private in Browser</b><small>Conversion runs locally inside your browser memory.</small></div></li>
           </ul>
-          <div class="tools-tip"><Presentation :size="18" /><p><b>Widescreen &amp; Standard Slides</b><br />Both 16:9 widescreen and 4:3 standard slide formats are automatically formatted into fitting PDF pages.</p></div>
-        </div>
-        <div class="tools-converter-wrap">
-          <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> PowerPoint to PDF Ready</div>
-          <PowerpointToPdfConverter />
-          <div class="under-card"><ShieldCheck :size="15" /> Converted locally on your device. No document uploads.</div>
-        </div>
-      </section>
+      
+      <div class="tools-tip"><Presentation :size="18" /><p><b>Widescreen &amp; Standard Slides</b><br />Both 16:9 widescreen and 4:3 standard slide formats are automatically formatted into fitting PDF pages.</p></div>
+    </div>
+  </section>
 
       <section class="how-section container" id="how-it-works">
         <div class="section-intro"><span class="mini-label">HOW IT WORKS</span><h2>Turn slides into PDF in seconds</h2><p>Accurate slide rendering makes sharing presentations effortless.</p></div>
