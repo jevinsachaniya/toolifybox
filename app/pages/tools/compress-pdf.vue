@@ -2,7 +2,7 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileText, Gauge, Layers, LockKeyhole, Minimize2, ShieldCheck, Sparkles, Target, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Compress PDF Online — Reduce PDF File Size Privately | Toolifybox';
+const pageTitle = 'Compress PDF Online — Reduce PDF File Size Privately | We Make PDF';
 const pageDescription = 'Compress PDF files online for free while preserving clarity. Reduce PDF to 100KB, 200KB, 500KB or custom MB targets for email attachments and portal uploads. 100% private in-browser compression.';
 
 const steps = [
@@ -12,10 +12,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['How can I compress a PDF to less than 100KB or 200KB for government portals?', 'Select our "Custom Target" mode and enter your required maximum limit (e.g., 100 KB or 200 KB). Toolifybox dynamically calculates the optimal resolution and image quality to meet your target without rendering the text unreadable.'],
+  ['How can I compress a PDF to less than 100KB or 200KB for government portals?', 'Select our "Custom Target" mode and enter your required maximum limit (e.g., 100 KB or 200 KB). We Make PDF dynamically calculates the optimal resolution and image quality to meet your target without rendering the text unreadable.'],
   ['Will my PDF text remain clear and readable after compression?', 'Yes. In "Exact Quality" mode, your fonts, vector paths, links, and text streams remain completely untouched—only duplicate metadata and uncompressed streams are optimized. In visual modes, intelligent downsampling preserves high contrast on all letterforms.'],
-  ['Are my confidential PDF documents uploaded to a remote server?', 'Never. Toolifybox performs all PDF stream decompression, image downsampling, and repackaging locally inside your web browser. Your private documents never leave your computer or smartphone.'],
-  ['Is there a fee or daily limit on how many PDFs I can compress?', 'No. Toolifybox is 100% free with unlimited compressions, no account sign-up, no hidden fees, and zero watermarks on your downloaded documents.'],
+  ['Are my confidential PDF documents uploaded to a remote server?', 'Never. We Make PDF performs all PDF stream decompression, image downsampling, and repackaging locally inside your web browser. Your private documents never leave your computer or smartphone.'],
+  ['Is there a fee or daily limit on how many PDFs I can compress?', 'No. We Make PDF is 100% free with unlimited compressions, no account sign-up, no hidden fees, and zero watermarks on your downloaded documents.'],
 ];
 
 usePageSeo({
@@ -108,7 +108,7 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">ADVANCED PDF COMPRESSION</span>
-          <h2>How Toolifybox Shrinks PDF Files Without Sacrificing Legibility</h2>
+          <h2>How We Make PDF Shrinks PDF Files Without Sacrificing Legibility</h2>
           <p>Understanding how PDF compression works empowers you to choose the right balance between file size and image clarity.</p>
         </div>
 
@@ -138,7 +138,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Zero Cloud Uploads</h3>
-            <p>Other compression services upload your private financial statements, identity cards, and tax documents to remote cloud queues. Toolifybox runs entirely on your device with WebAssembly.</p>
+            <p>Other compression services upload your private financial statements, identity cards, and tax documents to remote cloud queues. We Make PDF runs entirely on your device with WebAssembly.</p>
             <ul>
               <li>100% private on your smartphone or PC</li>
               <li>No file copies created on our servers</li>

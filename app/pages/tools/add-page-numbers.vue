@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/add-page-numbers', '/tools/page-numbers', '/page-numbers'],
 });
 
-const pageTitle = 'Add Page Numbers to PDF Online Free — Fast & Private | Toolifybox';
+const pageTitle = 'Add Page Numbers to PDF Online Free — Fast & Private | We Make PDF';
 const pageDescription = 'Add page numbers to your PDF documents online for free. Customize position, numbering format, starting page, margins, fonts, and colors directly in your browser with zero file uploads.';
 
 const steps = [
@@ -18,8 +18,8 @@ const steps = [
 const faqs = [
   ['Can I skip adding page numbers to the cover page?', 'Yes! You can choose "Skip Cover Page" so numbering begins cleanly on page 2, or specify a custom page range like "2-10" to number only specific sections.'],
   ['Can I customize where the page numbers appear?', 'Absolutely. You can place page numbers at the bottom (Center, Right, Left) or top header (Center, Right, Left) with custom edge margin padding.'],
-  ['Which numbering formats are supported?', 'Toolifybox supports standard formats including "Page 1 of 10", "1", "1 / 10", "— 1 —", "[ 1 ]", as well as optional custom prefix text like "Ref" or "Doc".'],
-  ['Does adding page numbers modify or compress my original PDF content?', 'No. Toolifybox stamps razor-sharp vector numbers onto your existing pages without recompressing images, modifying underlying text, or altering page layout.'],
+  ['Which numbering formats are supported?', 'We Make PDF supports standard formats including "Page 1 of 10", "1", "1 / 10", "— 1 —", "[ 1 ]", as well as optional custom prefix text like "Ref" or "Doc".'],
+  ['Does adding page numbers modify or compress my original PDF content?', 'No. We Make PDF stamps razor-sharp vector numbers onto your existing pages without recompressing images, modifying underlying text, or altering page layout.'],
   ['Are my confidential PDF documents uploaded to your server?', 'Never. All PDF processing and vector numbering happen 100% locally on your computer or phone using WebAssembly and client-side JavaScript. Your files never leave your device.'],
 ];
 
@@ -130,8 +130,8 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">COMPLETE GUIDE</span>
-          <h2>Why Number Your PDF Documents with Toolifybox?</h2>
-          <p>Clean pagination is essential for legal briefs, university dissertations, contracts, and business reports. Toolifybox delivers desktop-grade PDF pagination directly in your browser without subscriptions or data tracking.</p>
+          <h2>Why Number Your PDF Documents with We Make PDF?</h2>
+          <p>Clean pagination is essential for legal briefs, university dissertations, contracts, and business reports. We Make PDF delivers desktop-grade PDF pagination directly in your browser without subscriptions or data tracking.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -160,7 +160,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>100% Confidential &amp; Zero File Uploads</h3>
-            <p>Unlike cloud PDF editors that store uploaded documents on external servers, Toolifybox processes everything inside your local browser memory.</p>
+            <p>Unlike cloud PDF editors that store uploaded documents on external servers, We Make PDF processes everything inside your local browser memory.</p>
             <ul>
               <li>Zero server transfers or database storage</li>
               <li>Instant rendering with no download wait</li>

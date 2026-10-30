@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/pdf-to-jpg'],
 });
 
-const pageTitle = 'PDF to JPG Converter — Convert PDF Pages to High-Resolution JPG Online | Toolifybox';
+const pageTitle = 'PDF to JPG Converter — Convert PDF Pages to High-Resolution JPG Online | We Make PDF';
 const pageDescription = 'Convert PDF pages to high-quality JPG images online for free. Preview pages, choose custom JPG quality and resolution up to 300 DPI, and download single JPGs or all pages in a ZIP—privately in your browser.';
 
 const steps = [
@@ -16,11 +16,11 @@ const steps = [
 ];
 
 const faqs = [
-  ['What image quality and DPI are supported for PDF to JPG conversion?', 'Toolifybox renders PDF pages using HTML5 Canvas at up to 300 DPI (3× supersampling) and 92%–98% JPEG quality. This ensures text remains razor-sharp, fine line art is crisp, and colors remain vibrant.'],
+  ['What image quality and DPI are supported for PDF to JPG conversion?', 'We Make PDF renders PDF pages using HTML5 Canvas at up to 300 DPI (3× supersampling) and 92%–98% JPEG quality. This ensures text remains razor-sharp, fine line art is crisp, and colors remain vibrant.'],
   ['Can I extract only specific pages instead of converting the whole document?', 'Yes! The interactive thumbnail selector lets you select individual pages, odd/even sequences, or custom ranges. Single pages download immediately as a .jpg file, while multiple pages are bundled in a clean ZIP file.'],
-  ['Are my confidential PDF documents uploaded to an external server?', 'Never. Toolifybox runs entirely inside your web browser using client-side WebAssembly and PDF.js rendering. Your files stay strictly in your device memory and are never uploaded to any remote server or cloud database.'],
+  ['Are my confidential PDF documents uploaded to an external server?', 'Never. We Make PDF runs entirely inside your web browser using client-side WebAssembly and PDF.js rendering. Your files stay strictly in your device memory and are never uploaded to any remote server or cloud database.'],
   ['What is the difference between PDF to JPG and PDF to Images (PNG)?', 'JPG uses perceptual lossy compression that produces significantly smaller file sizes, making it ideal for web sharing, emails, slides, and social media. PNG is lossless and supports transparency, which is better for technical diagrams or print graphics.'],
-  ['Does this tool work on mobile devices and tablets?', 'Yes. Toolifybox is fully responsive and functions smoothly on iOS (iPhone/iPad), Android, Windows, macOS, and Linux without requiring any software installations or browser extensions.'],
+  ['Does this tool work on mobile devices and tablets?', 'Yes. We Make PDF is fully responsive and functions smoothly on iOS (iPhone/iPad), Android, Windows, macOS, and Linux without requiring any software installations or browser extensions.'],
 ];
 
 usePageSeo({
@@ -120,7 +120,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Total Device Privacy</h3>
-            <p>Many online PDF converters upload your files to remote cloud servers where they may linger in temporary storage. Toolifybox processes everything inside your local web browser session.</p>
+            <p>Many online PDF converters upload your files to remote cloud servers where they may linger in temporary storage. We Make PDF processes everything inside your local web browser session.</p>
             <ul>
               <li>100% private in-memory canvas rendering</li>
               <li>No server data collection or file storage</li>

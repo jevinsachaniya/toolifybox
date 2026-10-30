@@ -124,9 +124,9 @@ export async function createOcrDocx(text, { title = 'Extracted Text' } = {}) {
   }
 
   const doc = new Document({
-    creator: 'Toolifybox Extract OCR Text',
+    creator: 'We Make PDF Extract OCR Text',
     title,
-    description: 'Extracted text via Toolifybox browser OCR',
+    description: 'Extracted text via We Make PDF browser OCR',
     styles: {
       default: {
         document: {

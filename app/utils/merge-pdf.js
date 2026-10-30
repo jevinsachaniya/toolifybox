@@ -42,8 +42,8 @@ export async function mergePdfFiles(files, { onProgress = () => {}, signal } = {
   }
 
   if (!totalPages) throw new Error('The selected PDFs do not contain any pages.');
-  output.setProducer('Toolifybox');
-  output.setCreator('Toolifybox Merge PDF');
+  output.setProducer('We Make PDF');
+  output.setCreator('We Make PDF Merge PDF');
   onProgress('Finishing your merged PDF...');
   const bytes = await output.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 20 });
   return { blob: new Blob([bytes], { type: 'application/pdf' }), pageCount: totalPages };

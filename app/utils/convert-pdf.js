@@ -528,7 +528,7 @@ export async function convertPdf(file, { mode = 'editable', ocrLanguage = 'auto'
     if (imageBytes > MAX_IMAGE_BYTES) throw new Error('The converted pages are too large for this browser. Split the PDF into smaller documents.');
     if ((mode === 'editable' || mode === 'ocr') && !editablePages) throw new Error('No readable text was found, even after OCR. Try a clearer scan and check the scan language. Choose Page images only if you want pictures inside Word.');
     onProgress('Creating your Word document…');
-    const wordDocument = new word.Document({ creator: 'Toolifybox', title: file.name.replace(/\.pdf$/i, ''),
+    const wordDocument = new word.Document({ creator: 'We Make PDF', title: file.name.replace(/\.pdf$/i, ''),
       description: mode === 'appearance' ? 'PDF pages preserved as images.' : 'Editable Word text with PDF graphics. Scanned pages recognized using OCR; proofread recognized text.',
       styles: {
         default: {

@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/powerpoint-to-pdf', '/pptx-to-pdf'],
 });
 
-const pageTitle = 'PowerPoint to PDF Converter — Free PPTX to PDF Online | Toolifybox';
+const pageTitle = 'PowerPoint to PDF Converter — Free PPTX to PDF Online | We Make PDF';
 const pageDescription = 'Convert PowerPoint presentations (.pptx) to PDF online for free. Preview slides, select specific slides, lock layout, fonts, and graphics, and generate high-quality PDF documents privately in your browser without uploading files.';
 
 const steps = [
@@ -16,9 +16,9 @@ const steps = [
 ];
 
 const faqs = [
-  ['Does converting PowerPoint to PDF alter slide formatting or font styles?', 'No. Toolifybox extracts embedded slide geometry, layout dimensions, background styles, and text blocks directly from the PPTX XML package. It locks all slide layouts so your deck renders identically across all devices and PDF readers.'],
+  ['Does converting PowerPoint to PDF alter slide formatting or font styles?', 'No. We Make PDF extracts embedded slide geometry, layout dimensions, background styles, and text blocks directly from the PPTX XML package. It locks all slide layouts so your deck renders identically across all devices and PDF readers.'],
   ['Does this converter support 16:9 widescreen and 4:3 standard slides?', 'Yes! Both modern 16:9 widescreen presentations and traditional 4:3 standard aspect ratios are automatically detected and converted into matching proportional PDF page geometries.'],
-  ['Are my confidential pitch decks or corporate financial slides uploaded to any server?', 'Never. Toolifybox converts your PPTX files entirely inside your web browser using client-side JavaScript and WebAssembly. Your slides, business models, and trade secrets never leave your local device.'],
+  ['Are my confidential pitch decks or corporate financial slides uploaded to any server?', 'Never. We Make PDF converts your PPTX files entirely inside your web browser using client-side JavaScript and WebAssembly. Your slides, business models, and trade secrets never leave your local device.'],
   ['Do I need Microsoft Office or PowerPoint installed to use this tool?', 'No software or plugin installation is required. You can convert presentations from any modern browser on Mac, Windows, Linux, Chromebook, iPad, or Android phone.'],
   ['Can I extract and convert only selected slides instead of the entire deck?', 'Yes. The interactive slide viewer allows you to preview and select only the exact slides you wish to include in your final PDF export.'],
 ];
@@ -120,7 +120,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Confidential Deck Security</h3>
-            <p>Startup pitch decks, annual corporate budgets, and client roadmaps contain confidential business intelligence. Toolifybox converts files directly in your web browser memory.</p>
+            <p>Startup pitch decks, annual corporate budgets, and client roadmaps contain confidential business intelligence. We Make PDF converts files directly in your web browser memory.</p>
             <ul>
               <li>Zero server uploads, zero temporary files, zero leaks</li>
               <li>Works offline without sending files over the network</li>

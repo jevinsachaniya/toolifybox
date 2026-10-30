@@ -62,8 +62,8 @@ export function reductionPercent(originalSize, outputSize) {
 
 async function createRasterPdf(PDFDocument, pageCount, renderPage, profile, { signal, onProgress, attempt }) {
   const output = await PDFDocument.create();
-  output.setProducer('Toolifybox');
-  output.setCreator('Toolifybox Compress PDF');
+  output.setProducer('We Make PDF');
+  output.setCreator('We Make PDF Compress PDF');
   for (let number = 1; number <= pageCount; number++) {
     if (signal?.aborted) throw abortError();
     onProgress(`${attempt ? `${attempt}: ` : ''}compressing page ${number} of ${pageCount}...`);

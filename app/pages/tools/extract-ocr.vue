@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/extract-ocr', '/ocr-extract', '/tools/ocr-extract'],
 });
 
-const pageTitle = 'Extract OCR Text Online — Free & Private PDF/Image OCR | Toolifybox';
+const pageTitle = 'Extract OCR Text Online — Free & Private PDF/Image OCR | We Make PDF';
 const pageDescription = 'Extract OCR text from scanned PDFs and images online for free. Convert scans, receipts, and photos to editable text in Hindi, Gujarati, English & more with 100% private in-browser recognition. Export to TXT or Word DOCX.';
 
 const steps = [
@@ -16,8 +16,8 @@ const steps = [
 ];
 
 const faqs = [
-  ['Can this tool extract text from blurry paper scans or screenshots?', 'Yes. Toolifybox employs high-DPI canvas preprocessing and adaptive thresholding to enhance contrast before running neural optical recognition, successfully capturing text from phone photos, scans, and screenshots.'],
-  ['Does it support Indic languages like Hindi and Gujarati?', 'Yes. Toolifybox includes full Unicode models for Hindi (हिन्दी), Gujarati (ગુજરાતી), and English. Complex ligatures, conjuncts, and matras are accurately recognized and mapped to standard Unicode.'],
+  ['Can this tool extract text from blurry paper scans or screenshots?', 'Yes. We Make PDF employs high-DPI canvas preprocessing and adaptive thresholding to enhance contrast before running neural optical recognition, successfully capturing text from phone photos, scans, and screenshots.'],
+  ['Does it support Indic languages like Hindi and Gujarati?', 'Yes. We Make PDF includes full Unicode models for Hindi (हिन्दी), Gujarati (ગુજરાતી), and English. Complex ligatures, conjuncts, and matras are accurately recognized and mapped to standard Unicode.'],
   ['Are my sensitive documents uploaded to any external servers?', 'Never. Optical recognition executes entirely inside your browser using client-side WebAssembly. No images or text ever leave your device.'],
   ['Can I export the recognized text into an editable Word document?', 'Yes. With one click, you can export the recognized text into a formatted Microsoft Word document (.docx) or download it as a plain .txt file.'],
 ];
@@ -132,14 +132,14 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">NEURAL TEXT RECOVERY</span>
           <h2>Optical Character Recognition Engineered for Accuracy</h2>
-          <p>Stop typing long passages from paper books or screenshots manually. Toolifybox transforms static pixel images into digital text in seconds.</p>
+          <p>Stop typing long passages from paper books or screenshots manually. We Make PDF transforms static pixel images into digital text in seconds.</p>
         </div>
 
         <div class="seo-features-grid">
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Languages :size="24" /></span>
             <h3>Complex Script Unicode Mapping</h3>
-            <p>Indian languages require advanced glyph segmentation to recognize prefixes, halants, and conjunct consonants. Toolifybox leverages high-accuracy neural models trained specifically on Indic typography.</p>
+            <p>Indian languages require advanced glyph segmentation to recognize prefixes, halants, and conjunct consonants. We Make PDF leverages high-accuracy neural models trained specifically on Indic typography.</p>
             <ul>
               <li>Extracts Hindi Devanagari and Gujarati Unicode</li>
               <li>Eliminates broken characters and question marks</li>
@@ -161,7 +161,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Complete Data Confidentiality</h3>
-            <p>Financial bills, medical prescriptions, and private contracts should never be sent to cloud OCR servers. With Toolifybox, all optical recognition executes locally on your device CPU/GPU.</p>
+            <p>Financial bills, medical prescriptions, and private contracts should never be sent to cloud OCR servers. With We Make PDF, all optical recognition executes locally on your device CPU/GPU.</p>
             <ul>
               <li>Zero data transferred across the web</li>
               <li>No logs or retained document archives</li>

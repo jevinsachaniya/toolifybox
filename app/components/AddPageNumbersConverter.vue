@@ -1204,7 +1204,7 @@ html[data-theme='dark'] .drop-zone {
 html[data-theme='dark'] .drop-zone:hover,
 html[data-theme='dark'] .drop-zone.active {
   background: #1e1b4b;
-  border-color: #6366f1;
+  border-color: #e11d48;
 }
 
 html[data-theme='dark'] .drop-zone h3 {
@@ -1234,14 +1234,14 @@ html[data-theme='dark'] .form-control {
 
 html[data-theme='dark'] .position-btn:hover,
 html[data-theme='dark'] .scope-radio:hover {
-  border-color: #818cf8;
+  border-color: #fb7185;
 }
 
 html[data-theme='dark'] .position-btn.active,
 html[data-theme='dark'] .scope-radio.selected {
-  background: #312e81;
-  border-color: #818cf8;
-  color: #c7d2fe;
+  background: #4c0519;
+  border-color: #fb7185;
+  color: #fecdd3;
 }
 
 html[data-theme='dark'] .result-banner {

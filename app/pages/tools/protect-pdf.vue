@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/protect-pdf', '/encrypt-pdf'],
 });
 
-const pageTitle = 'Protect PDF with Password — Free Client-Side Encryption | Toolifybox';
+const pageTitle = 'Protect PDF with Password — Free Client-Side Encryption | We Make PDF';
 const pageDescription = 'Protect PDF with password online for free. Encrypt your confidential PDF documents using bank-grade AES-256 or RC4 encryption directly in your browser without uploading files.';
 
 const steps = [
@@ -17,7 +17,7 @@ const steps = [
 
 const faqs = [
   ['What is the difference between AES-256 and RC4 encryption?', 'AES-256 is the modern cryptographic standard approved by banks and governments for top-secret documents. It provides virtually unbreakable security. RC4 128-bit is an older legacy standard supported by very old PDF viewers (Acrobat 5.0 and earlier). We recommend AES-256 for all modern devices.'],
-  ['Does Toolifybox store or know my password?', 'Never. Toolifybox operates 100% inside your web browser. Neither your document nor your entered password is ever transmitted to or logged on any server. Because we do not store passwords, lost passwords cannot be retrieved.'],
+  ['Does We Make PDF store or know my password?', 'Never. We Make PDF operates 100% inside your web browser. Neither your document nor your entered password is ever transmitted to or logged on any server. Because we do not store passwords, lost passwords cannot be retrieved.'],
   ['Will a password-protected PDF open on smartphones and tablets?', 'Yes. PDFs encrypted with standard AES-256 will prompt for a password when opened in Apple Books, Adobe Acrobat Reader on iOS/Android, Google Drive, or any modern web browser.'],
   ['How can I remove the password later?', 'You can unlock and decrypt your protected PDF document anytime using our companion "Unlock PDF" tool by entering your password.'],
 ];
@@ -102,7 +102,7 @@ usePageSeo({
             <Lock :size="18" />
             <p>
               <b>Important Privacy Notice</b><br />
-              Make sure you record your password. Toolifybox does not track or store passwords, and lost passwords cannot be recovered.
+              Make sure you record your password. We Make PDF does not track or store passwords, and lost passwords cannot be recovered.
             </p>
           </div>
     </div>
@@ -132,7 +132,7 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">CRYPTOGRAPHIC SECURITY</span>
           <h2>Why In-Browser PDF Encryption Is the Safest Choice</h2>
-          <p>Sending sensitive tax documents, salary slips, or legal agreements to cloud servers creates massive privacy vulnerabilities. Toolifybox encrypts your PDF directly on your processor.</p>
+          <p>Sending sensitive tax documents, salary slips, or legal agreements to cloud servers creates massive privacy vulnerabilities. We Make PDF encrypts your PDF directly on your processor.</p>
         </div>
 
         <div class="seo-features-grid">

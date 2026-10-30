@@ -5,10 +5,10 @@ import { breadcrumbSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const route = useRoute();
 const submitted = computed(() => route.query.submitted === 'true');
-const pageDescription = 'Contact Toolifybox for converter support, bug reports, feedback and feature ideas. Send a message through the secure website contact form.';
+const pageDescription = 'Contact We Make PDF for converter support, bug reports, feedback and feature ideas. Send a message through the secure website contact form.';
 
 usePageSeo({
-  title: 'Contact Toolifybox — Support & Feedback',
+  title: 'Contact We Make PDF — Support & Feedback',
   description: pageDescription,
   path: '/contact',
   schemas: [
@@ -19,11 +19,11 @@ usePageSeo({
     ({ siteUrl, canonical }) => ({
       '@context': 'https://schema.org',
       '@type': 'ContactPage',
-      name: 'Contact Toolifybox',
+      name: 'Contact We Make PDF',
       description: pageDescription,
       url: canonical,
-      isPartOf: { '@type': 'WebSite', name: 'Toolifybox', url: siteUrl },
-      about: { '@type': 'Organization', name: 'Toolifybox', url: siteUrl },
+      isPartOf: { '@type': 'WebSite', name: 'We Make PDF', url: siteUrl },
+      about: { '@type': 'Organization', name: 'We Make PDF', url: siteUrl },
     }),
   ],
 });
@@ -38,12 +38,12 @@ usePageSeo({
       <div class="info-ambient" aria-hidden="true"><span /><span /></div>
       <section class="contact-hero container">
         <nav class="info-breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/">Home</NuxtLink><span>/</span><span aria-current="page">Contact</span></nav>
-        <div class="contact-heading"><span class="eyebrow"><MessageSquareText :size="13" /> CONTACT TOOLIFYBOX</span><h1>Tell us how we<br /><span>can help.</span></h1><p>Send a converter question, bug report, feedback or a feature idea. Useful details help identify the issue faster.</p></div>
+        <div class="contact-heading"><span class="eyebrow"><MessageSquareText :size="13" /> CONTACT WE MAKE PDF</span><h1>Tell us how we<br /><span>can help.</span></h1><p>Send a converter question, bug report, feedback or a feature idea. Useful details help identify the issue faster.</p></div>
       </section>
 
       <section class="contact-layout container" aria-label="Contact form and guidance">
         <div class="contact-form-card">
-          <div v-if="submitted" class="form-success" role="status"><CheckCircle2 :size="22" /><div><b>Message submitted.</b><p>Thank you for contacting Toolifybox.</p></div></div>
+          <div v-if="submitted" class="form-success" role="status"><CheckCircle2 :size="22" /><div><b>Message submitted.</b><p>Thank you for contacting We Make PDF.</p></div></div>
           <div class="contact-card-heading"><span><Mail :size="20" /></span><div><h2>Send a message</h2><p>All fields are required.</p></div></div>
           <form name="contact" method="POST" action="/contact?submitted=true" data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact" />
@@ -61,7 +61,7 @@ usePageSeo({
         <aside class="contact-aside" aria-label="Contact guidance">
           <div class="contact-guide-card"><span class="contact-guide-icon"><Bug :size="20" /></span><h2>Reporting a problem?</h2><p>Include the tool name, file type, browser, device and the exact error message. You do not need to send the document itself.</p></div>
           <div class="contact-guide-card"><span class="contact-guide-icon"><Lightbulb :size="20" /></span><h2>Suggesting a tool?</h2><p>Explain the file you start with, the result you need and the options that would make the workflow useful.</p></div>
-          <div class="contact-guide-card contact-privacy-card"><span class="contact-guide-icon"><ShieldCheck :size="20" /></span><h2>About form privacy</h2><p>This contact form is processed by Netlify Forms for the site owner. It is separate from Toolifybox converters, which process supported files locally in your browser.</p><NuxtLink to="/privacy-policy">Read the Privacy Policy <ArrowRight :size="14" /></NuxtLink></div>
+          <div class="contact-guide-card contact-privacy-card"><span class="contact-guide-icon"><ShieldCheck :size="20" /></span><h2>About form privacy</h2><p>This contact form is processed by Netlify Forms for the site owner. It is separate from We Make PDF converters, which process supported files locally in your browser.</p><NuxtLink to="/privacy-policy">Read the Privacy Policy <ArrowRight :size="14" /></NuxtLink></div>
           <div class="contact-quick-link"><HelpCircle :size="18" /><p>Need help choosing a converter?</p><NuxtLink to="/tools">View all tools</NuxtLink></div>
         </aside>
       </section>

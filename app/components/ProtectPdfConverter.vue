@@ -237,7 +237,7 @@ function cancel() {
         </div>
 
         <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 14px 16px; text-align: left; margin-bottom: 20px; font-size: 12px; color: #166534; line-height: 1.5;">
-          <strong>🔒 Important:</strong> Make sure to remember your password. Toolifybox encrypts files locally in your browser and never stores your passwords or file copies.
+          <strong>🔒 Important:</strong> Make sure to remember your password. We Make PDF encrypts files locally in your browser and never stores your passwords or file copies.
         </div>
 
         <div class="result-actions">
@@ -358,14 +358,14 @@ function cancel() {
             Encryption Standard
           </span>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <label :style="{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', borderRadius: '10px', cursor: 'pointer', border: algorithm === 'AES-256' ? '2px solid #4f46e5' : '1px solid #cbd5e1', background: algorithm === 'AES-256' ? '#eef2ff' : '#ffffff' }">
+            <label :style="{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', borderRadius: '10px', cursor: 'pointer', border: algorithm === 'AES-256' ? '2px solid #e11d48' : '1px solid #cbd5e1', background: algorithm === 'AES-256' ? '#fff1f2' : '#ffffff' }">
               <input type="radio" v-model="algorithm" value="AES-256" style="margin: 0;" />
               <div>
                 <strong style="display: block; font-size: 13px; color: #0f172a;">AES-256</strong>
                 <small style="display: block; font-size: 11px; color: #64748b;">Bank-grade (Modern)</small>
               </div>
             </label>
-            <label :style="{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', borderRadius: '10px', cursor: 'pointer', border: algorithm === 'RC4' ? '2px solid #4f46e5' : '1px solid #cbd5e1', background: algorithm === 'RC4' ? '#eef2ff' : '#ffffff' }">
+            <label :style="{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 12px', borderRadius: '10px', cursor: 'pointer', border: algorithm === 'RC4' ? '2px solid #e11d48' : '1px solid #cbd5e1', background: algorithm === 'RC4' ? '#fff1f2' : '#ffffff' }">
               <input type="radio" v-model="algorithm" value="RC4" style="margin: 0;" />
               <div>
                 <strong style="display: block; font-size: 13px; color: #0f172a;">RC4 128-bit</strong>

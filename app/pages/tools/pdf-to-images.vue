@@ -2,7 +2,7 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Images, Layers, LockKeyhole, ShieldCheck, Sparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'PDF to Images Converter — Export PDF Pages as PNG & JPG Online | Toolifybox';
+const pageTitle = 'PDF to Images Converter — Export PDF Pages as PNG & JPG Online | We Make PDF';
 const pageDescription = 'Convert PDF pages to high-quality PNG or JPG images online for free. Preview and select specific pages, choose custom resolution and format, and download single images or a ZIP archive—privately in your browser.';
 
 const steps = [
@@ -14,7 +14,7 @@ const steps = [
 const faqs = [
   ['Should I choose PNG or JPG when converting PDF to images?', 'Choose PNG if your PDF contains text documents, architectural blueprints, vector diagrams, or graphics with sharp contrast where lossless fidelity is essential. Choose JPG for photography, color brochures, or when you need smaller file sizes for quick email attachments and web upload.'],
   ['Can I extract images from specific pages without converting the entire document?', 'Yes! You can review visual thumbnails of every page and selectively check only the pages you wish to export. Individual images download directly, while multi-page selections are packaged into a clean ZIP archive.'],
-  ['Are my confidential files uploaded to any remote server or cloud database?', 'Never. Toolifybox converts PDF pages directly in your browser memory using WebAssembly and client-side HTML5 canvas APIs. Your sensitive documents never travel across the network, ensuring zero data leakage.'],
+  ['Are my confidential files uploaded to any remote server or cloud database?', 'Never. We Make PDF converts PDF pages directly in your browser memory using WebAssembly and client-side HTML5 canvas APIs. Your sensitive documents never travel across the network, ensuring zero data leakage.'],
   ['What image resolution does the converter output?', 'Pages are rendered at high DPI (up to 300 DPI) to preserve small fonts, hairline borders, and graphic nuances. This produces crisp images that look stunning even on 4K retina displays.'],
   ['Is there any page limit or file size restriction?', 'You can process documents up to 20 MB and up to 450 pages per conversion session, with zero wait queues or daily conversion limits.'],
 ];
@@ -93,7 +93,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Images :size="24" /></span>
             <h3>Dual Format Flexibility (PNG &amp; JPG)</h3>
-            <p>Different tasks require different visual formats. With Toolifybox, you have total control over whether to prioritize lossless clarity (PNG) or maximum storage compression (JPG).</p>
+            <p>Different tasks require different visual formats. With We Make PDF, you have total control over whether to prioritize lossless clarity (PNG) or maximum storage compression (JPG).</p>
             <ul>
               <li>PNG: Crystal-clear rasterization for text, schematics, and UI mockups</li>
               <li>JPG: Optimized byte sizes for social posts, galleries, and mobile chat</li>

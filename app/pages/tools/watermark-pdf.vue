@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/watermark-pdf', '/tools/watermark'],
 });
 
-const pageTitle = 'Watermark PDF Online — Add Text & Stamp Watermarks | Toolifybox';
+const pageTitle = 'Watermark PDF Online — Add Text & Stamp Watermarks | We Make PDF';
 const pageDescription = 'Watermark PDF documents online for free. Add confidential stamps, copyright marks, or repeating watermark grids with custom opacity and rotation in your browser. 100% private.';
 
 const steps = [
@@ -16,10 +16,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['Will watermarking a PDF blur or flatten my original text?', 'No. Toolifybox stamps vector or text layers directly on top of the document canvas while preserving 100% of the underlying selectable text, embedded fonts, and vector lines.'],
+  ['Will watermarking a PDF blur or flatten my original text?', 'No. We Make PDF stamps vector or text layers directly on top of the document canvas while preserving 100% of the underlying selectable text, embedded fonts, and vector lines.'],
   ['Can I add repeating tiled watermarks across the entire page?', 'Yes! You can choose our Repeating 3x3 Grid mode to cover the full page diagonally, making it impossible for third parties to crop out your copyright stamp.'],
   ['What opacity should I choose so the document is still readable?', 'We recommend between 15% and 30% opacity. This leaves the stamp clearly visible to prevent leaks while keeping the underlying text comfortable to read.'],
-  ['Are my confidential drafts or contracts uploaded to any cloud service?', 'Never. Toolifybox stamps your PDF directly in your web browser memory using client-side JavaScript. Your documents never leave your computer.'],
+  ['Are my confidential drafts or contracts uploaded to any cloud service?', 'Never. We Make PDF stamps your PDF directly in your web browser memory using client-side JavaScript. Your documents never leave your computer.'],
 ];
 
 usePageSeo({
@@ -161,7 +161,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Client-Side Privacy Guarantee</h3>
-            <p>Unreleased manuscripts, patents, and sensitive corporate presentations should never be uploaded to cloud watermarking tools. Toolifybox stamps your files directly in your browser.</p>
+            <p>Unreleased manuscripts, patents, and sensitive corporate presentations should never be uploaded to cloud watermarking tools. We Make PDF stamps your files directly in your browser.</p>
             <ul>
               <li>100% private in-browser canvas execution</li>
               <li>No server file storage or intermediate caching</li>

@@ -369,7 +369,7 @@ async function downloadPdf() {
       text: watermarkText.value.trim() || 'TRANSLATED',
       position: watermarkPosition.value,
       opacity: (Number(watermarkOpacity.value) || 25) / 100,
-      color: '#6366f1',
+      color: '#e11d48',
       rotation: watermarkPosition.value === 'center-diagonal' ? 45 : watermarkPosition.value === 'tiled' ? 35 : 0,
     } : undefined;
 
@@ -580,7 +580,7 @@ function copyTranslated() {
           <div class="trans-panel translated-panel">
             <div class="trans-panel-header">
               <div class="trans-panel-title">
-                <Sparkles :size="14" color="#6366f1" />
+                <Sparkles :size="14" color="#e11d48" />
                 <span class="highlight-title">Translated ({{ targetLangInfo.name }})</span>
                 <span class="editable-hint-badge" title="You can directly edit this text before downloading">✏️ Editable Text</span>
                 <span class="panel-count-pill highlight">{{ countWords(displayedTranslatedText) }} words</span>
@@ -798,7 +798,7 @@ function copyTranslated() {
           type="button"
           class="primary-button"
           :disabled="busy"
-          style="margin-top: 18px; width: 100%; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);"
+          style="margin-top: 18px; width: 100%; background: var(--primary-gradient); box-shadow: var(--primary-glow);"
           @click="startTranslation"
         >
           <LoaderCircle v-if="busy" class="spin" :size="18" />
@@ -823,7 +823,7 @@ function copyTranslated() {
         @dragleave.prevent="dragLeave"
         @drop.prevent="drop"
       >
-        <div class="drop-zone-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff;">
+        <div class="drop-zone-icon" style="background: var(--primary-gradient); color: #fff;">
           <Languages :size="32" />
         </div>
         <h3>{{ dragging ? 'Drop your PDF here' : 'Drop your PDF to translate' }}</h3>

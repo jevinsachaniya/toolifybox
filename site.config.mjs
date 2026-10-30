@@ -29,6 +29,12 @@ export const SITE_ROUTES = [
   '/tools/watermark-pdf',
   '/tools/create-pdf',
   '/tools/add-page-numbers',
+  '/tools/crop-pdf',
+  '/tools/compare-pdf',
+  '/tools/html-to-pdf',
+  '/tools/convert-image',
+  '/tools/image-to-svg',
+  '/tools/json-to-csv',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

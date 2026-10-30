@@ -108,8 +108,11 @@ export function chunkTextForTranslation(text, maxChunkSize = 1400) {
 }
 
 /**
- * Translates a single text chunk using the Google Translation Client endpoint.
- * Includes graceful offline/fallback handling for unit tests and rate limits.
+ * Translates a single text chunk using redundant translation endpoints:
+ * 1. Google Translate Client (gtx)
+ * 2. Google Translate Client (dict-chrome-ex)
+ * 3. MyMemory Public Translation API
+ * Includes graceful offline/mock handling for unit tests and rate limits.
  */
 export async function translateTextChunk(text, sourceLang = 'auto', targetLang = 'en', options = {}) {
   if (!text || !text.trim()) return '';
@@ -126,30 +129,121 @@ export async function translateTextChunk(text, sourceLang = 'auto', targetLang =
     return `[${tl.toUpperCase()}] ${text}`;
   }
 
-  const endpoint = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(text)}`;
-
+  // 1. Primary: Google gtx endpoint
   try {
-    const res = await fetch(endpoint, {
+    const primaryUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(primaryUrl, {
       signal: options.signal,
     });
-    if (!res.ok) {
-      throw new Error(`Translation API responded with HTTP ${res.status}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && Array.isArray(data[0])) {
+        const translated = data[0]
+          .map(segment => (segment && segment[0] ? segment[0] : ''))
+          .join('');
+        if (translated && translated.trim()) {
+          return translated;
+        }
+      }
     }
-    const data = await res.json();
-    if (Array.isArray(data) && Array.isArray(data[0])) {
-      const translated = data[0]
-        .map(segment => (segment && segment[0] ? segment[0] : ''))
-        .join('');
-      return translated || text;
-    }
-    return text;
   } catch (err) {
     if (options.signal?.aborted) throw err;
-    if (options.fallbackOnFail) {
-      return `[${tl.toUpperCase()}] ${text}`;
-    }
-    throw err;
   }
+
+  // 2. Secondary: Google dict-chrome-ex endpoint
+  try {
+    const secondaryUrl = `https://clients5.google.com/translate_a/t?client=dict-chrome-ex&sl=${encodeURIComponent(sl)}&tl=${encodeURIComponent(tl)}&q=${encodeURIComponent(text)}`;
+    const res = await fetch(secondaryUrl, {
+      signal: options.signal,
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && typeof data[0] === 'string' && data[0].trim()) {
+        return data[0];
+      }
+    }
+  } catch (err) {
+    if (options.signal?.aborted) throw err;
+  }
+
+  // 3. Tertiary: MyMemory public translation API
+  try {
+    const fromLang = sl === 'auto' ? 'en' : sl;
+    const memUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0, 500))}&langpair=${encodeURIComponent(fromLang)}|${encodeURIComponent(tl)}`;
+    const res = await fetch(memUrl, {
+      signal: options.signal,
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data?.responseData?.translatedText && data.responseData.translatedText.trim()) {
+        return data.responseData.translatedText;
+      }
+    }
+  } catch (err) {
+    if (options.signal?.aborted) throw err;
+  }
+
+  if (options.fallbackOnFail) {
+    return `[${tl.toUpperCase()}] ${text}`;
+  }
+  return text;
+}
+
+/**
+ * Translates an array of text strings as a single indexed batch, preventing rate-limiting
+ * and preserving 1:1 mapping between items.
+ */
+export async function translateBatch(items, sourceLang = 'auto', targetLang = 'en', options = {}) {
+  if (!items || !items.length) return [];
+  const sl = sourceLang === 'auto' ? 'auto' : sourceLang.toLowerCase();
+  const tl = targetLang.toLowerCase();
+
+  if (sl !== 'auto' && sl === tl) {
+    return [...items];
+  }
+
+  if (options.mock) {
+    return items.map(t => `[${tl.toUpperCase()}] ${t}`);
+  }
+
+  // Build indexed batch text: <<<T0>>> First line\n<<<T1>>> Second line
+  const indexedText = items.map((t, idx) => `<<<T${idx}>>> ${t}`).join('\n');
+  const translatedCombined = await translateTextChunk(indexedText, sl, tl, options);
+
+  const regex = /<<<T(\d+)>>>\s*([\s\S]*?)(?=(?:<<<T\d+>>>|$))/gi;
+  const results = [...items];
+  let match;
+  let matchesFound = 0;
+
+  while ((match = regex.exec(translatedCombined)) !== null) {
+    const idx = parseInt(match[1], 10);
+    const content = match[2].trim();
+    if (!isNaN(idx) && idx >= 0 && idx < items.length) {
+      results[idx] = content;
+      matchesFound++;
+    }
+  }
+
+  // If at least 80% of items were cleanly parsed from indexed markers
+  if (matchesFound >= items.length * 0.8) {
+    // If any item was missed, translate individually
+    for (let i = 0; i < items.length; i++) {
+      if (results[i] === items[i] && items[i].trim()) {
+        try {
+          results[i] = await translateTextChunk(items[i], sl, tl, options);
+        } catch {}
+      }
+    }
+    return results;
+  }
+
+  // Fallback: translate items individually if indexed parsing failed
+  const fallbackResults = [];
+  for (let i = 0; i < items.length; i++) {
+    const t = await translateTextChunk(items[i], sl, tl, options);
+    fallbackResults.push(t);
+  }
+  return fallbackResults;
 }
 
 /**
@@ -501,15 +595,14 @@ export async function translateDocumentPages(pages, sourceLang = 'auto', targetL
     }
 
     if (blocksToTranslate.length) {
-      // Batch translate only blocks that actually need translation
-      const DELIMITER = '\n[---]\n';
+      // Batch translate only blocks that actually need translation using indexed markers
       let currentBatch = [];
       let currentBatchLen = 0;
       const batches = [];
 
       for (const block of blocksToTranslate) {
-        const blockLen = (block.text || '').length + DELIMITER.length;
-        if (currentBatch.length && currentBatchLen + blockLen > 1200) {
+        const blockLen = (block.text || '').length + 15;
+        if (currentBatch.length && currentBatchLen + blockLen > 1400) {
           batches.push(currentBatch);
           currentBatch = [block];
           currentBatchLen = blockLen;
@@ -520,31 +613,12 @@ export async function translateDocumentPages(pages, sourceLang = 'auto', targetL
       }
       if (currentBatch.length) batches.push(currentBatch);
 
-      const cleanDelimiterRemnants = (str) => {
-        if (!str) return '';
-        return str
-          .replace(/^\[+\s*[-—–]*\s*/, '')
-          .replace(/\s*[-—–]*\s*\]+$/, '')
-          .replace(/^[-—–]+\s*/, '')
-          .replace(/\s*[-—–]+$/, '')
-          .trim();
-      };
-
       for (const batch of batches) {
-        const combined = batch.map(b => b.text).join(DELIMITER);
-        const translatedCombined = await translateTextChunk(combined, sourceLang, targetLang, options);
-        const parts = translatedCombined.split(/\s*\[\s*[-—–]{2,}\s*\]\s*/);
-
-        if (parts.length === batch.length) {
-          batch.forEach((b, idx) => {
-            b.translatedText = cleanDelimiterRemnants(parts[idx] || '') || b.text;
-          });
-        } else {
-          for (const b of batch) {
-            const t = await translateTextChunk(b.text, sourceLang, targetLang, options);
-            b.translatedText = cleanDelimiterRemnants(t) || b.text;
-          }
-        }
+        const texts = batch.map(b => b.text);
+        const translatedTexts = await translateBatch(texts, sourceLang, targetLang, options);
+        batch.forEach((b, idx) => {
+          b.translatedText = (translatedTexts[idx] || '').trim() || b.text;
+        });
       }
     }
 
@@ -574,92 +648,227 @@ export function translatedOutputFilename(originalName, targetLang, format = 'txt
 }
 
 /**
- * Creates a clean Microsoft Word (.docx) document containing translated content.
+ * Creates a Microsoft Word (.docx) document containing translated content,
+ * faithfully preserving the original PDF page geometry, coordinates, and typography (just like PDF to Word).
  */
 export async function createTranslatedDocx(pages, { sourceLang = 'auto', targetLang = 'en', originalName = 'document.pdf' } = {}) {
-  const { Document, Packer, Paragraph, TextRun, HeadingLevel } = await import('docx');
-  const children = [];
-
+  const word = await import('docx');
+  const twips = value => Math.round(value * 20);
   const srcInfo = getLanguageInfo(sourceLang);
   const tgtInfo = getLanguageInfo(targetLang);
 
-  children.push(
-    new Paragraph({
-      heading: HeadingLevel.HEADING_1,
-      spacing: { before: 0, after: 120 },
-      children: [
-        new TextRun({
-          text: `Translated Document — ${tgtInfo.name} (${tgtInfo.native})`,
-          bold: true,
-          size: 32,
-          color: '4F46E5',
-        }),
-      ],
-    })
-  );
+  const sections = [];
+  const hasBlocks = pages.some(p => p.blocks && p.blocks.length > 0);
 
-  children.push(
-    new Paragraph({
-      spacing: { before: 0, after: 260 },
-      children: [
-        new TextRun({
-          text: `Original: ${originalName} | Language: ${srcInfo.name} → ${tgtInfo.name} | Generated by Toolifybox`,
-          size: 18,
-          color: '64748B',
-          italics: true,
-        }),
-      ],
-    })
-  );
+  if (hasBlocks) {
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      const width = page.pageWidth || 612;
+      const height = page.pageHeight || 792;
+      const blocks = page.blocks && page.blocks.length ? page.blocks : [];
+      const paragraphs = [];
 
-  for (let i = 0; i < pages.length; i++) {
-    const page = pages[i];
-    if (pages.length > 1) {
-      children.push(
-        new Paragraph({
-          heading: HeadingLevel.HEADING_2,
-          spacing: { before: 240, after: 120 },
-          children: [
-            new TextRun({
-              text: `Page ${page.pageNumber || i + 1}`,
-              bold: true,
-              size: 24,
-              color: '1E293B',
-            }),
-          ],
-        })
-      );
-    }
+      if (blocks.length > 0) {
+        for (const block of blocks) {
+          const text = (block.translatedText || block.text || '').trim();
+          if (!text) continue;
 
-    const lines = (page.translatedText || page.text || '').split(/\r?\n/);
-    for (const line of lines) {
-      if (!line.trim()) {
-        children.push(new Paragraph({ spacing: { before: 80, after: 80 } }));
+          const isIndic = /[\u0900-\u0D7F]/u.test(text);
+          const hasArabic = /[\u0600-\u06FF\u0750-\u077F]/u.test(text);
+          const isComplex = isIndic || hasArabic;
+          const fontDef = isIndic
+            ? { name: 'Nirmala UI', cs: 'Nirmala UI', ascii: 'Nirmala UI', hAnsi: 'Nirmala UI' }
+            : hasArabic
+            ? { name: 'Traditional Arabic', cs: 'Traditional Arabic', ascii: 'Arial', hAnsi: 'Arial' }
+            : { name: 'Arial', cs: 'Arial', ascii: 'Arial', hAnsi: 'Arial' };
+
+          const fontSize = Math.max(8, Math.min(72, block.fontSize || 12));
+          const x = Math.max(0, Number.isFinite(block.x) ? block.x : 36);
+          const baseline = Number.isFinite(block.baseline)
+            ? block.baseline
+            : ((Number.isFinite(block.y) ? block.y : 36) + fontSize * 0.85);
+          const top = Math.max(0, baseline - fontSize * (isComplex ? 1.2 : 0.92));
+          const availableWidth = Math.max(20, width - x);
+          const extraPadding = isComplex ? Math.max(28, fontSize * 2.2) : Math.max(20, fontSize * 1.5);
+          const blockW = Number.isFinite(block.width) && block.width > 0 ? block.width : 100;
+          const frameWidth = twips(Math.max(10, Math.min(availableWidth, blockW + extraPadding)));
+
+          const isBold = /bold|black|heavy|semibold/i.test(block.fontName || '');
+          const isItalic = /italic|oblique/i.test(block.fontName || '');
+
+          paragraphs.push(
+            new word.Paragraph({
+              run: {
+                font: fontDef,
+                size: fontSize * 2,
+                sizeComplexScript: fontSize * 2,
+                color: '000000',
+              },
+              frame: {
+                type: 'absolute',
+                position: { x: twips(x), y: twips(top) },
+                width: frameWidth,
+                anchor: { horizontal: word.FrameAnchorType.PAGE, vertical: word.FrameAnchorType.PAGE },
+                wrap: word.FrameWrap.NONE,
+                space: { horizontal: 0, vertical: 0 },
+              },
+              spacing: {
+                before: 0,
+                after: 0,
+                line: twips(fontSize * (isComplex ? 1.45 : 1.15)),
+                lineRule: isComplex ? word.LineRuleType.AT_LEAST : word.LineRuleType.EXACT,
+              },
+              bidirectional: block.dir === 'rtl' || hasArabic,
+              children: [
+                new word.TextRun({
+                  text,
+                  color: '000000',
+                  size: fontSize * 2,
+                  sizeComplexScript: fontSize * 2,
+                  font: fontDef,
+                  bold: isBold,
+                  italics: isItalic,
+                  rightToLeft: block.dir === 'rtl' || hasArabic,
+                }),
+              ],
+            })
+          );
+        }
       } else {
+        // Fallback for page with no blocks
+        const pageText = page.translatedText || page.text || '';
+        const lines = pageText.split(/\r?\n/).filter(Boolean);
+        for (const line of lines) {
+          paragraphs.push(
+            new word.Paragraph({
+              spacing: { before: 40, after: 80 },
+              children: [
+                new word.TextRun({
+                  text: line,
+                  size: 22,
+                  sizeComplexScript: 22,
+                  font: /[\u0900-\u0D7F]/u.test(line) ? 'Nirmala UI' : 'Arial',
+                }),
+              ],
+            })
+          );
+        }
+      }
+
+      sections.push({
+        properties: {
+          type: word.SectionType.NEXT_PAGE,
+          page: {
+            size: {
+              width: twips(Math.min(width, height)),
+              height: twips(Math.max(width, height)),
+              orientation: width > height ? word.PageOrientation.LANDSCAPE : word.PageOrientation.PORTRAIT,
+            },
+            margin: { top: 0, right: 0, bottom: 0, left: 0, header: 0, footer: 0 },
+          },
+        },
+        children: paragraphs,
+      });
+    }
+  } else {
+    // Flow mode (clean sequential paragraphs for tests or pure text docs)
+    const children = [];
+    children.push(
+      new word.Paragraph({
+        heading: word.HeadingLevel.HEADING_1,
+        spacing: { before: 0, after: 120 },
+        children: [
+          new word.TextRun({
+            text: `Translated Document — ${tgtInfo.name} (${tgtInfo.native})`,
+            bold: true,
+            size: 32,
+            sizeComplexScript: 32,
+            font: /[\u0900-\u0D7F]/u.test(tgtInfo.native) ? 'Nirmala UI' : 'Arial',
+            color: '4F46E5',
+          }),
+        ],
+      })
+    );
+
+    children.push(
+      new word.Paragraph({
+        spacing: { before: 0, after: 240 },
+        children: [
+          new word.TextRun({
+            text: `Original: ${originalName} | Language: ${srcInfo.name} → ${tgtInfo.name} | Generated by We Make PDF`,
+            size: 18,
+            color: '64748B',
+            italics: true,
+          }),
+        ],
+      })
+    );
+
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i];
+      if (pages.length > 1) {
         children.push(
-          new Paragraph({
-            spacing: { before: 40, after: 100 },
+          new word.Paragraph({
+            heading: word.HeadingLevel.HEADING_2,
+            spacing: { before: 200, after: 100 },
             children: [
-              new TextRun({
-                text: line,
-                size: 22,
-                font: 'Arial',
+              new word.TextRun({
+                text: `Page ${page.pageNumber || i + 1}`,
+                bold: true,
+                size: 24,
+                color: '1E293B',
               }),
             ],
           })
         );
       }
+
+      const lines = (page.translatedText || page.text || '').split(/\r?\n/);
+      for (const line of lines) {
+        if (!line.trim()) {
+          children.push(new word.Paragraph({ spacing: { before: 60, after: 60 } }));
+        } else {
+          const isIndic = /[\u0900-\u0D7F]/u.test(line);
+          children.push(
+            new word.Paragraph({
+              spacing: { before: 40, after: 100 },
+              children: [
+                new word.TextRun({
+                  text: line,
+                  size: 22,
+                  sizeComplexScript: 22,
+                  font: isIndic ? 'Nirmala UI' : 'Arial',
+                }),
+              ],
+            })
+          );
+        }
+      }
     }
+
+    sections.push({ children });
   }
 
-  const doc = new Document({
-    creator: 'Toolifybox PDF Language Translator',
+  const doc = new word.Document({
+    creator: 'We Make PDF Language Translator',
     title: `Translated - ${originalName}`,
-    description: `Translated from ${srcInfo.name} to ${tgtInfo.name} using Toolifybox`,
-    sections: [{ children }],
+    description: `Translated from ${srcInfo.name} to ${tgtInfo.name} using We Make PDF`,
+    styles: {
+      default: {
+        document: {
+          run: {
+            font: { name: 'Arial', cs: 'Nirmala UI', ascii: 'Arial', hAnsi: 'Arial' },
+            size: 22,
+            sizeComplexScript: 22,
+          },
+          paragraph: { spacing: { before: 0, after: 0 } },
+        },
+      },
+    },
+    sections,
   });
 
-  return await Packer.toBlob(doc);
+  return await word.Packer.toBlob(doc);
 }
 
 /**
@@ -673,7 +882,7 @@ export function createTranslatedTxtBlob(pages, { sourceLang = 'auto', targetLang
   output += `TRANSLATED DOCUMENT (${tgtInfo.name} / ${tgtInfo.native})\n`;
   output += `Original: ${originalName}\n`;
   output += `Language: ${srcInfo.name} -> ${tgtInfo.name}\n`;
-  output += `Processed by Toolifybox PDF Language Translator\n`;
+  output += `Processed by We Make PDF PDF Language Translator\n`;
   output += `=======================================================\n\n`;
 
   for (let i = 0; i < pages.length; i++) {
@@ -988,7 +1197,7 @@ export async function renderTextToCanvasBlob(text, { title = 'Translated Page', 
 
   ctx.fillStyle = '#64748b';
   ctx.font = '16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Gujarati", "Noto Sans Devanagari", sans-serif';
-  ctx.fillText(`Toolifybox PDF Translator  ·  ${title}`, 60, 50);
+  ctx.fillText(`We Make PDF Translator  ·  ${title}`, 60, 50);
 
   ctx.textAlign = 'right';
   ctx.fillText(`Page ${pageNumber} of ${totalPages}`, width - 60, 50);
@@ -1046,7 +1255,7 @@ export async function renderTextToCanvasBlob(text, { title = 'Translated Page', 
 
   ctx.fillStyle = '#94a3b8';
   ctx.font = '13px sans-serif';
-  ctx.fillText('Translated locally with Toolifybox  ·  100% In-Browser Privacy', 60, height - 25);
+  ctx.fillText('Translated locally with We Make PDF  ·  100% In-Browser Privacy', 60, height - 25);
 
   return new Promise(resolve => {
     canvas.toBlob(blob => resolve(blob), 'image/jpeg', 0.92);
@@ -1213,9 +1422,70 @@ export async function extractTextFromPdf(file, { onProgress = () => {}, signal }
     const page = await pdf.getPage(num);
     const viewport = page.getViewport({ scale: 1 });
     const textContent = await page.getTextContent();
-    const blocks = extractPageLayoutBlocks(textContent, viewport, pdfjs);
-    const pageText = blocks.length ? blocks.map(b => b.text).join('\n\n') : formatPdfTextContent(textContent);
-    const words = countWords(pageText);
+    let blocks = extractPageLayoutBlocks(textContent, viewport, pdfjs);
+    let pageText = blocks.length ? blocks.map(b => b.text).join('\n\n') : formatPdfTextContent(textContent);
+    let words = countWords(pageText);
+
+    // OCR fallback for scanned or non-Unicode Indian PDFs with 0 digital text
+    if (words === 0 && typeof document !== 'undefined') {
+      try {
+        const { createPdfOcr } = await import('./pdf-ocr.js');
+        const config = typeof useRuntimeConfig === 'function' ? useRuntimeConfig() : null;
+        const baseURL = config?.app?.baseURL || '/';
+        const ocrVer = config?.public?.ocrVersion || 'v1';
+        const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost';
+        const assetBase = new URL(`${baseURL}ocr/${ocrVer}/`, origin).href;
+        const ocr = createPdfOcr({
+          assetBase,
+          language: 'auto',
+          signal,
+          onProgress: (m) => onProgress(`OCR Page ${num}: ${m}`),
+        });
+
+        const scale = 1.5;
+        const scaledViewport = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.ceil(scaledViewport.width);
+        canvas.height = Math.ceil(scaledViewport.height);
+        const ctx = canvas.getContext('2d', { alpha: false });
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({
+          canvasContext: ctx,
+          viewport: scaledViewport,
+          background: '#ffffff',
+        }).promise;
+
+        const ocrItems = await ocr.recognize(canvas, scale, num, totalPages);
+        if (ocrItems?.length) {
+          blocks = ocrItems.map((item, idx) => ({
+            id: `b_ocr_${idx}`,
+            x: item.x,
+            y: Math.max(0, item.baseline - (item.fontSize || 12)),
+            top: Math.max(0, item.baseline - (item.fontSize || 12)),
+            baseline: item.baseline,
+            width: item.width || 100,
+            height: item.height || 16,
+            fontSize: item.fontSize || 12,
+            fontName: 'Nirmala UI',
+            text: item.str || item.runs?.map(r => r.text).join('') || '',
+            translatedText: '',
+            originalLines: [{
+              x: item.x,
+              top: Math.max(0, item.baseline - (item.fontSize || 12)),
+              width: item.width || 100,
+              height: item.height || 16,
+              baseline: item.baseline,
+            }],
+          }));
+          pageText = blocks.map(b => b.text).join('\n\n');
+          words = countWords(pageText);
+        }
+      } catch (ocrErr) {
+        console.warn('OCR fallback failed for page ' + num, ocrErr);
+      }
+    }
+
     totalWordCount += words;
 
     pages.push({

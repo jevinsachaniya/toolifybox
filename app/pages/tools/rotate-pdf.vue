@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/rotate-pdf', '/tools/rotate-pages', '/rotate-pages'],
 });
 
-const pageTitle = 'Rotate PDF Pages Online — Free & Permanent Page Orientation | Toolifybox';
+const pageTitle = 'Rotate PDF Pages Online — Free & Permanent Page Orientation | We Make PDF';
 const pageDescription = 'Rotate PDF pages online for free. Fix upside-down or sideways pages, rotate individual pages or the entire document 90, 180, or 270 degrees, and save permanently in your browser without uploading files.';
 
 const steps = [
@@ -16,9 +16,9 @@ const steps = [
 ];
 
 const faqs = [
-  ['Will rotating a PDF permanently save the new orientation?', 'Yes. Toolifybox modifies the internal page rotation dictionary (/Rotate metadata parameter) inside the PDF file structure. When you download the resulting PDF, it opens in the correct orientation in any PDF reader, browser, or printer.'],
+  ['Will rotating a PDF permanently save the new orientation?', 'Yes. We Make PDF modifies the internal page rotation dictionary (/Rotate metadata parameter) inside the PDF file structure. When you download the resulting PDF, it opens in the correct orientation in any PDF reader, browser, or printer.'],
   ['Can I rotate only a single sideways page without affecting the rest of the document?', 'Yes! You have granular per-page rotation controls. You can rotate single landscape tables or sideways invoice pages 90 degrees while keeping every other portrait page in its original position.'],
-  ['Does rotating a PDF reduce text clarity or compress images?', 'Not at all. Toolifybox applies pure lossless transformation. Because it adjusts the orientation matrix rather than re-rendering or re-encoding visual elements, your document retains 100% of its original resolution, text vectors, and embedded font definitions.'],
+  ['Does rotating a PDF reduce text clarity or compress images?', 'Not at all. We Make PDF applies pure lossless transformation. Because it adjusts the orientation matrix rather than re-rendering or re-encoding visual elements, your document retains 100% of its original resolution, text vectors, and embedded font definitions.'],
   ['Are my confidential files uploaded to any external server?', 'Never. All PDF parsing and orientation adjustments run 100% client-side in your web browser memory using WebAssembly. Your documents never travel over the internet, ensuring strict privacy and confidentiality.'],
   ['Can I rotate PDFs scanned from mobile scanners or photocopiers?', 'Yes. Scanned PDFs often have upside-down or alternating portrait/landscape pages. You can preview every thumbnail visually in our interactive workspace and correct inverted pages in a single click.'],
 ];
@@ -133,7 +133,7 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">PRECISION ORIENTATION</span>
           <h2>Why Permanent PDF Page Rotation Matters</h2>
-          <p>Rotating a page in a desktop viewer often only rotates your screen view temporarily without altering the underlying file. Toolifybox updates the document's true coordinate matrix permanently.</p>
+          <p>Rotating a page in a desktop viewer often only rotates your screen view temporarily without altering the underlying file. We Make PDF updates the document's true coordinate matrix permanently.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -162,7 +162,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>100% In-Browser Privacy</h3>
-            <p>Unlike cloud PDF services that transfer your confidential legal contracts or bank statements to remote servers, Toolifybox computes every rotation locally in your web browser memory.</p>
+            <p>Unlike cloud PDF services that transfer your confidential legal contracts or bank statements to remote servers, We Make PDF computes every rotation locally in your web browser memory.</p>
             <ul>
               <li>Zero telemetry, zero server storage, zero third-party access</li>
               <li>Works offline once loaded in your browser session</li>

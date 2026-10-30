@@ -2,21 +2,21 @@
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Cpu, FileCheck, FileText, Globe, Layers, LockKeyhole, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Word to PDF Converter — Free, Fast & Private Online | Toolifybox';
+const pageTitle = 'Word to PDF Converter — Free, Fast & Private Online | We Make PDF';
 const pageDescription = 'Convert Word DOCX documents to high-resolution, print-ready PDF files online for free. Preserves document formatting, fonts, tables, and images with 100% private in-browser conversion. No sign-up or watermark.';
 
 const steps = [
   { number: '01', title: 'Select Word Document', desc: 'Choose any .docx Word file up to 20 MB from your computer, phone, or drag and drop into the converter.' },
-  { number: '02', title: 'Local Browser Compilation', desc: 'Toolifybox processes the document elements, typography, and page structure locally in your browser memory.' },
+  { number: '02', title: 'Local Browser Compilation', desc: 'We Make PDF processes the document elements, typography, and page structure locally in your browser memory.' },
   { number: '03', title: 'Download Pristine PDF', desc: 'Download your finalized, publication-ready PDF instantly. Retains layout, page numbering, and margins perfectly.' },
 ];
 
 const faqs = [
-  ['Will my fonts, margins, and document formatting change?', 'Toolifybox renders your document layout, preserving margins, standard fonts, paragraphs, and inline graphics so your PDF looks identical to your original Word file across all operating systems.'],
-  ['Are my confidential files uploaded or saved on any server?', 'No. Toolifybox is built on a 100% private client-side architecture. Your DOCX file is parsed and compiled inside your web browser. No document data is ever sent to or stored on our servers.'],
-  ['Is there a fee, trial period, or watermark added to the PDF?', 'None whatsoever. Toolifybox is completely free forever. There are no subscriptions, no credit card requirements, no hidden limits, and no branding or watermarks placed on your PDF.'],
-  ['Can I convert multiple pages or documents with tables and images?', 'Yes. Toolifybox easily compiles multi-page Word documents including headers, footers, bullet lists, tables, and embedded JPEG/PNG images into a unified multi-page PDF.'],
-  ['What should I do if I need to edit the PDF later?', 'You can convert your PDF back into an editable Microsoft Word document anytime using our dedicated Toolifybox PDF to Word tool with built-in Smart OCR.'],
+  ['Will my fonts, margins, and document formatting change?', 'We Make PDF renders your document layout, preserving margins, standard fonts, paragraphs, and inline graphics so your PDF looks identical to your original Word file across all operating systems.'],
+  ['Are my confidential files uploaded or saved on any server?', 'No. We Make PDF is built on a 100% private client-side architecture. Your DOCX file is parsed and compiled inside your web browser. No document data is ever sent to or stored on our servers.'],
+  ['Is there a fee, trial period, or watermark added to the PDF?', 'None whatsoever. We Make PDF is completely free forever. There are no subscriptions, no credit card requirements, no hidden limits, and no branding or watermarks placed on your PDF.'],
+  ['Can I convert multiple pages or documents with tables and images?', 'Yes. We Make PDF easily compiles multi-page Word documents including headers, footers, bullet lists, tables, and embedded JPEG/PNG images into a unified multi-page PDF.'],
+  ['What should I do if I need to edit the PDF later?', 'You can convert your PDF back into an editable Microsoft Word document anytime using our dedicated We Make PDF PDF to Word tool with built-in Smart OCR.'],
 ];
 
 usePageSeo({
@@ -110,7 +110,7 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">PROFESSIONAL DOCUMENT COMPILATION</span>
-          <h2>Why Convert Your Word Documents to PDF with Toolifybox?</h2>
+          <h2>Why Convert Your Word Documents to PDF with We Make PDF?</h2>
           <p>Microsoft Word documents often shift layouts, reflow paragraphs, or replace fonts when opened on different devices or operating systems. Converting to PDF standardizes your presentation.</p>
         </div>
 
@@ -140,7 +140,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Cpu :size="24" /></span>
             <h3>Zero Uploads &amp; Absolute Privacy</h3>
-            <p>Traditional conversion websites store copies of your uploaded Word files on cloud servers, exposing confidential client contracts, financial reports, or personal data. Toolifybox compiles everything locally in your browser.</p>
+            <p>Traditional conversion websites store copies of your uploaded Word files on cloud servers, exposing confidential client contracts, financial reports, or personal data. We Make PDF compiles everything locally in your browser.</p>
             <ul>
               <li>100% on-device processing via modern JavaScript APIs</li>
               <li>No document storage, tracking, or remote database access</li>
@@ -152,8 +152,8 @@ usePageSeo({
         <!-- Real-World Applications -->
         <div class="section-intro" style="margin-top: 56px;">
           <span class="mini-label">EVERYDAY WORKFLOWS</span>
-          <h2>Who Relies on Toolifybox Word to PDF?</h2>
-          <p>Thousands of professionals, students, and businesses use Toolifybox daily.</p>
+          <h2>Who Relies on We Make PDF Word to PDF?</h2>
+          <p>Thousands of professionals, students, and businesses use We Make PDF daily.</p>
         </div>
 
         <div class="seo-usecases-grid">

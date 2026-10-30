@@ -1,7 +1,7 @@
 import { DEFAULT_SITE_URL, normalizeSiteUrl, SITE_ROUTES } from './site.config.mjs';
 
 const siteUrl = normalizeSiteUrl(process.env.URL || process.env.SITE_URL || DEFAULT_SITE_URL);
-const socialImage = `${siteUrl}/brand/toolifybox-social.png`;
+const socialImage = `${siteUrl}/brand/wemakepdf-social.svg`;
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-14',
@@ -26,30 +26,30 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Toolifybox — Powerful Word, PDF & Image Tools',
+      title: 'We Make PDF — Powerful PDF & Document Tools',
       htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'theme-color', content: '#f8fafc' },
-        { name: 'description', content: 'Free private browser tools for Word, PDF, and images. Convert files locally with no sign-up and no document uploads.' },
+        { name: 'description', content: 'Free private browser tools for PDF, Word, and images. Convert and edit files locally with no sign-up and no server uploads.' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'Toolifybox' },
-        { property: 'og:title', content: 'Toolifybox — Powerful Tools. Simpler Work.' },
-        { property: 'og:description', content: 'Convert Word, PDF, and image files privately in your browser.' },
+        { property: 'og:site_name', content: 'We Make PDF' },
+        { property: 'og:title', content: 'We Make PDF — Free Private Document Tools' },
+        { property: 'og:description', content: 'Convert, optimize, and edit PDF and document files privately in your browser.' },
         { property: 'og:image', content: socialImage },
         { property: 'og:image:width', content: '1200' },
         { property: 'og:image:height', content: '630' },
-        { property: 'og:image:alt', content: 'Toolifybox — Powerful tools. Simpler work.' },
+        { property: 'og:image:alt', content: 'We Make PDF — Free Private Document Tools' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Toolifybox — Powerful Tools. Simpler Work.' },
-        { name: 'twitter:description', content: 'Private browser tools for Word, PDF, and images.' },
+        { name: 'twitter:title', content: 'We Make PDF — Free Private Document Tools' },
+        { name: 'twitter:description', content: 'Private browser tools for PDF and documents.' },
         { name: 'twitter:image', content: socialImage },
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'mask-icon', href: '/favicon.svg', color: '#0875fb' },
+        { rel: 'mask-icon', href: '/favicon.svg', color: '#e11d48' },
       ],
       script: [
-        { innerHTML: "try{var t=localStorage.getItem('toolifybox-theme');t=t==='dark'?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){document.documentElement.dataset.theme='light';document.documentElement.style.colorScheme='light'}" },
+        { innerHTML: "try{var t=localStorage.getItem('wemakepdf-theme')||localStorage.getItem('toolifybox-theme');t=t==='dark'?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){document.documentElement.dataset.theme='light';document.documentElement.style.colorScheme='light'}" },
       ],
     },
   },

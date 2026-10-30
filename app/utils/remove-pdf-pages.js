@@ -111,8 +111,8 @@ export async function removePagesFromPdf(file, pagesToRemove, { onProgress = () 
     output.addPage(page);
   }
 
-  output.setProducer('Toolifybox');
-  output.setCreator('Toolifybox Remove PDF Pages');
+  output.setProducer('We Make PDF');
+  output.setCreator('We Make PDF Remove PDF Pages');
 
   const bytes = await output.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 25 });
   const blob = new Blob([bytes], { type: 'application/pdf' });

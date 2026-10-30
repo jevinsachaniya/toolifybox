@@ -22,7 +22,7 @@ definePageMeta({
   alias: ['/image-collage', '/make-image-collage', '/tools/make-image-collage'],
 });
 
-const pageTitle = 'Make Image Collage Online — Free Side-by-Side & Grid Photo Maker | Toolifybox';
+const pageTitle = 'Make Image Collage Online — Free Side-by-Side & Grid Photo Maker | We Make PDF';
 const pageDescription = 'Create photo collages online for free. Combine multiple photos with side-by-side (left/right), stacked (top/bottom), and custom grid positioning with 100% private in-browser rendering.';
 
 const steps = [
@@ -33,9 +33,9 @@ const steps = [
 
 const faqs = [
   ['Can I create a side-by-side before-and-after comparison collage?', 'Yes! Our dedicated Side-by-Side (Left/Right) mode is specifically designed for before-and-after transformations, product comparisons, and dual portraits with adjustable split ratios and dividing gap spacing.'],
-  ['What aspect ratios are supported for social media sharing?', 'Toolifybox includes one-click social media aspect presets: 1:1 Square (Instagram Posts), 4:5 Portrait (Instagram & Facebook feed engagement), 16:9 Landscape (YouTube Thumbnails & Twitter), and 9:16 Vertical (Instagram Stories, TikTok & Reels).'],
+  ['What aspect ratios are supported for social media sharing?', 'We Make PDF includes one-click social media aspect presets: 1:1 Square (Instagram Posts), 4:5 Portrait (Instagram & Facebook feed engagement), 16:9 Landscape (YouTube Thumbnails & Twitter), and 9:16 Vertical (Instagram Stories, TikTok & Reels).'],
   ['Can I adjust spacing, corner rounding, and frame background colors?', 'Yes. You have granular control over the photo gap width, outer canvas padding margin, corner radius (from sharp corners to pill-shaped rounding), and background fill colors (white, obsidian dark, soft cream, slate, or transparent PNG).'],
-  ['Are my private personal photos uploaded to any web server?', 'Never. Toolifybox renders your image collage using hardware-accelerated client-side HTML5 Canvas. Your family photos, vacation snapshots, and private selfies remain strictly inside your device memory.'],
+  ['Are my private personal photos uploaded to any web server?', 'Never. We Make PDF renders your image collage using hardware-accelerated client-side HTML5 Canvas. Your family photos, vacation snapshots, and private selfies remain strictly inside your device memory.'],
   ['Can I copy the finished collage directly to my clipboard without downloading?', 'Yes! In supported browsers, you can click "Copy to Clipboard" to paste your collage directly into Slack, Discord, WhatsApp Web, or email compose windows without saving an intermediate file.'],
 ];
 
@@ -159,7 +159,7 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">CREATIVE PHOTO COMPOSITION</span>
           <h2>Combine Photos with Pixel-Perfect Layout Control</h2>
-          <p>Whether you need a quick side-by-side comparison for social media or a high-resolution grid for a client presentation, Toolifybox gives you desktop-grade editing tools right inside your browser.</p>
+          <p>Whether you need a quick side-by-side comparison for social media or a high-resolution grid for a client presentation, We Make PDF gives you desktop-grade editing tools right inside your browser.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -188,7 +188,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>Client-Side Privacy &amp; Speed</h3>
-            <p>Never wait for slow cloud image upload queues. Toolifybox renders high-resolution canvases at 300 DPI directly on your computer or phone GPU using HTML5 Canvas.</p>
+            <p>Never wait for slow cloud image upload queues. We Make PDF renders high-resolution canvases at 300 DPI directly on your computer or phone GPU using HTML5 Canvas.</p>
             <ul>
               <li>Zero telemetry, zero uploads, zero third-party caching</li>
               <li>Instant rendering with live slider adjustment feedback</li>

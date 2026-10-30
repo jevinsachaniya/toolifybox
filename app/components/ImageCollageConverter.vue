@@ -547,7 +547,7 @@ function drawCropModalCanvas() {
   ctx.fillRect(boxX + boxW, boxY, Math.max(0, drawX + drawW - (boxX + boxW)), boxH);
 
   // Crop border
-  ctx.strokeStyle = '#6366f1';
+  ctx.strokeStyle = '#e11d48';
   ctx.lineWidth = 2;
   ctx.strokeRect(boxX, boxY, boxW, boxH);
 
@@ -569,7 +569,7 @@ function drawCropModalCanvas() {
 
   // Corner markers
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#4f46e5';
+  ctx.strokeStyle = '#be123c';
   ctx.lineWidth = 2;
   const handleRadius = 5;
   const corners = [
@@ -823,7 +823,7 @@ function resetAll() {
     <!-- Stage 3: Download & Success State -->
     <template v-if="resultImage">
       <div class="result-state collage-result-state">
-        <div class="file-chosen-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin: 0 auto 16px;">
+        <div class="file-chosen-icon" style="background: var(--primary-gradient); color: #fff; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; margin: 0 auto 16px;">
           <CheckCheck :size="30" />
         </div>
         <h3>Your Collage is Ready!</h3>
@@ -836,7 +836,7 @@ function resetAll() {
 
         <div class="selected-file" style="margin: 20px 0;">
           <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
-            <div style="color: #6366f1; background: #eef2ff; padding: 10px; border-radius: 10px; display: grid; place-items: center;">
+            <div style="color: #e11d48; background: #fff1f2; padding: 10px; border-radius: 10px; display: grid; place-items: center;">
               <ImageIcon :size="20" />
             </div>
             <div style="flex: 1; min-width: 0;">
@@ -849,7 +849,7 @@ function resetAll() {
         </div>
 
         <div class="result-actions collage-result-actions">
-          <a class="primary-button" :href="resultImage.url" :download="resultImage.filename" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+          <a class="primary-button" :href="resultImage.url" :download="resultImage.filename" style="background: var(--primary-gradient);">
             <Download :size="18" /> Download Collage
           </a>
           <button type="button" class="btn-copy-clipboard" :class="{ copied }" @click="copyImageToClipboard">
@@ -1213,7 +1213,7 @@ function resetAll() {
                 type="button"
                 class="primary-button btn-generate-collage"
                 :disabled="busy || images.length < 2"
-                style="margin-top: 16px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);"
+                style="margin-top: 16px; background: var(--primary-gradient); box-shadow: 0 4px 18px rgba(225, 29, 72, 0.4);"
                 @click="generateCollageOutput"
               >
                 <LoaderCircle v-if="busy" class="spin" :size="18" />
@@ -1241,7 +1241,7 @@ function resetAll() {
         @dragleave.prevent="dragLeave"
         @drop.prevent="drop"
       >
-        <div class="drop-zone-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff;">
+        <div class="drop-zone-icon" style="background: var(--primary-gradient); color: #fff;">
           <LayoutGrid :size="32" />
         </div>
         <h3>{{ dragging ? 'Drop your photos here' : 'Drop your photos to make a collage' }}</h3>

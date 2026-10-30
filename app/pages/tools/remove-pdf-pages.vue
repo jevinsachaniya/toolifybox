@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/remove-pages', '/remove-pdf-pages', '/delete-pdf-pages', '/tools/remove-pages'],
 });
 
-const pageTitle = 'Remove PDF Pages Online — Free & Instant PDF Page Deleter | Toolifybox';
+const pageTitle = 'Remove PDF Pages Online — Free & Instant PDF Page Deleter | We Make PDF';
 const pageDescription = 'Remove pages from PDF online for free. Delete unwanted pages, preview every page visually, select custom ranges, and download a clean PDF privately in your browser without uploading files.';
 
 const steps = [
@@ -16,10 +16,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['Does deleting PDF pages affect the quality of the remaining pages?', 'No. Toolifybox extracts and preserves the original PDF object tree for all retained pages. Your fonts, vector illustrations, images, annotations, and bookmarks remain at their exact original bit-for-bit quality.'],
+  ['Does deleting PDF pages affect the quality of the remaining pages?', 'No. We Make PDF extracts and preserves the original PDF object tree for all retained pages. Your fonts, vector illustrations, images, annotations, and bookmarks remain at their exact original bit-for-bit quality.'],
   ['Can I remove multiple non-consecutive pages at once?', 'Yes! You can click any individual page card in the visual gallery or type custom syntax in the range input (such as "1, 3-5, 8, 12") to select multiple individual pages and ranges simultaneously.'],
-  ['Are my confidential files uploaded to any third-party server?', 'Never. Toolifybox reconstructs your PDF entirely client-side using JavaScript in your web browser. Your confidential contracts, financial statements, and personal records never leave your local device.'],
-  ['What is the maximum file size or page count supported?', 'Toolifybox supports PDF files up to 20 MB with dozens of pages, constrained only by your device memory. Because processing happens locally, there are no queue wait times or server bandwidth limits.'],
+  ['Are my confidential files uploaded to any third-party server?', 'Never. We Make PDF reconstructs your PDF entirely client-side using JavaScript in your web browser. Your confidential contracts, financial statements, and personal records never leave your local device.'],
+  ['What is the maximum file size or page count supported?', 'We Make PDF supports PDF files up to 20 MB with dozens of pages, constrained only by your device memory. Because processing happens locally, there are no queue wait times or server bandwidth limits.'],
   ['Can I undo page deletions before downloading?', 'Yes. The interactive preview highlights deleted pages with a distinct red badge. Clicking the thumbnail again instantly restores the page back into the document before you finalize your download.'],
 ];
 
@@ -162,7 +162,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>Private &amp; Confidential Processing</h3>
-            <p>Legal teams, healthcare professionals, and accountants often need to expunge confidential pages before forwarding files. Toolifybox removes pages locally without sending sensitive records to third-party servers.</p>
+            <p>Legal teams, healthcare professionals, and accountants often need to expunge confidential pages before forwarding files. We Make PDF removes pages locally without sending sensitive records to third-party servers.</p>
             <ul>
               <li>100% in-browser memory execution</li>
               <li>No document persistence or server logs</li>

@@ -155,7 +155,7 @@ export async function convertDocument(file, { signal, onProgress = () => {} } = 
         const orientation = width > pageHeight ? 'landscape' : 'portrait';
         if (!pdf) {
           pdf = new jsPDF({ orientation, unit: 'pt', format, compress: true });
-          pdf.setProperties({ title: file.name.replace(/\.docx$/i, ''), creator: 'Toolifybox — browser conversion' });
+          pdf.setProperties({ title: file.name.replace(/\.docx$/i, ''), creator: 'We Make PDF — browser conversion' });
         } else pdf.addPage(format, orientation);
         try {
           const expectedInk = boundaries.some(([top, bottom]) => bottom > offset && top < end);

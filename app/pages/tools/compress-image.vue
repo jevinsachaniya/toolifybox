@@ -2,7 +2,7 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Gauge, ImageDown, Layers, LockKeyhole, Maximize2, ShieldCheck, Sparkles, Target, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Compress Image Online — Reduce JPG, PNG & WebP to KB or MB | Toolifybox';
+const pageTitle = 'Compress Image Online — Reduce JPG, PNG & WebP to KB or MB | We Make PDF';
 const pageDescription = 'Compress JPG, PNG, and WebP images online for free. Reduce file size to specific KB targets (such as under 100KB, 50KB, or 200KB) with live visual side-by-side comparison. 100% private in-browser compression.';
 
 const steps = [
@@ -12,10 +12,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['How does the custom KB or MB target feature work?', 'Toolifybox uses an iterative binary search compression algorithm executed in your browser. When you specify a target like 100 KB, the engine tests compression parameters until it finds the optimal balance of quality and resolution that fits strictly under your target threshold.'],
-  ['Does compressing a PNG image remove transparency?', 'No. Toolifybox preserves alpha transparency layers for PNG and WebP files. Transparent logos, product cutouts, and UI badges maintain their transparent backgrounds without turning black or white.'],
+  ['How does the custom KB or MB target feature work?', 'We Make PDF uses an iterative binary search compression algorithm executed in your browser. When you specify a target like 100 KB, the engine tests compression parameters until it finds the optimal balance of quality and resolution that fits strictly under your target threshold.'],
+  ['Does compressing a PNG image remove transparency?', 'No. We Make PDF preserves alpha transparency layers for PNG and WebP files. Transparent logos, product cutouts, and UI badges maintain their transparent backgrounds without turning black or white.'],
   ['Which image format offers the best compression: JPG, PNG, or WebP?', 'WebP generally provides the best compression ratio, delivering 25%–35% smaller file sizes than JPEG at equivalent visual quality while supporting transparency. JPEG is best for universal backwards compatibility, and PNG is ideal when lossless crispness is non-negotiable.'],
-  ['Are my private photos uploaded to any remote server?', 'Never. Toolifybox compresses all images locally inside your device browser memory via HTML5 Canvas and WebAssembly. Your photos, private documents, and client assets never leave your computer or phone.'],
+  ['Are my private photos uploaded to any remote server?', 'Never. We Make PDF compresses all images locally inside your device browser memory via HTML5 Canvas and WebAssembly. Your photos, private documents, and client assets never leave your computer or phone.'],
   ['Can I compress images for government, exam, or job portal submissions?', 'Yes! Portals often strictly mandate image limits such as "passport photo under 50 KB" or "signature under 20 KB". Our custom KB target is engineered specifically to satisfy these strict portal requirements without tedious manual trial and error.'],
 ];
 
@@ -108,7 +108,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>100% In-Browser Privacy</h3>
-            <p>Personal family portraits, identity documents, and sensitive marketing assets stay secure. Toolifybox executes all image compression routines locally in your browser memory.</p>
+            <p>Personal family portraits, identity documents, and sensitive marketing assets stay secure. We Make PDF executes all image compression routines locally in your browser memory.</p>
             <ul>
               <li>Zero network transmission of photo bytes</li>
               <li>No server caching or remote telemetry</li>

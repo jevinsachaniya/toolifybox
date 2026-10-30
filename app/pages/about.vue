@@ -2,17 +2,17 @@
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Cpu, FileCheck, FileImage, FileSpreadsheet, FileText, Globe, HeartHandshake, ImageDown, Languages, Layers, LayoutGrid, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, ShieldCheck, Sparkles, Stamp, Trash2, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageDescription = 'Learn about Toolifybox, a suite of free, private, browser-based Word, PDF and image tools powered by WebAssembly, client-side OCR, and zero cloud uploads.';
+const pageDescription = 'Learn about We Make PDF, a suite of free, private, browser-based PDF and document tools powered by WebAssembly, client-side OCR, and zero cloud uploads.';
 
 const aboutFaqs = [
-  ['How does Toolifybox run complex OCR and PDF conversion entirely in the browser?', 'Toolifybox leverages modern WebAssembly (Wasm) and native web APIs. Instead of uploading your file to a remote server, compiled binary modules execute image rendering, stream decompression, and OCR neural networks directly on your device CPU/GPU.'],
-  ['Why is client-side processing better for user privacy?', 'Traditional web converters store uploaded files in cloud queues or server disks, leaving documents vulnerable to leaks, breaches, or scraping. With Toolifybox, your files never leave your device memory, guaranteeing total privacy.'],
-  ['How does Toolifybox support complex Indian languages (Hindi, Gujarati, Marathi)?', 'We implemented dedicated Unicode mappings and Microsoft OpenXML complex script typography (`w:cs` with Nirmala UI). This guarantees conjuncts, halants, and matras render cleanly without font corruption or broken characters.'],
-  ['Is Toolifybox free? How is it supported?', 'Toolifybox is 100% free with no subscriptions, paywalls, or hidden limitations. Because processing occurs on your client device, we avoid massive cloud server processing expenses, enabling a sustainable, free service.'],
+  ['How does We Make PDF run complex OCR and PDF conversion entirely in the browser?', 'We Make PDF leverages modern WebAssembly (Wasm) and native web APIs. Instead of uploading your file to a remote server, compiled binary modules execute image rendering, stream decompression, and OCR neural networks directly on your device CPU/GPU.'],
+  ['Why is client-side processing better for user privacy?', 'Traditional web converters store uploaded files in cloud queues or server disks, leaving documents vulnerable to leaks, breaches, or scraping. With We Make PDF, your files never leave your device memory, guaranteeing total privacy.'],
+  ['How does We Make PDF support complex Indian languages (Hindi, Gujarati, Marathi)?', 'We implemented dedicated Unicode mappings and Microsoft OpenXML complex script typography (`w:cs` with Nirmala UI). This guarantees conjuncts, halants, and matras render cleanly without font corruption or broken characters.'],
+  ['Is We Make PDF free? How is it supported?', 'We Make PDF is 100% free with no subscriptions, paywalls, or hidden limitations. Because processing occurs on your client device, we avoid massive cloud server processing expenses, enabling a sustainable, free service.'],
 ];
 
 usePageSeo({
-  title: 'About Toolifybox — Free, Private & In-Browser File Tools Suite',
+  title: 'About We Make PDF — Free, Private & In-Browser File Tools Suite',
   description: pageDescription,
   path: '/about',
   schemas: [
@@ -25,19 +25,19 @@ usePageSeo({
       '@graph': [
         {
           '@type': 'AboutPage',
-          name: 'About Toolifybox',
+          name: 'About We Make PDF',
           description: pageDescription,
           url: canonical,
           about: { '@id': `${siteUrl}/#organization` },
-          isPartOf: { '@type': 'WebSite', name: 'Toolifybox', url: siteUrl },
+          isPartOf: { '@type': 'WebSite', name: 'We Make PDF', url: siteUrl },
         },
         {
           '@type': 'Organization',
           '@id': `${siteUrl}/#organization`,
-          name: 'Toolifybox',
+          name: 'We Make PDF',
           url: siteUrl,
-          logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/toolifybox-logo.svg` },
-          description: 'Toolifybox creates free browser-based tools for Word, PDF and image files.',
+          logo: { '@type': 'ImageObject', url: `${siteUrl}/brand/wemakepdf-logo.svg` },
+          description: 'We Make PDF creates free browser-based tools for PDF and document files.',
         },
       ],
     }),
@@ -46,7 +46,7 @@ usePageSeo({
 });
 
 const values = [
-  { icon: LockKeyhole, title: 'Private by design', text: 'Supported conversions run locally in your browser. The files you choose for a tool are not uploaded to a Toolifybox conversion server.' },
+  { icon: LockKeyhole, title: 'Private by design', text: 'Supported conversions run locally in your browser. The files you choose for a tool are not uploaded to a We Make PDF conversion server.' },
   { icon: WandSparkles, title: 'Simple on purpose', text: 'Each active tool has a focused workflow, clear options and a result you can download without creating an account.' },
   { icon: HeartHandshake, title: 'Honest about results', text: 'Complex layouts, unusual fonts and scanned pages can change during conversion, so every workflow asks you to review the downloaded file.' },
 ];
@@ -84,10 +84,10 @@ const tools = [
       <div class="info-ambient" aria-hidden="true"><span /><span /></div>
       <section class="info-hero container">
         <nav class="info-breadcrumb" aria-label="Breadcrumb"><NuxtLink to="/">Home</NuxtLink><span>/</span><span aria-current="page">About</span></nav>
-        <span class="eyebrow"><Sparkles :size="13" /> ABOUT TOOLIFYBOX</span>
+        <span class="eyebrow"><Sparkles :size="13" /> ABOUT WE MAKE PDF</span>
         <h1>File tools should feel<br /><span>clear, useful and private.</span></h1>
-        <p>Toolifybox is a growing collection of free online tools for everyday Word, PDF and image work. The goal is simple: help you finish a file task without an account, a complicated dashboard or an unnecessary document upload.</p>
-        <div class="info-hero-actions"><NuxtLink class="primary-button" to="/tools">Explore all tools <ArrowUpRight :size="17" /></NuxtLink><NuxtLink class="info-text-link" to="/contact">Contact Toolifybox <ArrowRight :size="15" /></NuxtLink></div>
+        <p>We Make PDF is a growing collection of free online tools for everyday PDF and document work. The goal is simple: help you finish a file task without an account, a complicated dashboard or an unnecessary document upload.</p>
+        <div class="info-hero-actions"><NuxtLink class="primary-button" to="/tools">Explore all tools <ArrowUpRight :size="17" /></NuxtLink><NuxtLink class="info-text-link" to="/contact">Contact We Make PDF <ArrowRight :size="15" /></NuxtLink></div>
       </section>
 
       <section class="info-section container" aria-labelledby="about-values">
@@ -98,7 +98,7 @@ const tools = [
       </section>
 
       <section class="process-panel container">
-        <div class="process-copy"><span class="mini-label">HOW PRIVACY WORKS</span><h2>Your file stays in your browser.</h2><p>When you use an active converter, Toolifybox reads and processes the selected file in browser memory on your device. The generated result is downloaded directly by your browser.</p><p>The tools do load application code, fonts and language resources from the website. If you use the contact form, the details you enter there are submitted separately through Netlify Forms.</p></div>
+        <div class="process-copy"><span class="mini-label">HOW PRIVACY WORKS</span><h2>Your file stays in your browser.</h2><p>When you use an active converter, We Make PDF reads and processes the selected file in browser memory on your device. The generated result is downloaded directly by your browser.</p><p>The tools do load application code, fonts and language resources from the website. If you use the contact form, the details you enter there are submitted separately through Netlify Forms.</p></div>
         <ul class="process-list">
           <li><span><Check :size="15" /></span><div><b>No conversion account</b><small>Start without registration or a subscription.</small></div></li>
           <li><span><Check :size="15" /></span><div><b>No document upload</b><small>Supported file conversions run locally on your device.</small></div></li>
@@ -118,7 +118,7 @@ const tools = [
         <div class="section-intro">
           <span class="mini-label">ENGINEERING EXCELLENCE</span>
           <h2>The Technology Behind Client-Side Document Processing</h2>
-          <p>How Toolifybox replaces massive cloud processing farms with elegant, high-speed WebAssembly routines on your device.</p>
+          <p>How We Make PDF replaces massive cloud processing farms with elegant, high-speed WebAssembly routines on your device.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -145,7 +145,7 @@ const tools = [
         <div id="faq" class="faq-section" style="padding-block: 48px 24px;">
           <div class="faq-intro">
             <span class="mini-label">TRANSPARENCY &amp; PRIVACY</span>
-            <h2>Frequently Asked Questions About Toolifybox</h2>
+            <h2>Frequently Asked Questions About We Make PDF</h2>
             <p>Learn how our privacy, monetization, and technology models work.</p>
             <div class="faq-decoration" aria-hidden="true"><ShieldCheck :size="42" /><span>TRUST &amp; PRIVACY</span></div>
           </div>

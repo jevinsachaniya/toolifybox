@@ -1,8 +1,8 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowUpRight, Check, ChevronDown, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
-  Globe, Hash, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
+  ArrowLeftRight, ArrowUpRight, Check, ChevronDown, Code2, Crop, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
+  GitCompareArrows, Globe, Hash, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
@@ -10,15 +10,15 @@ import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSe
 const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
 
 const toolsFaqs = [
-  ['Are all 21 tools on Toolifybox completely free to use?', 'Yes, every single tool on Toolifybox is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
-  ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. Toolifybox processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
-  ['Can I use Toolifybox on mobile devices (iPhone, iPad, Android)?', 'Absolutely. Toolifybox is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
-  ['Which Indian and international languages are supported for OCR and Translation?', 'Toolifybox supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
-  ['Can I convert multiple pages without losing document formatting?', 'Yes. Our converters and utility tools support multi-page documents up to 450 pages. Toolifybox retains headers, footers, font typography, tables, and page alignments.'],
+  ['Are all 29 tools on We Make PDF completely free to use?', 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
+  ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. We Make PDF processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
+  ['Can I use We Make PDF on mobile devices (iPhone, iPad, Android)?', 'Absolutely. We Make PDF is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
+  ['Which Indian and international languages are supported for OCR and Translation?', 'We Make PDF supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
+  ['Can I convert multiple pages without losing document formatting?', 'Yes. Our converters and utility tools support multi-page documents up to 450 pages. We Make PDF retains headers, footers, font typography, tables, and page alignments.'],
 ];
 
 usePageSeo({
-  title: 'Free Online Word, PDF & Image Tools Suite — 100% Private | Toolifybox',
+  title: 'Free Online Word, PDF & Image Tools Suite — 100% Private | We Make PDF',
   description: pageDescription,
   path: '/tools',
   schemas: [
@@ -32,7 +32,7 @@ usePageSeo({
       name: 'Free Word, PDF and Image Tools',
       description: pageDescription,
       url: canonical,
-      isPartOf: { '@type': 'WebSite', name: 'Toolifybox', url: siteUrl },
+      isPartOf: { '@type': 'WebSite', name: 'We Make PDF', url: siteUrl },
       mainEntity: {
         '@type': 'ItemList',
         itemListElement: [
@@ -54,8 +54,15 @@ usePageSeo({
           ['Watermark PDF', '/tools/watermark-pdf'],
           ['Create PDF', '/tools/create-pdf'],
           ['Add Page Numbers', '/tools/add-page-numbers'],
+          ['Crop PDF', '/tools/crop-pdf'],
+          ['Compare PDF', '/tools/compare-pdf'],
+          ['HTML to PDF', '/tools/html-to-pdf'],
+          ['Convert Image', '/tools/convert-image'],
+          ['Image to SVG', '/tools/image-to-svg'],
+          ['JSON to CSV', '/tools/json-to-csv'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
+          ['Split Image', '/tools/split-image'],
           ['Protect PDF', '/tools/protect-pdf'],
           ['Unlock PDF', '/tools/unlock-pdf'],
         ].map(([name, path], index) => ({ '@type': 'ListItem', position: index + 1, name, url: new URL(path, `${siteUrl}/`).href })),
@@ -308,6 +315,19 @@ const allTools = [
     route: '/tools/image-collage',
   },
   {
+    id: 'split-image',
+    title: 'Split Image',
+    category: 'image',
+    categories: ['image'],
+    description: 'Split photos into equal grid squares, Instagram 3x3 grids, or seamless carousel slides.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Scissors,
+    iconName: 'split-image',
+    theme: 'indigo',
+    route: '/tools/split-image',
+  },
+  {
     id: 'translate-pdf',
     title: 'Translate PDF',
     category: 'pdf',
@@ -358,6 +378,97 @@ const allTools = [
     iconName: 'add-page-numbers',
     theme: 'blue',
     route: '/tools/add-page-numbers',
+  },
+  {
+    id: 'crop-pdf',
+    title: 'Crop PDF',
+    category: 'pages',
+    categories: ['pages', 'pdf'],
+    description: 'Trim excess margins, adjust page dimensions, or cut out custom sections with an interactive visual crop frame.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Crop,
+    iconName: 'crop-pdf',
+    theme: 'amber',
+    route: '/tools/crop-pdf',
+  },
+  {
+    id: 'compare-pdf',
+    title: 'Compare PDF',
+    category: 'pdf',
+    categories: ['pdf', 'pages'],
+    description: 'Compare two PDF files side by side with color overlay diffs, wipe slider comparison, and text change tracking.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: GitCompareArrows,
+    iconName: 'compare-pdf',
+    theme: 'indigo',
+    route: '/tools/compare-pdf',
+  },
+  {
+    id: 'html-to-pdf',
+    title: 'HTML to PDF',
+    category: 'pdf',
+    categories: ['pdf', 'word'],
+    description: 'Transform HTML and CSS code into clean, print-ready PDF documents with live preview, starter templates, and custom page sizes.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Code2,
+    iconName: 'html-to-pdf',
+    theme: 'amber',
+    route: '/tools/html-to-pdf',
+  },
+  {
+    id: 'convert-image',
+    title: 'Convert Image',
+    category: 'image',
+    categories: ['image'],
+    description: 'Convert images between JPG, PNG, WebP, GIF, BMP, ICO, and AVIF formats in batch with custom quality and size.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: ArrowLeftRight,
+    iconName: 'convert-image',
+    theme: 'emerald',
+    route: '/tools/convert-image',
+  },
+  {
+    id: 'image-to-svg',
+    title: 'Image to SVG',
+    category: 'image',
+    categories: ['image', 'word'],
+    description: 'Convert raster PNG, JPG, WebP, GIF, and BMP into clean, infinitely scalable 4K vector SVG code for your website.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Sparkles,
+    iconName: 'image-to-svg',
+    theme: 'indigo',
+    route: '/tools/image-to-svg',
+  },
+  {
+    id: 'json-to-csv',
+    title: 'JSON to CSV',
+    category: 'word',
+    categories: ['word', 'pdf'],
+    description: 'Convert JSON files or direct JSON text into structured CSV spreadsheets in milliseconds with nested key flattening.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: FileSpreadsheet,
+    iconName: 'json-to-csv',
+    theme: 'emerald',
+    route: '/tools/json-to-csv',
+  },
+  {
+    id: 'pdf-to-html',
+    title: 'PDF to HTML',
+    category: 'pdf',
+    categories: ['pdf', 'word'],
+    description: 'Transform PDF documents into modern, semantic responsive HTML5 and styled CSS with 100% in-browser privacy.',
+    status: 'unavailable',
+    statusLabel: 'Unavailable',
+    icon: Code2,
+    iconName: 'pdf-to-html',
+    theme: 'blue',
+    route: null,
   },
 ];
 
@@ -479,8 +590,8 @@ onBeforeUnmount(() => {
             type="button"
             class="tool-card" 
             :class="`theme-${tool.theme}`"
-            :aria-label="`Preview ${tool.title} roadmap`"
-            @click="showToast(`${tool.title} is scheduled for browser-only implementation in an upcoming release.`)"
+            :aria-label="tool.statusLabel === 'Unavailable' ? `${tool.title} is currently unavailable` : `Preview ${tool.title} roadmap`"
+            @click="showToast(tool.statusLabel === 'Unavailable' ? `${tool.title} is currently unavailable while undergoing updates.` : `${tool.title} is scheduled for browser-only implementation in an upcoming release.`)"
           >
             <div class="tool-card-top">
               <span class="tool-card-icon">
@@ -496,7 +607,7 @@ onBeforeUnmount(() => {
             <p>{{ tool.description }}</p>
 
             <div class="tool-card-footer">
-              <span class="tool-card-btn">Preview Roadmap</span>
+              <span class="tool-card-btn">{{ tool.statusLabel === 'Unavailable' ? 'Unavailable' : 'Preview Roadmap' }}</span>
             </div>
           </button>
         </div>
@@ -535,8 +646,8 @@ onBeforeUnmount(() => {
         <div class="seo-guide-section" style="padding-top: 56px;">
           <div class="section-intro">
             <span class="mini-label">TOOL SUITE GUIDE</span>
-            <h2>Why Millions Choose Toolifybox for Daily Document Tasks</h2>
-            <p>From complex Indic script OCR to strict government PDF compression limits, Toolifybox gives you professional utility tools directly in your browser without sacrificing privacy or quality.</p>
+            <h2>Why Millions Choose We Make PDF for Daily Document Tasks</h2>
+            <p>From complex Indic script OCR to strict government PDF compression limits, We Make PDF gives you professional utility tools directly in your browser without sacrificing privacy or quality.</p>
           </div>
 
           <div class="seo-features-grid">

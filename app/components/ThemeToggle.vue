@@ -10,7 +10,7 @@ function applyTheme(nextTheme, save = true) {
   document.documentElement.dataset.theme = next;
   document.documentElement.style.colorScheme = next;
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'dark' ? '#080c14' : '#f8fafc');
-  if (save) localStorage.setItem('toolifybox-theme', next);
+  if (save) { localStorage.setItem('wemakepdf-theme', next); localStorage.setItem('toolifybox-theme', next); }
 }
 
 function toggleTheme() {
@@ -18,7 +18,7 @@ function toggleTheme() {
 }
 
 function syncStoredTheme(event) {
-  if (event.key === 'toolifybox-theme') applyTheme(event.newValue, false);
+  if (event.key === 'wemakepdf-theme' || event.key === 'toolifybox-theme') applyTheme(event.newValue, false);
 }
 
 onMounted(() => {

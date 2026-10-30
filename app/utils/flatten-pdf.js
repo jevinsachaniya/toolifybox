@@ -60,8 +60,8 @@ export async function flattenPdf(file, { mode = 'form', onProgress = () => {}, s
       }
 
       onProgress('Finalizing flattened document…');
-      outputDoc.setProducer('Toolifybox');
-      outputDoc.setCreator('Toolifybox Flatten PDF');
+      outputDoc.setProducer('We Make PDF');
+      outputDoc.setCreator('We Make PDF Flatten PDF');
 
       const bytes = await outputDoc.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 25 });
       const blob = new Blob([bytes], { type: 'application/pdf' });
@@ -103,8 +103,8 @@ export async function flattenPdf(file, { mode = 'form', onProgress = () => {}, s
   if (signal?.aborted) throw new DOMException('Flattening cancelled.', 'AbortError');
   onProgress('Saving flattened document…');
 
-  pdfDoc.setProducer('Toolifybox');
-  pdfDoc.setCreator('Toolifybox Flatten PDF');
+  pdfDoc.setProducer('We Make PDF');
+  pdfDoc.setCreator('We Make PDF Flatten PDF');
 
   const bytes = await pdfDoc.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 25 });
   const blob = new Blob([bytes], { type: 'application/pdf' });

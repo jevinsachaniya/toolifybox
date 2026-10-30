@@ -46,8 +46,8 @@ export async function splitPdfFile(file, points, { onProgress = () => {}, signal
     const indices = Array.from({ length: range.pageCount }, (_, offset) => range.start - 1 + offset);
     const pages = await output.copyPages(source, indices);
     for (const page of pages) output.addPage(page);
-    output.setProducer('Toolifybox');
-    output.setCreator('Toolifybox Split PDF');
+    output.setProducer('We Make PDF');
+    output.setCreator('We Make PDF Split PDF');
     const bytes = await output.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 20 });
     outputs.push({
       blob: new Blob([bytes], { type: 'application/pdf' }),

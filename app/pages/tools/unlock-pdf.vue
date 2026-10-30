@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/unlock-pdf', '/decrypt-pdf'],
 });
 
-const pageTitle = 'Unlock PDF — Free Password Removal & Decryption | Toolifybox';
+const pageTitle = 'Unlock PDF — Free Password Removal & Decryption | We Make PDF';
 const pageDescription = 'Unlock password protected PDF files online for free. Remove password restrictions and decrypt your PDF documents privately in your browser with zero server uploads.';
 
 const steps = [
@@ -16,9 +16,9 @@ const steps = [
 ];
 
 const faqs = [
-  ['Can this tool unlock a PDF if I do not know the password?', 'No. In compliance with international digital security standards and cryptographic laws, Toolifybox requires the valid authorized password. It permanently strips the encryption layer so you do not have to type the password every time.'],
+  ['Can this tool unlock a PDF if I do not know the password?', 'No. In compliance with international digital security standards and cryptographic laws, We Make PDF requires the valid authorized password. It permanently strips the encryption layer so you do not have to type the password every time.'],
   ['Is my document or entered password sent to any remote servers?', 'Never. Decryption is performed entirely inside your browser memory using client-side cryptographic WebAssembly routines. Neither your password nor your document is ever sent over the internet.'],
-  ['Will unlocking a PDF alter its layout, formatting, or text quality?', 'No. Toolifybox removes only the encryption security wrapper. All pages, vector text, high-resolution images, interactive bookmarks, and attachments remain 100% intact.'],
+  ['Will unlocking a PDF alter its layout, formatting, or text quality?', 'No. We Make PDF removes only the encryption security wrapper. All pages, vector text, high-resolution images, interactive bookmarks, and attachments remain 100% intact.'],
   ['Can I lock the PDF again later if needed?', 'Yes! You can always re-encrypt your PDF with a new password using our companion "Protect PDF" tool.'],
 ];
 
@@ -131,8 +131,8 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">SEAMLESS DECRYPTION</span>
-          <h2>Why Decrypt PDF Documents with Toolifybox?</h2>
-          <p>Typing long passwords every time you open a bank statement or salary slip is frustrating. Toolifybox permanently strips password prompts while keeping your data safe.</p>
+          <h2>Why Decrypt PDF Documents with We Make PDF?</h2>
+          <p>Typing long passwords every time you open a bank statement or salary slip is frustrating. We Make PDF permanently strips password prompts while keeping your data safe.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -150,7 +150,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>100% Client-Side Privacy</h3>
-            <p>Never type your personal passwords into cloud websites. Toolifybox runs the decryption algorithm locally in your browser memory. Your confidential password and document never touch our servers.</p>
+            <p>Never type your personal passwords into cloud websites. We Make PDF runs the decryption algorithm locally in your browser memory. Your confidential password and document never touch our servers.</p>
             <ul>
               <li>Zero network transmission of passwords or content</li>
               <li>Safe for confidential payroll and medical PDFs</li>

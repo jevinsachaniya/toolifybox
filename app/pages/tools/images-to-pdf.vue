@@ -2,7 +2,7 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Images, Layers, LockKeyhole, ShieldCheck, Sparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Images to PDF Converter — Combine JPG, PNG & WebP into PDF Online | Toolifybox';
+const pageTitle = 'Images to PDF Converter — Combine JPG, PNG & WebP into PDF Online | We Make PDF';
 const pageDescription = 'Combine JPG, PNG, and WebP images into one high-quality PDF online for free. Preview, reorder, rotate, adjust margins, and merge up to 50 photos into a single PDF privately in your browser without uploading files.';
 
 const steps = [
@@ -12,10 +12,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['What image formats can I convert to PDF?', 'Toolifybox supports standard web image formats including JPG (JPEG), PNG, WebP, and BMP. You can mix and match different formats in a single batch.'],
+  ['What image formats can I convert to PDF?', 'We Make PDF supports standard web image formats including JPG (JPEG), PNG, WebP, and BMP. You can mix and match different formats in a single batch.'],
   ['Can I reorder or rotate images before generating the PDF?', 'Yes! You have full interactive control over the page sequence. Drag thumbnails to reorder them, use keyboard arrows or move buttons, and rotate individual photos 90 degrees if they were snapped sideways.'],
-  ['Will combining images into a PDF reduce picture quality?', 'No. Toolifybox embeds your photos at up to 98% JPEG quality or lossless PNG resolution. You can also configure page dimensions (such as standard A4, US Letter, or Auto Fit to image dimensions) to avoid unnecessary compression or letterboxing.'],
-  ['Are my photos or scanned receipts uploaded to any remote server?', 'Never. Toolifybox compiles your PDF entirely inside your web browser using client-side JavaScript. Your photos, personal IDs, certificates, and invoices remain 100% private in local device memory.'],
+  ['Will combining images into a PDF reduce picture quality?', 'No. We Make PDF embeds your photos at up to 98% JPEG quality or lossless PNG resolution. You can also configure page dimensions (such as standard A4, US Letter, or Auto Fit to image dimensions) to avoid unnecessary compression or letterboxing.'],
+  ['Are my photos or scanned receipts uploaded to any remote server?', 'Never. We Make PDF compiles your PDF entirely inside your web browser using client-side JavaScript. Your photos, personal IDs, certificates, and invoices remain 100% private in local device memory.'],
   ['How many images can I merge into a single PDF document?', 'You can combine up to 50 photos or scans per session. Because rendering occurs locally, your document generates within seconds without server queue delays.'],
 ];
 
@@ -96,7 +96,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><FileCheck :size="24" /></span>
             <h3>Flexible Page Formatting</h3>
-            <p>Standardize paper dimensions for printing or match the exact aspect ratio of each photo. Toolifybox provides custom page templates tailored to your destination medium.</p>
+            <p>Standardize paper dimensions for printing or match the exact aspect ratio of each photo. We Make PDF provides custom page templates tailored to your destination medium.</p>
             <ul>
               <li>Preset formats: International A4, US Letter, or Auto Fit</li>
               <li>Adjustable margin padding (None, Narrow, or Standard)</li>
@@ -107,7 +107,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Guaranteed Confidentiality</h3>
-            <p>Photographs of government IDs, medical bills, insurance claims, and bank checks must never be uploaded to unknown third-party servers. Toolifybox generates the entire PDF locally.</p>
+            <p>Photographs of government IDs, medical bills, insurance claims, and bank checks must never be uploaded to unknown third-party servers. We Make PDF generates the entire PDF locally.</p>
             <ul>
               <li>100% private in-browser memory execution</li>
               <li>No cloud storage, server logs, or telemetry</li>

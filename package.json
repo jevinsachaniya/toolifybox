@@ -1,5 +1,5 @@
 {
-  "name": "toolifybox",
+  "name": "wemakepdf",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare",
     "check:pages": "node scripts/check-pages.mjs",
     "test:assets": "node --experimental-strip-types scripts/test-assets.mjs",
-    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs && node --test scripts/test-image-collage.mjs && node --test scripts/test-translate-pdf.mjs && node --test scripts/test-watermark-pdf.mjs && node --test scripts/test-create-pdf.mjs && node --test scripts/test-add-page-numbers.mjs",
+    "test:upload": "node --test scripts/test-document.mjs && node --test scripts/test-pdf-security.mjs && node --test scripts/test-remove-pages.mjs && node --test scripts/test-rotate-pdf.mjs && node --test scripts/test-flatten-pdf.mjs && node --test scripts/test-extract-ocr.mjs && node --test scripts/test-image-collage.mjs && node --test scripts/test-translate-pdf.mjs && node --test scripts/test-watermark-pdf.mjs && node --test scripts/test-create-pdf.mjs && node --test scripts/test-add-page-numbers.mjs && node --test scripts/test-crop-pdf.mjs && node --test scripts/test-compare-pdf.mjs && node --test scripts/test-html-to-pdf.mjs && node --test scripts/test-convert-image.mjs && node --test scripts/test-image-to-svg.mjs && node --test scripts/test-json-to-csv.mjs",
     "test:browser": "node scripts/test-browser.mjs"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "docx": "^9.11.0",
     "docx-preview": "^0.4.1",
     "html2canvas": "^1.4.1",
+    "imagetracerjs": "^1.2.6",
     "jspdf": "^4.2.1",
     "jszip": "^3.10.2",
     "nuxt": "4.5.2",

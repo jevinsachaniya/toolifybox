@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/create-pdf', '/tools/create'],
 });
 
-const pageTitle = 'Create PDF Online Free — Blank, Lined, Grid & Text Documents | Toolifybox';
+const pageTitle = 'Create PDF Online Free — Blank, Lined, Grid & Text Documents | We Make PDF';
 const pageDescription = 'Create PDF documents online for free. Generate blank pages, lined notebook sheets, engineering graph paper, to-do checklists, or typeset text documents with instant on-device privacy.';
 
 const steps = [
@@ -16,9 +16,9 @@ const steps = [
 ];
 
 const faqs = [
-  ['Can I create lined or graph paper and print it?', 'Yes! Toolifybox creates 100% vector-based PDF templates including College Ruled, Wide Ruled, 5mm Graph Paper, and Dot Grid sheets that print razor-sharp at 1200+ DPI on any standard printer.'],
+  ['Can I create lined or graph paper and print it?', 'Yes! We Make PDF creates 100% vector-based PDF templates including College Ruled, Wide Ruled, 5mm Graph Paper, and Dot Grid sheets that print razor-sharp at 1200+ DPI on any standard printer.'],
   ['Can I write or paste long articles and notes into the PDF creator?', 'Absolutely. Switch to the Document & Text Composer tab to type or paste notes, articles, or essays. The tool automatically typesets and paginates your content across multiple pages with custom typography and line spacing.'],
-  ['Are my notes or documents sent to a remote server?', 'Never. Toolifybox creates all PDFs entirely inside your browser memory using client-side JavaScript. Your notes, drafts, and created sheets remain strictly confidential on your local device.'],
+  ['Are my notes or documents sent to a remote server?', 'Never. We Make PDF creates all PDFs entirely inside your browser memory using client-side JavaScript. Your notes, drafts, and created sheets remain strictly confidential on your local device.'],
   ['What page sizes are supported?', 'You can create PDFs in standard international and US formats including A4 (210 × 297 mm), US Letter (8.5 × 11 in), US Legal (8.5 × 14 in), A3 (large sheets), and A5 (compact booklet/notebook). Both Portrait and Landscape orientations are supported.'],
   ['Can I add page numbers and running headers?', 'Yes. You can toggle page numbering at the bottom (centered or right-aligned) with formats like "Page 1 of 5", "1", or "— 1 —", as well as specify an optional running header for topics or dates.'],
 ];
@@ -133,7 +133,7 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">VERSATILE DOCUMENT CREATION</span>
           <h2>Why Create PDFs Directly in Your Browser?</h2>
-          <p>Instead of installing bloated desktop office software or subscribing to expensive PDF editors, Toolifybox gives you instant, lightweight document generation tools with zero sign-up requirements.</p>
+          <p>Instead of installing bloated desktop office software or subscribing to expensive PDF editors, We Make PDF gives you instant, lightweight document generation tools with zero sign-up requirements.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -164,7 +164,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Complete Data Confidentiality</h3>
-            <p>Unlike cloud document services that store your writings on third-party servers, Toolifybox creates PDF bytes directly within your local browser memory.</p>
+            <p>Unlike cloud document services that store your writings on third-party servers, We Make PDF creates PDF bytes directly within your local browser memory.</p>
             <ul>
               <li>Zero telemetry, zero server persistence, zero cloud tracking</li>
               <li>Instant generation speeds without network latency</li>

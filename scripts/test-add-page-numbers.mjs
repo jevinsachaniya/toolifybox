@@ -3,7 +3,7 @@ import test from 'node:test';
 import { PDFDocument } from 'pdf-lib';
 import {
   addPageNumbersToPdf,
-  hexToRgb01,
+  parsePdfColor,
   PAGE_NUMBER_FORMATS,
   PAGE_NUMBER_POSITIONS,
   pageNumberedPdfFilename,
@@ -22,13 +22,13 @@ test('validatePdfForPageNumbers accepts valid PDF and rejects non-PDF', () => {
   assert.ok(validatePdfForPageNumbers(emptyFile).includes('empty'));
 });
 
-test('hexToRgb01 accurately parses hex strings', () => {
-  const red = hexToRgb01('#ff0000');
+test('parsePdfColor accurately parses hex strings into pdf-lib colors', () => {
+  const red = parsePdfColor('#ff0000');
   assert.equal(red.red, 1);
   assert.equal(red.green, 0);
   assert.equal(red.blue, 0);
 
-  const black = hexToRgb01('#000000');
+  const black = parsePdfColor('#000000');
   assert.equal(black.red, 0);
   assert.equal(black.green, 0);
   assert.equal(black.blue, 0);

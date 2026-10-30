@@ -29,6 +29,9 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/pdf-to-jpg">PDF to JPG</NuxtLink>
             <NuxtLink to="/tools/pdf-to-images">PDF to Images</NuxtLink>
             <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
+            <NuxtLink to="/tools/html-to-pdf">HTML to PDF</NuxtLink>
+            <NuxtLink to="/tools/image-to-svg">Image to SVG</NuxtLink>
+            <NuxtLink to="/tools/json-to-csv">JSON to CSV</NuxtLink>
           </div>
           <div class="footer-tools-col">
             <NuxtLink to="/tools/rotate-pdf">Rotate PDF</NuxtLink>
@@ -38,12 +41,16 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/flatten-pdf">Flatten PDF</NuxtLink>
             <NuxtLink to="/tools/extract-ocr">Extract OCR Text</NuxtLink>
             <NuxtLink to="/tools/image-collage">Make Image Collage</NuxtLink>
+            <NuxtLink to="/tools/split-image">Split Image</NuxtLink>
+            <NuxtLink to="/tools/convert-image">Convert Image</NuxtLink>
+            <NuxtLink to="/tools/compare-pdf">Compare PDF</NuxtLink>
           </div>
           <div class="footer-tools-col">
             <NuxtLink to="/tools/translate-pdf">Translate PDF</NuxtLink>
             <NuxtLink to="/tools/watermark-pdf">Watermark PDF</NuxtLink>
             <NuxtLink to="/tools/create-pdf">Create PDF</NuxtLink>
             <NuxtLink to="/tools/add-page-numbers">Add Page Numbers</NuxtLink>
+            <NuxtLink to="/tools/crop-pdf">Crop PDF</NuxtLink>
             <NuxtLink to="/tools/compress-pdf">Compress PDF</NuxtLink>
             <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
             <NuxtLink to="/tools/protect-pdf">Protect PDF</NuxtLink>
@@ -53,8 +60,8 @@ const year = new Date().getFullYear();
         </div>
       </nav>
 
-      <nav class="footer-links" aria-label="Toolifybox links">
-        <h2>Toolifybox</h2>
+      <nav class="footer-links" aria-label="We Make PDF links">
+        <h2>We Make PDF</h2>
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/about">About us</NuxtLink>
         <NuxtLink to="/contact">Contact</NuxtLink>
@@ -69,7 +76,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>© {{ year }} Toolifybox. All rights reserved.</span>
+      <span>© {{ year }} We Make PDF. All rights reserved.</span>
       <AppVersion />
     </div>
   </footer>

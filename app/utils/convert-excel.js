@@ -417,7 +417,7 @@ export async function openExcelWorkbook(file, { signal, onProgress = () => {} } 
       });
       pdf.setProperties({
         title: file.name.replace(/\.(xlsx|csv)$/i, ''),
-        creator: 'Toolifybox — Excel to PDF converter',
+        creator: 'We Make PDF — Excel to PDF converter',
       });
 
       // A4 pixel dimensions matching PDF aspect ratio 1:1 (avoids any vertical or horizontal stretching)
@@ -523,7 +523,7 @@ export async function openExcelWorkbook(file, { signal, onProgress = () => {} } 
                 </div>
 
                 <div style="flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 10px; font-size: 10px; color: #94a3b8;">
-                  <span>Toolifybox · Excel to PDF Converter</span>
+                  <span>We Make PDF · Excel to PDF Converter</span>
                   <span>Sheet: <strong>${escapeHtml(sheet.name)}</strong> · Page ${chunkIdx + 1} of ${totalChunks}</span>
                 </div>
               </div>

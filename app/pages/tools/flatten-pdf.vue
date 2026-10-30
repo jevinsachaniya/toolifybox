@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/flatten-pdf', '/tools/flatten'],
 });
 
-const pageTitle = 'Flatten PDF Online — Lock Form Fields & Annotations | Toolifybox';
+const pageTitle = 'Flatten PDF Online — Lock Form Fields & Annotations | We Make PDF';
 const pageDescription = 'Flatten PDF forms and annotations online for free. Convert fillable form fields and digital markups into permanent page content privately in your browser without uploading files.';
 
 const steps = [
@@ -19,7 +19,7 @@ const faqs = [
   ['What does flattening a PDF actually do?', 'Flattening takes interactive PDF elements—such as AcroForms, text input boxes, radio buttons, checkboxes, digital signatures, and comment popups—and renders them into static, uneditable graphical content directly on the page background layer.'],
   ['What is the difference between Vector Form Locking and Visual Raster Flattening?', 'Vector Form Locking removes the interactive widgets while preserving text fonts, curves, and vector sharpness, keeping the file small and searchable. Visual Raster Flattening converts the entire page into a high-DPI raster graphic, making it completely impossible for any recipient to highlight, copy, or alter any text or layer.'],
   ['Can someone un-flatten a PDF after it has been processed?', 'No. Once a PDF is flattened, the interactive form dictionaries and annotation streams are stripped or merged into the primary page content stream. It functions just like a scanned sheet of paper.'],
-  ['Are my confidential financial or tax forms uploaded to a cloud server?', 'Never. Toolifybox performs all PDF parsing, vector locking, and canvas rasterization entirely inside your web browser. Your completed tax declarations, invoices, and legal contracts remain strictly on your local device.'],
+  ['Are my confidential financial or tax forms uploaded to a cloud server?', 'Never. We Make PDF performs all PDF parsing, vector locking, and canvas rasterization entirely inside your web browser. Your completed tax declarations, invoices, and legal contracts remain strictly on your local device.'],
   ['Will flattening fix issues where filled form fields print blank?', 'Yes! Many older printers and mobile viewers fail to render dynamic interactive form fields. Flattening forces the field values into native page graphics, ensuring they print and display identically everywhere.'],
 ];
 
@@ -162,7 +162,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>Zero Server Upload Privacy</h3>
-            <p>Tax filings, employment applications, medical questionnaires, and bank paperwork contain highly sensitive Personally Identifiable Information (PII). Toolifybox processes everything 100% client-side.</p>
+            <p>Tax filings, employment applications, medical questionnaires, and bank paperwork contain highly sensitive Personally Identifiable Information (PII). We Make PDF processes everything 100% client-side.</p>
             <ul>
               <li>Zero telemetry, zero server persistence, zero cloud leaks</li>
               <li>Lightning-fast in-memory processing speeds</li>

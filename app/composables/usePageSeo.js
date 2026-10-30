@@ -1,11 +1,11 @@
-const SITE_NAME = 'Toolifybox';
+const SITE_NAME = 'We Make PDF';
 
 export function usePageSeo({ title, description, path, schemas = [] }) {
   const runtimeConfig = useRuntimeConfig();
   const siteUrl = String(runtimeConfig.public.siteUrl).replace(/\/$/, '');
   const canonical = new URL(path, `${siteUrl}/`).href;
-  const socialImage = `${siteUrl}/brand/toolifybox-social.png`;
-  const imageAlt = 'Toolifybox — free private Word, PDF and image tools';
+  const socialImage = `${siteUrl}/brand/wemakepdf-social.svg`;
+  const imageAlt = 'We Make PDF — free private PDF and document tools';
 
   useSeoMeta({
     title,

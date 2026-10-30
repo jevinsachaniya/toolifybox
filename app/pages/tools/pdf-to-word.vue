@@ -2,21 +2,21 @@
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Cpu, FileCheck, FileText, Globe, Layers, LockKeyhole, ScanText, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'PDF to Word Converter with OCR — Free & Editable DOCX | Toolifybox';
+const pageTitle = 'PDF to Word Converter with OCR — Free & Editable DOCX | We Make PDF';
 const pageDescription = 'Convert PDF to editable Word (.docx) online for free with advanced Multilingual OCR. Perfect for Hindi, Gujarati, Marathi, Tamil, Telugu, English & 17+ languages. Preserves layout, complex fonts, and 100% private in-browser conversion.';
 
 const steps = [
   { number: '01', title: 'Upload PDF Document', desc: 'Drag and drop your PDF or browse from your phone, tablet, or PC. Supports digital PDFs and high-resolution scans up to 20 MB.' },
-  { number: '02', title: 'Smart OCR & Text Reconstruction', desc: 'Select your language (Hindi, Gujarati, English, Marathi, etc.). Toolifybox reconstructs paragraph lines, detects headings, and maps complex Indic scripts locally.' },
+  { number: '02', title: 'Smart OCR & Text Reconstruction', desc: 'Select your language (Hindi, Gujarati, English, Marathi, etc.). We Make PDF reconstructs paragraph lines, detects headings, and maps complex Indic scripts locally.' },
   { number: '03', title: 'Download Editable Word DOCX', desc: 'Download your clean, fully formatted Word file (.docx). Edit text, tables, fonts, and headers immediately in Microsoft Word or Google Docs.' },
 ];
 
 const faqs = [
-  ['Can I convert scanned Hindi or Gujarati PDFs to editable Word?', 'Yes! Toolifybox is specially optimized for Indic scripts including Hindi (हिन्दी), Gujarati (ગુજરાતી), Marathi (मराठी), Bengali (বাংলা), Tamil (தமிழ்), Telugu (తెలుగు), Kannada, and Malayalam. Using advanced WebAssembly OCR with complex script typography (Nirmala UI), it recovers characters and matras without corruption.'],
-  ['Will my downloaded Word file have editable text or just pictures?', 'Toolifybox reconstructs actual selectable, editable text by default using Smart OCR. Unlike basic tools that simply paste page screenshots into a Word file, our converter maps text into native Microsoft Word paragraphs, runs, and headings.'],
-  ['How does Toolifybox prevent text overflow and distorted layouts?', 'Toolifybox uses a smart baseline consolidation engine. It calculates exact glyph coordinates, clamps bounding boxes, and groups adjacent word tokens into clean flowing lines. This prevents overlapping frame collisions inside Microsoft Office Word.'],
-  ['Are my confidential files uploaded to any server?', 'Never. Toolifybox is built on a 100% client-side privacy architecture. All parsing, image rendering, and OCR neural computations execute right inside your browser memory using WebAssembly. Your files never leave your device.'],
-  ['Do I need to pay, create an account, or deal with watermarks?', 'No. Toolifybox is completely free to use with zero hidden fees, no subscriptions, no email sign-ups, and absolutely no watermarks on your downloaded documents.'],
+  ['Can I convert scanned Hindi or Gujarati PDFs to editable Word?', 'Yes! We Make PDF is specially optimized for Indic scripts including Hindi (हिन्दी), Gujarati (ગુજરાતી), Marathi (मराठी), Bengali (বাংলা), Tamil (தமிழ்), Telugu (తెలుగు), Kannada, and Malayalam. Using advanced WebAssembly OCR with complex script typography (Nirmala UI), it recovers characters and matras without corruption.'],
+  ['Will my downloaded Word file have editable text or just pictures?', 'We Make PDF reconstructs actual selectable, editable text by default using Smart OCR. Unlike basic tools that simply paste page screenshots into a Word file, our converter maps text into native Microsoft Word paragraphs, runs, and headings.'],
+  ['How does We Make PDF prevent text overflow and distorted layouts?', 'We Make PDF uses a smart baseline consolidation engine. It calculates exact glyph coordinates, clamps bounding boxes, and groups adjacent word tokens into clean flowing lines. This prevents overlapping frame collisions inside Microsoft Office Word.'],
+  ['Are my confidential files uploaded to any server?', 'Never. We Make PDF is built on a 100% client-side privacy architecture. All parsing, image rendering, and OCR neural computations execute right inside your browser memory using WebAssembly. Your files never leave your device.'],
+  ['Do I need to pay, create an account, or deal with watermarks?', 'No. We Make PDF is completely free to use with zero hidden fees, no subscriptions, no email sign-ups, and absolutely no watermarks on your downloaded documents.'],
   ['How can I edit Indic text in Microsoft Word after downloading?', 'Open the downloaded .docx in Microsoft Word or LibreOffice. The text is already encoded in standard Unicode and styled with Nirmala UI, which is Microsoft’s official system font for Indian languages. You can add, edit, or copy text seamlessly.'],
   ['What is the difference between Smart OCR and Page Images mode?', 'Smart OCR extracts editable text, maintains original Unicode characters, and performs local optical character recognition on scanned pages. The Page Images mode flattens pages into picture snapshots, ideal when you only need a non-editable visual replica.'],
 ];
@@ -112,15 +112,15 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">ENGINEERED FOR PRECISION</span>
-          <h2>Why Toolifybox Is the Best PDF to Word OCR Converter</h2>
-          <p>Most online converters fail when processing Indian languages, complex script matras, or structured legal and academic layouts. Here is how Toolifybox solves every common conversion issue.</p>
+          <h2>Why We Make PDF Is the Best PDF to Word OCR Converter</h2>
+          <p>Most online converters fail when processing Indian languages, complex script matras, or structured legal and academic layouts. Here is how We Make PDF solves every common conversion issue.</p>
         </div>
 
         <div class="seo-features-grid">
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><WandSparkles :size="24" /></span>
             <h3>Native Indic Script Typography</h3>
-            <p>Languages like Hindi (हिन्दी), Gujarati (ગુજરાતી), and Marathi (मराठी) require complex conjuncts, half-characters, and matras. Ordinary tools produce unreadable gibberish or box symbols. Toolifybox embeds OpenXML <code>w:cs</code> typography with <strong>Nirmala UI</strong>, guaranteeing crisp rendering in Microsoft Office.</p>
+            <p>Languages like Hindi (हिन्दी), Gujarati (ગુજરાતી), and Marathi (मराठी) require complex conjuncts, half-characters, and matras. Ordinary tools produce unreadable gibberish or box symbols. We Make PDF embeds OpenXML <code>w:cs</code> typography with <strong>Nirmala UI</strong>, guaranteeing crisp rendering in Microsoft Office.</p>
             <ul>
               <li>Zero split matras or disconnected conjuncts</li>
               <li>Preserves Unicode standard Devanagari &amp; Gujarati characters</li>
@@ -142,7 +142,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Cpu :size="24" /></span>
             <h3>Zero Text Overflow &amp; Collisions</h3>
-            <p>Standard PDF converters create hundreds of rigid floating frames that crash into each other when opened in Word. Toolifybox utilizes baseline consolidation to unify horizontal tokens into standard Word paragraph streams, preventing overlapping text boxes.</p>
+            <p>Standard PDF converters create hundreds of rigid floating frames that crash into each other when opened in Word. We Make PDF utilizes baseline consolidation to unify horizontal tokens into standard Word paragraph streams, preventing overlapping text boxes.</p>
             <ul>
               <li>Continuous, easily editable Word paragraphs</li>
               <li>Adaptive font sizing prevents line overflow</li>
@@ -153,7 +153,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><ShieldCheck :size="24" /></span>
             <h3>100% Client-Side Privacy Guarantee</h3>
-            <p>Confidential bank statements, government IDs, exams, and legal contracts should never be uploaded to remote third-party cloud servers. Toolifybox executes the entire conversion right in your browser via WebAssembly.</p>
+            <p>Confidential bank statements, government IDs, exams, and legal contracts should never be uploaded to remote third-party cloud servers. We Make PDF executes the entire conversion right in your browser via WebAssembly.</p>
             <ul>
               <li>No document ever leaves your device</li>
               <li>No cloud server logs, storage, or data retention</li>
@@ -164,7 +164,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Globe :size="24" /></span>
             <h3>17+ Regional &amp; World Languages</h3>
-            <p>Whether your document is in Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, English, French, Spanish, German, Arabic, or Russian, Toolifybox's localized OCR models recognize characters with high fidelity.</p>
+            <p>Whether your document is in Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, English, French, Spanish, German, Arabic, or Russian, We Make PDF's localized OCR models recognize characters with high fidelity.</p>
             <ul>
               <li>Dedicated monolingual models eliminate character interference</li>
               <li>Automatic language detection for unknown files</li>
@@ -175,7 +175,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Zap :size="24" /></span>
             <h3>Completely Free with No Limits</h3>
-            <p>Forget restrictive 2-page limits, watermarks across your text, or expensive monthly subscriptions. Toolifybox gives you professional-grade document conversion completely free of charge.</p>
+            <p>Forget restrictive 2-page limits, watermarks across your text, or expensive monthly subscriptions. We Make PDF gives you professional-grade document conversion completely free of charge.</p>
             <ul>
               <li>No registration or email sign-up required</li>
               <li>Zero watermarks stamped onto your output</li>
@@ -188,7 +188,7 @@ usePageSeo({
         <div class="section-intro" style="margin-top: 56px;">
           <span class="mini-label">VERSATILE DOCUMENT SUPPORT</span>
           <h2>Ideal for Every Document Type</h2>
-          <p>Toolifybox handles diverse document types with tailored formatting rules.</p>
+          <p>We Make PDF handles diverse document types with tailored formatting rules.</p>
         </div>
 
         <div class="seo-usecases-grid">
@@ -212,14 +212,14 @@ usePageSeo({
 
         <!-- Comparison Table -->
         <div class="seo-comparison-card">
-          <h3>Toolifybox vs. Traditional Online PDF Converters</h3>
-          <p>See why users switch to Toolifybox for accurate, confidential PDF to Word conversion.</p>
+          <h3>We Make PDF vs. Traditional Online PDF Converters</h3>
+          <p>See why users switch to We Make PDF for accurate, confidential PDF to Word conversion.</p>
           <div class="seo-table-wrap">
             <table class="seo-comparison-table">
               <thead>
                 <tr>
                   <th>Feature</th>
-                  <th>Toolifybox (Smart OCR)</th>
+                  <th>We Make PDF (Smart OCR)</th>
                   <th>Other Online Converters</th>
                   <th>Desktop OCR Software</th>
                 </tr>

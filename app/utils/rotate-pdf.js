@@ -59,8 +59,8 @@ export async function rotatePdfFile(file, pageDeltas, { onProgress = () => {}, s
   }
 
   onProgress(`Saving ${pageCount} rotated page${pageCount > 1 ? 's' : ''}…`);
-  pdfDoc.setProducer('Toolifybox');
-  pdfDoc.setCreator('Toolifybox Rotate PDF');
+  pdfDoc.setProducer('We Make PDF');
+  pdfDoc.setCreator('We Make PDF Rotate PDF');
 
   const bytes = await pdfDoc.save({ useObjectStreams: true, addDefaultPage: false, objectsPerTick: 25 });
   const blob = new Blob([bytes], { type: 'application/pdf' });

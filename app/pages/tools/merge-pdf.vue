@@ -2,18 +2,18 @@
 import { ArrowRight, Check, ChevronDown, Combine, Cpu, Files, Layers, LockKeyhole, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Merge PDF Files Online — Combine PDFs Free & Privately | Toolifybox';
+const pageTitle = 'Merge PDF Files Online — Combine PDFs Free & Privately | We Make PDF';
 const pageDescription = 'Combine multiple PDF documents into a single organized file online for free. Visual page previews, custom file ordering, zero loss of quality, and 100% private in-browser processing.';
 
 const steps = [
-  { number: '01', title: 'Upload Multiple PDFs', desc: 'Select two or more PDF documents from your device. Toolifybox displays thumbnail previews for all pages instantly.' },
+  { number: '01', title: 'Upload Multiple PDFs', desc: 'Select two or more PDF documents from your device. We Make PDF displays thumbnail previews for all pages instantly.' },
   { number: '02', title: 'Arrange Document Order', desc: 'Use intuitive controls to reorder complete documents. The merged PDF strictly follows your chosen sequence.' },
   { number: '03', title: 'Combine & Download', desc: 'Merge the PDF stream locally in your browser memory and download your unified PDF without watermarks.' },
 ];
 
 const faqs = [
-  ['Will combining PDFs reduce the visual quality or text sharpness?', 'No. Toolifybox preserves 100% of the original vector streams, embedded fonts, hyperlink anchors, and image resolutions. Merging is lossless.'],
-  ['Are my confidential documents uploaded to any remote server?', 'Never. Toolifybox executes the entire PDF byte-stream concatenation inside your web browser. Your sensitive files remain strictly on your computer or mobile device.'],
+  ['Will combining PDFs reduce the visual quality or text sharpness?', 'No. We Make PDF preserves 100% of the original vector streams, embedded fonts, hyperlink anchors, and image resolutions. Merging is lossless.'],
+  ['Are my confidential documents uploaded to any remote server?', 'Never. We Make PDF executes the entire PDF byte-stream concatenation inside your web browser. Your sensitive files remain strictly on your computer or mobile device.'],
   ['Is there a limit on how many PDF files I can merge?', 'You can merge multiple PDFs up to 20 MB per file and up to 100 total pages simultaneously without cost, registration, or restrictions.'],
   ['Can I reorder individual pages or remove unwanted pages?', 'Yes! You can set the file order here, or use our companion tools "Remove PDF Pages" and "Split PDF" to trim or customize exact pages before merging.'],
 ];
@@ -107,15 +107,15 @@ usePageSeo({
       <section class="seo-guide-section container">
         <div class="section-intro">
           <span class="mini-label">ORGANIZED DOCUMENT MANAGEMENT</span>
-          <h2>Why Use Toolifybox to Combine Your PDF Files?</h2>
-          <p>Merging PDFs manually or using cloud-based tools can be slow and risky. Toolifybox keeps your files secure on your computer while preserving internal document integrity.</p>
+          <h2>Why Use We Make PDF to Combine Your PDF Files?</h2>
+          <p>Merging PDFs manually or using cloud-based tools can be slow and risky. We Make PDF keeps your files secure on your computer while preserving internal document integrity.</p>
         </div>
 
         <div class="seo-features-grid">
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Layers :size="24" /></span>
             <h3>Preserves Vector Text &amp; Formatting</h3>
-            <p>Many online tools convert pages into low-resolution images before joining them, resulting in blurred text. Toolifybox performs native PDF stream concatenation, keeping all vector fonts and text crisp.</p>
+            <p>Many online tools convert pages into low-resolution images before joining them, resulting in blurred text. We Make PDF performs native PDF stream concatenation, keeping all vector fonts and text crisp.</p>
             <ul>
               <li>100% searchable and selectable text</li>
               <li>Embedded images remain at native DPI</li>
@@ -126,7 +126,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Confidentiality for Sensitive Records</h3>
-            <p>Whether merging employee contracts, tax returns, bank statements, or academic records, your files should not be stored on unknown third-party servers. Toolifybox runs locally in your browser.</p>
+            <p>Whether merging employee contracts, tax returns, bank statements, or academic records, your files should not be stored on unknown third-party servers. We Make PDF runs locally in your browser.</p>
             <ul>
               <li>Zero file storage, queues, or cloud transfer</li>
               <li>Compliant with corporate and HIPAA privacy needs</li>

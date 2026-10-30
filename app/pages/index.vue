@@ -10,17 +10,17 @@ let mounted = false;
 const pageDescription = 'Free, private online tools for Word, PDF, Excel, PowerPoint, and images. Convert PDF to editable Word with Smart OCR in Hindi, Gujarati & English, compress PDFs to custom KB sizes, merge, split, translate, and protect documents with zero file uploads.';
 
 const questions = [
-  ['Which file formats and document types can I process with Toolifybox?', 'Toolifybox supports Microsoft Word (.docx), Excel (.xlsx, .csv), PowerPoint (.pptx), PDF (.pdf), and popular image formats including JPG, PNG, and WebP. You can convert between office formats and PDFs, run Multilingual OCR on scanned files, compress file sizes to exact KB limits, merge multiple PDFs, extract text, translate documents, watermark pages, and apply AES-256 encryption without file size limits.'],
-  ['How does Toolifybox Smart OCR handle Indian languages like Hindi and Gujarati?', 'Toolifybox features a dedicated WebAssembly-based OCR engine equipped with full Unicode and OpenXML complex script support (Nirmala UI). Unlike standard cloud converters that split matras or output scrambled characters, Toolifybox cleanly recognizes Hindi (हिन्दी), Gujarati (ગુજરાતી), Marathi (मराठी), Bengali (বাংলা), Tamil, Telugu, and English, structuring the text into genuine editable paragraphs.'],
-  ['Is Toolifybox truly 100% private? Are my files uploaded to any servers?', 'Yes, 100% private. All conversions, compression algorithms, OCR neural nets, and PDF compilation run directly inside your web browser on your own computer or mobile phone. Your documents and data are never sent across the internet, never saved in a database, and never shared with third parties.'],
-  ['Will my fonts, tables, margins, and layout stay the same after conversion?', 'Yes. In PDF to Word conversion, Toolifybox uses intelligent baseline consolidation to group words into flowing paragraphs while preserving headings and table coordinates. In Word to PDF and image conversions, the document layout, page dimensions, and vector typography are faithfully preserved.'],
-  ['How do I compress a PDF to under 100KB or 200KB for government job or exam portals?', 'Use our dedicated "Compress PDF" tool and enter your desired target file size in KB or MB (such as 100 KB, 200 KB, or 500 KB). Toolifybox dynamically adjusts raster resolution and stream compression to hit your exact portal requirement while keeping the text crisp and legible.'],
-  ['Do I need to install any software, create an account, or pay a subscription?', 'No. Toolifybox is completely free forever. There are no subscriptions, no credit card requirements, no registration forms, no daily limits, and no watermarks placed on your converted files.'],
+  ['Which file formats and document types can I process with We Make PDF?', 'We Make PDF supports Microsoft Word (.docx), Excel (.xlsx, .csv), PowerPoint (.pptx), PDF (.pdf), and popular image formats including JPG, PNG, and WebP. You can convert between office formats and PDFs, run Multilingual OCR on scanned files, compress file sizes to exact KB limits, merge multiple PDFs, extract text, translate documents, watermark pages, and apply AES-256 encryption without file size limits.'],
+  ['How does We Make PDF Smart OCR handle Indian languages like Hindi and Gujarati?', 'We Make PDF features a dedicated WebAssembly-based OCR engine equipped with full Unicode and OpenXML complex script support (Nirmala UI). Unlike standard cloud converters that split matras or output scrambled characters, We Make PDF cleanly recognizes Hindi (हिन्दी), Gujarati (ગુજરાતી), Marathi (मराठी), Bengali (বাংলা), Tamil, Telugu, and English, structuring the text into genuine editable paragraphs.'],
+  ['Is We Make PDF truly 100% private? Are my files uploaded to any servers?', 'Yes, 100% private. All conversions, compression algorithms, OCR neural nets, and PDF compilation run directly inside your web browser on your own computer or mobile phone. Your documents and data are never sent across the internet, never saved in a database, and never shared with third parties.'],
+  ['Will my fonts, tables, margins, and layout stay the same after conversion?', 'Yes. In PDF to Word conversion, We Make PDF uses intelligent baseline consolidation to group words into flowing paragraphs while preserving headings and table coordinates. In Word to PDF and image conversions, the document layout, page dimensions, and vector typography are faithfully preserved.'],
+  ['How do I compress a PDF to under 100KB or 200KB for government job or exam portals?', 'Use our dedicated "Compress PDF" tool and enter your desired target file size in KB or MB (such as 100 KB, 200 KB, or 500 KB). We Make PDF dynamically adjusts raster resolution and stream compression to hit your exact portal requirement while keeping the text crisp and legible.'],
+  ['Do I need to install any software, create an account, or pay a subscription?', 'No. We Make PDF is completely free forever. There are no subscriptions, no credit card requirements, no registration forms, no daily limits, and no watermarks placed on your converted files.'],
   ['Can I translate PDF documents while maintaining the original design?', 'Yes! Our built-in "Translate PDF" tool allows you to translate documents between English, Hindi, Spanish, French, and Gujarati while preserving original bounding boxes, columns, and headings.'],
 ];
 
 usePageSeo({
-  title: 'Free Word, PDF & Image Tools Online — 100% Private | Toolifybox',
+  title: 'Free Word, PDF & Image Tools Online — 100% Private | We Make PDF',
   description: pageDescription,
   path: '/',
   schemas: [
@@ -30,8 +30,8 @@ usePageSeo({
         {
           '@type': 'WebSite',
           '@id': `${siteUrl}/#website`,
-          name: 'Toolifybox',
-          alternateName: 'Toolify Box',
+          name: 'We Make PDF',
+          alternateName: 'WeMakePDF',
           url: siteUrl,
           description: pageDescription,
           publisher: { '@id': `${siteUrl}/#organization` },
@@ -39,11 +39,11 @@ usePageSeo({
         {
           '@type': 'Organization',
           '@id': `${siteUrl}/#organization`,
-          name: 'Toolifybox',
+          name: 'We Make PDF',
           url: siteUrl,
           logo: {
             '@type': 'ImageObject',
-            url: `${siteUrl}/brand/toolifybox-logo.svg`,
+            url: `${siteUrl}/brand/wemakepdf-logo.svg`,
           },
         },
       ],
@@ -52,7 +52,7 @@ usePageSeo({
   ],
 });
 const steps = [
-  { icon: Upload, number: '01', title: 'Choose a tool.', text: 'Select any of our 20 specialized tools for Word, PDF, Excel, PowerPoint, or images.' },
+  { icon: Upload, number: '01', title: 'Choose a tool.', text: 'Select any of our 29 specialized tools for Word, PDF, Excel, PowerPoint, or images.' },
   { icon: FileText, number: '02', title: 'Drop your file in.', text: 'Select your file up to 20 MB, or drag it into the browser window.' },
   { icon: Download, number: '03', title: 'Instant local download.', text: 'Your file is processed instantly on your device. Download the result with zero wait time.' },
 ];
@@ -110,11 +110,11 @@ onBeforeUnmount(() => {
           </div>
           <div class="tool-showcase" aria-label="Available document tools">
             <div class="showcase-glow" aria-hidden="true" />
-            <div class="showcase-label"><span>POPULAR TOOLS</span><NuxtLink to="/tools" class="showcase-all-link">All 20 tools <ArrowRight :size="12" /></NuxtLink></div>
+            <div class="showcase-label"><span>POPULAR TOOLS</span><NuxtLink to="/tools" class="showcase-all-link">All 29 tools <ArrowRight :size="12" /></NuxtLink></div>
             <NuxtLink to="/tools/word-to-pdf" class="showcase-tool word-tool"><span class="showcase-icon"><ToolRealisticIcon name="word" alt="Word to PDF" size="36" /></span><span><b>Word to PDF</b><small>Create a polished PDF from DOCX</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/powerpoint-to-pdf" class="showcase-tool powerpoint-tool"><span class="showcase-icon"><ToolRealisticIcon name="powerpoint" alt="PowerPoint to PDF" size="36" /></span><span><b>PowerPoint to PDF</b><small>Convert PPTX slides to clean PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
             <NuxtLink to="/tools/excel-to-pdf" class="showcase-tool excel-tool"><span class="showcase-icon"><ToolRealisticIcon name="excel" alt="Excel to PDF" size="36" /></span><span><b>Excel to PDF</b><small>Convert spreadsheets &amp; CSV to PDF</small></span><ArrowUpRight :size="19" /></NuxtLink>
-            <NuxtLink to="/tools" class="showcase-more-btn"><span>Explore all 20 document &amp; image tools</span><ArrowRight :size="15" /></NuxtLink>
+            <NuxtLink to="/tools" class="showcase-more-btn"><span>Explore all 29 document &amp; image tools</span><ArrowRight :size="15" /></NuxtLink>
             <div class="showcase-privacy"><ShieldCheck :size="15" /><span><b>Stays on your device</b><small>No document uploads</small></span></div>
           </div>
         </div>
@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
         <div class="section-intro">
           <span class="mini-label">ALL-IN-ONE DOCUMENT SUITE</span>
           <h2>Professional Document &amp; Image Tools Without the Complexity</h2>
-          <p>Toolifybox provides everything you need to convert, organize, compress, protect, and edit documents without installing heavy desktop programs or paying monthly cloud subscriptions.</p>
+          <p>We Make PDF provides everything you need to convert, organize, compress, protect, and edit documents without installing heavy desktop programs or paying monthly cloud subscriptions.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -215,14 +215,14 @@ onBeforeUnmount(() => {
 
         <!-- Comparison Matrix -->
         <div class="seo-comparison-card">
-          <h3>Toolifybox vs. Traditional Cloud PDF Services</h3>
-          <p>Why security-conscious professionals and users choose Toolifybox over legacy upload-based converters.</p>
+          <h3>We Make PDF vs. Traditional Cloud PDF Services</h3>
+          <p>Why security-conscious professionals and users choose We Make PDF over legacy upload-based converters.</p>
           <div class="seo-table-wrap">
             <table class="seo-comparison-table">
               <thead>
                 <tr>
                   <th>Feature</th>
-                  <th>Toolifybox</th>
+                  <th>We Make PDF</th>
                   <th>Cloud Upload Websites</th>
                   <th>Paid Desktop Software</th>
                 </tr>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="split-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.32" />
+    </filter>
+    <filter id="split-glow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#6366f1" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Outer Frame Gradient -->
+    <linearGradient id="split-frame" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+
+    <!-- Photo Tiles Vibrant Gradient -->
+    <linearGradient id="split-photo-tl" x1="12" y1="12" x2="31" y2="31" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+
+    <linearGradient id="split-photo-tr" x1="33" y1="12" x2="52" y2="31" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <linearGradient id="split-photo-bl" x1="12" y1="33" x2="31" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <linearGradient id="split-photo-br" x1="33" y1="33" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Badge Gradient -->
+    <linearGradient id="split-badge" x1="38" y1="38" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4338ca" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Canvas with Drop Shadow -->
+  <g filter="url(#split-shadow)">
+    <!-- Base Outer Frame -->
+    <rect x="8" y="8" width="48" height="48" rx="8" fill="url(#split-frame)" stroke="#e2e8f0" stroke-width="1.2" />
+
+    <!-- 4 Sliced Photo Tiles with Visible Cutting Gaps -->
+    <!-- Top-Left Tile -->
+    <rect x="12" y="12" width="19" height="19" rx="3.5" fill="url(#split-photo-tl)" />
+    <!-- Sun disk in top-left -->
+    <circle cx="21.5" cy="21.5" r="4.5" fill="#ffffff" fill-opacity="0.85" />
+
+    <!-- Top-Right Tile -->
+    <rect x="33" y="12" width="19" height="19" rx="3.5" fill="url(#split-photo-tr)" />
+    <!-- Cloud shape in top-right -->
+    <path d="M37 24 C37 22 39 20 41.5 20 C43.5 20 45 21.2 45.6 22.8 C46.2 22.5 47 22.8 47.4 23.4 C48 24.2 47.7 25.5 46.8 25.8 L37.8 25.8 C37.3 25.4 37 24.8 37 24 Z" fill="#ffffff" fill-opacity="0.75" />
+
+    <!-- Bottom-Left Tile -->
+    <rect x="12" y="33" width="19" height="19" rx="3.5" fill="url(#split-photo-bl)" />
+    <!-- Mountain peak in bottom-left -->
+    <path d="M12 47 L19 38 L25 45 L28 41 L31 46 L31 52 L12 52 Z" fill="#ffffff" fill-opacity="0.35" />
+
+    <!-- Bottom-Right Tile -->
+    <rect x="33" y="33" width="19" height="19" rx="3.5" fill="url(#split-photo-br)" />
+    <!-- Mountain continuation in bottom-right -->
+    <path d="M33 46 L38 40 L45 48 L49 43 L52 47 L52 52 L33 52 Z" fill="#ffffff" fill-opacity="0.3" />
+
+    <!-- Dashed Split Lines Indicator in Center Gaps -->
+    <line x1="32" y1="10" x2="32" y2="54" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="2 2" stroke-opacity="0.8" />
+    <line x1="10" y1="32" x2="54" y2="32" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="2 2" stroke-opacity="0.8" />
+  </g>
+
+  <!-- Floating Scissors Badge -->
+  <g filter="url(#split-glow)">
+    <circle cx="49" cy="49" r="8.5" fill="url(#split-badge)" stroke="#ffffff" stroke-width="1.5" />
+    <!-- Scissors Icon Glyph -->
+    <g transform="translate(43, 43) scale(0.5)" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <circle cx="6" cy="6" r="3" />
+      <path d="M8.12 8.12 12 12" />
+      <path d="M20 4 8.12 15.88" />
+      <circle cx="6" cy="18" r="3" />
+      <path d="M14.8 14.8 20 20" />
+    </g>
+  </g>
+</svg>

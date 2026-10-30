@@ -2,6 +2,30 @@ import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 export const MAX_PAGE_NUMBER_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
+/**
+ * Parses hex color string into a pdf-lib rgb Color object.
+ */
+export function parsePdfColor(hex = '#000000') {
+  const clean = hex.replace('#', '').trim();
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  if (clean.length === 3) {
+    r = parseInt(clean[0] + clean[0], 16) / 255;
+    g = parseInt(clean[1] + clean[1], 16) / 255;
+    b = parseInt(clean[2] + clean[2], 16) / 255;
+  } else if (clean.length >= 6) {
+    r = parseInt(clean.substring(0, 2), 16) / 255;
+    g = parseInt(clean.substring(2, 4), 16) / 255;
+    b = parseInt(clean.substring(4, 6), 16) / 255;
+  }
+  return rgb(
+    Number.isFinite(r) ? r : 0,
+    Number.isFinite(g) ? g : 0,
+    Number.isFinite(b) ? b : 0
+  );
+}
+
 export const PAGE_NUMBER_POSITIONS = {
   'bottom-center': { label: 'Bottom Center', desc: 'Standard bottom center placement' },
   'bottom-right': { label: 'Bottom Right', desc: 'Bottom right corner' },
@@ -52,29 +76,6 @@ export function validatePdfForPageNumbers(file) {
   return '';
 }
 
-/**
- * Parses hex color string into 0..1 RGB components.
- */
-export function hexToRgb01(hex = '#000000') {
-  const clean = hex.replace('#', '').trim();
-  let r = 0;
-  let g = 0;
-  let b = 0;
-  if (clean.length === 3) {
-    r = parseInt(clean[0] + clean[0], 16) / 255;
-    g = parseInt(clean[1] + clean[1], 16) / 255;
-    b = parseInt(clean[2] + clean[2], 16) / 255;
-  } else if (clean.length >= 6) {
-    r = parseInt(clean.substring(0, 2), 16) / 255;
-    g = parseInt(clean.substring(2, 4), 16) / 255;
-    b = parseInt(clean.substring(4, 6), 16) / 255;
-  }
-  return rgb(
-    Number.isFinite(r) ? r : 0,
-    Number.isFinite(g) ? g : 0,
-    Number.isFinite(b) ? b : 0
-  );
-}
 
 /**
  * Formats output filename with -numbered suffix.
@@ -167,7 +168,7 @@ export async function addPageNumbersToPdf(file, options = {}) {
   onProgress('Embedding fonts…');
   const fontDef = PAGE_NUMBER_FONTS[font] || PAGE_NUMBER_FONTS.helvetica;
   const embeddedFont = await pdfDoc.embedFont(fontDef.standard);
-  const textColor = hexToRgb01(color);
+  const textColor = parsePdfColor(color);
 
   // Determine which pages receive numbering
   let targetPages;

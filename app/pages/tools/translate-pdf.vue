@@ -29,14 +29,14 @@ definePageMeta({
 const pageDescription = 'Translate PDF documents online for free between English, Hindi, Spanish, French, and Gujarati. Extract text, translate accurately, and export to Word, PDF, or text with 100% in-browser privacy.';
 
 const faqs = [
-  ['Does PDF translation preserve the original document layout and styling?', 'Yes. Toolifybox extracts text block coordinates, calculates bounding box boundaries, and draws the translated text within matching layout containers, preserving titles, column structures, and headings.'],
+  ['Does PDF translation preserve the original document layout and styling?', 'Yes. We Make PDF extracts text block coordinates, calculates bounding box boundaries, and draws the translated text within matching layout containers, preserving titles, column structures, and headings.'],
   ['Which languages can I translate between?', 'You can translate back and forth between English, Hindi (हिन्दी), Gujarati (ગુજરાતી), Spanish (Español), and French (Français). Auto-detect language is enabled by default.'],
-  ['Can I edit the translation before downloading?', 'Yes! Toolifybox provides an interactive side-by-side editing workspace. You can refine phrases, correct technical terminology, or format text directly before exporting.'],
-  ['Are my PDF documents kept confidential?', 'Yes. Toolifybox is built around browser-first privacy. No copies of your uploaded or translated documents are retained on our servers.'],
+  ['Can I edit the translation before downloading?', 'Yes! We Make PDF provides an interactive side-by-side editing workspace. You can refine phrases, correct technical terminology, or format text directly before exporting.'],
+  ['Are my PDF documents kept confidential?', 'Yes. We Make PDF is built around browser-first privacy. No copies of your uploaded or translated documents are retained on our servers.'],
 ];
 
 usePageSeo({
-  title: 'Translate PDF Online — Free PDF Language Translator | Toolifybox',
+  title: 'Translate PDF Online — Free PDF Language Translator | We Make PDF',
   description: pageDescription,
   path: '/tools/translate-pdf',
   schemas: [
@@ -174,7 +174,7 @@ const steps = [
         <div class="section-intro">
           <span class="mini-label">LAYOUT-AWARE TRANSLATION</span>
           <h2>Accurate Multilingual Document Translation with Preserved Layouts</h2>
-          <p>Translating PDFs usually destroys formatting, causing text to spill outside bounding boxes. Toolifybox dynamically re-wraps paragraphs to maintain professional document geometry.</p>
+          <p>Translating PDFs usually destroys formatting, causing text to spill outside bounding boxes. We Make PDF dynamically re-wraps paragraphs to maintain professional document geometry.</p>
         </div>
 
         <div class="seo-features-grid">
@@ -192,7 +192,7 @@ const steps = [
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Languages :size="24" /></span>
             <h3>Native Indic Script Support</h3>
-            <p>Translating from English into Hindi or Gujarati often creates complex vowel placement challenges. Toolifybox renders translated text with proper Unicode font shaping, ensuring flawless readability.</p>
+            <p>Translating from English into Hindi or Gujarati often creates complex vowel placement challenges. We Make PDF renders translated text with proper Unicode font shaping, ensuring flawless readability.</p>
             <ul>
               <li>Clean Devanagari and Gujarati Unicode output</li>
               <li>Accurate technical, legal, and academic terms</li>
@@ -253,7 +253,7 @@ const steps = [
       <section class="closing-cta container">
         <div>
           <span class="mini-label">ALL-IN-ONE TOOLBOX</span>
-          <h2>Explore all 20 document tools</h2>
+          <h2>Explore all 29 document tools</h2>
           <p>Convert, compress, rotate, protect, translate, and organize your files with 100% in-browser privacy.</p>
         </div>
         <NuxtLink to="/tools" class="primary-button">

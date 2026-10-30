@@ -6,7 +6,7 @@ definePageMeta({
   alias: ['/excel-to-pdf', '/xlsx-to-pdf'],
 });
 
-const pageTitle = 'Excel to PDF Converter — Free XLSX & CSV to PDF Online | Toolifybox';
+const pageTitle = 'Excel to PDF Converter — Free XLSX & CSV to PDF Online | We Make PDF';
 const pageDescription = 'Convert Excel spreadsheets (.xlsx, .csv) to PDF online for free. Preview spreadsheet tables, choose portrait or landscape page orientation, and generate clean PDF documents privately in your browser without uploading files.';
 
 const steps = [
@@ -16,11 +16,11 @@ const steps = [
 ];
 
 const faqs = [
-  ['How does the converter handle wide spreadsheets with many columns?', 'You can switch the page orientation to Landscape, which provides expansive horizontal margins. Toolifybox also applies smart table pagination, ensuring columns are auto-fitted proportionally and rows are never cut off in the middle of text.'],
+  ['How does the converter handle wide spreadsheets with many columns?', 'You can switch the page orientation to Landscape, which provides expansive horizontal margins. We Make PDF also applies smart table pagination, ensuring columns are auto-fitted proportionally and rows are never cut off in the middle of text.'],
   ['Can I convert multiple workbook tabs (sheets) into a single PDF document?', 'Yes! The multi-sheet selector allows you to render all sheets sequentially in your workbook or select only individual tabs (such as Q4 Summary or Balance Sheet) for export.'],
-  ['Are my confidential accounting and payroll records uploaded to the cloud?', 'Never. Toolifybox parses XLSX and CSV files entirely client-side using JavaScript in your web browser. Your private profit-and-loss reports, employee salaries, and inventory figures never leave your local device.'],
+  ['Are my confidential accounting and payroll records uploaded to the cloud?', 'Never. We Make PDF parses XLSX and CSV files entirely client-side using JavaScript in your web browser. Your private profit-and-loss reports, employee salaries, and inventory figures never leave your local device.'],
   ['Does this tool support both .xlsx and .csv file formats?', 'Yes. You can upload modern Microsoft Excel XML workbooks (.xlsx) as well as comma-separated values (.csv) data exports from Google Sheets, QuickBooks, or database dumps.'],
-  ['Will cell formulas show as formulas or calculated values?', 'Toolifybox extracts the cached calculated results of formulas (such as SUM, AVERAGE, and VLOOKUP) so your final PDF displays accurate final figures rather than raw formula syntax.'],
+  ['Will cell formulas show as formulas or calculated values?', 'We Make PDF extracts the cached calculated results of formulas (such as SUM, AVERAGE, and VLOOKUP) so your final PDF displays accurate final figures rather than raw formula syntax.'],
 ];
 
 usePageSeo({
@@ -140,7 +140,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Table :size="24" /></span>
             <h3>Reliable Table Pagination</h3>
-            <p>Anyone who has printed an Excel spreadsheet knows the frustration of tables splitting awkwardly across pages. Toolifybox structures table cells cleanly to ensure consistent, readable headers and margins.</p>
+            <p>Anyone who has printed an Excel spreadsheet knows the frustration of tables splitting awkwardly across pages. We Make PDF structures table cells cleanly to ensure consistent, readable headers and margins.</p>
             <ul>
               <li>Intelligent column width auto-fitting</li>
               <li>Landscape orientation for multi-column accounting ledgers</li>
@@ -162,7 +162,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Financial Data Security</h3>
-            <p>Payroll sheets, investor cap tables, and revenue projections must never be uploaded to third-party cloud servers. Toolifybox converts spreadsheets locally in your browser memory.</p>
+            <p>Payroll sheets, investor cap tables, and revenue projections must never be uploaded to third-party cloud servers. We Make PDF converts spreadsheets locally in your browser memory.</p>
             <ul>
               <li>Zero network transmission of spreadsheet data</li>
               <li>No server caching, temporary files, or third-party tracking</li>

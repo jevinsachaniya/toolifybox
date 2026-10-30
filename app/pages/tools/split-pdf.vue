@@ -2,7 +2,7 @@
 import { ArrowRight, Check, ChevronDown, Cpu, Files, Layers, LockKeyhole, Scissors, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Split PDF Online — Separate PDF Pages Free & Privately | Toolifybox';
+const pageTitle = 'Split PDF Online — Separate PDF Pages Free & Privately | We Make PDF';
 const pageDescription = 'Split a PDF online at exact page positions with thumbnail previews. Extract specific page ranges or separate multi-page documents into individual files with 100% private in-browser processing.';
 
 const steps = [
@@ -12,10 +12,10 @@ const steps = [
 ];
 
 const faqs = [
-  ['Will splitting a PDF reduce its visual clarity or remove text?', 'No. Toolifybox extracts the underlying vector content streams, fonts, and images directly without re-rasterizing them. The output parts retain 100% of their original visual quality.'],
+  ['Will splitting a PDF reduce its visual clarity or remove text?', 'No. We Make PDF extracts the underlying vector content streams, fonts, and images directly without re-rasterizing them. The output parts retain 100% of their original visual quality.'],
   ['Can I extract only one or two specific pages from a large PDF?', 'Yes! You can mark split points before and after the pages you need, or use our "Remove PDF Pages" tool to quickly delete unneeded pages.'],
   ['Are my confidential files uploaded to any servers?', 'Never. All PDF splitting operations occur entirely inside your browser memory via WebAssembly. No documents are transferred or stored externally.'],
-  ['Is there a fee or page limit for splitting documents?', 'Toolifybox is 100% free with no hidden charges, no account creation, no page limits, and zero watermarks.'],
+  ['Is there a fee or page limit for splitting documents?', 'We Make PDF is 100% free with no hidden charges, no account creation, no page limits, and zero watermarks.'],
 ];
 
 usePageSeo({
@@ -109,14 +109,14 @@ usePageSeo({
         <div class="section-intro">
           <span class="mini-label">PRECISION PAGE EXTRACTION</span>
           <h2>Lossless PDF Splitting with Exact Visual Control</h2>
-          <p>Large multi-page PDF documents often contain only a few pages you actually need. Toolifybox lets you separate chapters, contracts, or individual certificates in seconds.</p>
+          <p>Large multi-page PDF documents often contain only a few pages you actually need. We Make PDF lets you separate chapters, contracts, or individual certificates in seconds.</p>
         </div>
 
         <div class="seo-features-grid">
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><Layers :size="24" /></span>
             <h3>Native Lossless Stream Splitting</h3>
-            <p>Unlike basic tools that render pages into JPEG images before saving, Toolifybox extracts pure PDF content dictionaries, retaining sharp vector paths, searchable text, and high-res imagery.</p>
+            <p>Unlike basic tools that render pages into JPEG images before saving, We Make PDF extracts pure PDF content dictionaries, retaining sharp vector paths, searchable text, and high-res imagery.</p>
             <ul>
               <li>100% searchable and selectable text preserved</li>
               <li>Keeps original page dimensions and rotation angles</li>
@@ -138,7 +138,7 @@ usePageSeo({
           <article class="seo-feature-card">
             <span class="seo-feature-icon"><LockKeyhole :size="24" /></span>
             <h3>Confidential In-Browser Security</h3>
-            <p>Corporate proposals, student transcripts, and legal briefs should never be transmitted to remote cloud queues. With Toolifybox, all PDF page separation runs locally on your computer.</p>
+            <p>Corporate proposals, student transcripts, and legal briefs should never be transmitted to remote cloud queues. With We Make PDF, all PDF page separation runs locally on your computer.</p>
             <ul>
               <li>Zero data uploaded across the internet</li>
               <li>Compliant with enterprise data protection guidelines</li>

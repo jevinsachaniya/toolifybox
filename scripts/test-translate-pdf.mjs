@@ -11,6 +11,7 @@ import {
   validatePdfForTranslation,
   chunkTextForTranslation,
   translateTextChunk,
+  translateBatch,
   translatedOutputFilename,
   createTranslatedDocx,
   createTranslatedTxtBlob,
@@ -361,5 +362,57 @@ test('extractPageLayoutBlocks keeps numbered list rows as separate blocks', () =
     { str: '3. Leave space before the next section.', transform: [11, 0, 0, 11, 224, 568], width: 210, height: 11 },
   ] }, viewport);
   assert.equal(blocks.length, 3, 'Numbered list items need independent baselines and wrapping boxes');
+});
+
+test('translateBatch handles mock batches and preserves length', async () => {
+  const items = ['Hello', 'World', 'Invoice Report'];
+  const res = await translateBatch(items, 'en', 'gu', { mock: true });
+  assert.equal(res.length, 3);
+  assert.equal(res[0], '[GU] Hello');
+  assert.equal(res[1], '[GU] World');
+  assert.equal(res[2], '[GU] Invoice Report');
+});
+
+test('createTranslatedDocx faithfully generates layout-preserved docx when blocks are present', async () => {
+  const pages = [
+    {
+      pageNumber: 1,
+      pageWidth: 612,
+      pageHeight: 792,
+      blocks: [
+        {
+          x: 54,
+          y: 72,
+          baseline: 84,
+          width: 250,
+          height: 24,
+          fontSize: 16,
+          fontName: 'Helvetica-Bold',
+          text: 'Annual Progress Report 2026',
+          translatedText: 'વાર્ષિક પ્રગતિ અહેવાલ 2026',
+        },
+        {
+          x: 54,
+          y: 110,
+          baseline: 122,
+          width: 400,
+          height: 36,
+          fontSize: 12,
+          fontName: 'Helvetica',
+          text: 'This document certifies the successful completion of the coursework.',
+          translatedText: 'આ દસ્તાવેજ અભ્યાસક્રમ સફળતાપૂર્વક પૂર્ણ કર્યાનું પ્રમાણિત કરે છે.',
+        },
+      ],
+    },
+  ];
+
+  const blob = await createTranslatedDocx(pages, {
+    sourceLang: 'en',
+    targetLang: 'gu',
+    originalName: 'progress-report.pdf',
+  });
+
+  assert.ok(blob instanceof Blob);
+  assert.ok(blob.size > 200, 'DOCX blob must contain document sections and styles');
 });
 
