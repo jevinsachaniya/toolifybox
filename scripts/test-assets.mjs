@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { syncDirectory, withAssetLock } from '../modules/pdf-assets.ts';
 
-const workspace = await mkdtemp(join(tmpdir(), 'toolifybox-assets-'));
+const workspace = await mkdtemp(join(tmpdir(), 'wemakepdf-assets-'));
 assert.ok(resolve(workspace).startsWith(resolve(tmpdir())), 'Temporary test directory escaped the OS temp directory');
 
 try {
@@ -36,7 +36,7 @@ try {
   for (const [relative, contents] of expected) {
     assert.equal(await readFile(join(target, relative), 'utf8'), contents);
   }
-  await assert.rejects(stat(join(publicDirectory, '.toolifybox-assets.lock')), { code: 'ENOENT' });
+  await assert.rejects(stat(join(publicDirectory, '.wemakepdf-assets.lock')), { code: 'ENOENT' });
   console.log('Concurrent local asset preparation passes: one writer, complete files, and clean lock release.');
 } finally {
   await rm(workspace, { recursive: true, force: true });

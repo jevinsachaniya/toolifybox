@@ -802,8 +802,8 @@ html[data-theme='dark'] .convert-image-converter {
 }
 .convert-dropzone:hover,
 .convert-dropzone.is-dragging {
-  border-color: var(--accent, #0875fb);
-  background: rgba(8, 117, 251, 0.04);
+  border-color: var(--accent, #e11d48);
+  background: rgba(225, 29, 72, 0.04);
 }
 html[data-theme='dark'] .convert-dropzone {
   background: #0f172a;
@@ -811,8 +811,8 @@ html[data-theme='dark'] .convert-dropzone {
 }
 html[data-theme='dark'] .convert-dropzone:hover,
 html[data-theme='dark'] .convert-dropzone.is-dragging {
-  border-color: #38bdf8;
-  background: rgba(56, 189, 248, 0.05);
+  border-color: #fb7185;
+  background: rgba(225, 29, 72, 0.05);
 }
 .hidden-file-input {
   display: none;
@@ -821,16 +821,16 @@ html[data-theme='dark'] .convert-dropzone.is-dragging {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(8, 117, 251, 0.1);
-  color: var(--accent, #0875fb);
+  background: rgba(225, 29, 72, 0.1);
+  color: var(--accent, #e11d48);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
 }
 html[data-theme='dark'] .dropzone-icon-circle {
-  background: rgba(56, 189, 248, 0.12);
-  color: #38bdf8;
+  background: rgba(225, 29, 72, 0.12);
+  color: #fb7185;
 }
 .dropzone-text h3 {
   font-size: 17px;
@@ -876,12 +876,12 @@ html[data-theme='dark'] .fmt-badge {
   padding: 11px 22px;
   font-size: 13px;
   font-weight: 700;
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   color: #ffffff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(8, 117, 251, 0.25);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
   transition: transform 0.15s ease;
 }
 .browse-files-btn:hover {
@@ -948,8 +948,8 @@ html[data-theme='dark'] .bar-title {
 }
 .toggle-advanced-btn.active {
   background: var(--surface);
-  color: var(--accent, #0875fb);
-  border-color: var(--accent, #0875fb);
+  color: var(--accent, #e11d48);
+  border-color: var(--accent, #e11d48);
 }
 html[data-theme='dark'] .toggle-advanced-btn {
   border-color: #334155;
@@ -960,8 +960,8 @@ html[data-theme='dark'] .toggle-advanced-btn:hover {
 }
 html[data-theme='dark'] .toggle-advanced-btn.active {
   background: #1e293b;
-  color: #38bdf8;
-  border-color: #38bdf8;
+  color: #fb7185;
+  border-color: #fb7185;
 }
 
 .format-chips-grid {
@@ -985,9 +985,9 @@ html[data-theme='dark'] .toggle-advanced-btn.active {
   border-color: #94a3b8;
 }
 .format-chip-btn.active {
-  border-color: var(--accent, #0875fb);
-  background: rgba(8, 117, 251, 0.06);
-  box-shadow: 0 0 0 1px var(--accent, #0875fb);
+  border-color: var(--accent, #e11d48);
+  background: rgba(225, 29, 72, 0.06);
+  box-shadow: 0 0 0 1px var(--accent, #e11d48);
 }
 html[data-theme='dark'] .format-chip-btn {
   background: #1e293b;
@@ -997,9 +997,9 @@ html[data-theme='dark'] .format-chip-btn:hover {
   border-color: #475569;
 }
 html[data-theme='dark'] .format-chip-btn.active {
-  border-color: #38bdf8;
-  background: rgba(56, 189, 248, 0.12);
-  box-shadow: 0 0 0 1px #38bdf8;
+  border-color: #fb7185;
+  background: rgba(225, 29, 72, 0.12);
+  box-shadow: 0 0 0 1px #fb7185;
 }
 .fmt-name {
   font-size: 13px;
@@ -1051,14 +1051,14 @@ html[data-theme='dark'] .setting-header {
 }
 .setting-val {
   font-weight: 700;
-  color: var(--accent, #0875fb);
+  color: var(--accent, #e11d48);
 }
 html[data-theme='dark'] .setting-val {
-  color: #38bdf8;
+  color: #fb7185;
 }
 .range-slider {
   width: 100%;
-  accent-color: var(--accent, #0875fb);
+  accent-color: var(--accent, #e11d48);
   cursor: pointer;
 }
 .setting-hint {
@@ -1090,9 +1090,9 @@ html[data-theme='dark'] .setting-val {
 }
 .scale-btn.active,
 .color-pick-btn.active {
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   color: #ffffff;
-  border-color: var(--accent, #0875fb);
+  border-color: var(--accent, #e11d48);
 }
 html[data-theme='dark'] .scale-btn,
 html[data-theme='dark'] .color-pick-btn {
@@ -1102,8 +1102,8 @@ html[data-theme='dark'] .color-pick-btn {
 }
 html[data-theme='dark'] .scale-btn.active,
 html[data-theme='dark'] .color-pick-btn.active {
-  background: #2563eb;
-  border-color: #3b82f6;
+  background: #e11d48;
+  border-color: #f43f5e;
   color: #ffffff;
 }
 .color-swatch {
@@ -1322,13 +1322,13 @@ html[data-theme='dark'] .format-select {
   flex-direction: column;
   gap: 6px;
   padding: 12px 14px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
   border-radius: 10px;
 }
 html[data-theme='dark'] .progress-section {
   background: rgba(30, 58, 138, 0.2);
-  border-color: #1e40af;
+  border-color: #9f1239;
 }
 .progress-header {
   display: flex;
@@ -1336,10 +1336,10 @@ html[data-theme='dark'] .progress-section {
   align-items: center;
   font-size: 12.5px;
   font-weight: 600;
-  color: #1d4ed8;
+  color: #be123c;
 }
 html[data-theme='dark'] .progress-header {
-  color: #93c5fd;
+  color: #fecdd3;
 }
 .progress-label {
   display: flex;
@@ -1349,16 +1349,16 @@ html[data-theme='dark'] .progress-header {
 .progress-bar-track {
   width: 100%;
   height: 6px;
-  background: #dbeafe;
+  background: #ffe4e6;
   border-radius: 4px;
   overflow: hidden;
 }
 html[data-theme='dark'] .progress-bar-track {
-  background: #1e3a8a;
+  background: #4c0519;
 }
 .progress-bar-fill {
   height: 100%;
-  background: #2563eb;
+  background: #e11d48;
   border-radius: 4px;
   transition: width 0.2s ease;
 }
@@ -1383,11 +1383,11 @@ html[data-theme='dark'] .converter-actions-bar {
   font-size: 14px;
   font-weight: 700;
   color: #ffffff;
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(8, 117, 251, 0.25);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
   transition: all 0.15s ease;
 }
 .primary-button:hover:not(:disabled) {
@@ -1626,9 +1626,9 @@ html[data-theme='dark'] .growth-pill {
   transition: all 0.15s ease;
 }
 .download-single-btn:hover {
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   color: #ffffff;
-  border-color: var(--accent, #0875fb);
+  border-color: var(--accent, #e11d48);
 }
 html[data-theme='dark'] .download-single-btn {
   background: #1e293b;
@@ -1636,8 +1636,8 @@ html[data-theme='dark'] .download-single-btn {
   color: #cbd5e1;
 }
 html[data-theme='dark'] .download-single-btn:hover {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: #e11d48;
+  border-color: #e11d48;
   color: #ffffff;
 }
 

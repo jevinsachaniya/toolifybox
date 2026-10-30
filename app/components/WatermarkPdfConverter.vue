@@ -910,7 +910,7 @@ async function executeWatermark() {
   font-size: 0.725rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #0284c7;
+  color: #e11d48;
   text-transform: uppercase;
 }
 
@@ -950,7 +950,7 @@ async function executeWatermark() {
 }
 
 .dropzone-area.is-dragging {
-  border-color: #0284c7;
+  border-color: #e11d48;
   background: #f0f9ff;
 }
 
@@ -965,7 +965,7 @@ async function executeWatermark() {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: #e0f2fe;
+  background: #fff1f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -987,7 +987,7 @@ async function executeWatermark() {
 .dropzone-button {
   margin-top: 1.25rem;
   padding: 0.65rem 1.5rem;
-  background: #0284c7;
+  background: #e11d48;
   color: #ffffff;
   border-radius: 0.625rem;
   font-weight: 600;
@@ -999,7 +999,7 @@ async function executeWatermark() {
 }
 
 .dropzone-button:hover {
-  background: #0369a1;
+  background: #be123c;
 }
 
 .dropzone-hint {
@@ -1031,8 +1031,8 @@ async function executeWatermark() {
   width: 38px;
   height: 38px;
   border-radius: 0.5rem;
-  background: #e0f2fe;
-  color: #0284c7;
+  background: #fff1f2;
+  color: #e11d48;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1122,7 +1122,7 @@ async function executeWatermark() {
 
 .type-tab-btn.active {
   background: var(--card-bg, #ffffff);
-  color: #0284c7;
+  color: #e11d48;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -1141,7 +1141,7 @@ async function executeWatermark() {
 
 .watermark-image-picker:hover,
 .watermark-image-picker.is-dragging {
-  border-color: #0284c7;
+  border-color: #e11d48;
   background: #f0f9ff;
 }
 
@@ -1149,8 +1149,8 @@ async function executeWatermark() {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #e0f2fe;
-  color: #0284c7;
+  background: #fff1f2;
+  color: #e11d48;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1239,8 +1239,8 @@ async function executeWatermark() {
 }
 
 .image-action-btn:hover {
-  border-color: #0284c7;
-  color: #0284c7;
+  border-color: #e11d48;
+  color: #e11d48;
 }
 
 .image-action-btn.remove:hover {
@@ -1294,8 +1294,8 @@ async function executeWatermark() {
 
 .text-input:focus {
   outline: none;
-  border-color: #0284c7;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  border-color: #e11d48;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
 }
 
 .presets-row {
@@ -1331,15 +1331,15 @@ async function executeWatermark() {
 }
 
 .preset-chip:hover {
-  background: #e0f2fe;
-  color: #0284c7;
-  border-color: #bae6fd;
+  background: #fff1f2;
+  color: #e11d48;
+  border-color: #fecdd3;
 }
 
 .preset-chip.active {
-  background: #0284c7;
+  background: #e11d48;
   color: #ffffff;
-  border-color: #0284c7;
+  border-color: #e11d48;
 }
 
 /* Positions Grid */
@@ -1363,14 +1363,14 @@ async function executeWatermark() {
 }
 
 .position-card:hover {
-  border-color: #7dd3fc;
+  border-color: #fda4af;
   background: #f0f9ff;
 }
 
 .position-card.active {
-  border-color: #0284c7;
-  background: #e0f2fe;
-  color: #0369a1;
+  border-color: #e11d48;
+  background: #fff1f2;
+  color: #be123c;
   font-weight: 600;
 }
 
@@ -1384,8 +1384,8 @@ async function executeWatermark() {
 .value-badge {
   font-size: 0.75rem;
   font-weight: 600;
-  background: #e0f2fe;
-  color: #0284c7;
+  background: #fff1f2;
+  color: #e11d48;
   padding: 0.1rem 0.45rem;
   border-radius: 0.375rem;
 }
@@ -1412,7 +1412,7 @@ async function executeWatermark() {
 }
 
 .swatch-btn.active {
-  box-shadow: 0 0 0 2px #0284c7;
+  box-shadow: 0 0 0 2px #e11d48;
   transform: scale(1.15);
 }
 
@@ -1450,7 +1450,7 @@ async function executeWatermark() {
 
 .range-slider {
   width: 100%;
-  accent-color: #0284c7;
+  accent-color: #e11d48;
   cursor: pointer;
 }
 
@@ -1484,7 +1484,7 @@ async function executeWatermark() {
 .apply-btn {
   width: 100%;
   padding: 0.85rem 1.25rem;
-  background: #0284c7;
+  background: #e11d48;
   color: #ffffff;
   border-radius: 0.625rem;
   font-size: 0.95rem;
@@ -1499,7 +1499,7 @@ async function executeWatermark() {
 }
 
 .apply-btn:hover:not(:disabled) {
-  background: #0369a1;
+  background: #be123c;
 }
 
 .apply-btn:disabled {
@@ -1626,7 +1626,7 @@ async function executeWatermark() {
 
 .result-actions .primary-button {
   padding: 0.7rem 1.5rem;
-  background: #0284c7;
+  background: #e11d48;
   color: #ffffff;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -1638,7 +1638,7 @@ async function executeWatermark() {
 }
 
 .result-actions .primary-button:hover {
-  background: #0369a1;
+  background: #be123c;
 }
 
 .result-actions .ghost-button {
@@ -1672,13 +1672,13 @@ async function executeWatermark() {
 :global([data-theme="dark"]) .dropzone-icon-ring,
 :global([data-theme="dark"]) .file-icon-badge {
   background: #082f49;
-  color: #38bdf8;
+  color: #fb7185;
 }
 
 :global([data-theme="dark"]) .position-card.active {
   background: #082f49;
-  color: #38bdf8;
-  border-color: #0284c7;
+  color: #fb7185;
+  border-color: #e11d48;
 }
 
 :global([data-theme="dark"]) .preset-chip {
@@ -1689,13 +1689,13 @@ async function executeWatermark() {
 
 :global([data-theme="dark"]) .preset-chip:hover {
   background: #082f49;
-  color: #38bdf8;
-  border-color: #0284c7;
+  color: #fb7185;
+  border-color: #e11d48;
 }
 
 :global([data-theme="dark"]) .value-badge {
   background: #082f49;
-  color: #38bdf8;
+  color: #fb7185;
 }
 
 :global([data-theme="dark"]) .result-icon-ring {
@@ -1709,7 +1709,7 @@ async function executeWatermark() {
 
 :global([data-theme="dark"]) .type-tab-btn.active {
   background: #1e293b;
-  color: #38bdf8;
+  color: #fb7185;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -1721,12 +1721,12 @@ async function executeWatermark() {
 :global([data-theme="dark"]) .watermark-image-picker:hover,
 :global([data-theme="dark"]) .watermark-image-picker.is-dragging {
   background: #0f172a;
-  border-color: #38bdf8;
+  border-color: #fb7185;
 }
 
 :global([data-theme="dark"]) .picker-icon-circle {
-  background: #0c4a6e;
-  color: #38bdf8;
+  background: #4c0519;
+  color: #fb7185;
 }
 
 :global([data-theme="dark"]) .watermark-image-card {
@@ -1746,8 +1746,8 @@ async function executeWatermark() {
 }
 
 :global([data-theme="dark"]) .image-action-btn:hover {
-  border-color: #38bdf8;
-  color: #38bdf8;
+  border-color: #fb7185;
+  color: #fb7185;
 }
 
 :global([data-theme="dark"]) .image-action-btn.remove:hover {

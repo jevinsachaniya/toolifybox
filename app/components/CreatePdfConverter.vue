@@ -749,9 +749,9 @@ function resetAll() {
 }
 
 .tab-btn.active {
-  background: var(--accent-subtle, #eff6ff);
-  border-color: var(--accent-color, #3b82f6);
-  color: var(--accent-color, #3b82f6);
+  background: var(--accent-subtle, #fff1f2);
+  border-color: var(--accent-color, #e11d48);
+  color: var(--accent-color, #e11d48);
 }
 
 /* Workspaces */
@@ -824,14 +824,14 @@ function resetAll() {
 }
 
 .template-card:hover {
-  border-color: var(--accent-color, #3b82f6);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+  border-color: var(--accent-color, #e11d48);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.08);
 }
 
 .template-card.selected {
-  border-color: var(--accent-color, #3b82f6);
-  background: var(--accent-subtle, #eff6ff);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+  border-color: var(--accent-color, #e11d48);
+  background: var(--accent-subtle, #fff1f2);
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.25);
 }
 
 .template-card-header {
@@ -851,8 +851,8 @@ function resetAll() {
   font-weight: 600;
   padding: 2px 6px;
   border-radius: 6px;
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--accent-color, #2563eb);
+  background: rgba(225, 29, 72, 0.1);
+  color: var(--accent-color, #be123c);
 }
 
 .template-card p {
@@ -916,8 +916,8 @@ function resetAll() {
 
 .form-control:focus {
   outline: none;
-  border-color: var(--accent-color, #3b82f6);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  border-color: var(--accent-color, #e11d48);
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
 }
 
 .text-composer-area {
@@ -1028,7 +1028,7 @@ function resetAll() {
 }
 
 .custom-toggle input:checked + .toggle-track {
-  background: var(--accent-color, #3b82f6);
+  background: var(--accent-color, #e11d48);
 }
 
 .custom-toggle input:checked + .toggle-track::after {
@@ -1055,7 +1055,7 @@ function resetAll() {
 }
 
 .dropzone-icon {
-  color: var(--accent-color, #3b82f6);
+  color: var(--accent-color, #e11d48);
 }
 
 .import-dropzone h4 {
@@ -1311,7 +1311,7 @@ function resetAll() {
   flex: 1;
   display: flex;
   flex-direction: column;
-  border: 1px solid #3b82f6;
+  border: 1px solid #e11d48;
   border-radius: 2px;
 }
 
@@ -1321,19 +1321,19 @@ function resetAll() {
   padding: 4px 6px;
   font-size: 0.55rem;
   font-weight: 700;
-  border-bottom: 1px solid #3b82f6;
-  color: #1e3a8a;
+  border-bottom: 1px solid #e11d48;
+  color: #881337;
 }
 
 .cornell-main-box {
   flex: 1;
   display: flex;
-  border-bottom: 1px solid #3b82f6;
+  border-bottom: 1px solid #e11d48;
 }
 
 .cornell-cue-col {
   width: 35%;
-  border-right: 1.5px solid #3b82f6;
+  border-right: 1.5px solid #e11d48;
   padding: 4px;
 }
 
@@ -1353,7 +1353,7 @@ function resetAll() {
 .box-tag {
   font-size: 0.5rem;
   font-weight: 800;
-  color: #2563eb;
+  color: #be123c;
   letter-spacing: 0.04em;
 }
 
@@ -1402,7 +1402,7 @@ function resetAll() {
 
 .preview-doc-divider {
   height: 1.5px;
-  background: #3b82f6;
+  background: #e11d48;
   width: 100%;
 }
 

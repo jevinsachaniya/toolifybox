@@ -63,7 +63,7 @@ test('validatePdfForTranslation validates PDF files accurately', () => {
 });
 
 test('countWords accurately counts English, Hindi, and Gujarati words', () => {
-  assert.equal(countWords('Hello world from Toolifybox'), 4);
+  assert.equal(countWords('Hello world from WeMakePDF'), 4);
   assert.equal(countWords('नमस्ते दुनिया टूलिफ़ाइबॉक्स में स्वागत है'), 6);
   assert.equal(countWords('નમસ્તે વિશ્વ ટૂલીફાયબોક્સમાં આપનું સ્વાગત છે'), 6);
   assert.equal(countWords(''), 0);

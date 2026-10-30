@@ -600,16 +600,16 @@ async function processPdf() {
 
 .drop-zone:hover,
 .drop-zone.active {
-  border-color: var(--accent-color, #3b82f6);
-  background: var(--accent-subtle, #eff6ff);
+  border-color: var(--accent-color, #e11d48);
+  background: var(--accent-subtle, #fff1f2);
 }
 
 .drop-zone-icon {
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--accent-color, #3b82f6);
+  background: rgba(225, 29, 72, 0.1);
+  color: var(--accent-color, #e11d48);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -664,7 +664,7 @@ async function processPdf() {
 }
 
 .file-icon {
-  color: var(--accent-color, #3b82f6);
+  color: var(--accent-color, #e11d48);
 }
 
 .loaded-file-info strong {
@@ -754,14 +754,14 @@ async function processPdf() {
 }
 
 .position-btn:hover {
-  border-color: var(--accent-color, #3b82f6);
+  border-color: var(--accent-color, #e11d48);
 }
 
 .position-btn.active {
-  border-color: var(--accent-color, #3b82f6);
-  background: var(--accent-subtle, #eff6ff);
-  color: var(--accent-color, #2563eb);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  border-color: var(--accent-color, #e11d48);
+  background: var(--accent-subtle, #fff1f2);
+  color: var(--accent-color, #be123c);
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
 }
 
 .pos-dot {
@@ -773,7 +773,7 @@ async function processPdf() {
 }
 
 .position-btn.active .pos-dot {
-  background: var(--accent-color, #3b82f6);
+  background: var(--accent-color, #e11d48);
 }
 
 /* Form Controls */
@@ -813,8 +813,8 @@ async function processPdf() {
 
 .form-control:focus {
   outline: none;
-  border-color: var(--accent-color, #3b82f6);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  border-color: var(--accent-color, #e11d48);
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
 }
 
 /* Color Palette */
@@ -842,7 +842,7 @@ async function processPdf() {
 
 .color-chip-btn.active {
   border-color: #ffffff;
-  box-shadow: 0 0 0 2px var(--accent-color, #3b82f6);
+  box-shadow: 0 0 0 2px var(--accent-color, #e11d48);
 }
 
 .chip-check {
@@ -872,17 +872,17 @@ async function processPdf() {
 }
 
 .scope-radio:hover {
-  border-color: var(--accent-color, #3b82f6);
+  border-color: var(--accent-color, #e11d48);
 }
 
 .scope-radio.selected {
-  border-color: var(--accent-color, #3b82f6);
-  background: var(--accent-subtle, #eff6ff);
-  color: var(--accent-color, #2563eb);
+  border-color: var(--accent-color, #e11d48);
+  background: var(--accent-subtle, #fff1f2);
+  color: var(--accent-color, #be123c);
 }
 
 .scope-radio input {
-  accent-color: var(--accent-color, #3b82f6);
+  accent-color: var(--accent-color, #e11d48);
 }
 
 /* Action Footer */

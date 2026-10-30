@@ -827,7 +827,7 @@ html[data-theme='dark'] .seg-btn:hover {
 }
 html[data-theme='dark'] .seg-btn.active {
   background: #1e293b;
-  color: #38bdf8;
+  color: #fb7185;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -920,7 +920,7 @@ html[data-theme='dark'] .icon-button:hover {
 }
 .tab-btn.active {
   background: #0f172a;
-  color: #38bdf8;
+  color: #fb7185;
   border-color: #334155;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
@@ -1004,7 +1004,7 @@ html[data-theme='dark'] .icon-button:hover {
   resize: none;
   background: #0f172a !important;
   color: #f8fafc !important; /* High contrast, crisp white code text */
-  caret-color: #38bdf8;
+  caret-color: #fb7185;
   outline: none;
   tab-size: 2;
   white-space: pre;
@@ -1013,7 +1013,7 @@ html[data-theme='dark'] .icon-button:hover {
   overflow-x: auto;
 }
 .code-textarea::selection {
-  background: #2563eb;
+  background: #e11d48;
   color: #ffffff;
 }
 .code-textarea::placeholder {
@@ -1117,7 +1117,7 @@ html[data-theme='dark'] .preview-label {
 .dev-btn.active {
   background: var(--surface-muted, #f1f5f9);
   border-color: var(--border);
-  color: var(--accent, #0875fb);
+  color: var(--accent, #e11d48);
 }
 html[data-theme='dark'] .dev-btn {
   color: #94a3b8;
@@ -1129,7 +1129,7 @@ html[data-theme='dark'] .dev-btn:hover {
 html[data-theme='dark'] .dev-btn.active {
   background: #0f172a;
   border-color: #334155;
-  color: #38bdf8;
+  color: #fb7185;
 }
 
 .iframe-container {
@@ -1250,7 +1250,7 @@ html[data-theme='dark'] .btn-group-toggle {
   text-align: center;
 }
 .toggle-option-btn.active {
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   color: #ffffff;
 }
 html[data-theme='dark'] .toggle-option-btn {
@@ -1261,7 +1261,7 @@ html[data-theme='dark'] .toggle-option-btn:hover {
   color: #f1f5f9;
 }
 html[data-theme='dark'] .toggle-option-btn.active {
-  background: #2563eb;
+  background: #e11d48;
   color: #ffffff;
 }
 .text-input {
@@ -1282,7 +1282,7 @@ html[data-theme='dark'] .text-input {
   color: #f8fafc;
 }
 html[data-theme='dark'] .text-input:focus {
-  border-color: #38bdf8;
+  border-color: #fb7185;
   outline: none;
 }
 
@@ -1317,6 +1317,12 @@ html[data-theme='dark'] .text-input:focus {
 .checkbox-row {
   margin-top: 8px;
 }
+.custom-checkbox input[type="checkbox"] {
+  accent-color: #e11d48;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
 .custom-checkbox {
   display: inline-flex;
   align-items: center;
@@ -1349,11 +1355,11 @@ html[data-theme='dark'] .converter-actions-bar {
   font-size: 14px;
   font-weight: 700;
   color: #ffffff;
-  background: var(--accent, #0875fb);
+  background: var(--accent, #e11d48);
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(8, 117, 251, 0.25);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
   transition: all 0.15s ease;
 }
 .primary-button:hover:not(:disabled) {
@@ -1416,17 +1422,17 @@ html[data-theme='dark'] .cancel-button:hover {
   gap: 8px;
   align-self: center;
   padding: 6px 14px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #1d4ed8;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
 }
 html[data-theme='dark'] .progress-pill {
   background: rgba(30, 58, 138, 0.25);
-  border-color: #1e40af;
-  color: #93c5fd;
+  border-color: #9f1239;
+  color: #fecdd3;
 }
 .spin {
   animation: rotate 1s linear infinite;

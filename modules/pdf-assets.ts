@@ -65,7 +65,7 @@ async function writeMarker(marker: string, identity: string) {
 
 export async function withAssetLock(publicDirectory: string, callback: () => Promise<void>) {
   await mkdir(publicDirectory, { recursive: true });
-  const lockPath = join(publicDirectory, '.toolifybox-assets.lock');
+  const lockPath = join(publicDirectory, '.wemakepdf-assets.lock');
   let handle;
 
   for (let attempt = 0; attempt < 1200; attempt++) {

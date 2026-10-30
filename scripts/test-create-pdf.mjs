@@ -45,12 +45,12 @@ test('createPdf supports grid, dot, checklist, and cornell templates', async () 
 });
 
 test('createPdf typesets text mode and auto-paginates long content', async () => {
-  const sampleParagraph = 'Toolifybox empowers users with in-browser privacy-first document utilities. Everything runs locally on device without cloud uploads. '.repeat(40);
+  const sampleParagraph = 'We Make PDF empowers users with in-browser privacy-first document utilities. Everything runs locally on device without cloud uploads. '.repeat(40);
   const result = await createPdf({
     mode: 'text',
     title: 'Executive Summary',
     subtitle: 'Confidential Report',
-    author: 'Toolifybox Team',
+    author: 'We Make PDF Team',
     bodyText: sampleParagraph,
     pageSize: 'a4',
     fontSize: 12,

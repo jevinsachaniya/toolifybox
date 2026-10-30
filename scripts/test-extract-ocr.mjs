@@ -29,7 +29,7 @@ test('validateOcrFile rejects invalid, empty, or oversized files', () => {
 test('countWords accurately counts English and Devanagari words', () => {
   assert.equal(countWords(''), 0);
   assert.equal(countWords('   '), 0);
-  assert.equal(countWords('Hello world from Toolifybox!'), 4);
+  assert.equal(countWords('Hello world from WeMakePDF!'), 4);
   assert.equal(countWords('यह एक हिंदी वाक्य है।'), 5);
   assert.equal(countWords('Invoice #1042: Total $500.00'), 5);
 });

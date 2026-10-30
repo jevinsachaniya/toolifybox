@@ -333,7 +333,7 @@ async function executeExtract() {
     <template v-else-if="file">
       <div class="file-card" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; margin-bottom: 20px;">
         <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
-          <div style="width: 40px; height: 40px; border-radius: 10px; background: #e0f2fe; color: #0284c7; display: grid; place-items: center; flex-shrink: 0;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #fff1f2; color: #e11d48; display: grid; place-items: center; flex-shrink: 0;">
             <ScanText :size="20" />
           </div>
           <div style="min-width: 0;">
@@ -403,7 +403,7 @@ async function executeExtract() {
 
         <div v-if="isPdf" class="setting-item" style="margin-top: 14px;">
           <label class="checkbox-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: #334155;">
-            <input v-model="forceOcr" type="checkbox" :disabled="busy" style="accent-color: #0284c7; width: 16px; height: 16px;" />
+            <input v-model="forceOcr" type="checkbox" :disabled="busy" style="accent-color: #e11d48; width: 16px; height: 16px;" />
             <span>Run OCR on every page <b>(use this for scanned PDF pages)</b></span>
           </label>
         </div>
@@ -414,7 +414,7 @@ async function executeExtract() {
           type="button"
           class="primary-button"
           :disabled="busy"
-          style="min-width: 200px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 4px 18px rgba(2, 132, 199, 0.35);"
+          style="min-width: 200px; background: var(--primary-gradient); box-shadow: 0 4px 18px rgba(225, 29, 72, 0.35);"
           @click="executeExtract"
         >
           <LoaderCircle v-if="busy" class="spin" :size="18" />
@@ -442,7 +442,7 @@ async function executeExtract() {
         @dragleave.prevent="dragLeave"
         @drop.prevent="drop"
       >
-        <div class="drop-zone-icon" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #fff;">
+        <div class="drop-zone-icon" style="background: var(--primary-gradient); color: #fff;">
           <ScanText :size="32" />
         </div>
         <h3>{{ dragging ? 'Drop your document here' : 'Drop your scanned PDF or Image here' }}</h3>

@@ -27,7 +27,7 @@ test('protect and unlock PDF roundtrip works seamlessly', async () => {
   // 1. Create a simple PDF document with pdf-lib
   const doc = await PDFDocument.create();
   const page = doc.addPage([400, 400]);
-  page.drawText('Confidential Toolifybox Document', { x: 50, y: 350, size: 18 });
+  page.drawText('Confidential We Make PDF Document', { x: 50, y: 350, size: 18 });
   const rawBytes = await doc.save();
 
   const plainFile = makeMockFile(rawBytes, 'confidential.pdf');
