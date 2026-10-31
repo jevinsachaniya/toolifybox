@@ -514,6 +514,6 @@ export function collageOutputFilename(format = 'jpg') {
   const now = new Date();
   const pad = n => String(n).padStart(2, '0');
   const timestamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
-  return `toolifybox_collage_${timestamp}.${ext}`;
+  return `wemakepdf_collage_${timestamp}.${ext}`;
 }
 

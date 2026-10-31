@@ -538,7 +538,7 @@ export async function createPdf({
   // Set document metadata
   doc.setTitle(title || (template ? `${template} PDF` : 'Created Document'));
   doc.setCreator('We Make PDF Create PDF Tool');
-  doc.setProducer('We Make PDF (https://toolifybox.aliveradar.com)');
+  doc.setProducer('We Make PDF (https://wemakepdf.com)');
   if (author) doc.setAuthor(author);
 
   // Embed standard typography fonts

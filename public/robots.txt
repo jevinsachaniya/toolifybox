@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://toolifybox.aliveradar.com/sitemap.xml
+Sitemap: https://wemakepdf.com/sitemap.xml

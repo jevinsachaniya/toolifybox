@@ -132,7 +132,7 @@ body {
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand-badge {
   width: 44px; height: 44px; border-radius: 10px;
-  background: linear-gradient(135deg, #0875fb, #024ebb);
+  background: linear-gradient(135deg, #e11d48, #be123c);
   color: #ffffff; font-size: 22px;
   display: flex; align-items: center; justify-content: center;
 }
@@ -176,7 +176,7 @@ body {
   align-items: flex-start; margin-bottom: 30px;
 }
 .terms-card {
-  background: #f8fafc; border-left: 3px solid #0875fb;
+  background: #f8fafc; border-left: 3px solid #e11d48;
   padding: 14px 16px; border-radius: 0 8px 8px 0; font-size: 12px; color: #64748b;
 }
 .terms-card h4 { font-size: 13px; color: #0f172a; margin-bottom: 6px; }
@@ -187,7 +187,7 @@ body {
   border-top: 2px solid #cbd5e1; padding-top: 10px; margin-top: 10px; margin-bottom: 0;
   font-size: 16px; font-weight: 800; color: #0f172a;
 }
-.total-row.grand-total strong { color: #0875fb; }
+.total-row.grand-total strong { color: #e11d48; }
 .invoice-footer {
   text-align: center; border-top: 1px solid #e2e8f0; padding-top: 20px;
   font-size: 12px; color: #94a3b8;
@@ -337,7 +337,7 @@ body {
   border-bottom: 3px solid #0f172a; padding-bottom: 20px; margin-bottom: 20px;
 }
 .candidate-name { font-size: 28px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
-.candidate-role { font-size: 14px; font-weight: 600; color: #0875fb; margin-top: 4px; }
+.candidate-role { font-size: 14px; font-weight: 600; color: #e11d48; margin-top: 4px; }
 .candidate-contact { text-align: right; font-size: 12px; color: #64748b; line-height: 1.6; }
 
 .section { margin-bottom: 22px; }
@@ -351,7 +351,7 @@ body {
 .experience-item { margin-bottom: 16px; }
 .exp-title-row { display: flex; justify-content: space-between; font-size: 14px; color: #0f172a; }
 .exp-date { font-size: 12px; color: #64748b; font-weight: 500; }
-.exp-company { font-size: 12px; color: #0875fb; font-weight: 600; margin-bottom: 6px; }
+.exp-company { font-size: 12px; color: #e11d48; font-weight: 600; margin-bottom: 6px; }
 .bullet-list { padding-left: 18px; font-size: 12.5px; color: #475569; line-height: 1.5; }
 .bullet-list li { margin-bottom: 4px; }
 
@@ -364,7 +364,7 @@ body {
 }
 .cert-list { list-style: none; font-size: 12px; color: #475569; line-height: 1.6; }
 .cert-list li { position: relative; padding-left: 14px; margin-bottom: 6px; }
-.cert-list li::before { content: "•"; position: absolute; left: 0; color: #0875fb; font-weight: 900; }`,
+.cert-list li::before { content: "•"; position: absolute; left: 0; color: #e11d48; font-weight: 900; }`,
   },
   {
     id: 'report',
@@ -455,7 +455,7 @@ body {
 }
 .report-document { max-width: 800px; margin: 0 auto; }
 .badge-tag {
-  display: inline-block; background: #0875fb; color: #ffffff;
+  display: inline-block; background: #e11d48; color: #ffffff;
   font-size: 11px; font-weight: 700; letter-spacing: 0.8px; padding: 4px 10px; border-radius: 4px; margin-bottom: 12px;
 }
 .report-title { font-size: 26px; font-weight: 800; color: #0f172a; margin-bottom: 6px; letter-spacing: -0.5px; }
@@ -478,8 +478,8 @@ body {
 .status-up { color: #16a34a; font-weight: 700; }
 
 .callout-box {
-  background: #eff6ff; border-left: 4px solid #0875fb; border-radius: 0 8px 8px 0;
-  padding: 14px 18px; font-size: 13px; color: #1e40af; margin-top: 16px;
+  background: #fff1f2; border-left: 4px solid #e11d48; border-radius: 0 8px 8px 0;
+  padding: 14px 18px; font-size: 13px; color: #9f1239; margin-top: 16px;
 }`,
   },
   {
@@ -551,7 +551,7 @@ body {
   margin-bottom: 24px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .recipient-name {
-  font-size: 38px; color: #0875fb; font-style: italic; font-weight: 400;
+  font-size: 38px; color: #e11d48; font-style: italic; font-weight: 400;
   margin-bottom: 6px;
 }
 .recipient-underline {
@@ -695,7 +695,7 @@ export function combineHtmlAndCss(html, css = '', options = {}) {
   `;
 
   const trimmedHtml = (html || '').trim();
-  const injectedStyle = `\n<style id="toolifybox-custom-css">\n${printBaseStyles}\n${css || ''}\n</style>\n`;
+  const injectedStyle = `\n<style id="wemakepdf-custom-css">\n${printBaseStyles}\n${css || ''}\n</style>\n`;
 
   // Check if user provided a complete HTML document with <head>
   if (/<html\b/i.test(trimmedHtml) && /<\/head>/i.test(trimmedHtml)) {

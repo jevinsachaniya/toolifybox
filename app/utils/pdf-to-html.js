@@ -1248,7 +1248,7 @@ export function getThemeStyles(theme = 'modern', mode = 'semantic') {
       body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 2rem auto; max-width: 800px; padding: 0 1rem; color: #111827; }
       .page-divider { margin: 3rem 0 1.5rem; border: none; border-top: 1px dashed #cbd5e1; }
       .page-header { font-size: 0.85rem; color: #64748b; margin-bottom: 1rem; }
-      a { color: #2563eb; }
+      a { color: #e11d48; }
     `;
   } else if (theme === 'dark') {
     themeCss = `
@@ -1364,7 +1364,7 @@ export function getThemeStyles(theme = 'modern', mode = 'semantic') {
       p { margin-bottom: 1.5rem; }
       ul, ol { padding-left: 1.5rem; margin-bottom: 1.5rem; }
       li { margin-bottom: 0.5rem; }
-      a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 4px; }
+      a { color: #be123c; text-decoration: underline; text-underline-offset: 4px; }
     `;
   } else {
     // Modern Clean (Default)
@@ -1440,10 +1440,10 @@ export function getThemeStyles(theme = 'modern', mode = 'semantic') {
       -webkit-user-select: text;
     }
     .fixed-text-layer span::selection {
-      background: rgba(59, 130, 246, 0.35);
+      background: rgba(225, 29, 72, 0.25);
     }
     .fixed-text-layer span::-moz-selection {
-      background: rgba(59, 130, 246, 0.35);
+      background: rgba(225, 29, 72, 0.25);
     }
 
     /* Native CSS Table Design */
@@ -1595,7 +1595,7 @@ export function getThemeStyles(theme = 'modern', mode = 'semantic') {
     .q-num {
       flex-shrink: 0;
       font-weight: 800;
-      color: #1e40af;
+      color: #e11d48;
       font-size: 1.05rem;
       letter-spacing: -0.01em;
     }

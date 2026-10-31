@@ -1,4 +1,4 @@
-export const DEFAULT_SITE_URL = 'https://toolifybox.aliveradar.com';
+export const DEFAULT_SITE_URL = 'https://wemakepdf.com';
 
 export const SITE_ROUTES = [
   '/',
@@ -25,6 +25,7 @@ export const SITE_ROUTES = [
   '/tools/flatten-pdf',
   '/tools/extract-ocr',
   '/tools/image-collage',
+  '/tools/split-image',
   '/tools/translate-pdf',
   '/tools/watermark-pdf',
   '/tools/create-pdf',

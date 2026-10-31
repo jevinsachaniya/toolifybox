@@ -841,14 +841,14 @@ html[data-theme='dark'] .svg-dropzone.is-dragging {
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.15), rgba(244, 63, 94, 0.15));
   display: flex;
   align-items: center;
   justify-content: center;
   color: #8b5cf6;
 }
 html[data-theme='dark'] .dropzone-icon-glow {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.3), rgba(244, 63, 94, 0.3));
   color: #a78bfa;
 }
 .dropzone-title {
@@ -988,7 +988,7 @@ html[data-theme='dark'] .file-name {
   align-items: center;
   gap: 4px;
   padding: 2px 8px;
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(225, 29, 72, 0.12);
   color: #7c3aed;
   border-radius: 12px;
   font-size: 11px;
@@ -1103,7 +1103,7 @@ html[data-theme='dark'] .section-sub {
 }
 .preset-card.active {
   border-color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.05);
+  background: rgba(225, 29, 72, 0.05);
   box-shadow: 0 0 0 1.5px #8b5cf6;
 }
 html[data-theme='dark'] .preset-card {
@@ -1116,7 +1116,7 @@ html[data-theme='dark'] .preset-card:hover {
 }
 html[data-theme='dark'] .preset-card.active {
   border-color: #a78bfa;
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(225, 29, 72, 0.15);
   box-shadow: 0 0 0 1.5px #a78bfa;
 }
 .preset-card-top {
@@ -1352,12 +1352,12 @@ html[data-theme='dark'] .secondary-button {
   background: var(--primary-gradient);
   color: #ffffff;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
   transition: all 0.15s ease;
 }
 .primary-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.4);
   filter: brightness(1.06);
 }
 .primary-button:disabled {
@@ -1547,8 +1547,8 @@ html[data-theme='dark'] .copy-code-btn {
   filter: brightness(1.08);
 }
 .download-png-btn {
-  background: rgba(139, 92, 246, 0.12);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(225, 29, 72, 0.3);
   color: #7c3aed;
 }
 html[data-theme='dark'] .download-png-btn {

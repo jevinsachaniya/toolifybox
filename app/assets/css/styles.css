@@ -877,12 +877,7 @@ body.mobile-menu-open { overflow: hidden; }
   justify-content: center; 
   width: 58px; 
   height: 72px; 
-  color: #3b82f6; 
-  border: 1px solid #bfdbfe; 
-  border-radius: 12px; 
-  background: linear-gradient(145deg, #eff6ff, #dbeafe); 
-  transform: rotate(-8deg); 
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15); 
+  color: #f43f5e; border: 1px solid #fecdd3; border-radius: 12px; background: linear-gradient(145deg, #fff1f2, #ffe4e6); transform: rotate(-8deg); box-shadow: 0 8px 20px rgba(225, 29, 72, 0.15); 
 }
 .file-badge svg { width: 32px; height: 36px; opacity: .5; }
 .file-badge b { 
@@ -891,11 +886,7 @@ body.mobile-menu-open { overflow: hidden; }
   left: -8px; 
   padding: 4px 9px; 
   color: white; 
-  background: #2563eb; 
-  border-radius: 6px; 
-  font-size: 12px; 
-  font-weight: 700;
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3); 
+  background: #e11d48; border-radius: 6px; font-size: 12px; font-weight: 700; box-shadow: 0 4px 8px rgba(225, 29, 72, 0.3); 
 }
 .file-badge.pdf { 
   background: linear-gradient(145deg, #fff1f2, #ffe4e6); 
@@ -3925,18 +3916,10 @@ html[data-theme='light'] .legal-notice p { color: #78350f; }
   color: #e11d48;
   margin-top: 1px;
 }
-.translate-top-notice .notice-body strong {
-  display: block;
-  font-size: 13px;
-  font-weight: 750;
-  color: #1e40af;
+.translate-top-notice .notice-body strong { display: block; font-size: 13px; font-weight: 750; color: #881337;
   margin-bottom: 4px;
 }
-.translate-top-notice .notice-body p {
-  margin: 0;
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: #1e3a8a;
+.translate-top-notice .notice-body p { margin: 0; font-size: 12.5px; line-height: 1.6; color: #9f1239;
 }
 .translate-pdf-layout { grid-template-columns: .68fr 1.32fr; align-items: start; }
 .translate-pdf-converter { container: pdf-translator / inline-size; }
@@ -4202,7 +4185,7 @@ html[data-theme='light'] .legal-notice p { color: #78350f; }
 .btn-export-doc.btn-docx {
   color: #fff;
   background: var(--primary-gradient);
-  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 3px 10px rgba(225, 29, 72, 0.25);
 }
 .btn-export-doc.btn-docx:hover:not(:disabled) {
   background: #be123c;
@@ -4808,8 +4791,7 @@ html[data-theme='dark'] .btn-export-doc.btn-txt { background: #1e293b; border-co
 html[data-theme='dark'] .btn-export-doc.btn-copy-all { background: #200d17; border-color: #9f1239; color: #fecdd3; }
 html[data-theme='dark'] .layout-guarantee-note { background: rgba(22, 101, 52, 0.18); border-color: rgba(74, 222, 128, 0.25); color: #86efac; }
 html[data-theme='dark'] .editable-hint-badge {
-  background: #1e1b4b;
-  color: #93c5fd;
+  background: #200d17; color: #fecdd3;
 }
 html[data-theme='dark'] .translate-top-notice {
   background: #1c1015;
@@ -4820,11 +4802,9 @@ html[data-theme='dark'] .translate-top-notice {
 html[data-theme='dark'] .translate-top-notice .notice-icon {
   color: #fb7185;
 }
-html[data-theme='dark'] .translate-top-notice .notice-body strong {
-  color: #93c5fd;
+html[data-theme='dark'] .translate-top-notice .notice-body strong { color: #fecdd3;
 }
-html[data-theme='dark'] .translate-top-notice .notice-body p {
-  color: #bfdbfe;
+html[data-theme='dark'] .translate-top-notice .notice-body p { color: #fecdd3;
 }
 
 @media (max-width: 1050px) {
