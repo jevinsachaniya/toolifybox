@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { DEFAULT_SITE_URL, normalizeSiteUrl, SITE_ROUTES } from './site.config.mjs';
 
 const siteUrl = normalizeSiteUrl(process.env.URL || process.env.SITE_URL || DEFAULT_SITE_URL);
@@ -7,18 +8,25 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-10-14',
   devtools: { enabled: false },
   ssr: true,
+  alias: {
+    '~': fileURLToPath(new URL('./app', import.meta.url)),
+    '@': fileURLToPath(new URL('./app', import.meta.url)),
+    'assets': fileURLToPath(new URL('./app/assets', import.meta.url)),
+    '~/assets': fileURLToPath(new URL('./app/assets', import.meta.url)),
+    '@/assets': fileURLToPath(new URL('./app/assets', import.meta.url)),
+  },
   modules: ['./modules/pdf-assets'],
   vite: {
     optimizeDeps: {
       // PDF.js already ships as browser ESM. Keep it out of Vite's generated
       // dependency cache; its worker must also remain a separately served file.
-      exclude: ['pdfjs-dist', 'tesseract.js', 'pptx-browser'],
+      exclude: ['pdfjs-dist', 'tesseract.js', 'pptx-browser', '@imgly/background-removal'],
       // Prepare lazy converter libraries before a first click can trigger a
       // dependency re-bundle and invalidate the page's module URLs.
       include: ['@lucide/vue', 'docx', 'docx-preview', 'html2canvas', 'jspdf', 'jszip', 'pdf-lib', '@pdfsmaller/pdf-encrypt', '@pdfsmaller/pdf-decrypt'],
     },
   },
-  css: ['~/assets/css/styles.css'],
+  css: [fileURLToPath(new URL('./app/assets/css/styles.css', import.meta.url))],
   runtimeConfig: {
     public: {
       siteUrl,

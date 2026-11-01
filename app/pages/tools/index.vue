@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
-  ArrowLeftRight, ArrowUpRight, Check, ChevronDown, Code2, Crop, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
+  ArrowDownUp, ArrowLeftRight, ArrowUpRight, Check, ChevronDown, Code2, Crop, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
   GitCompareArrows, Globe, Hash, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
@@ -10,7 +10,7 @@ import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSe
 const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
 
 const toolsFaqs = [
-  ['Are all 30 tools on We Make PDF completely free to use?', 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
+  ['Are all 31 tools on We Make PDF completely free to use?', 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
   ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. We Make PDF processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
   ['Can I use We Make PDF on mobile devices (iPhone, iPad, Android)?', 'Absolutely. We Make PDF is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
   ['Which Indian and international languages are supported for OCR and Translation?', 'We Make PDF supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
@@ -47,6 +47,7 @@ usePageSeo({
           ['Split PDF', '/tools/split-pdf'],
           ['Remove PDF Pages', '/tools/remove-pdf-pages'],
           ['Rotate PDF', '/tools/rotate-pdf'],
+          ['Organize PDF', '/tools/organize-pdf'],
           ['Flatten PDF', '/tools/flatten-pdf'],
           ['Extract OCR Text', '/tools/extract-ocr'],
           ['Make Image Collage', '/tools/image-collage'],
@@ -60,6 +61,7 @@ usePageSeo({
           ['Convert Image', '/tools/convert-image'],
           ['Image to SVG', '/tools/image-to-svg'],
           ['JSON to CSV', '/tools/json-to-csv'],
+          ['Remove Background', '/tools/remove-background'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Split Image', '/tools/split-image'],
@@ -289,6 +291,19 @@ const allTools = [
     route: '/tools/rotate-pdf',
   },
   {
+    id: 'organize-pdf',
+    title: 'Organize PDF',
+    category: 'pages',
+    categories: ['pages', 'pdf'],
+    description: 'Rearrange, sort, rotate, duplicate, and delete PDF pages with visual drag-and-drop. 100% private.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: ArrowDownUp,
+    iconName: 'organize-pdf',
+    theme: 'rose',
+    route: '/tools/organize-pdf',
+  },
+  {
     id: 'flatten-pdf',
     title: 'Flatten PDF',
     category: 'pages',
@@ -456,6 +471,19 @@ const allTools = [
     iconName: 'json-to-csv',
     theme: 'emerald',
     route: '/tools/json-to-csv',
+  },
+  {
+    id: 'remove-background',
+    title: 'Remove Background',
+    category: 'image',
+    categories: ['image'],
+    description: 'Remove photo backgrounds with on-device AI neural cutout and instant color keying. 100% in-browser privacy.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: Sparkles,
+    iconName: 'remove-background',
+    theme: 'rose',
+    route: '/tools/remove-background',
   },
   {
     id: 'pdf-to-html',

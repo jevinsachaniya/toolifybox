@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <linearGradient id="rb-ruby" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="rb-gold" x1="28" y1="6" x2="44" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="rb-shadow" x="4" y="4" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+    <pattern id="rb-checker" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#f1f5f9"/>
+      <rect width="3" height="3" fill="#cbd5e1"/>
+      <rect x="3" y="3" width="3" height="3" fill="#cbd5e1"/>
+    </pattern>
+    <clipPath id="rb-card-clip">
+      <rect x="7" y="7" width="34" height="34" rx="8"/>
+    </clipPath>
+  </defs>
+
+  <!-- Base Card with Shadow -->
+  <g filter="url(#rb-shadow)">
+    <!-- Checkerboard Transparency Background -->
+    <rect x="7" y="7" width="34" height="34" rx="8" fill="url(#rb-checker)"/>
+    <rect x="7" y="7" width="34" height="34" rx="8" stroke="#cbd5e1" stroke-width="1.5"/>
+  </g>
+
+  <!-- Foreground Subject Cutout Silhouette -->
+  <g clip-path="url(#rb-card-clip)">
+    <!-- Head / Portrait Silhouette with Ruby gradient -->
+    <circle cx="24" cy="18" r="6" fill="url(#rb-ruby)"/>
+    <!-- Shoulders / Torso -->
+    <path d="M13 37 C13 29, 17 26, 24 26 C31 26, 35 29, 35 37 Z" fill="url(#rb-ruby)"/>
+    <!-- Clean Cutout Edge Indicator -->
+    <path d="M12 37 C12 28, 16.5 25, 24 25 C31.5 25, 36 28, 36 37" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <circle cx="24" cy="18" r="6" stroke="#ffffff" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Magic Sparkle Wand Badge in Top-Right -->
+  <g filter="url(#rb-shadow)">
+    <circle cx="36" cy="12" r="7" fill="#ffffff"/>
+    <circle cx="36" cy="12" r="6" fill="url(#rb-gold)"/>
+    <!-- 4-point star sparkle -->
+    <path d="M36 8 L37.2 10.8 L40 12 L37.2 13.2 L36 16 L34.8 13.2 L32 12 L34.8 10.8 Z" fill="#ffffff"/>
+  </g>
+
+  <!-- Mini sparkle at bottom left -->
+  <path d="M10 11 L10.8 12.5 L12.5 13 L10.8 13.5 L10 15 L9.2 13.5 L7.5 13 L9.2 12.5 Z" fill="#f59e0b"/>
+</svg>
+

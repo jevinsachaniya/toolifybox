@@ -1327,7 +1327,7 @@ html[data-theme='dark'] .format-select {
   border-radius: 10px;
 }
 html[data-theme='dark'] .progress-section {
-  background: rgba(30, 58, 138, 0.2);
+  background: rgba(225, 29, 72, 0.15);
   border-color: #9f1239;
 }
 .progress-header {

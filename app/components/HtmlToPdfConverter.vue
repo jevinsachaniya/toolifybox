@@ -1430,7 +1430,7 @@ html[data-theme='dark'] .cancel-button:hover {
   font-weight: 600;
 }
 html[data-theme='dark'] .progress-pill {
-  background: rgba(30, 58, 138, 0.25);
+  background: rgba(225, 29, 72, 0.15);
   border-color: #9f1239;
   color: #fecdd3;
 }

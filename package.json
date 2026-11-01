@@ -17,6 +17,7 @@
     "test:browser": "node scripts/test-browser.mjs"
   },
   "dependencies": {
+    "@imgly/background-removal": "^1.7.0",
     "@lucide/vue": "^1.57.0",
     "@pdfsmaller/pdf-decrypt": "^1.0.1",
     "@pdfsmaller/pdf-encrypt": "^1.2.0",
