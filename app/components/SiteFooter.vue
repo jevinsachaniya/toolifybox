@@ -31,9 +31,11 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/pdf-to-images">PDF to Images</NuxtLink>
             <NuxtLink to="/tools/images-to-pdf">Images to PDF</NuxtLink>
             <NuxtLink to="/tools/html-to-pdf">HTML to PDF</NuxtLink>
+            <NuxtLink to="/tools/html-to-image">HTML to Image</NuxtLink>
             <NuxtLink to="/tools/pdf-to-html">PDF to HTML</NuxtLink>
             <NuxtLink to="/tools/image-to-svg">Image to SVG</NuxtLink>
             <NuxtLink to="/tools/json-to-csv">JSON to CSV</NuxtLink>
+            <NuxtLink to="/tools/csv-to-json">CSV to JSON</NuxtLink>
           </div>
           <div class="footer-tools-col">
             <span class="footer-col-subhead">PDF Operations</span>
@@ -57,11 +59,12 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/create-pdf">Create PDF</NuxtLink>
             <NuxtLink to="/tools/translate-pdf">Translate PDF</NuxtLink>
             <NuxtLink to="/tools/remove-background">Remove Background</NuxtLink>
+            <NuxtLink to="/tools/watermark-image">Watermark Image</NuxtLink>
             <NuxtLink to="/tools/convert-image">Convert Image</NuxtLink>
             <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
             <NuxtLink to="/tools/split-image">Split Image</NuxtLink>
             <NuxtLink to="/tools/image-collage">Image Collage</NuxtLink>
-            <NuxtLink to="/tools" class="footer-view-all">All 32 Tools →</NuxtLink>
+            <NuxtLink to="/tools" class="footer-view-all">All 34 Tools &rarr;</NuxtLink>
           </div>
         </div>
       </nav>

@@ -38,6 +38,9 @@ export const SITE_ROUTES = [
   '/tools/json-to-csv',
   '/tools/remove-background',
   '/tools/organize-pdf',
+  '/tools/watermark-image',
+  '/tools/csv-to-json',
+  '/tools/html-to-image',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

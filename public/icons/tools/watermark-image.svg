@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <filter id="wm-img-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#0f172a" flood-opacity="0.3" />
+    </filter>
+    <filter id="stamp-glow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#e11d48" flood-opacity="0.4" />
+    </filter>
+    <linearGradient id="wm-img-bg" x1="12" y1="12" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="wm-badge-grad" x1="16" y1="28" x2="48" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#wm-img-shadow)">
+    <!-- Photo Frame -->
+    <rect x="12" y="10" width="40" height="44" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+    <!-- Image Canvas -->
+    <rect x="15" y="13" width="34" height="30" rx="3.5" fill="url(#wm-img-bg)" />
+    <!-- Sun -->
+    <circle cx="41" cy="21" r="3.5" fill="#fde047" />
+    <!-- Mountains -->
+    <path d="M15 43 L26 30 L35 39 L41 33 L49 43 Z" fill="#312e81" opacity="0.85" />
+    <path d="M22 43 L31 34 L38 41 L43 36 L49 43 Z" fill="#4338ca" opacity="0.6" />
+
+    <!-- Translucent Watermark Overlay lines across image -->
+    <g opacity="0.4" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2">
+      <line x1="15" y1="18" x2="49" y2="18" />
+      <line x1="15" y1="38" x2="49" y2="38" />
+    </g>
+
+    <!-- Diagonal Watermark Stamp Banner -->
+    <g transform="rotate(-18 32 30)" filter="url(#stamp-glow)">
+      <rect x="16" y="24" width="32" height="12" rx="3" fill="url(#wm-badge-grad)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.9" />
+      <text x="32" y="32.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="6.5" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">WATERMARK</text>
+    </g>
+
+    <!-- Copyright Stamp Badge at bottom right -->
+    <circle cx="44" cy="46" r="6" fill="#e11d48" stroke="#ffffff" stroke-width="1.2" />
+    <text x="44" y="48.5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="7" font-weight="800" fill="#ffffff" text-anchor="middle">©</text>
+  </g>
+</svg>
+

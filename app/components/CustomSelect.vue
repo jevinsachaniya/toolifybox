@@ -454,7 +454,7 @@ watch(() => props.modelValue, (newVal) => {
 <style scoped>
 .custom-select-wrapper {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -498,6 +498,7 @@ watch(() => props.modelValue, (newVal) => {
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
 }
 
 .size-sm .custom-select-trigger {
@@ -517,6 +518,10 @@ watch(() => props.modelValue, (newVal) => {
   background: var(--card-bg, #ffffff);
 }
 
+.custom-select-wrapper.is-open {
+  z-index: 1000;
+}
+
 .custom-select-wrapper.is-open .custom-select-trigger {
   border-color: #e11d48;
   box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.18);
@@ -533,12 +538,14 @@ watch(() => props.modelValue, (newVal) => {
   align-items: center;
   gap: 0.5rem;
   min-width: 0;
-  flex: 1;
+  flex: 1 1 0%;
+  overflow: hidden;
 }
 
 .custom-select-flag {
   font-size: 1.15rem;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .custom-select-label {
@@ -546,6 +553,8 @@ watch(() => props.modelValue, (newVal) => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
+  flex: 1 1 0%;
 }
 
 .custom-select-label.is-placeholder {
@@ -553,6 +562,7 @@ watch(() => props.modelValue, (newVal) => {
 }
 
 .custom-select-chevron {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -598,21 +608,27 @@ watch(() => props.modelValue, (newVal) => {
   }
 
   .custom-select-menu {
-    max-height: 250px;
+    max-height: 280px;
+    z-index: 1050;
   }
 
   .custom-select-option {
-    padding: 0.45rem 0.55rem;
-    font-size: 0.8rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.82rem;
+    min-height: 38px;
   }
 
   .option-label {
-    max-width: 130px;
+    max-width: none;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.35;
   }
 
   .option-sublabel {
-    max-width: 110px;
-    font-size: 0.72rem;
+    max-width: none;
+    font-size: 0.75rem;
+    white-space: normal;
   }
 }
 
@@ -751,10 +767,10 @@ watch(() => props.modelValue, (newVal) => {
 }
 
 .option-label {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 0;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.35;
+  flex: 1;
 }
 
 .option-sublabel {

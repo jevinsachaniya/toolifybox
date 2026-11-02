@@ -55,7 +55,7 @@ test('combineHtmlAndCss merges style block into full document head', () => {
   const fullHtml = '<!DOCTYPE html><html><head><title>Test</title></head><body><h1>Hi</h1></body></html>';
   const customCss = 'h1 { color: blue; }';
   const combined = combineHtmlAndCss(fullHtml, customCss, { pageSize: 'a4', orientation: 'portrait' });
-  assert.ok(combined.includes('<style id="toolifybox-custom-css">'));
+  assert.ok(combined.includes('<style id="wemakepdf-custom-css">'));
   assert.ok(combined.includes('h1 { color: blue; }'));
   assert.ok(combined.includes('@page'));
 });
@@ -97,3 +97,4 @@ test('convertHtmlToPdf handles cancellation with AbortController cleanly', async
     { name: 'AbortError' }
   );
 });
+

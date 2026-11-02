@@ -146,10 +146,10 @@ test('calculateCollageLayout: 2x2 Grid', () => {
 
 test('collageOutputFilename produces clean names with chosen format', () => {
   const jpgName = collageOutputFilename('jpg');
-  assert.match(jpgName, /^toolifybox_collage_\d{8}_\d{4}\.jpg$/);
+  assert.match(jpgName, /^(toolifybox|wemakepdf)_collage_\d{8}_\d{4}\.jpg$/);
 
   const pngName = collageOutputFilename('png');
-  assert.match(pngName, /^toolifybox_collage_\d{8}_\d{4}\.png$/);
+  assert.match(pngName, /^(toolifybox|wemakepdf)_collage_\d{8}_\d{4}\.png$/);
 });
 
 test('calculateNormalizedCrop computes bounded 0..1 fractions', () => {
@@ -181,5 +181,6 @@ test('getAspectCropPreset centers crop for wider or taller images', () => {
   assert.ok(landscapeCrop.y > 0); // Centered vertically
   assert.equal(landscapeCrop.x, 0);
 });
+
 
 
