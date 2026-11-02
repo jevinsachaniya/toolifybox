@@ -64,7 +64,7 @@ const year = new Date().getFullYear();
             <NuxtLink to="/tools/compress-image">Compress Image</NuxtLink>
             <NuxtLink to="/tools/split-image">Split Image</NuxtLink>
             <NuxtLink to="/tools/image-collage">Image Collage</NuxtLink>
-            <NuxtLink to="/tools" class="footer-view-all">All 34 Tools &rarr;</NuxtLink>
+            <NuxtLink to="/tools" class="footer-view-all">All {{ TOTAL_TOOLS_COUNT }} Tools &rarr;</NuxtLink>
           </div>
         </div>
       </nav>

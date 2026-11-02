@@ -10,7 +10,7 @@ import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSe
 const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
 
 const toolsFaqs = [
-  ['Are all 31 tools on We Make PDF completely free to use?', 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
+  [`Are all ${TOTAL_TOOLS_COUNT} tools on We Make PDF completely free to use?`, 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
   ['How is client-side in-browser file conversion safer than cloud tools?', 'When you upload documents to standard cloud converters, copies are saved on remote third-party servers, creating data privacy and compliance risks. We Make PDF processes files inside your device memory using WebAssembly, ensuring your documents never leave your computer or phone.'],
   ['Can I use We Make PDF on mobile devices (iPhone, iPad, Android)?', 'Absolutely. We Make PDF is fully responsive and optimized for mobile browsers including Safari, Chrome, Edge, and Firefox. You can convert, compress, merge, and edit documents on your mobile phone without installing apps.'],
   ['Which Indian and international languages are supported for OCR and Translation?', 'We Make PDF supports 17+ languages for OCR and document processing, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Kannada, Malayalam, Punjabi, Urdu, Sanskrit, English, Spanish, French, German, Arabic, and Russian.'],
@@ -533,12 +533,12 @@ const allTools = [
     category: 'pdf',
     categories: ['pdf', 'word'],
     description: 'Transform PDF documents into modern, semantic responsive HTML5 and styled CSS with 100% in-browser privacy.',
-    status: 'unavailable',
-    statusLabel: 'Unavailable',
+    status: 'active',
+    statusLabel: 'Active Now',
     icon: Code2,
     iconName: 'pdf-to-html',
     theme: 'blue',
-    route: null,
+    route: '/tools/pdf-to-html',
   },
 ];
 
