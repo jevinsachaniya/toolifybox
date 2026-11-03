@@ -41,12 +41,14 @@ const row1Categories = [
   },
   {
     title: 'Convert to PDF',
+    cols: 2,
     tools: [
       { name: 'Word to PDF', path: '/tools/word-to-pdf', icon: '/icons/tools/word.svg' },
       { name: 'PowerPoint to PDF', path: '/tools/powerpoint-to-pdf', icon: '/icons/tools/powerpoint.svg' },
       { name: 'Excel to PDF', path: '/tools/excel-to-pdf', icon: '/icons/tools/excel.svg' },
       { name: 'Images to PDF', path: '/tools/images-to-pdf', icon: '/icons/tools/images-to-pdf.svg' },
       { name: 'HTML to PDF', path: '/tools/html-to-pdf', icon: '/icons/tools/html-to-pdf.svg' },
+      { name: 'Text to PDF', path: '/tools/text-to-pdf', icon: '/icons/tools/text-to-pdf.svg' },
       { name: 'Create PDF', path: '/tools/create-pdf', icon: '/icons/tools/create-pdf.svg' },
     ]
   },
@@ -80,11 +82,14 @@ const row2Categories = [
   },
   {
     title: 'Image Utilities',
+    cols: 2,
     tools: [
       { name: 'Convert Image', path: '/tools/convert-image', icon: '/icons/tools/convert-image.svg' },
       { name: 'Compress Image', path: '/tools/compress-image', icon: '/icons/tools/compress-image.svg' },
       { name: 'Remove Background', path: '/tools/remove-background', icon: '/icons/tools/remove-background.svg' },
       { name: 'Watermark Image', path: '/tools/watermark-image', icon: '/icons/tools/watermark-image.svg' },
+      { name: 'Blur Face', path: '/tools/blur-face', icon: '/icons/tools/blur-face.svg' },
+      { name: 'Color Picker', path: '/tools/image-color-picker', icon: '/icons/tools/image-color-picker.svg' },
       { name: 'Split Image', path: '/tools/split-image', icon: '/icons/tools/split-image.svg' },
       { name: 'Image Collage', path: '/tools/image-collage', icon: '/icons/tools/image-collage.svg' },
     ]
@@ -96,9 +101,23 @@ const row2Categories = [
       { name: 'Image to SVG', path: '/tools/image-to-svg', icon: '/icons/tools/image-to-svg.svg' },
       { name: 'CSV to JSON', path: '/tools/csv-to-json', icon: '/icons/tools/csv-to-json.svg' },
       { name: 'JSON to CSV', path: '/tools/json-to-csv', icon: '/icons/tools/json-to-csv.svg' },
+      { name: 'Excel Formulas', path: '/tools/excel-formula-explainer', icon: '/icons/tools/excel-formula.svg' },
     ]
   }
 ];
+
+function getCategoryColumns(cat) {
+  const numCols = cat.cols || (cat.tools.length > 5 ? 2 : 1);
+  if (numCols <= 1 || cat.tools.length <= 1) {
+    return [cat.tools];
+  }
+  const perCol = Math.ceil(cat.tools.length / numCols);
+  const cols = [];
+  for (let i = 0; i < cat.tools.length; i += perCol) {
+    cols.push(cat.tools.slice(i, i + perCol));
+  }
+  return cols;
+}
 
 function updatePointerPosition() {
   if (!toolsBtnRef.value || !megaWrapperRef.value) return;
@@ -256,26 +275,33 @@ onBeforeUnmount(() => {
                     v-for="cat in row1Categories"
                     :key="cat.title"
                     class="mega-col"
+                    :class="{ 'span-2': (cat.cols || (cat.tools.length > 5 ? 2 : 1)) === 2 }"
                   >
                     <span class="mega-col-title">{{ cat.title }}</span>
-                    <div class="mega-col-list">
-                      <NuxtLink
-                        v-for="tool in cat.tools"
-                        :key="tool.path"
-                        :to="tool.path"
-                        class="mega-tool-item"
-                        @click="closeMega"
+                    <div class="mega-col-subgrid" :class="{ 'is-multi': getCategoryColumns(cat).length > 1 }">
+                      <div
+                        v-for="(subList, colIdx) in getCategoryColumns(cat)"
+                        :key="colIdx"
+                        class="mega-col-list"
                       >
-                        <img
-                          :src="tool.icon"
-                          :alt="tool.name"
-                          class="mega-tool-icon"
-                          width="18"
-                          height="18"
-                          loading="lazy"
-                        />
-                        <span class="mega-tool-name">{{ tool.name }}</span>
-                      </NuxtLink>
+                        <NuxtLink
+                          v-for="tool in subList"
+                          :key="tool.path"
+                          :to="tool.path"
+                          class="mega-tool-item"
+                          @click="closeMega"
+                        >
+                          <img
+                            :src="tool.icon"
+                            :alt="tool.name"
+                            class="mega-tool-icon"
+                            width="18"
+                            height="18"
+                            loading="lazy"
+                          />
+                          <span class="mega-tool-name">{{ tool.name }}</span>
+                        </NuxtLink>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -288,26 +314,33 @@ onBeforeUnmount(() => {
                     v-for="cat in row2Categories"
                     :key="cat.title"
                     class="mega-col"
+                    :class="{ 'span-2': (cat.cols || (cat.tools.length > 5 ? 2 : 1)) === 2 }"
                   >
                     <span class="mega-col-title">{{ cat.title }}</span>
-                    <div class="mega-col-list">
-                      <NuxtLink
-                        v-for="tool in cat.tools"
-                        :key="tool.path"
-                        :to="tool.path"
-                        class="mega-tool-item"
-                        @click="closeMega"
+                    <div class="mega-col-subgrid" :class="{ 'is-multi': getCategoryColumns(cat).length > 1 }">
+                      <div
+                        v-for="(subList, colIdx) in getCategoryColumns(cat)"
+                        :key="colIdx"
+                        class="mega-col-list"
                       >
-                        <img
-                          :src="tool.icon"
-                          :alt="tool.name"
-                          class="mega-tool-icon"
-                          width="18"
-                          height="18"
-                          loading="lazy"
-                        />
-                        <span class="mega-tool-name">{{ tool.name }}</span>
-                      </NuxtLink>
+                        <NuxtLink
+                          v-for="tool in subList"
+                          :key="tool.path"
+                          :to="tool.path"
+                          class="mega-tool-item"
+                          @click="closeMega"
+                        >
+                          <img
+                            :src="tool.icon"
+                            :alt="tool.name"
+                            class="mega-tool-icon"
+                            width="18"
+                            height="18"
+                            loading="lazy"
+                          />
+                          <span class="mega-tool-name">{{ tool.name }}</span>
+                        </NuxtLink>
+                      </div>
                     </div>
                   </div>
                 </div>

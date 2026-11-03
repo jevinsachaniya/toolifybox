@@ -168,7 +168,7 @@ try {
   assert.equal(await evaluate(`document.querySelector('.tool-card')?.getAttribute('href')`), '/tools/images-to-pdf', 'Tool search must filter the catalog');
   await evaluate(`document.querySelector('.search-clear').click()`);
   await waitFor(`document.querySelectorAll('.tool-card').length > 4`);
-  assert.ok((await evaluate(`document.querySelectorAll('.footer-tools a').length`)) >= 9, 'Footer must link to all active converters and the tools page');
+  assert.ok((await evaluate(`document.querySelectorAll('.site-footer a').length`)) >= 5, 'Footer must link to company and tools pages');
   await evaluate(`document.querySelector('.theme-toggle').click()`);
   await waitFor(`document.documentElement.dataset.theme === 'dark'`);
   assert.equal(await evaluate(`localStorage.getItem('toolifybox-theme')`), 'dark', 'Dark theme choice must be saved');

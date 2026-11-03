@@ -41,6 +41,11 @@ export const SITE_ROUTES = [
   '/tools/watermark-image',
   '/tools/csv-to-json',
   '/tools/html-to-image',
+  '/tools/pdf-to-html',
+  '/tools/blur-face',
+  '/tools/image-color-picker',
+  '/tools/text-to-pdf',
+  '/tools/excel-formula-explainer',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {
