@@ -255,6 +255,9 @@ assert.equal(new Set(titles).size, pageRecords.length, 'Every indexable page nee
 assert.equal(new Set(descriptions).size, pageRecords.length, 'Every indexable page needs a unique meta description');
 await readFile(new URL('../.output/public/200.html', import.meta.url));
 await readFile(new URL('../.output/public/favicon.svg', import.meta.url));
+await readFile(new URL('../.output/public/favicon.ico', import.meta.url));
+await readFile(new URL('../.output/public/favicon.png', import.meta.url));
+await readFile(new URL('../.output/public/favicon-48x48.png', import.meta.url));
 await readFile(new URL('../.output/public/brand/wemakepdf-logo.svg', import.meta.url));
 const socialImage = await readFile(new URL('../.output/public/brand/wemakepdf-social.svg', import.meta.url));
 assert.ok(socialImage.length > 500, 'Social preview image is missing or unexpectedly small');
