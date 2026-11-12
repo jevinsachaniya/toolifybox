@@ -46,6 +46,8 @@ export const SITE_ROUTES = [
   '/tools/image-color-picker',
   '/tools/text-to-pdf',
   '/tools/excel-formula-explainer',
+  '/tools/image-to-favicon',
+  '/tools/passport-photo',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

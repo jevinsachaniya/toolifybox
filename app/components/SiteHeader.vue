@@ -86,10 +86,12 @@ const row2Categories = [
     tools: [
       { name: 'Convert Image', path: '/tools/convert-image', icon: '/icons/tools/convert-image.svg' },
       { name: 'Compress Image', path: '/tools/compress-image', icon: '/icons/tools/compress-image.svg' },
+      { name: 'Passport Photo', path: '/tools/passport-photo', icon: '/icons/tools/passport-photo.svg' },
       { name: 'Remove Background', path: '/tools/remove-background', icon: '/icons/tools/remove-background.svg' },
       { name: 'Watermark Image', path: '/tools/watermark-image', icon: '/icons/tools/watermark-image.svg' },
       { name: 'Blur Face', path: '/tools/blur-face', icon: '/icons/tools/blur-face.svg' },
       { name: 'Color Picker', path: '/tools/image-color-picker', icon: '/icons/tools/image-color-picker.svg' },
+      { name: 'Image to Favicon', path: '/tools/image-to-favicon', icon: '/icons/tools/image-to-favicon.svg' },
       { name: 'Split Image', path: '/tools/split-image', icon: '/icons/tools/split-image.svg' },
       { name: 'Image Collage', path: '/tools/image-collage', icon: '/icons/tools/image-collage.svg' },
     ]

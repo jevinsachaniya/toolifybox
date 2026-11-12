@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <linearGradient id="pp-ruby" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="pp-gold" x1="28" y1="6" x2="44" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="pp-sky" x1="8" y1="6" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="pp-shadow" x="3" y="4" width="42" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+    <clipPath id="pp-card-clip">
+      <rect x="8" y="6" width="32" height="38" rx="5"/>
+    </clipPath>
+  </defs>
+
+  <!-- Photo Card Back with Shadow -->
+  <g filter="url(#pp-shadow)">
+    <!-- White Card Background -->
+    <rect x="8" y="6" width="32" height="38" rx="5" fill="#ffffff"/>
+    <rect x="8" y="6" width="32" height="38" rx="5" stroke="#cbd5e1" stroke-width="1.5"/>
+  </g>
+
+  <!-- Photo Contents inside Clip -->
+  <g clip-path="url(#pp-card-clip)">
+    <!-- Subtle sky blue gradient background for passport look -->
+    <rect x="8" y="6" width="32" height="38" fill="#f8fafc"/>
+
+    <!-- Biometric Hairline Guidelines -->
+    <line x1="8" y1="19" x2="40" y2="19" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="2 2"/>
+    <line x1="8" y1="28" x2="40" y2="28" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="2 2"/>
+    <line x1="24" y1="6" x2="24" y2="44" stroke="#94a3b8" stroke-width="0.75" stroke-dasharray="2 2"/>
+
+    <!-- Head / Portrait Silhouette with Ruby gradient -->
+    <circle cx="24" cy="20" r="6.5" fill="url(#pp-ruby)"/>
+    <!-- Shoulders / Suit Jacket Silhouette -->
+    <path d="M12 40 C12 30.5, 17 28.5, 24 28.5 C31 28.5, 36 30.5, 36 40 Z" fill="url(#pp-ruby)"/>
+
+    <!-- Biometric Oval Frame Outline -->
+    <ellipse cx="24" cy="23" rx="10" ry="13" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="2 1.5" fill="none" opacity="0.85"/>
+  </g>
+
+  <!-- Outer Passport Crop Marks (Corner brackets) -->
+  <path d="M5 12 L5 8 A 2 2 0 0 1 7 6 L11 6" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M43 12 L43 8 A 2 2 0 0 0 41 6 L37 6" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M5 36 L5 40 A 2 2 0 0 0 7 42 L11 42" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M43 36 L43 40 A 2 2 0 0 1 41 42 L37 42" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Magic Sparkle & Check Badge in Top-Right -->
+  <g filter="url(#pp-shadow)">
+    <circle cx="36" cy="11" r="6.5" fill="#ffffff"/>
+    <circle cx="36" cy="11" r="5.5" fill="url(#pp-gold)"/>
+    <!-- Checkmark icon -->
+    <path d="M33.5 11 L35.2 12.8 L38.5 9.2" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+
