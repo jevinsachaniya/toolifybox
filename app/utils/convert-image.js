@@ -18,6 +18,17 @@ export const SUPPORTED_INPUT_MIMES = [
 ];
 
 export const IMAGE_CONVERT_FORMATS = {
+  original: {
+    id: 'original',
+    label: 'Same',
+    fullName: 'Keep Same Format',
+    mimeType: 'image/jpeg',
+    extension: 'jpg',
+    supportsQuality: true,
+    supportsAlpha: true,
+    description: 'Keep the exact original format (JPG remains JPG, PNG remains PNG).',
+    badge: 'Same',
+  },
   webp: {
     id: 'webp',
     label: 'WEBP',
@@ -155,8 +166,14 @@ export function validateImageConvertFiles(files) {
  * Generates an output filename with the new extension
  */
 export function formatOutputFilename(originalName, targetFormat) {
+  const extMatch = (originalName || '').match(/\.([^/.]+)$/);
+  const origExt = extMatch ? extMatch[1].toLowerCase() : '';
   const base = (originalName || 'image').replace(/\.[^/.]+$/, '').trim() || 'image';
-  const ext = IMAGE_CONVERT_FORMATS[targetFormat]?.extension || targetFormat.toLowerCase();
+
+  if (targetFormat === 'original') {
+    return `${base}.${origExt || 'jpg'}`;
+  }
+  const ext = IMAGE_CONVERT_FORMATS[targetFormat]?.extension || (targetFormat ? targetFormat.toLowerCase() : 'jpg');
   return `${base}.${ext}`;
 }
 
@@ -378,7 +395,7 @@ export function createBmpBlob(sourceCanvas, backgroundColor = '#ffffff') {
  */
 export async function convertImageFile(file, options = {}) {
   const {
-    targetFormat = 'webp',
+    targetFormat = 'original',
     quality = 0.90,
     scale = 1.0,
     maxWidth = 0,
@@ -389,6 +406,14 @@ export async function convertImageFile(file, options = {}) {
   } = options;
 
   if (signal?.aborted) throw new DOMException('Conversion cancelled', 'AbortError');
+
+  let effectiveFormat = targetFormat;
+  if (targetFormat === 'original') {
+    effectiveFormat = detectImageFormat(file);
+    if (effectiveFormat === 'unknown' || effectiveFormat === 'original') {
+      effectiveFormat = 'jpg';
+    }
+  }
 
   // 1. Load image into an HTMLImageElement
   const objectUrl = URL.createObjectURL(file);
@@ -438,7 +463,7 @@ export async function convertImageFile(file, options = {}) {
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
 
-  const formatConfig = IMAGE_CONVERT_FORMATS[targetFormat] || IMAGE_CONVERT_FORMATS.webp;
+  const formatConfig = IMAGE_CONVERT_FORMATS[effectiveFormat] || IMAGE_CONVERT_FORMATS.webp;
   const isOpaque = !formatConfig.supportsAlpha;
 
   // If format doesn't support transparency (e.g. JPG, BMP), fill background
@@ -455,9 +480,9 @@ export async function convertImageFile(file, options = {}) {
   let blob;
   const mimeType = formatConfig.mimeType;
 
-  if (targetFormat === 'ico') {
+  if (effectiveFormat === 'ico') {
     blob = createIcoBlob(canvas, icoSize || 64);
-  } else if (targetFormat === 'bmp') {
+  } else if (effectiveFormat === 'bmp') {
     blob = createBmpBlob(canvas, backgroundColor);
   } else {
     // Standard canvas.toBlob for PNG, WEBP, JPG, AVIF, GIF
@@ -500,7 +525,7 @@ export async function convertImageFile(file, options = {}) {
     sizeDiff,
     width: targetWidth,
     height: targetHeight,
-    format: targetFormat,
+    format: effectiveFormat,
     originalFormat: detectImageFormat(file),
   };
 }

@@ -11,6 +11,8 @@ const result = ref(null);
 const preset = ref('high');
 const targetSize = ref('250');
 const targetUnit = ref('KB');
+const outputFormat = ref('original');
+const customScale = ref(1.0);
 const busy = ref(false);
 const dragging = ref(false);
 const progress = ref('');
@@ -18,6 +20,18 @@ const error = ref('');
 const input = ref(null);
 const uploadButton = ref(null);
 const stage = computed(() => result.value ? 3 : file.value ? 2 : 1);
+const detectedFormatLabel = computed(() => {
+  if (!details.value?.mimeType) return 'JPG';
+  if (details.value.mimeType === 'image/png') return 'PNG';
+  if (details.value.mimeType === 'image/webp') return 'WEBP';
+  return 'JPG';
+});
+const formatMimeType = computed(() => {
+  if (outputFormat.value === 'jpg') return 'image/jpeg';
+  if (outputFormat.value === 'png') return 'image/png';
+  if (outputFormat.value === 'webp') return 'image/webp';
+  return details.value?.mimeType || 'image/jpeg';
+});
 const targetBytes = computed(() => {
   const value = Number(targetSize.value);
   if (!Number.isFinite(value) || value <= 0) return 0;
@@ -60,6 +74,8 @@ function clear({ focus = true } = {}) {
   preset.value = 'high';
   targetSize.value = '250';
   targetUnit.value = 'KB';
+  outputFormat.value = 'original';
+  customScale.value = 1.0;
   busy.value = false;
   progress.value = '';
   error.value = '';
@@ -117,6 +133,8 @@ async function compress() {
   try {
     const output = await compressImageFile(file.value, preset.value, {
       targetBytes: preset.value === 'target' ? targetBytes.value : undefined,
+      mimeType: formatMimeType.value,
+      scale: customScale.value,
       signal: controller.signal,
       onProgress: value => { if (active) progress.value = value; },
     });
@@ -147,8 +165,95 @@ async function compress() {
         <fieldset class="compress-options image-compress-options"><legend>Choose compression quality</legend><button v-for="option in Object.values(IMAGE_COMPRESSION_PRESETS)" :key="option.id" type="button" :class="{ selected: preset === option.id }" :aria-pressed="preset === option.id" :disabled="busy" @click="selectPreset(option.id)"><span class="compress-option-icon"><ShieldCheck v-if="option.id === 'high'" :size="19" /><Gauge v-else-if="option.id === 'balanced'" :size="19" /><Target v-else-if="option.id === 'target'" :size="19" /><Minimize2 v-else :size="19" /></span><span><strong>{{ option.label }}<b v-if="option.id === 'high'">Recommended</b></strong><small>{{ option.description }}</small><em>{{ option.detail }}</em></span><span class="compress-radio"><Check v-if="preset === option.id" :size="12" /></span></button></fieldset>
       </div>
 
+      <!-- Extra Controls: Format & Resize Dimensions -->
+      <div class="compress-extra-controls">
+        <div class="control-group">
+          <label class="control-label">Save Format (Extension)</label>
+          <div class="pill-group">
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: outputFormat === 'original' }"
+              :disabled="busy"
+              @click="outputFormat = 'original'; releaseResult()"
+            >
+              Same as original ({{ detectedFormatLabel }})
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: outputFormat === 'jpg' }"
+              :disabled="busy"
+              @click="outputFormat = 'jpg'; releaseResult()"
+            >
+              JPG
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: outputFormat === 'png' }"
+              :disabled="busy"
+              @click="outputFormat = 'png'; releaseResult()"
+            >
+              PNG
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: outputFormat === 'webp' }"
+              :disabled="busy"
+              @click="outputFormat = 'webp'; releaseResult()"
+            >
+              WEBP
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Resize Dimensions</label>
+          <div class="pill-group">
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: customScale === 1.0 }"
+              :disabled="busy"
+              @click="customScale = 1.0; releaseResult()"
+            >
+              100% (Original)
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: customScale === 0.75 }"
+              :disabled="busy"
+              @click="customScale = 0.75; releaseResult()"
+            >
+              75%
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: customScale === 0.5 }"
+              :disabled="busy"
+              @click="customScale = 0.5; releaseResult()"
+            >
+              50%
+            </button>
+            <button
+              type="button"
+              class="pill-btn"
+              :class="{ active: customScale === 0.25 }"
+              :disabled="busy"
+              @click="customScale = 0.25; releaseResult()"
+            >
+              25%
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div v-if="preset === 'target'" class="compress-target-size"><label for="compress-image-target"><span>Target file size</span><small>We keep the clearest result that can fit your requested maximum.</small></label><div><input id="compress-image-target" v-model="targetSize" type="number" min="0.01" step="0.05" inputmode="decimal" aria-describedby="compress-image-target-help" @input="releaseResult" /><select v-model="targetUnit" aria-label="Target image size unit" @change="releaseResult"><option>KB</option><option>MB</option></select></div><p id="compress-image-target-help" :class="{ error: targetError }">{{ targetError || `Requested maximum: ${formatSize(targetBytes)}` }}</p></div>
-      <div class="compress-mode-note" :class="{ flattened: preset !== 'high' }"><Maximize2 v-if="preset === 'high'" :size="16" /><Target v-else-if="preset === 'target'" :size="16" /><ImageDown v-else :size="16" /><p v-if="preset === 'high'"><b>Original dimensions and format stay intact.</b> This mode applies gentle compression and keeps fine details.</p><p v-else-if="preset === 'target'"><b>Your requested size is a best-effort maximum.</b> The tool tests several quality and dimension levels, then keeps the clearest result that fits.</p><p v-else><b>Colors, transparency and visual layout are preserved.</b> The result uses efficient WebP compression; Smallest mode can reduce dimensions.</p></div>
+      <div class="compress-mode-note" :class="{ flattened: preset !== 'high' }"><Maximize2 v-if="preset === 'high'" :size="16" /><Target v-else-if="preset === 'target'" :size="16" /><ImageDown v-else :size="16" /><p v-if="preset === 'high'"><b>Original dimensions and format stay intact.</b> This mode applies gentle compression and keeps fine details.</p><p v-else-if="preset === 'target'"><b>Target size is reached in your chosen format.</b> The tool tests several quality levels in your file format to keep the clearest result that fits.</p><p v-else><b>Colors, transparency and format are preserved.</b> Your image is compressed cleanly without unexpectedly changing its file extension.</p></div>
 
       <div v-if="result" class="compress-result image-compress-result" :class="{ 'target-missed': result.targetBytes && !result.metTarget }" role="status"><span><Check v-if="!result.targetBytes || result.metTarget" :size="18" /><Target v-else :size="18" /></span><div><strong>{{ result.targetBytes ? (result.metTarget ? 'Target size reached' : 'Closest available size created') : result.changed ? `Image compressed by ${result.reduction}%` : 'This image is already well optimized' }}</strong><small>{{ formatSize(result.originalSize) }} <span>→</span> {{ formatSize(result.outputSize) }} · {{ result.width }} × {{ result.height }} px</small><em v-if="result.targetBytes && !result.metTarget">Try a larger target if you need to preserve more detail.</em><em v-else-if="!result.changed">We kept the smaller original file instead of creating a larger result.</em></div><a :href="result.url" :download="result.filename"><Download :size="16" /> Download Image</a></div>
       <button class="primary-button compress-image-button" :disabled="busy || Boolean(targetError)" @click="compress"><LoaderCircle v-if="busy" class="spinning" :size="18" /><Target v-else-if="preset === 'target'" :size="18" /><ImageDown v-else :size="18" />{{ busy ? 'Compressing image...' : preset === 'target' ? `Compress toward ${targetSize || 0} ${targetUnit}` : 'Compress Image' }}</button>
@@ -160,7 +265,75 @@ async function compress() {
 
     <template v-if="busy"><div class="progress-track" role="status"><span /><p>{{ progress }} Keep this page open.</p></div><button class="text-button cancel-conversion" @click="request?.abort()">Cancel</button></template>
     <div v-if="error" class="error-message" role="alert"><CircleAlert :size="18" /><span>{{ error }}</span></div>
-    <p class="conversion-note">High quality keeps the original format. Balanced, Smallest and Custom target create broadly supported WebP images for better compression.</p>
+    <p class="conversion-note">Original image format is preserved by default for all compression levels. Compressing or resizing a JPG file produces a JPG file.</p>
     <div class="converter-assurance"><LockKeyhole :size="13" /><span>Processed on your device. No image uploads.</span></div>
   </section>
 </template>
+
+<style scoped>
+.compress-extra-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--surface, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 12px;
+}
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.control-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted, #64748b);
+}
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pill-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.pill-btn:hover:not(:disabled) {
+  border-color: #f59e0b;
+  color: #b45309;
+}
+.pill-btn.active {
+  background: #f59e0b;
+  color: #ffffff;
+  border-color: #d97706;
+}
+html[data-theme='dark'] .compress-extra-controls {
+  background: #1e293b;
+  border-color: #334155;
+}
+html[data-theme='dark'] .pill-btn {
+  background: #0f172a;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+html[data-theme='dark'] .pill-btn:hover:not(:disabled) {
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+html[data-theme='dark'] .pill-btn.active {
+  background: #d97706;
+  border-color: #f59e0b;
+  color: #ffffff;
+}
+</style>

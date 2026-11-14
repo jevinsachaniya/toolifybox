@@ -39,7 +39,7 @@ const results = ref([]); // Array of converted items
 const zipResult = ref(null);
 
 // Global Conversion Settings
-const globalTargetFormat = ref('webp');
+const globalTargetFormat = ref('original');
 const quality = ref(85); // 10 to 100
 const scale = ref(1.0); // 1.0, 0.75, 0.5, 0.25
 const backgroundColor = ref('#ffffff');
@@ -231,7 +231,8 @@ async function startConversion() {
 
       const item = queuedFiles.value[i];
       const targetFmt = item.targetFormat || globalTargetFormat.value;
-      progressMessage.value = `Converting ${i + 1} of ${total}: ${item.name} ➔ ${targetFmt.toUpperCase()}...`;
+      const displayFmt = targetFmt === 'original' ? (item.originalFormat || 'JPG').toUpperCase() : targetFmt.toUpperCase();
+      progressMessage.value = `Converting ${i + 1} of ${total}: ${item.name} ➔ ${displayFmt}...`;
       progressPercent.value = Math.round(((i) / total) * 100);
 
       const converted = await convertImageFile(item.file, {
@@ -468,7 +469,7 @@ onBeforeUnmount(() => {
               </div>
 
               <!-- Background Color for Opaque Formats -->
-              <div class="setting-item" v-if="!IMAGE_CONVERT_FORMATS[globalTargetFormat]?.supportsAlpha">
+              <div class="setting-item" v-if="globalTargetFormat !== 'original' && !IMAGE_CONVERT_FORMATS[globalTargetFormat]?.supportsAlpha">
                 <div class="setting-header">
                   <label>Background Color (for transparent PNG/WebP)</label>
                 </div>

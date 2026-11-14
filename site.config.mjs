@@ -48,6 +48,7 @@ export const SITE_ROUTES = [
   '/tools/excel-formula-explainer',
   '/tools/image-to-favicon',
   '/tools/passport-photo',
+  '/tools/business-card-to-excel',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

@@ -30,6 +30,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl,
+      ocrVersion: '7.0.0',
     },
   },
   app: {

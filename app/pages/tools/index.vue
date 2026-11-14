@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { 
   ArrowDownUp, ArrowLeftRight, ArrowUpRight, Check, ChevronDown, Code2, Crop, FileCheck, FileImage, FilePlus, FileSpreadsheet, FileText,
-  GitCompareArrows, Globe, Hash, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Pipette, Presentation, RotateCw, ScanFace, ScanText, Scissors,
+  GitCompareArrows, Globe, Hash, IdCard, ImageDown, Languages, Layers, LayoutGrid, Lock, LockKeyhole, Minimize2, Pipette, Presentation, RotateCw, ScanFace, ScanText, Scissors,
   Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
@@ -71,6 +71,7 @@ usePageSeo({
           ['Excel Formula Explainer', '/tools/excel-formula-explainer'],
           ['Image to Favicon', '/tools/image-to-favicon'],
           ['Passport Photo Maker', '/tools/passport-photo'],
+          ['Business Card to Excel', '/tools/business-card-to-excel'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Split Image', '/tools/split-image'],
@@ -584,6 +585,19 @@ const allTools = [
     iconName: 'passport-photo',
     theme: 'rose',
     route: '/tools/passport-photo',
+  },
+  {
+    id: 'business-card-to-excel',
+    title: 'Business Card to Excel',
+    category: 'ocr',
+    categories: ['ocr', 'image'],
+    description: 'Scan front and back photos of visiting cards to automatically extract contacts into Microsoft Excel (.xlsx), CSV, and vCard.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: IdCard,
+    iconName: 'business-card-scanner',
+    theme: 'emerald',
+    route: '/tools/business-card-to-excel',
   },
   {
     id: 'image-to-favicon',

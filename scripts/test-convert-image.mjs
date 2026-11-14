@@ -45,12 +45,16 @@ test('validateImageConvertFiles validates file list count, size and types', () =
   assert.equal(validateImageConvertFiles([validJpg, validPng]), '');
 });
 
-test('formatOutputFilename converts extensions safely', () => {
+test('formatOutputFilename converts extensions safely and preserves original extension', () => {
   assert.equal(formatOutputFilename('my-photo.jpg', 'webp'), 'my-photo.webp');
   assert.equal(formatOutputFilename('logo.png', 'jpg'), 'logo.jpg');
   assert.equal(formatOutputFilename('graphic.WEBP', 'png'), 'graphic.png');
   assert.equal(formatOutputFilename('icon', 'ico'), 'icon.ico');
   assert.equal(formatOutputFilename('dots.in.name.jpg', 'avif'), 'dots.in.name.avif');
+  assert.equal(formatOutputFilename('my-photo.jpg', 'original'), 'my-photo.jpg');
+  assert.equal(formatOutputFilename('my-photo.jpeg', 'original'), 'my-photo.jpeg');
+  assert.equal(formatOutputFilename('graphic.png', 'original'), 'graphic.png');
+  assert.equal(formatOutputFilename('banner.webp', 'original'), 'banner.webp');
 });
 
 test('IMAGE_CONVERT_FORMATS defines full format set with required metadata', () => {

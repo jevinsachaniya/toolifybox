@@ -99,6 +99,7 @@ const row2Categories = [
   {
     title: 'Web & Data Tools',
     tools: [
+      { name: 'Business Card to Excel', path: '/tools/business-card-to-excel', icon: '/icons/tools/business-card-scanner.svg' },
       { name: 'HTML to Image', path: '/tools/html-to-image', icon: '/icons/tools/html-to-image.svg' },
       { name: 'Image to SVG', path: '/tools/image-to-svg', icon: '/icons/tools/image-to-svg.svg' },
       { name: 'CSV to JSON', path: '/tools/csv-to-json', icon: '/icons/tools/csv-to-json.svg' },

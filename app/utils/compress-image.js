@@ -5,7 +5,7 @@ export const IMAGE_COMPRESSION_PRESETS = {
   high: {
     id: 'high',
     label: 'High quality',
-    description: 'Keeps the original dimensions and image format.',
+    description: 'Keeps original dimensions and format with gentle compression.',
     detail: 'Best detail · gentle compression',
     scale: 1,
     quality: 0.94,
@@ -13,27 +13,24 @@ export const IMAGE_COMPRESSION_PRESETS = {
   balanced: {
     id: 'balanced',
     label: 'Balanced',
-    description: 'Keeps the full dimensions with efficient WebP compression.',
+    description: 'Keeps full dimensions with balanced compression in original format.',
     detail: 'Clear detail · smaller file',
     scale: 1,
     quality: 0.82,
-    mimeType: 'image/webp',
   },
   smallest: {
     id: 'smallest',
     label: 'Smallest file',
-    description: 'Slightly reduces dimensions and applies stronger compression.',
+    description: 'Reduces dimensions and applies stronger compression in original format.',
     detail: 'Good quality · strongest reduction',
     scale: 0.82,
     quality: 0.62,
-    mimeType: 'image/webp',
   },
   target: {
     id: 'target',
     label: 'Custom target size',
-    description: 'Enter the approximate KB or MB size you need.',
+    description: 'Enter the approximate KB or MB size you need in original format.',
     detail: 'Best quality that fits your target',
-    mimeType: 'image/webp',
   },
 };
 
@@ -117,7 +114,7 @@ async function encodeImage(image, { scale, quality, mimeType }, signal) {
   return { blob, width, height, mimeType: blob.type || mimeType };
 }
 
-async function encodeForTarget(image, targetBytes, signal, onProgress) {
+async function encodeForTarget(image, targetBytes, signal, onProgress, targetMimeType = 'image/jpeg') {
   const scales = [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.32];
   let bestUnder;
   let smallest;
@@ -132,7 +129,7 @@ async function encodeForTarget(image, targetBytes, signal, onProgress) {
       pass++;
       const quality = (low + high) / 2;
       onProgress(`Testing image quality · pass ${pass}...`);
-      const candidate = await encodeImage(image, { scale, quality, mimeType: 'image/webp' }, signal);
+      const candidate = await encodeImage(image, { scale, quality, mimeType: targetMimeType }, signal);
       if (!smallest || candidate.blob.size < smallest.blob.size) smallest = candidate;
       if (candidate.blob.size <= targetBytes) {
         fitAtScale = candidate;
@@ -151,11 +148,21 @@ async function encodeForTarget(image, targetBytes, signal, onProgress) {
 }
 
 function baseName(name) {
-  return name.replace(/\.(?:jpe?g|png|webp)$/i, '').trim() || 'image';
+  return (name || 'image').replace(/\.(?:jpe?g|png|webp|gif|bmp|avif)$/i, '').trim() || 'image';
 }
 
 export function compressedImageFilename(name, mimeType) {
-  const extension = mimeType === 'image/png' ? 'png' : mimeType === 'image/jpeg' ? 'jpg' : 'webp';
+  let extension = 'jpg';
+  if (mimeType === 'image/png') {
+    extension = 'png';
+  } else if (mimeType === 'image/webp') {
+    extension = 'webp';
+  } else if (mimeType === 'image/jpeg') {
+    extension = /\.jpeg$/i.test(name || '') ? 'jpeg' : 'jpg';
+  } else {
+    const match = (name || '').match(/\.([a-z0-9]+)$/i);
+    if (match) extension = match[1].toLowerCase();
+  }
   return `${baseName(name)}-compressed.${extension}`;
 }
 
@@ -170,11 +177,20 @@ export async function inspectCompressImage(file, { signal } = {}) {
   }
 }
 
-export async function compressImageFile(file, presetId, { targetBytes, signal, onProgress = () => {} } = {}) {
+export async function compressImageFile(file, presetId, {
+  targetBytes,
+  mimeType: customMimeType,
+  scale: customScale,
+  signal,
+  onProgress = () => {},
+} = {}) {
   const preset = IMAGE_COMPRESSION_PRESETS[presetId];
   if (!preset) throw new Error('Choose a valid compression quality.');
   if (presetId === 'target' && (!Number.isFinite(targetBytes) || targetBytes < 10 * 1024)) throw new Error('Enter a target size of at least 10 KB.');
   if (signal?.aborted) throw abortError();
+
+  const originalMime = imageType(file) || 'image/jpeg';
+  const targetMimeType = customMimeType || preset.mimeType || originalMime;
 
   const image = await openImage(file, signal);
   try {
@@ -182,30 +198,31 @@ export async function compressImageFile(file, presetId, { targetBytes, signal, o
     if (image.width * image.height > 60_000_000) throw new Error('This image is too large to process safely in a browser. Choose an image below 60 megapixels.');
 
     let candidate;
-    if (presetId === 'target' && file.size <= targetBytes) {
-      candidate = { blob: file, width: image.width, height: image.height, mimeType: imageType(file) };
+    if (presetId === 'target' && file.size <= targetBytes && (!customMimeType || customMimeType === originalMime)) {
+      candidate = { blob: file, width: image.width, height: image.height, mimeType: originalMime };
     } else if (presetId === 'target') {
-      candidate = await encodeForTarget(image, targetBytes, signal, onProgress);
+      candidate = await encodeForTarget(image, targetBytes, signal, onProgress, targetMimeType);
     } else {
       onProgress('Creating your compressed image...');
+      const effectiveScale = (Number.isFinite(customScale) && customScale > 0) ? customScale : (preset.scale || 1);
       candidate = await encodeImage(image, {
-        scale: preset.scale,
+        scale: effectiveScale,
         quality: preset.quality,
-        mimeType: preset.mimeType || imageType(file),
+        mimeType: targetMimeType,
       }, signal);
     }
 
     if (!candidate) throw new Error('A compressed image could not be created. Try a larger target size.');
     if (signal?.aborted) throw abortError();
-    const changed = candidate.blob.size < file.size;
-    const final = changed ? candidate : { blob: file, width: image.width, height: image.height, mimeType: imageType(file) };
+    const changed = candidate.blob.size < file.size || candidate.width !== image.width || candidate.height !== image.height || candidate.mimeType !== originalMime;
+    const final = changed ? candidate : { blob: file, width: image.width, height: image.height, mimeType: originalMime };
     return {
       ...final,
       originalSize: file.size,
       outputSize: final.blob.size,
       originalWidth: image.width,
       originalHeight: image.height,
-      reduction: changed ? Math.max(1, Math.round((1 - final.blob.size / file.size) * 100)) : 0,
+      reduction: changed && final.blob.size < file.size ? Math.max(1, Math.round((1 - final.blob.size / file.size) * 100)) : 0,
       changed,
       targetBytes: presetId === 'target' ? targetBytes : undefined,
       metTarget: presetId === 'target' ? final.blob.size <= targetBytes : undefined,
