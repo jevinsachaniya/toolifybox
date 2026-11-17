@@ -23,8 +23,8 @@ definePageMeta({
   alias: ['/text-to-pdf', '/txt-to-pdf', '/tools/txt-to-pdf'],
 });
 
-const pageTitle = 'Text to PDF Converter Online — Convert TXT & Notes to PDF Free | We Make PDF';
-const pageDescription = 'Free online Text to PDF converter. Type or paste your notes, essays, memos, and articles to generate professional, formatted vector PDF documents with custom typography, page numbers, and complete privacy.';
+const pageTitle = 'Text to PDF Converter Online — Convert TXT & Notes [100% Free] | We Make PDF';
+const pageDescription = 'Convert text, TXT files, and notes into clean, paginated PDF documents online for free. Custom fonts, margins & page numbers. 100% private in-browser, no sign-up!';
 
 const steps = [
   {

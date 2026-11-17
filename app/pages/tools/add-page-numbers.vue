@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/add-page-numbers', '/tools/page-numbers', '/page-numbers'],
 });
 
-const pageTitle = 'Add Page Numbers to PDF Online Free — Fast & Private | We Make PDF';
-const pageDescription = 'Add page numbers to your PDF documents online for free. Customize position, numbering format, starting page, margins, fonts, and colors directly in your browser with zero file uploads.';
+const pageTitle = 'Add Page Numbers to PDF Online [100% Free & Custom] | We Make PDF';
+const pageDescription = 'Add page numbers to PDF documents online for free. Customize format, position, fonts, and skip cover page. 100% private in-browser, instant & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose Your PDF Document', desc: 'Select or drag-and-drop any PDF file up to 50 MB into the browser window.' },

@@ -2,8 +2,8 @@
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Cpu, FileCheck, FileText, Globe, Layers, LockKeyhole, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Word to PDF Converter — Free, Fast & Private Online | We Make PDF';
-const pageDescription = 'Convert Word DOCX documents to high-resolution, print-ready PDF files online for free. Preserves document formatting, fonts, tables, and images with 100% private in-browser conversion. No sign-up or watermark.';
+const pageTitle = 'Word to PDF Converter — 100% Free & Instant [No Sign-up] | We Make PDF';
+const pageDescription = 'Convert Word (.docx) to PDF online for free in seconds. Preserves tables, fonts, formatting, and high resolution. 100% private, no file uploads, and no watermarks!';
 
 const steps = [
   { number: '01', title: 'Select Word Document', desc: 'Choose any .docx Word file up to 20 MB from your computer, phone, or drag and drop into the converter.' },

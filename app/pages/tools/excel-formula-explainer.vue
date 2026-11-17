@@ -22,8 +22,8 @@ definePageMeta({
   alias: ['/excel-formula-explainer', '/excel-formulas', '/tools/excel-formulas'],
 });
 
-const pageTitle = 'Excel Formula Explainer & Generator Online — All Formulas with Examples | We Make PDF';
-const pageDescription = 'Free online Excel Formula Explainer, Fixer & Encyclopedia. Enter or paste any Excel formula to get instant plain-English explanations, syntax error corrections, parameter breakdowns, and explore 60+ formulas with spreadsheet examples.';
+const pageTitle = 'Excel Formula Explainer & Fixer — Instant Breakdown [100% Free] | We Make PDF';
+const pageDescription = 'Explain, fix and generate Excel formulas online for free. Instant plain-English breakdown, syntax error correction, and 60+ formula examples. 100% free & private!';
 
 const steps = [
   {

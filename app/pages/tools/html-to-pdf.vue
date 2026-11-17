@@ -24,8 +24,8 @@ definePageMeta({
   alias: ['/html-to-pdf', '/tools/convert-html-to-pdf', '/html2pdf'],
 });
 
-const pageTitle = 'Convert HTML to PDF Online Free — Clean Code & Live Preview | We Make PDF';
-const pageDescription = 'Convert HTML and CSS code to PDF online for free. Live sandbox preview, custom page sizes (A4, Letter), margins, templates, and high-resolution vector print with 100% in-browser privacy.';
+const pageTitle = 'Convert HTML to PDF Online — Live Code Preview [100% Free] | We Make PDF';
+const pageDescription = 'Convert HTML and CSS code to clean PDF documents online for free. Live sandbox preview, invoice/resume templates, 100% private in-browser & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Enter HTML & CSS Code', desc: 'Type or paste your HTML markup and CSS styles directly into the editor, pick from starter templates (Invoice, Resume, Report, Certificate), or import an existing .html file.' },

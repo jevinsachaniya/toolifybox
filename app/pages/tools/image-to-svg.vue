@@ -25,8 +25,8 @@ definePageMeta({
   alias: ['/image-to-svg', '/tools/vectorize-image', '/vectorize-image', '/png-to-svg', '/jpg-to-svg'],
 });
 
-const pageTitle = 'Image to SVG Converter — Free 4K Scalable Vector SVG Online | We Make PDF';
-const pageDescription = 'Convert PNG, JPG, WebP, GIF, and BMP images into clean, infinitely scalable 4K vector SVG code for your website. 100% private in-browser vector tracing with instant code copy and zero server uploads.';
+const pageTitle = 'Convert Image to SVG Online — Free Vectorizer [100% Free] | We Make PDF';
+const pageDescription = 'Convert PNG & JPG to scalable 4K vector SVG files online for free. Transparent background option, copy SVG code or download file. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Image File', desc: 'Select or drag and drop any PNG, JPG, WebP, GIF, or BMP image up to 25 MB directly into the converter.' },

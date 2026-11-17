@@ -24,8 +24,8 @@ definePageMeta({
   alias: ['/blur-face', '/face-blur', '/tools/face-blur', '/censor-face', '/tools/censor-face'],
 });
 
-const pageTitle = 'Blur Faces Online Free – Automatic Face Censor & Mosaic Tool | We Make PDF';
-const pageDescription = 'Automatically detect and blur faces in photos online for free. Censor portraits, team photos, or crowd scenes with smooth Gaussian blur, pixelate mosaic, or black censor bars. 100% client-side privacy.';
+const pageTitle = 'Blur Faces in Photos Online — Automatic AI Censor [100% Free] | We Make PDF';
+const pageDescription = 'Automatically detect and blur faces in photos online for free. Smooth Gaussian blur, pixelate mosaic, or black censor bars. 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Photo', desc: 'Select or drop any JPG, PNG, WebP, or BMP photo from your computer or phone.' },

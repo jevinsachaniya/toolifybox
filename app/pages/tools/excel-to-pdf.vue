@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/excel-to-pdf', '/xlsx-to-pdf'],
 });
 
-const pageTitle = 'Excel to PDF Converter — Free XLSX & CSV to PDF Online | We Make PDF';
-const pageDescription = 'Convert Excel spreadsheets (.xlsx, .csv) to PDF online for free. Preview spreadsheet tables, choose portrait or landscape page orientation, and generate clean PDF documents privately in your browser without uploading files.';
+const pageTitle = 'Excel to PDF Converter — Free XLSX & CSV to PDF [Instant] | We Make PDF';
+const pageDescription = 'Convert Excel (.xlsx, .xls) & CSV files to clean PDF documents online for free. Fits tables perfectly with Landscape & Portrait options. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose an Excel File', desc: 'Add one .xlsx or .csv spreadsheet up to 20 MB. Your confidential financial and business data never leaves your computer.' },

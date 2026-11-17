@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/watermark-pdf', '/tools/watermark'],
 });
 
-const pageTitle = 'Watermark PDF Online — Add Text & Stamp Watermarks | We Make PDF';
-const pageDescription = 'Watermark PDF documents online for free. Add confidential stamps, copyright marks, or repeating watermark grids with custom opacity and rotation in your browser. 100% private.';
+const pageTitle = 'Watermark PDF Online — Add Text & Stamp [100% Free] | We Make PDF';
+const pageDescription = 'Add text watermarks, confidential stamps, or custom logos to PDF files online for free. Custom opacity, angle & position. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Select or drop any PDF document up to 20 MB from your phone, tablet, or desktop.' },

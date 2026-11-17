@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/unlock-pdf', '/decrypt-pdf'],
 });
 
-const pageTitle = 'Unlock PDF — Free Password Removal & Decryption | We Make PDF';
-const pageDescription = 'Unlock password protected PDF files online for free. Remove password restrictions and decrypt your PDF documents privately in your browser with zero server uploads.';
+const pageTitle = 'Unlock PDF — Remove Password Online [100% Free] | We Make PDF';
+const pageDescription = 'Remove password restrictions from PDF files online for free. Decrypt your PDF documents instantly & permanently in your browser. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose Protected PDF', desc: 'Select your password-protected PDF document up to 20 MB. Our tool instantly detects active encryption.' },

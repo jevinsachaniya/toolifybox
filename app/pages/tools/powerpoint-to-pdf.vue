@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/powerpoint-to-pdf', '/pptx-to-pdf'],
 });
 
-const pageTitle = 'PowerPoint to PDF Converter — Free PPTX to PDF Online | We Make PDF';
-const pageDescription = 'Convert PowerPoint presentations (.pptx) to PDF online for free. Preview slides, select specific slides, lock layout, fonts, and graphics, and generate high-quality PDF documents privately in your browser without uploading files.';
+const pageTitle = 'PowerPoint to PDF Converter — Free PPTX to PDF [100% Free] | We Make PDF';
+const pageDescription = 'Convert PowerPoint (.pptx) to PDF online for free in seconds. Retains slide layouts, fonts & high resolution. 100% private with no file uploads!';
 
 const steps = [
   { number: '01', title: 'Choose a PPTX Presentation', desc: 'Add one .pptx presentation up to 20 MB and 100 slides. Your file stays securely on your device.' },

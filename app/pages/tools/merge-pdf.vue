@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Combine, Cpu, Files, Layers, LockKeyhole, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Merge PDF Files Online — Combine PDFs Free & Privately | We Make PDF';
-const pageDescription = 'Combine multiple PDF documents into a single organized file online for free. Visual page previews, custom file ordering, zero loss of quality, and 100% private in-browser processing.';
+const pageTitle = 'Merge PDF Files Online — 100% Free & Fast [No Sign-up] | We Make PDF';
+const pageDescription = 'Combine multiple PDF files into one in seconds. Reorder pages with visual previews, keep 100% original quality, and download instantly. 100% free & completely private!';
 
 const steps = [
   { number: '01', title: 'Upload Multiple PDFs', desc: 'Select two or more PDF documents from your device. We Make PDF displays thumbnail previews for all pages instantly.' },

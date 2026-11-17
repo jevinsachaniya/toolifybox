@@ -28,8 +28,8 @@ definePageMeta({
   alias: ['/image-to-favicon', '/favicon-generator', '/tools/favicon-generator'],
 });
 
-const pageTitle = 'Image to Favicon Converter Online — Free Favicon Generator (.ico & PNG) | We Make PDF';
-const pageDescription = 'Free online Image to Favicon converter and generator. Convert PNG, JPG, SVG, and WebP into crisp multi-resolution favicon.ico (16x16 to 256x256 HD), Apple Touch icons, Android Chrome icons, and PWA manifests with live browser tab preview. 100% private in-browser.';
+const pageTitle = 'Favicon Generator — Convert Image to Favicon.ico [100% Free] | We Make PDF';
+const pageDescription = 'Convert PNG, JPG & SVG to multi-size favicon.ico, Apple Touch & Android icons for free. Live tab preview, ready-to-use HTML & ZIP download. 100% private!';
 
 const steps = [
   {

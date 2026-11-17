@@ -8,6 +8,7 @@ import {
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
 const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
+const pageDescription = 'Access 42 free, private online tools for PDF, Word, Excel, and images. Convert, compress, merge, OCR, and edit files directly in your browser with zero uploads & no sign-up.';
 
 const toolsFaqs = [
   [`Are all ${TOTAL_TOOLS_COUNT} tools on We Make PDF completely free to use?`, 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
@@ -19,6 +20,7 @@ const toolsFaqs = [
 
 usePageSeo({
   title: 'Free Online Word, PDF & Image Tools Suite — 100% Private | We Make PDF',
+  title: 'All 42 Free PDF, Word & Image Tools — 100% Private [No Sign-up] | We Make PDF',
   description: pageDescription,
   path: '/tools',
   schemas: [
@@ -71,7 +73,7 @@ usePageSeo({
           ['Excel Formula Explainer', '/tools/excel-formula-explainer'],
           ['Image to Favicon', '/tools/image-to-favicon'],
           ['Passport Photo Maker', '/tools/passport-photo'],
-          ['Business Card to Excel', '/tools/business-card-to-excel'],
+          ['Merge Excel', '/tools/merge-excel'],
           ['Compress PDF', '/tools/compress-pdf'],
           ['Compress Image', '/tools/compress-image'],
           ['Split Image', '/tools/split-image'],
@@ -592,12 +594,24 @@ const allTools = [
     category: 'ocr',
     categories: ['ocr', 'image'],
     description: 'Scan front and back photos of visiting cards to automatically extract contacts into Microsoft Excel (.xlsx), CSV, and vCard.',
-    status: 'active',
-    statusLabel: 'Active Now',
+    status: 'inactive',
+    statusLabel: 'Unavailable',
     icon: IdCard,
     iconName: 'business-card-scanner',
     theme: 'emerald',
-    route: '/tools/business-card-to-excel',
+  },
+  {
+    id: 'merge-excel',
+    title: 'Merge Excel',
+    category: 'word',
+    categories: ['word', 'pages'],
+    description: 'Merge multiple Excel (.xlsx, .xls) and CSV spreadsheets into a single sheet with smart column matching or consolidate into multiple tabs.',
+    status: 'active',
+    statusLabel: 'Active Now',
+    icon: FileSpreadsheet,
+    iconName: 'merge-excel',
+    theme: 'emerald',
+    route: '/tools/merge-excel',
   },
   {
     id: 'image-to-favicon',

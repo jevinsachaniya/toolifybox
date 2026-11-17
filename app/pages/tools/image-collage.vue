@@ -22,8 +22,8 @@ definePageMeta({
   alias: ['/image-collage', '/make-image-collage', '/tools/make-image-collage'],
 });
 
-const pageTitle = 'Make Image Collage Online — Free Side-by-Side & Grid Photo Maker | We Make PDF';
-const pageDescription = 'Create photo collages online for free. Combine multiple photos with side-by-side (left/right), stacked (top/bottom), and custom grid positioning with 100% private in-browser rendering.';
+const pageTitle = 'Make Image Collage Online — Free Side-by-Side & Grid [Instant] | We Make PDF';
+const pageDescription = 'Combine photos into side-by-side or grid collages online for free. Custom spacing, Instagram aspect ratios & instant high-res export. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Photos', desc: 'Select 2 to 12 images (JPG, PNG, WebP) from your phone, tablet, or computer.' },

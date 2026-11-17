@@ -120,12 +120,20 @@ usePageSeo({
           <p>Scan both front and back sides of paper visiting cards. Extract complete phone numbers, emails, designations, and addresses directly to an Excel (.xlsx) spreadsheet.</p>
         </div>
 
-        <div class="tools-converter-wrap">
+        <div class="tools-converter-wrap" id="converter">
           <div class="converter-backdrop" aria-hidden="true" />
-          <div class="floating-chip" aria-hidden="true"><span /> Dual-Side Scanner Ready</div>
-          <ClientOnly>
-            <BusinessCardScannerConverter />
-          </ClientOnly>
+          <div class="converter-card" style="text-align: center; padding: 3.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); color: #ef4444; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <LockKeyhole :size="28" />
+            </div>
+            <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">Tool Temporarily Inactive</h2>
+            <p style="color: var(--muted); max-width: 480px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">
+              The Business Card to Excel converter is currently undergoing precision OCR recognition, field mapping, and layout improvements. Please check back soon or explore our other active tools.
+            </p>
+            <NuxtLink to="/tools" class="tool-card-btn btn-active" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none;">
+              Explore Other Tools <ArrowRight :size="16" />
+            </NuxtLink>
+          </div>
           <div class="under-card"><ShieldCheck :size="15" /> 100% private OCR on your device. Zero card uploads.</div>
         </div>
 

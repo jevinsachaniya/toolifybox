@@ -27,8 +27,8 @@ definePageMeta({
   alias: ['/passport-photo', '/passport-photo-maker', '/tools/passport-photo-maker'],
 });
 
-const pageTitle = 'Free Passport Photo Maker Online — AI Background Removal & Print Sheet | We Make PDF';
-const pageDescription = 'Create official biometric passport, visa, and ID photos online for free. Automatic AI background removal, white background replacement, ICAO head-size alignment guide, and print-ready 4x6" / A4 sheets with 100% in-browser privacy.';
+const pageTitle = 'Free Passport Photo Maker Online [Print-Ready 4x6 & AI] | We Make PDF';
+const pageDescription = 'Create official biometric passport & visa photos online for free. Instant white background AI cutout, standard 2x2" / 35x45mm sizing & printable 4x6" sheets. 100% private!';
 
 const steps = [
   {

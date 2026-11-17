@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/compare-pdf', '/tools/pdf-compare', '/pdf-diff'],
 });
 
-const pageTitle = 'Compare PDF Documents Online Free — Visual & Text Diff | We Make PDF';
-const pageDescription = 'Compare two PDF documents online for free. Detect visual layout changes, text edits, added or removed content, and compare pages with an interactive split slider with 100% client-side privacy.';
+const pageTitle = 'Compare PDF Documents Online — Visual Difference Diff [100% Free] | We Make PDF';
+const pageDescription = 'Compare two PDF documents side-by-side online for free. Spot text changes, deleted paragraphs & visual edits instantly. 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Both PDF Documents', desc: 'Select or drag-and-drop the Original PDF (File A) and the Revised PDF (File B) into the dual upload zone.' },

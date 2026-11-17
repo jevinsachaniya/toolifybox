@@ -74,6 +74,7 @@ export function toolSchema(siteUrl, path, name, description, featureList) {
       '@type': 'Organization',
       name: SITE_NAME,
       url: siteUrl,
+      logo: `${siteUrl}/brand/wemakepdf-logo.png`,
     },
   };
 }

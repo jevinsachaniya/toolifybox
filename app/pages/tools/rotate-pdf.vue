@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/rotate-pdf', '/tools/rotate-pages', '/rotate-pages'],
 });
 
-const pageTitle = 'Rotate PDF Pages Online — Free & Permanent Page Orientation | We Make PDF';
-const pageDescription = 'Rotate PDF pages online for free. Fix upside-down or sideways pages, rotate individual pages or the entire document 90, 180, or 270 degrees, and save permanently in your browser without uploading files.';
+const pageTitle = 'Rotate PDF Pages Online — Free & Permanent [No Sign-up] | We Make PDF';
+const pageDescription = 'Rotate PDF pages 90, 180, or 270 degrees online for free. Fix sideways or upside-down pages permanently. Lossless quality, 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Select or drag-and-drop any PDF file up to 20 MB from your desktop, phone, or tablet.' },

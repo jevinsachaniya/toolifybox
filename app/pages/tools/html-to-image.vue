@@ -31,8 +31,8 @@ definePageMeta({
   alias: ['/html-to-image', '/tools/html-to-png', '/tools/convert-html-to-image'],
 });
 
-const pageTitle = 'HTML to Image Converter — Free Online HTML/CSS to PNG, JPG, WebP | We Make PDF';
-const pageDescription = 'Render HTML code and CSS stylesheets into high-resolution PNG, JPG, and WebP images. 100% client-side rendering with Retina 2x/3x sharpness, custom viewports, transparent backgrounds, and instant clipboard copying.';
+const pageTitle = 'HTML to Image Converter — Render HTML to PNG & JPG [100% Free] | We Make PDF';
+const pageDescription = 'Render HTML code and CSS into crisp Retina PNG, JPG, or WebP images online for free. Transparent background option, copy to clipboard, 100% private, no sign-up!';
 
 const steps = [
   {

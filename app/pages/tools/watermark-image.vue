@@ -27,8 +27,8 @@ definePageMeta({
   alias: ['/watermark-image', '/image-watermark', '/tools/image-watermark', '/tools/watermark-photos'],
 });
 
-const pageTitle = 'Watermark Image Online Free – Add Text & Logo Watermarks | We Make PDF';
-const pageDescription = 'Add custom text or logo watermarks to images online for free. Protect photos with copyright marks, confidential stamps, 9-point grid alignment, or repeating tiled patterns with 100% in-browser privacy.';
+const pageTitle = 'Watermark Image Online — Add Text & Logo Watermarks [100% Free] | We Make PDF';
+const pageDescription = 'Add custom text or logo watermarks to photos online for free. Protect images with copyright stamps, 9-point alignment & tiled grids. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Image', desc: 'Select or drop any JPG, PNG, WebP, SVG, or BMP photo up to 50 MB from your device.' },

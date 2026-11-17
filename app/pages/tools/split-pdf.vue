@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Cpu, Files, Layers, LockKeyhole, Scissors, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Split PDF Online — Separate PDF Pages Free & Privately | We Make PDF';
-const pageDescription = 'Split a PDF online at exact page positions with thumbnail previews. Extract specific page ranges or separate multi-page documents into individual files with 100% private in-browser processing.';
+const pageTitle = 'Split PDF Online — Extract PDF Pages [100% Free & Fast] | We Make PDF';
+const pageDescription = 'Split PDF files or extract pages online for free in seconds. Select exact page ranges with live visual previews. 100% private, no sign-up, zero file uploads!';
 
 const steps = [
   { number: '01', title: 'Upload & Preview PDF', desc: 'Select any PDF file up to 20 MB and inspect high-resolution thumbnail previews for every page.' },

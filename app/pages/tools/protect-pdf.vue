@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/protect-pdf', '/encrypt-pdf'],
 });
 
-const pageTitle = 'Protect PDF with Password — Free Client-Side Encryption | We Make PDF';
-const pageDescription = 'Protect PDF with password online for free. Encrypt your confidential PDF documents using bank-grade AES-256 or RC4 encryption directly in your browser without uploading files.';
+const pageTitle = 'Protect PDF with Password — Free AES-256 [No Sign-up] | We Make PDF';
+const pageDescription = 'Password protect your PDF files online for free. Encrypt confidential documents with bank-grade AES-256 security. 100% private in-browser, no upload & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Select any standard PDF document up to 20 MB from your device or drop it into the upload box.' },

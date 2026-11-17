@@ -49,6 +49,7 @@ export const SITE_ROUTES = [
   '/tools/image-to-favicon',
   '/tools/passport-photo',
   '/tools/business-card-to-excel',
+  '/tools/merge-excel',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

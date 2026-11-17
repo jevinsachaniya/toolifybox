@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/crop-pdf', '/tools/pdf-crop', '/pdf-crop'],
 });
 
-const pageTitle = 'Crop PDF Pages Online Free — Visual, Fast & Private | We Make PDF';
-const pageDescription = 'Crop PDF pages online for free. Trim white margins, customize margins with an interactive visual crop box, or apply presets across all or selected pages with 100% in-browser privacy.';
+const pageTitle = 'Crop PDF Pages Online — Trim White Margins [100% Free] | We Make PDF';
+const pageDescription = 'Crop PDF pages and trim white margins online for free. Interactive visual crop box, custom mm/inch margins, lossless quality. 100% private & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Your PDF Document', desc: 'Select or drag-and-drop any PDF file up to 100 MB into the browser.' },

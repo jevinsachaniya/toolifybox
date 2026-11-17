@@ -29,8 +29,8 @@ definePageMeta({
   alias: ['/json-to-csv', '/tools/json-converter', '/tools/convert-json-to-csv'],
 });
 
-const pageTitle = 'JSON to CSV Converter — Free Instant Online Table Converter | We Make PDF';
-const pageDescription = 'Convert JSON files and raw JSON text into clean, organized CSV spreadsheets in milliseconds. 100% private in-browser converter with table preview, nested key flattening, and Excel UTF-8 BOM support.';
+const pageTitle = 'JSON to CSV Converter — Free Instant Table Converter [100% Free] | We Make PDF';
+const pageDescription = 'Convert JSON files and raw JSON text into clean CSV spreadsheets in milliseconds. Flatten nested objects, live table preview, 100% private in-browser & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose Input Method', desc: 'Select Option 1 to upload or drop a .json / .ndjson file, or select Option 2 to paste direct JSON text into the interactive editor.' },

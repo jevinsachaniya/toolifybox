@@ -23,8 +23,8 @@ definePageMeta({
   alias: ['/pdf-to-html', '/tools/convert-pdf-to-html', '/pdf2html'],
 });
 
-const pageTitle = 'Convert PDF to HTML Online Free — Responsive & Clean Code | We Make PDF';
-const pageDescription = 'Convert PDF documents to HTML online for free. Transform PDF pages into clean, semantic responsive HTML5, styled CSS, or pixel-perfect fixed layouts with 100% in-browser privacy.';
+const pageTitle = 'Convert PDF to HTML Online — Semantic HTML5 & CSS [100% Free] | We Make PDF';
+const pageDescription = 'Convert PDF documents into clean, responsive HTML5 and CSS online for free. Responsive flow, copy code or download ZIP, 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Your PDF Document', desc: 'Select or drag-and-drop any PDF file into the browser converter. Files up to 60 MB are supported.' },

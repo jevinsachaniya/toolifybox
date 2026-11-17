@@ -26,8 +26,8 @@ definePageMeta({
   alias: ['/remove-background', '/bg-remover', '/tools/bg-remover', '/tools/remove-bg'],
 });
 
-const pageTitle = 'Remove Background from Image Free — AI & Color Key Cutout | We Make PDF';
-const pageDescription = 'Remove backgrounds from photos, logos, products, and signatures online for free. In-browser AI neural segmentation, instant color key flood fill, edge feathering, and custom background staging with 100% client privacy.';
+const pageTitle = 'Remove Background from Image [100% Free - AI Cutout] | We Make PDF';
+const pageDescription = 'Remove image backgrounds instantly with AI for free. Download transparent PNG cutouts for products, logos, signatures & portraits. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload or Paste Image', desc: 'Select any JPG, PNG, or WebP photo up to 35 MB, or simply press Ctrl+V to paste from your clipboard.' },

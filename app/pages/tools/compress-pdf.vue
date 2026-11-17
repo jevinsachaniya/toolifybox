@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileText, Gauge, Layers, LockKeyhole, Minimize2, ShieldCheck, Sparkles, Target, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Compress PDF Online — Reduce PDF File Size Privately | We Make PDF';
-const pageDescription = 'Compress PDF files online for free while preserving clarity. Reduce PDF to 100KB, 200KB, 500KB or custom MB targets for email attachments and portal uploads. 100% private in-browser compression.';
+const pageTitle = 'Compress PDF to 100KB, 200KB or 500KB [100% Free] | We Make PDF';
+const pageDescription = 'Compress PDF files online for free to 100KB, 200KB, or 500KB without losing quality. Perfect for portal uploads & emails. 100% private, instant & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload & Preview PDF', desc: 'Select any PDF file up to 100 MB. Preview all pages and check the initial file size before compression.' },

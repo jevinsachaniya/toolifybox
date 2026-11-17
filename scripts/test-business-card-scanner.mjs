@@ -190,3 +190,114 @@ test('generateVCard produces compliant vCard 3.0 entries with multi-phone suppor
   assert.ok(text.includes('EMAIL;TYPE=WORK,INTERNET:dr.rajesh@apexheart.in'));
   assert.ok(text.includes('END:VCARD'));
 });
+
+test('isolates website cleanly from address line and does not include URL in address', () => {
+  const cardText = `
+    MAHESHWARI TRADING CO.
+    Pravin Maheshwari
+    Proprietor
+    Address: 402, Shivalik Highstreet, Keshavbaug, Vastrapur, Ahmedabad - 380015. www.maheshwaritrading.com
+    Email: info@maheshwaritrading.com
+    Mob: +91 98250 11223
+  `;
+
+  const parsed = parseBusinessCardText(cardText);
+  assert.equal(parsed.name, 'Pravin Maheshwari');
+  assert.equal(parsed.company, 'MAHESHWARI TRADING CO.');
+  assert.equal(parsed.website, 'www.maheshwaritrading.com');
+  assert.equal(parsed.email, 'info@maheshwaritrading.com');
+  assert.ok(!parsed.address.includes('www.maheshwaritrading.com'), 'Website URL must not be present in address');
+  assert.ok(!parsed.address.toLowerCase().startsWith('address:'), 'Address prefix label must be stripped');
+  assert.ok(parsed.address.includes('402, Shivalik Highstreet'));
+  assert.equal(parsed.postalCode, '380015');
+  assert.equal(parsed.city, 'Ahmedabad');
+  assert.equal(parsed.state, 'Gujarat');
+});
+
+test('excludes intermediate promotional / service tagline lines from address into notes', () => {
+  const cardText = `
+    GALAXY TOOLS & HARDWARE PVT LTD
+    Rajeev Verma
+    Director
+    Shop No. 5, Galaxy Commercial Complex
+    Deals in: All Kinds of Industrial Hardware & CNC Tools
+    Timing: 10:00 AM to 8:00 PM (Sunday Closed)
+    Opp. Central Bus Station, Rajkot - 360001
+    Tel: (0281) 2456789 | Mob: 98980 12345
+    Email: rajeev@galaxytools.in
+  `;
+
+  const parsed = parseBusinessCardText(cardText);
+  assert.equal(parsed.name, 'Rajeev Verma');
+  assert.ok(parsed.company.includes('GALAXY TOOLS'));
+  assert.ok(!parsed.address.includes('Deals in'), 'Promotional content must not leak into address');
+  assert.ok(!parsed.address.includes('Sunday Closed'), 'Working hours must not leak into address');
+  assert.ok(parsed.address.includes('Shop No. 5, Galaxy Commercial Complex'));
+  assert.ok(parsed.address.includes('Opp. Central Bus Station, Rajkot - 360001'));
+  assert.ok(parsed.notes.includes('Deals in'), 'Promotional content should be preserved in notes');
+  assert.equal(parsed.postalCode, '360001');
+  assert.equal(parsed.city, 'Rajkot');
+});
+
+test('isolates email boundaries cleanly stripping prefix and trailing brackets/punctuation', () => {
+  const cardText = `
+    Anand Joshi
+    Senior Software Engineer
+    Acme Software Labs
+    Email: anand.joshi@gmail.com (Personal)
+    Office Mail: ajoshi@acmelabs.io,
+    Mob: +91 98765 43210
+  `;
+
+  const parsed = parseBusinessCardText(cardText);
+  assert.equal(parsed.name, 'Anand Joshi');
+  assert.equal(parsed.email, 'anand.joshi@gmail.com');
+  assert.equal(parsed.email2, 'ajoshi@acmelabs.io');
+  assert.ok(!parsed.email.includes('('));
+  assert.ok(!parsed.email.includes('Personal'));
+  assert.ok(!parsed.email.startsWith('email:'));
+});
+
+test('accurately parses combo name and title lines (parentheses and separators)', () => {
+  const card1 = `
+    MAHESHWARI TRADING CO.
+    Ramesh Patel (Proprietor)
+    Plot 14, GIDC, Surat - 395001
+    Mob: 98250 12345
+  `;
+  const parsed1 = parseBusinessCardText(card1);
+  assert.equal(parsed1.name, 'Ramesh Patel');
+  assert.equal(parsed1.title, 'Proprietor');
+  assert.equal(parsed1.company, 'MAHESHWARI TRADING CO.');
+
+  const card2 = `
+    APEX HEALTHCARE SYSTEMS
+    Dr. Rajesh Sharma, MD (Cardiologist)
+    Director
+    12, Ring Road, Ahmedabad - 380015
+    Tel: (079) 26851234
+    Mobile: +91 98101 23456
+  `;
+  const parsed2 = parseBusinessCardText(card2);
+  assert.equal(parsed2.name, 'Dr. Rajesh Sharma');
+  assert.ok(parsed2.title.includes('Cardiologist') || parsed2.title.includes('Director'));
+  // Mobile goes to Primary Mobile, Landline goes to Office Phone
+  assert.equal(parsed2.phone, '+91 98101 23456');
+  assert.ok(parsed2.phone2.includes('26851234'));
+});
+
+test('extracts company name with M/s. prefix and avoids confusing it with person name', () => {
+  const card = `
+    M/s. AMBICA PACKAGING INDUSTRIES
+    Sanjay Shah
+    Partner
+    Shop 10, Industrial Estate, Vadodara - 390001
+    Mobile: 98980 54321
+  `;
+  const parsed = parseBusinessCardText(card);
+  assert.equal(parsed.company, 'AMBICA PACKAGING INDUSTRIES');
+  assert.equal(parsed.name, 'Sanjay Shah');
+  assert.equal(parsed.title, 'Partner');
+  assert.equal(parsed.phone, '98980 54321');
+  assert.equal(parsed.city, 'Vadodara');
+});

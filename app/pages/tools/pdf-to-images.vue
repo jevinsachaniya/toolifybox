@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Images, Layers, LockKeyhole, ShieldCheck, Sparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'PDF to Images Converter — Export PDF Pages as PNG & JPG Online | We Make PDF';
-const pageDescription = 'Convert PDF pages to high-quality PNG or JPG images online for free. Preview and select specific pages, choose custom resolution and format, and download single images or a ZIP archive—privately in your browser.';
+const pageTitle = 'PDF to Images Converter — Export PDF as PNG & JPG [100% Free] | We Make PDF';
+const pageDescription = 'Convert PDF pages to lossless PNG or lightweight JPG images online for free. Up to 300 DPI, single image or ZIP download. 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 450 pages. Your file remains securely on your device.' },

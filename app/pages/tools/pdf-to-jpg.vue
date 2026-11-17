@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/pdf-to-jpg'],
 });
 
-const pageTitle = 'PDF to JPG Converter — Convert PDF Pages to High-Resolution JPG Online | We Make PDF';
-const pageDescription = 'Convert PDF pages to high-quality JPG images online for free. Preview pages, choose custom JPG quality and resolution up to 300 DPI, and download single JPGs or all pages in a ZIP—privately in your browser.';
+const pageTitle = 'PDF to JPG Converter — Convert PDF to Images [100% Free] | We Make PDF';
+const pageDescription = 'Convert PDF pages to high-resolution JPG images (up to 300 DPI) online for free. Download individual images or all pages in a ZIP. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Add one PDF up to 20 MB and 450 pages. Your file remains securely on your device.' },

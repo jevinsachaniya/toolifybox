@@ -29,8 +29,8 @@ definePageMeta({
   alias: ['/csv-to-json', '/tools/csv-converter', '/tools/convert-csv-to-json'],
 });
 
-const pageTitle = 'CSV to JSON Converter – Free Instant Online Table Converter | We Make PDF';
-const pageDescription = 'Convert CSV files, TSV data, and tabular text into clean, structured JSON objects in milliseconds. 100% private in-browser converter with type inference, nested key unflattening, and NDJSON support.';
+const pageTitle = 'CSV to JSON Converter — Free Instant Online Tool [100% Free] | We Make PDF';
+const pageDescription = 'Convert CSV and TSV spreadsheets to clean JSON objects in milliseconds. Automatic number/boolean parsing, live table preview, 100% private in-browser & no sign-up!';
 
 const steps = [
   {

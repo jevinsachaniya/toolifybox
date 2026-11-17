@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Gauge, ImageDown, Layers, LockKeyhole, Maximize2, ShieldCheck, Sparkles, Target, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Compress Image Online — Reduce JPG, PNG & WebP to KB or MB | We Make PDF';
-const pageDescription = 'Compress JPG, PNG, and WebP images online for free. Reduce file size to specific KB targets (such as under 100KB, 50KB, or 200KB) with live visual side-by-side comparison. 100% private in-browser compression.';
+const pageTitle = 'Compress Image to 20KB, 50KB or 100KB [100% Free] | We Make PDF';
+const pageDescription = 'Compress JPG, PNG & WebP images to exact 20KB, 50KB or 100KB sizes online for free. Ideal for portal forms & signatures. 100% private, instant & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload & Preview Your Image', desc: 'Choose any JPG, PNG, or WebP photo up to 20 MB and inspect dimensions and initial file size.' },

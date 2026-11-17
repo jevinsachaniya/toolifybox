@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/extract-ocr', '/ocr-extract', '/tools/ocr-extract'],
 });
 
-const pageTitle = 'Extract OCR Text Online — Free & Private PDF/Image OCR | We Make PDF';
-const pageDescription = 'Extract OCR text from scanned PDFs and images online for free. Convert scans, receipts, and photos to editable text in Hindi, Gujarati, English & more with 100% private in-browser recognition. Export to TXT or Word DOCX.';
+const pageTitle = 'Extract OCR Text from Image & PDF [100% Free - Multilingual] | We Make PDF';
+const pageDescription = 'Extract text from scanned PDFs & images online for free with high-accuracy OCR. Supports Hindi, Gujarati, English & more. Export to Word DOCX or TXT. 100% private!';
 
 const steps = [
   { number: '01', title: 'Choose Document or Photo', desc: 'Select any scanned PDF or image file (JPG, PNG, WebP) from your computer or smartphone.' },

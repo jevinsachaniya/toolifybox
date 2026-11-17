@@ -2,8 +2,8 @@
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Cpu, FileCheck, FileText, Globe, Layers, LockKeyhole, ScanText, ShieldCheck, Sparkles, WandSparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'PDF to Word Converter with OCR — Free & Editable DOCX | We Make PDF';
-const pageDescription = 'Convert PDF to editable Word (.docx) online for free with advanced Multilingual OCR. Perfect for Hindi, Gujarati, Marathi, Tamil, Telugu, English & 17+ languages. Preserves layout, complex fonts, and 100% private in-browser conversion.';
+const pageTitle = 'PDF to Word Converter — 100% Free, Editable DOCX [No Sign-up] | We Make PDF';
+const pageDescription = 'Convert PDF to editable Word (.docx) online in seconds with free Multilingual OCR (Hindi, Gujarati, English & 17+ languages). Retains formatting & layout. 100% private!';
 
 const steps = [
   { number: '01', title: 'Upload PDF Document', desc: 'Drag and drop your PDF or browse from your phone, tablet, or PC. Supports digital PDFs and high-resolution scans up to 20 MB.' },

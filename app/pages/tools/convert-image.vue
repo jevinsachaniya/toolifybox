@@ -25,8 +25,8 @@ definePageMeta({
   alias: ['/convert-image', '/tools/image-converter', '/image-converter'],
 });
 
-const pageTitle = 'Convert Image Online Free — JPG, PNG, WebP, GIF, BMP, ICO | We Make PDF';
-const pageDescription = 'Convert images online for free between JPG, PNG, WebP, GIF, BMP, ICO, and AVIF. Batch convert multiple images, customize quality, resize dimensions, and download all as a ZIP with 100% in-browser privacy.';
+const pageTitle = 'Convert Image Online — JPG, PNG, WebP & ICO [100% Free] | We Make PDF';
+const pageDescription = 'Batch convert images online between JPG, PNG, WebP, GIF, BMP & ICO for free. High quality, instant ZIP download, 100% private in-browser & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Your Images', desc: 'Drag and drop single or multiple JPG, PNG, WebP, GIF, BMP, ICO, SVG, or AVIF files up to 50 MB each.' },

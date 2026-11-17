@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/flatten-pdf', '/tools/flatten'],
 });
 
-const pageTitle = 'Flatten PDF Online — Lock Form Fields & Annotations | We Make PDF';
-const pageDescription = 'Flatten PDF forms and annotations online for free. Convert fillable form fields and digital markups into permanent page content privately in your browser without uploading files.';
+const pageTitle = 'Flatten PDF Online — Lock Form Fields & Signatures [100% Free] | We Make PDF';
+const pageDescription = 'Flatten fillable PDF forms, annotations & digital signatures online for free. Prevent edits and ensure perfect printing. 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Select any fillable form, signed agreement, or annotated PDF file from your device.' },

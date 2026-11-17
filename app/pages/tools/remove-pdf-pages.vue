@@ -6,8 +6,8 @@ definePageMeta({
   alias: ['/remove-pages', '/remove-pdf-pages', '/delete-pdf-pages', '/tools/remove-pages'],
 });
 
-const pageTitle = 'Remove PDF Pages Online — Free & Instant PDF Page Deleter | We Make PDF';
-const pageDescription = 'Remove pages from PDF online for free. Delete unwanted pages, preview every page visually, select custom ranges, and download a clean PDF privately in your browser without uploading files.';
+const pageTitle = 'Delete Pages from PDF Online [100% Free & Fast] | We Make PDF';
+const pageDescription = 'Remove unwanted pages from PDF documents online for free. Visual page picker, instant preview, 100% private in-browser, no upload & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Choose a PDF Document', desc: 'Select any PDF document with 2 or more pages from your device or drop it into the upload box.' },

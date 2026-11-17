@@ -7,7 +7,7 @@ const shell = ref(null);
 let observer;
 let mounted = false;
 
-const pageDescription = 'Free, private online tools for Word, PDF, Excel, PowerPoint, and images. Convert PDF to editable Word with Smart OCR in Hindi, Gujarati & English, compress PDFs to custom KB sizes, merge, split, translate, and protect documents with zero file uploads.';
+const pageDescription = '100% free, private online tools for PDF, Word, Excel & Images. Convert PDF to editable Word, compress PDF to 100KB, merge, split, OCR & protect files locally. No sign-up, zero file uploads.';
 
 const questions = [
   ['Which file formats and document types can I process with We Make PDF?', 'We Make PDF supports Microsoft Word (.docx), Excel (.xlsx, .csv), PowerPoint (.pptx), PDF (.pdf), and popular image formats including JPG, PNG, and WebP. You can convert between office formats and PDFs, run Multilingual OCR on scanned files, compress file sizes to exact KB limits, merge multiple PDFs, extract text, translate documents, watermark pages, and apply AES-256 encryption without file size limits.'],
@@ -20,7 +20,7 @@ const questions = [
 ];
 
 usePageSeo({
-  title: 'Free Word, PDF & Image Tools Online — 100% Private | We Make PDF',
+  title: 'We Make PDF — 100% Free Online PDF, Word & Image Tools [No Sign-up]',
   description: pageDescription,
   path: '/',
   schemas: [
@@ -43,8 +43,13 @@ usePageSeo({
           url: siteUrl,
           logo: {
             '@type': 'ImageObject',
-            url: `${siteUrl}/brand/wemakepdf-logo.svg`,
+            url: `${siteUrl}/brand/wemakepdf-logo.png`,
+            contentUrl: `${siteUrl}/brand/wemakepdf-logo.png`,
+            width: '512',
+            height: '512',
           },
+          image: `${siteUrl}/brand/wemakepdf-logo.png`,
+          sameAs: [`${siteUrl}/brand/wemakepdf-logo.svg`],
         },
       ],
     }),

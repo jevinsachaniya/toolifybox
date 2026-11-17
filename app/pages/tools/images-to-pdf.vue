@@ -2,8 +2,8 @@
 import { ArrowRight, Check, ChevronDown, Cpu, FileCheck, FileImage, Images, Layers, LockKeyhole, ShieldCheck, Sparkles, Zap } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Images to PDF Converter — Combine JPG, PNG & WebP into PDF Online | We Make PDF';
-const pageDescription = 'Combine JPG, PNG, and WebP images into one high-quality PDF online for free. Preview, reorder, rotate, adjust margins, and merge up to 50 photos into a single PDF privately in your browser without uploading files.';
+const pageTitle = 'Images to PDF Converter — Convert JPG & PNG to PDF [100% Free] | We Make PDF';
+const pageDescription = 'Convert JPG, PNG & WebP images into one high-quality PDF online for free. Drag & drop reordering, custom page sizes & margins. 100% private, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Add Your Images', desc: 'Choose up to 50 JPG, PNG, or WebP images and review every thumbnail preview before conversion.' },

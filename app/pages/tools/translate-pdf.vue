@@ -26,7 +26,7 @@ definePageMeta({
   alias: ['/translate-pdf', '/pdf-translator', '/tools/pdf-translator'],
 });
 
-const pageDescription = 'Translate PDF documents online for free between English, Hindi, Spanish, French, and Gujarati. Extract text, translate accurately, and export to Word, PDF, or text with 100% in-browser privacy.';
+const pageDescription = 'Translate PDF documents online for free while keeping the original layout. Supports Hindi, Gujarati, English, Spanish & French. 100% private & no sign-up!';
 
 const faqs = [
   ['Does PDF translation preserve the original document layout and styling?', 'Yes. We Make PDF extracts text block coordinates, calculates bounding box boundaries, and draws the translated text within matching layout containers, preserving titles, column structures, and headings.'],
@@ -36,7 +36,7 @@ const faqs = [
 ];
 
 usePageSeo({
-  title: 'Translate PDF Online — Free PDF Language Translator | We Make PDF',
+  title: 'Translate PDF Online Free — Hindi, English & More [Instant] | We Make PDF',
   description: pageDescription,
   path: '/tools/translate-pdf',
   schemas: [

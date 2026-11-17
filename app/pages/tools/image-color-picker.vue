@@ -17,8 +17,8 @@ import {
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, howToSchema, toolSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageTitle = 'Image Color Picker Online — Auto-Detect Hex, RGB & Color Names | We Make PDF';
-const pageDescription = 'Free online image color picker tool. Upload any image, inspect pixels with a precision magnifier loupe cursor, and extract exact HEX, RGB, HSL, CMYK codes, and human-friendly color names. 100% private in-browser tool.';
+const pageTitle = 'Image Color Picker Online — HEX, RGB & Color Names [100% Free] | We Make PDF';
+const pageDescription = 'Extract exact HEX, RGB, HSL & CMYK color codes from any image with a precision magnifier loupe. Auto-detect color names & copy palettes. 100% private, no sign-up!';
 
 const steps = [
   {

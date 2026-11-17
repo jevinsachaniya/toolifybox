@@ -26,8 +26,8 @@ definePageMeta({
   alias: ['/split-image', '/image-splitter', '/tools/image-splitter', '/tools/split-images'],
 });
 
-const pageTitle = 'Split Image Online Free — Grid, Carousel & Photo Slicer | We Make PDF';
-const pageDescription = 'Split images online into equal grid tiles, Instagram 3x3 grids, or seamless panorama carousel slides. Download all split slices in 1-click ZIP with 100% in-browser privacy.';
+const pageTitle = 'Split Image Online — Instagram 3x3 Grid & Carousel [Free] | We Make PDF';
+const pageDescription = 'Split images into equal grid tiles or seamless Instagram panorama carousel slides online for free. Instant 1-click ZIP download. 100% private in-browser, no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Image', desc: 'Select or drag-and-drop any JPG, PNG, WebP, GIF, or BMP image up to 50 MB.' },
