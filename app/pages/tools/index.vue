@@ -7,7 +7,6 @@ import {
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
 
-const pageDescription = 'Free, private online Word, PDF, Excel, PowerPoint and image tools in your browser. Convert files, merge, split, compress, translate and edit PDFs locally with zero file uploads.';
 const pageDescription = 'Access 42 free, private online tools for PDF, Word, Excel, and images. Convert, compress, merge, OCR, and edit files directly in your browser with zero uploads & no sign-up.';
 
 const toolsFaqs = [
@@ -19,7 +18,6 @@ const toolsFaqs = [
 ];
 
 usePageSeo({
-  title: 'Free Online Word, PDF & Image Tools Suite — 100% Private | We Make PDF',
   title: 'All 42 Free PDF, Word & Image Tools — 100% Private [No Sign-up] | We Make PDF',
   description: pageDescription,
   path: '/tools',
