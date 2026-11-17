@@ -56,9 +56,10 @@ const row1Categories = [
     title: 'Convert from PDF',
     tools: [
       { name: 'PDF to Word', path: '/tools/pdf-to-word', icon: '/icons/tools/pdf-to-word.svg' },
+      { name: 'PDF to Excel', path: '/tools/pdf-to-excel', icon: '/icons/tools/pdf-to-excel.svg' },
       { name: 'PDF to JPG', path: '/tools/pdf-to-jpg', icon: '/icons/tools/pdf-to-jpg.svg' },
       { name: 'PDF to Images', path: '/tools/pdf-to-images', icon: '/icons/tools/pdf-to-images.svg' },
-      { name: 'PDF to HTML', path: '/tools/pdf-to-html', icon: '/icons/tools/pdf-to-html.svg' },
+      { name: 'PDF to HTML5', path: '/tools/pdf-to-html', icon: '/icons/tools/pdf-to-html.svg' },
     ]
   }
 ];
@@ -93,12 +94,14 @@ const row2Categories = [
       { name: 'Color Picker', path: '/tools/image-color-picker', icon: '/icons/tools/image-color-picker.svg' },
       { name: 'Image to Favicon', path: '/tools/image-to-favicon', icon: '/icons/tools/image-to-favicon.svg' },
       { name: 'Split Image', path: '/tools/split-image', icon: '/icons/tools/split-image.svg' },
-      { name: 'Image Collage', path: '/tools/image-collage', icon: '/icons/tools/image-collage.svg' },
+      { name: 'Photo Collage Maker', path: '/tools/image-collage', icon: '/icons/tools/image-collage.svg' },
     ]
   },
   {
     title: 'Web & Data Tools',
     tools: [
+      { name: 'Bulk File Renamer', path: '/tools/bulk-file-renamer', icon: '/icons/tools/bulk-file-renamer.svg' },
+      { name: 'Merge Excel', path: '/tools/merge-excel', icon: '/icons/tools/merge-excel.svg' },
       { name: 'Business Card to Excel', path: '/tools/business-card-to-excel', icon: '/icons/tools/business-card-scanner.svg' },
       { name: 'HTML to Image', path: '/tools/html-to-image', icon: '/icons/tools/html-to-image.svg' },
       { name: 'Image to SVG', path: '/tools/image-to-svg', icon: '/icons/tools/image-to-svg.svg' },

@@ -50,6 +50,8 @@ export const SITE_ROUTES = [
   '/tools/passport-photo',
   '/tools/business-card-to-excel',
   '/tools/merge-excel',
+  '/tools/pdf-to-excel',
+  '/tools/bulk-file-renamer',
 ];
 
 export function normalizeSiteUrl(value = DEFAULT_SITE_URL) {

@@ -23,17 +23,18 @@ definePageMeta({
   alias: ['/pdf-to-html', '/tools/convert-pdf-to-html', '/pdf2html'],
 });
 
-const pageTitle = 'Convert PDF to HTML Online — Semantic HTML5 & CSS [100% Free] | We Make PDF';
-const pageDescription = 'Convert PDF documents into clean, responsive HTML5 and CSS online for free. Responsive flow, copy code or download ZIP, 100% private in-browser, no sign-up!';
+const pageTitle = 'Free PDF to HTML5 Converter Online — Clean HTML & CSS [100% Free] | We Make PDF';
+const pageDescription = 'Free PDF to HTML5 converter online. Convert PDF documents to clean, responsive HTML5 code and CSS stylesheets for free. 100% private in-browser, no upload & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Your PDF Document', desc: 'Select or drag-and-drop any PDF file into the browser converter. Files up to 60 MB are supported.' },
   { number: '02', title: 'Choose Layout Engine & Theme', desc: 'Pick between Semantic Responsive Flow (auto-detects H1-H3, lists, tables) or Pixel-Perfect Fixed Layout, and select your preferred CSS theme.' },
-  { number: '03', title: 'Preview & Download HTML', desc: 'Inspect live rendered view across desktop, tablet, and mobile, copy code to your clipboard, or download standalone HTML and multi-page ZIP packages.' },
+  { number: '03', title: 'Preview & Download HTML5', desc: 'Inspect live rendered view across desktop, tablet, and mobile, copy clean HTML code to clipboard, or download standalone HTML5 and multi-page ZIP packages.' },
 ];
 
 const faqs = [
-  ['How does the PDF to HTML conversion work without server uploads?', 'We Make PDF uses client-side WebAssembly and modern browser canvas APIs to parse PDF documents, extract structured text blocks, detect headings and lists, and generate clean HTML5 markup directly in your device memory. Your confidential files never touch an external server.'],
+  ['Is this free PDF to HTML converter truly 100% free with no limits?', 'Yes! Our free PDF to HTML converter is completely free with no daily limits, no paywalls, no watermark, and no account registration required.'],
+  ['How does this tool convert PDF to HTML5 without uploading files?', 'We Make PDF uses client-side WebAssembly and modern browser canvas APIs to parse PDF documents, extract structured text blocks, detect headings and lists, and generate clean HTML5 markup directly in your device memory. Your confidential files never touch an external server.'],
   ['What is the difference between Semantic Flow and Fixed Layout?', 'Semantic Responsive Flow restructures your PDF into natural HTML tags (H1-H3 headings, paragraphs, bullet points, ordered lists) that reflow fluidly on mobile and tablet screens. Pixel-Perfect Fixed Layout preserves the exact geometric X/Y coordinates, line breaks, and page dimensions matching your original PDF layout.'],
   ['Can I copy the converted HTML code directly into WordPress or a CMS?', 'Yes! You can switch to the "Plain / Unstyled" theme and click "Copy HTML Code" to paste clean, semantic HTML directly into your WordPress block editor, Webflow, Notion, newsletter builders, or Markdown documents.'],
   ['Does the converter support multi-page documents and navigation?', 'Absolutely. You can convert the entire PDF or select specific page ranges. For multi-page documents, We Make PDF generates a sticky page jump menu and offers both a combined standalone HTML file and a downloadable ZIP archive containing separate page files.'],
@@ -48,14 +49,15 @@ usePageSeo({
     ({ siteUrl }) => breadcrumbSchema(siteUrl, [
       { name: 'Home', path: '/' },
       { name: 'Tools', path: '/tools' },
-      { name: 'Convert PDF to HTML', path: '/tools/pdf-to-html' },
+      { name: 'Free PDF to HTML5 Converter', path: '/tools/pdf-to-html' },
     ]),
     ({ siteUrl }) => toolSchema(
       siteUrl,
       '/tools/pdf-to-html',
-      'Convert PDF to HTML Online Free',
+      'Free PDF to HTML5 Converter Online',
       pageDescription,
       [
+        'Free PDF to HTML5 converter online',
         'Convert PDF to semantic HTML5 with CSS',
         'Semantic responsive flow layout for mobile & desktop',
         'Pixel-perfect fixed layout with exact coordinate preservation',
@@ -67,7 +69,7 @@ usePageSeo({
       ]
     ),
     () => faqSchema(faqs),
-    ({ siteUrl }) => howToSchema('How to Convert PDF to HTML Online for Free', pageDescription, steps, siteUrl, '/tools/pdf-to-html'),
+    ({ siteUrl }) => howToSchema('How to Convert PDF to HTML5 Online for Free', pageDescription, steps, siteUrl, '/tools/pdf-to-html'),
   ],
 });
 </script>
@@ -82,25 +84,15 @@ usePageSeo({
 
       <section class="tools-layout container">
         <div class="tools-hero">
-          <span class="eyebrow"><Sparkles :size="13" /> DOCUMENT TO WEB CONVERTER</span>
-          <h1>Convert PDF to HTML<br /><span>clean, responsive code.</span></h1>
-          <p>Transform PDF documents into modern, semantic HTML5 web pages with clean CSS styling. Choose between responsive fluid layouts or pixel-perfect replicas with 100% client-side privacy.</p>
+          <span class="eyebrow"><Sparkles :size="13" /> FREE PDF TO HTML5 CONVERTER</span>
+          <h1>Free PDF to HTML5 Converter<br /><span>clean, responsive web code.</span></h1>
+          <p>Easily convert PDF to HTML5 online for free. Transform PDF documents into clean, responsive HTML web pages with styled CSS. Choose between responsive fluid layouts or pixel-perfect replicas with 100% private client-side processing.</p>
         </div>
 
         <div class="tools-converter-wrap">
           <div class="converter-backdrop" aria-hidden="true" />
-          <div class="converter-card" style="text-align: center; padding: 3.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); color: #ef4444; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
-              <LockKeyhole :size="28" />
-            </div>
-            <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">Tool Temporarily Unavailable</h2>
-            <p style="color: var(--muted); max-width: 480px; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">
-              The PDF to HTML converter is currently offline for maintenance and layout improvements. Please check back in an upcoming release or explore our other active PDF tools.
-            </p>
-            <NuxtLink to="/tools" class="tool-card-btn btn-active" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none;">
-              Explore Other Tools <ArrowRight :size="16" />
-            </NuxtLink>
-          </div>
+          <div class="floating-chip" aria-hidden="true"><span /> PDF to HTML5 Ready</div>
+          <PdfToHtmlConverter />
           <div class="under-card"><ShieldCheck :size="15" /> Processed locally on your device. Zero document uploads.</div>
         </div>
 
@@ -150,8 +142,8 @@ usePageSeo({
       <section id="how-it-works" class="how-section container">
         <div class="section-intro">
           <span class="mini-label">HOW IT WORKS</span>
-          <h2>Three Steps to Convert Any PDF to HTML</h2>
-          <p>Easily transform PDF documents into responsive HTML web pages with clean CSS.</p>
+          <h2>Three Steps to Convert Any PDF to HTML5 Online</h2>
+          <p>Easily transform PDF documents into responsive HTML5 web pages with clean CSS for free.</p>
         </div>
         <div class="how-grid">
           <article v-for="step in steps" :key="step.number" class="how-card">
@@ -179,8 +171,8 @@ usePageSeo({
       <section id="questions" class="faq-section container">
         <div class="faq-intro">
           <span class="mini-label">FREQUENTLY ASKED QUESTIONS</span>
-          <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about converting PDF to HTML in your browser.</p>
+          <h2>Frequently Asked Questions About PDF to HTML5</h2>
+          <p>Everything you need to know about our free PDF to HTML converter in your browser.</p>
         </div>
         <div class="faq-list">
           <details v-for="[q, a] in faqs" :key="q">

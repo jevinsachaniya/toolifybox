@@ -22,8 +22,8 @@ definePageMeta({
   alias: ['/image-collage', '/make-image-collage', '/tools/make-image-collage'],
 });
 
-const pageTitle = 'Make Image Collage Online — Free Side-by-Side & Grid [Instant] | We Make PDF';
-const pageDescription = 'Combine photos into side-by-side or grid collages online for free. Custom spacing, Instagram aspect ratios & instant high-res export. 100% private, no sign-up!';
+const pageTitle = 'Photo Collage Maker Online Free — Collage Generator [No Sign-up] | We Make PDF';
+const pageDescription = 'Free photo collage maker online and collage generator. Combine pictures into side-by-side or grid collages on the best free collage website. 100% private in-browser photo collage creator with instant high-res export & no sign-up!';
 
 const steps = [
   { number: '01', title: 'Upload Photos', desc: 'Select 2 to 12 images (JPG, PNG, WebP) from your phone, tablet, or computer.' },
@@ -32,6 +32,8 @@ const steps = [
 ];
 
 const faqs = [
+  ['Is this photo collage maker online completely free to use?', 'Yes! Our photo collage maker online is 100% free with no watermarks, no trial limits, and no account required. Generate unlimited photo collages and download them in crisp high resolution.'],
+  ['Why choose this collage website over other online photo collage creators?', 'Unlike traditional collage websites that upload your private photos to remote servers, We Make PDF is a client-side collage generator that runs entirely inside your browser using HTML5 Canvas. Your personal snapshots never leave your phone or computer.'],
   ['Can I create a side-by-side before-and-after comparison collage?', 'Yes! Our dedicated Side-by-Side (Left/Right) mode is specifically designed for before-and-after transformations, product comparisons, and dual portraits with adjustable split ratios and dividing gap spacing.'],
   ['What aspect ratios are supported for social media sharing?', 'We Make PDF includes one-click social media aspect presets: 1:1 Square (Instagram Posts), 4:5 Portrait (Instagram & Facebook feed engagement), 16:9 Landscape (YouTube Thumbnails & Twitter), and 9:16 Vertical (Instagram Stories, TikTok & Reels).'],
   ['Can I adjust spacing, corner rounding, and frame background colors?', 'Yes. You have granular control over the photo gap width, outer canvas padding margin, corner radius (from sharp corners to pill-shaped rounding), and background fill colors (white, obsidian dark, soft cream, slate, or transparent PNG).'],
@@ -47,14 +49,15 @@ usePageSeo({
     ({ siteUrl }) => breadcrumbSchema(siteUrl, [
       { name: 'Home', path: '/' },
       { name: 'Tools', path: '/tools' },
-      { name: 'Make Image Collage', path: '/tools/image-collage' },
+      { name: 'Photo Collage Maker Online Free', path: '/tools/image-collage' },
     ]),
     ({ siteUrl }) => toolSchema(
       siteUrl,
       '/tools/image-collage',
-      'Make Image Collage',
+      'Photo Collage Maker Online Free',
       pageDescription,
       [
+        'Free photo collage maker online & collage generator',
         'Side-by-side (left/right) and stacked (top/bottom) positioning',
         'Main hero + side stack layouts for 3 or 4 photos',
         'Crop individual photos with aspect ratio presets (1:1, 4:3, 16:9, match slot)',
@@ -81,9 +84,9 @@ usePageSeo({
       <div class="tools-ambient" aria-hidden="true"><span /><span /></div>
       <section class="tools-layout container image-collage-layout">
     <div class="tools-hero">
-      <span class="eyebrow"><Sparkles :size="13" /> PHOTO COLLAGE STUDIO</span>
-          <h1>Make Image Collage<br /><span>with flexible layouts.</span></h1>
-          <p>Easily combine multiple photos into a stunning collage. Position pictures side-by-side (left &amp; right), stacked (top &amp; bottom), or in balanced 2×2 and multi-photo grids with customizable spacing, rounded corners, and frame colors.</p>
+      <span class="eyebrow"><Sparkles :size="13" /> PHOTO COLLAGE MAKER ONLINE FREE</span>
+          <h1>Photo Collage Maker Online Free<br /><span>collage generator &amp; grid layouts.</span></h1>
+          <p>Easily create stunning photo collages online with our 100% free collage website and photo collage generator. Combine pictures side-by-side (left &amp; right), stacked, or in balanced 2×2 and multi-photo grids with customizable spacing, rounded corners, and frame colors.</p>
     </div>
 
     <div class="tools-converter-wrap">
