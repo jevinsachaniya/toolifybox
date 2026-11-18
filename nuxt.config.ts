@@ -68,7 +68,20 @@ export default defineNuxtConfig({
         { rel: 'mask-icon', href: '/favicon.svg', color: '#e11d48' },
       ],
       script: [
+        {
+          src: 'https://www.googletagmanager.com/gtm.js?id=GTM-P2NN7K4X',
+          async: true,
+        },
+        {
+          innerHTML: "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());",
+        },
         { innerHTML: "try{var t=localStorage.getItem('wemakepdf-theme')||localStorage.getItem('toolifybox-theme');t=t==='dark'?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){document.documentElement.dataset.theme='light';document.documentElement.style.colorScheme='light'}" },
+      ],
+      noscript: [
+        {
+          innerHTML: '<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P2NN7K4X" height="0" width="0" style="display:none;visibility:hidden"></iframe>',
+          body: true,
+        },
       ],
     },
   },
