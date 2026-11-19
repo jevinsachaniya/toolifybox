@@ -2,6 +2,7 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { ArrowRight, ArrowUpRight, Check, ChevronDown, Combine, Cpu, Download, FileCheck, FileImage, FileSpreadsheet, FileText, Globe, HeartHandshake, ImageDown, Images, Languages, Layers, LayoutGrid, LockKeyhole, Minimize2, Presentation, RotateCw, ScanText, Scissors, ShieldCheck, Sparkles, Stamp, Trash2, Upload, WandSparkles, Zap } from '@lucide/vue';
 import { faqSchema, usePageSeo } from '~/composables/usePageSeo';
+import { TOTAL_TOOLS_COUNT } from '~/composables/useToolsCount.js';
 
 const shell = ref(null);
 let observer;
@@ -57,7 +58,7 @@ usePageSeo({
   ],
 });
 const steps = [
-  { icon: Upload, number: '01', title: 'Choose a tool.', text: 'Select any of our 29 specialized tools for Word, PDF, Excel, PowerPoint, or images.' },
+  { icon: Upload, number: '01', title: 'Choose a tool.', text: `Select any of our ${TOTAL_TOOLS_COUNT} specialized tools for Word, PDF, Excel, PowerPoint, or images.` },
   { icon: FileText, number: '02', title: 'Drop your file in.', text: 'Select your file up to 20 MB, or drag it into the browser window.' },
   { icon: Download, number: '03', title: 'Instant local download.', text: 'Your file is processed instantly on your device. Download the result with zero wait time.' },
 ];

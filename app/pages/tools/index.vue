@@ -6,8 +6,10 @@ import {
   Search, Shield, ShieldCheck, Sparkles, Stamp, Trash2, Unlock, WandSparkles, X, Zap 
 } from '@lucide/vue';
 import { breadcrumbSchema, faqSchema, usePageSeo } from '~/composables/usePageSeo';
+import { TOTAL_TOOLS_COUNT } from '~/composables/useToolsCount.js';
 
-const pageDescription = 'Access 42 free, private online tools for PDF, Word, Excel, and images. Convert, compress, merge, OCR, and edit files directly in your browser with zero uploads & no sign-up.';
+const pageTitle = `All ${TOTAL_TOOLS_COUNT} Free PDF, Word & Image Tools — 100% Private [No Sign-up] | We Make PDF`;
+const pageDescription = `Access ${TOTAL_TOOLS_COUNT} free, private online tools for PDF, Word, Excel, and images. Convert, compress, merge, OCR, and edit files directly in your browser with zero uploads & no sign-up.`;
 
 const toolsFaqs = [
   [`Are all ${TOTAL_TOOLS_COUNT} tools on We Make PDF completely free to use?`, 'Yes, every single tool on We Make PDF is 100% free with no hidden charges, no trial subscriptions, no daily conversion limits, and zero watermarks added to your downloaded documents.'],
@@ -18,7 +20,7 @@ const toolsFaqs = [
 ];
 
 usePageSeo({
-  title: 'All 42 Free PDF, Word & Image Tools — 100% Private [No Sign-up] | We Make PDF',
+  title: pageTitle,
   description: pageDescription,
   path: '/tools',
   schemas: [
@@ -603,15 +605,17 @@ const allTools = [
   },
   {
     id: 'business-card-to-excel',
-    title: 'Business Card to Excel',
+    title: 'Business Card Scanner',
     category: 'ocr',
     categories: ['ocr', 'image'],
-    description: 'Scan front and back photos of visiting cards to automatically extract contacts into Microsoft Excel (.xlsx), CSV, and vCard.',
-    status: 'inactive',
-    statusLabel: 'Unavailable',
+    description: 'AI Business Card Scanner & Contacts Vault powered by We Make PDF. Live camera capture, 1-click WhatsApp, vCard & Excel export.',
+    status: 'active',
+    statusLabel: 'Dedicated App',
     icon: IdCard,
     iconName: 'business-card-scanner',
     theme: 'emerald',
+    route: 'https://scan.wemakepdf.com?ref=wemakepdf',
+    isExternal: true,
   },
   {
     id: 'merge-excel',
@@ -769,6 +773,8 @@ onBeforeUnmount(() => {
             v-for="tool in filteredTools.filter(item => item.route)"
             :key="tool.id"
             :to="tool.route"
+            :target="tool.isExternal ? '_blank' : undefined"
+            :rel="tool.isExternal ? 'noopener noreferrer' : undefined"
             class="tool-card"
             :class="[`theme-${tool.theme}`, { 'is-active': selectedTool === tool.id }]"
             :aria-label="`Open ${tool.title}`"
@@ -899,7 +905,7 @@ onBeforeUnmount(() => {
               <span class="mini-label">FAQ &amp; SUPPORT</span>
               <h2>Frequently Asked Questions</h2>
               <p>Answers to common questions regarding tools, security, file limits, and format compatibility.</p>
-              <div class="faq-decoration" aria-hidden="true"><Layers :size="42" /><span>20+ TOOLS</span></div>
+              <div class="faq-decoration" aria-hidden="true"><Layers :size="42" /><span>{{ TOTAL_TOOLS_COUNT }} TOOLS</span></div>
             </div>
             <div class="faq-list">
               <details v-for="[question, answer] in toolsFaqs" :key="question">

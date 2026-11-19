@@ -102,7 +102,7 @@ const row2Categories = [
     tools: [
       { name: 'Bulk File Renamer', path: '/tools/bulk-file-renamer', icon: '/icons/tools/bulk-file-renamer.svg' },
       { name: 'Merge Excel', path: '/tools/merge-excel', icon: '/icons/tools/merge-excel.svg' },
-      { name: 'Business Card to Excel', path: '/tools/business-card-to-excel', icon: '/icons/tools/business-card-scanner.svg' },
+      { name: 'Business Card Scanner', path: 'https://scan.wemakepdf.com?ref=wemakepdf', icon: '/icons/tools/business-card-scanner.svg' },
       { name: 'HTML to Image', path: '/tools/html-to-image', icon: '/icons/tools/html-to-image.svg' },
       { name: 'Image to SVG', path: '/tools/image-to-svg', icon: '/icons/tools/image-to-svg.svg' },
       { name: 'CSV to JSON', path: '/tools/csv-to-json', icon: '/icons/tools/csv-to-json.svg' },
