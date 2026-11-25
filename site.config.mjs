@@ -4,7 +4,7 @@ export const SITE_ROUTES = [
   '/',
   '/about',
   '/contact',
-  '/privacy-policy',
+  '/privacy',
   '/terms-and-conditions',
   '/tools',
   '/tools/word-to-pdf',

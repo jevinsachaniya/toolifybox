@@ -37,7 +37,7 @@ const imageToSvgHtml = await readFile(new URL('../.output/public/tools/image-to-
 const jsonToCsvHtml = await readFile(new URL('../.output/public/tools/json-to-csv/index.html', import.meta.url), 'utf8');
 const aboutHtml = await readFile(new URL('../.output/public/about/index.html', import.meta.url), 'utf8');
 const contactHtml = await readFile(new URL('../.output/public/contact/index.html', import.meta.url), 'utf8');
-const privacyHtml = await readFile(new URL('../.output/public/privacy-policy/index.html', import.meta.url), 'utf8');
+const privacyHtml = await readFile(new URL('../.output/public/privacy/index.html', import.meta.url), 'utf8');
 const termsHtml = await readFile(new URL('../.output/public/terms-and-conditions/index.html', import.meta.url), 'utf8');
 const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const toolsVisible = toolsHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
@@ -187,7 +187,7 @@ assert.ok(visiblePages.every(page => page.includes('class="site-version"') && pa
 assert.ok(!visible.includes('motion-toggle') && !visible.includes('Motion on') && !visible.includes('Motion off'), 'Motion control must be removed');
 assert.ok(visiblePages.every(page => page.includes('class="brand-mark"') && page.includes('class="brand-name"')), 'Every page must use the We Make PDF brand logo');
 assert.ok(visiblePages.every(page => page.includes('class="footer-links') && page.includes('href="/about"') && page.includes('href="/contact"')), 'Every page must link to About and Contact in the footer');
-assert.ok(visiblePages.every(page => page.includes('href="/privacy-policy"') && page.includes('href="/terms-and-conditions"')), 'Every page must link to the legal pages');
+assert.ok(visiblePages.every(page => page.includes('href="/privacy"') && page.includes('href="/terms-and-conditions"')), 'Every page must link to the legal pages');
 assert.ok(visiblePages.every(page => page.includes('class="mobile-menu-toggle"') && page.includes('aria-label="Open navigation menu"')), 'Every page must include the mobile hamburger navigation');
 assert.ok(visiblePages.every(page => page.includes('class="footer-links footer-site-links"') && page.includes('href="/tools"')), 'Every page footer must link to tools directory and company pages');
 assert.ok(toolsVisible.includes('id="tool-search"') && toolsVisible.includes('Search tools') && toolsVisible.includes('Search Word, PDF, image or OCR tools'), 'Tools page search is missing');
@@ -205,7 +205,7 @@ const pageRecords = [
   ['/', html],
   ['/about', aboutHtml],
   ['/contact', contactHtml],
-  ['/privacy-policy', privacyHtml],
+  ['/privacy', privacyHtml],
   ['/terms-and-conditions', termsHtml],
   ['/tools', toolsHtml],
   ['/tools/word-to-pdf', wordToPdfHtml],

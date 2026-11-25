@@ -6,6 +6,11 @@
   NODE_VERSION = "22"
 
 [[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/200.html"
   status = 200

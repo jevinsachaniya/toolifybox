@@ -24,7 +24,7 @@ const year = new Date().getFullYear();
         <NuxtLink to="/tools">All Tools</NuxtLink>
         <NuxtLink to="/about">About Us</NuxtLink>
         <NuxtLink to="/contact">Contact Support</NuxtLink>
-        <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>
+        <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
         <NuxtLink to="/terms-and-conditions">Terms &amp; Conditions</NuxtLink>
       </nav>
 

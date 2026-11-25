@@ -67,7 +67,7 @@ const sections = [
 
           <section id="acceptance">
             <span class="legal-section-number">01</span><h2>Acceptance of these terms</h2>
-            <p>By accessing or using We Make PDF, you agree to these Terms and Conditions and the <NuxtLink to="/privacy-policy">Privacy Policy</NuxtLink>. If you do not agree, do not use the website or its tools.</p>
+            <p>By accessing or using We Make PDF, you agree to these Terms and Conditions and the <NuxtLink to="/privacy">Privacy Policy</NuxtLink>. If you do not agree, do not use the website or its tools.</p>
             <p>You must be legally able to enter into these terms where you live. If you use We Make PDF for an organization, you represent that you have authority to accept these terms for that organization.</p>
           </section>
 

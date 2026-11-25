@@ -729,7 +729,7 @@ try {
   await screenshot('about-desktop.png');
 
   await viewport(390, 844, true);
-  await send('Page.navigate', { url: new URL('/privacy-policy', baseUrl).href });
+  await send('Page.navigate', { url: new URL('/privacy', baseUrl).href });
   await waitFor(`!!document.querySelector('#privacy-content') && document.querySelectorAll('.legal-content > section').length >= 10`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Privacy Policy overflows on mobile');
@@ -738,14 +738,14 @@ try {
   assert.equal(mobileVersion.text, `v${SITE_VERSION}`, 'Mobile footer must show the complete configured version');
   assert.equal(mobileVersion.inside, true, 'Mobile version badge must stay fully inside the footer');
   assert.ok(mobileVersion.width > 30 && mobileVersion.height >= 24 && mobileVersion.whiteSpace === 'nowrap', 'Mobile version badge is clipped');
-  await screenshot('privacy-policy-mobile.png');
+  await screenshot('privacy-mobile.png');
 
   await viewport(1440, 1000);
   await send('Page.navigate', { url: new URL('/terms-and-conditions', baseUrl).href });
   await waitFor(`!!document.querySelector('#terms-content') && document.querySelectorAll('.legal-content > section').length >= 12`);
   await waitFor(`document.querySelector('#__nuxt')?.__vue_app__?.config.globalProperties.$nuxt?.isHydrating === false`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, 'Terms and Conditions overflows on desktop');
-  assert.equal(await evaluate(`!!document.querySelector('a[href="/privacy-policy"]')`), true, 'Terms must link to the Privacy Policy');
+  assert.equal(await evaluate(`!!document.querySelector('a[href="/privacy"]')`), true, 'Terms must link to the Privacy Policy');
   await screenshot('terms-and-conditions-desktop.png');
 
   await send('Page.navigate', { url: baseUrl });
