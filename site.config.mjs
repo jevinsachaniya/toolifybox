@@ -5,6 +5,7 @@ export const SITE_ROUTES = [
   '/about',
   '/contact',
   '/privacy',
+  '/scanify-privacy',
   '/terms-and-conditions',
   '/tools',
   '/tools/word-to-pdf',
